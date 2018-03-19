@@ -1,0 +1,7 @@
+name: move-mil
+recipe: drupal8
+config:
+  webroot: web
+  via: nginx
+  database: postgres
+  xdebug: true
