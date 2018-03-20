@@ -1,0 +1,9 @@
+uuid: 61c701f0-7c8a-44ec-a701-c36c46f48838
+langcode: en
+status: true
+dependencies: {  }
+name: Steps
+vid: steps
+description: 'Journey Steps'
+hierarchy: 0
+weight: 0
