@@ -1,0 +1,29 @@
+uuid: e0868b2e-b260-4533-b007-a669a43cd898
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_journey_step
+    - node.type.faq
+    - taxonomy.vocabulary.steps
+id: node.faq.field_journey_step
+field_name: field_journey_step
+entity_type: node
+bundle: faq
+label: 'Journey step'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      steps: steps
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
