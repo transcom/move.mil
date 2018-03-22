@@ -1,6 +1,6 @@
 include .env
 
-.PHONY: up down stop prune ps shell
+.PHONY: up down stop prune ps shell dump
 
 default: up
 
@@ -24,3 +24,7 @@ ps:
 
 shell:
 	docker exec -ti $(shell docker ps --filter name='$(PROJECT_NAME)_php' --format "{{ .ID }}") sh
+
+dump:
+	@echo "Creating Database Dump for $(PROJECT_NAME)..."
+	docker-compose run php drupal database:dump --file=../mariadb-init/restore.sql --gz
