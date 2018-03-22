@@ -41,7 +41,7 @@ cd move.mil
 cp .env.docker.example .env
 docker-compse up -d
 docker-compose run php composer install
-docker-compose run docker-compose run php drupal site:install --force --no-interaction
+docker-compose run php drupal site:install --force --no-interaction
 docker-compose run php drupal config:import --no-interaction
 sudo echo "127.0.0.1  move.mil.localhost" >> /etc/hosts
 
