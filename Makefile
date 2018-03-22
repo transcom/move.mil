@@ -1,6 +1,6 @@
 include .env
 
-.PHONY: up down stop prune ps shell dump
+.PHONY: up down stop prune ps shell dbdump dbrestore uli cim cex
 
 default: up
 
@@ -25,6 +25,22 @@ ps:
 shell:
 	docker exec -ti $(shell docker ps --filter name='$(PROJECT_NAME)_php' --format "{{ .ID }}") sh
 
-dump:
+dbdump:
 	@echo "Creating Database Dump for $(PROJECT_NAME)..."
 	docker-compose run php drupal database:dump --file=../mariadb-init/restore.sql --gz
+
+dbrestore:
+	@echo "Restoring database..."
+	docker-compose run php drupal database:connect < mariadb-init/restore.sql.gz
+
+uli:
+	@echo "Getting admin login"
+	docker-compose run php drush user:login --uri='$(PROJECT_BASE_URL)':8000
+
+cim:
+	@echo "Importing Configuration"
+	docker-compose run php drupal config:import -y
+
+cex:
+	@echo "Exporting Configuration"
+	docker-compose run php drupal config:export -y
