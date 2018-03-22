@@ -53,6 +53,7 @@ class RoboFile extends \Robo\Tasks
         // Pin version until https://github.com/Behat/MinkExtension/pull/311 gets fixed.
         $config->require->{"behat/mink-extension"} = "v2.2";
         $config->require->{"drush/drush"} = "~8.1";
+        $config->require->{"drupal/console"} = "^1.0.2";
         $config->require->{"guzzlehttp/guzzle"} = "^6.0@dev";
         file_put_contents('composer.json', json_encode($config));
     }
@@ -95,10 +96,13 @@ class RoboFile extends \Robo\Tasks
       $admin_password = null,
       $site_name = null
     ) {
-        $task = $this->drush()
-          ->args('site-install')
-          ->option('yes')
-          ->option('db-url', $this->db_url, '=');
+        $this->taskFilesystemStack()->remove('web/sites/default/settings.php')->run();
+      $this->taskFilesystemStack()->remove('artifacts/.gitkeep')->run();
+        $task = $this->drupal()
+          ->args('site:install')
+          ->option('force')
+          ->option('no-interaction');
+
 
         if ($admin_user) {
             $task->option('account-name', $admin_user, '=');
@@ -118,19 +122,19 @@ class RoboFile extends \Robo\Tasks
         $this->stopOnFail();
     }
 
-    /**
-     * Return drush with default arguments.
-     *
-     * @return \Robo\Task\Base\Exec
-     *   A drush exec command.
-     */
-    protected function drush()
-    {
-        // Drush needs an absolute path to the docroot.
-        $docroot = $this->getDocroot() . '/web';
-        return $this->taskExec('vendor/bin/drush')
-          ->option('root', $docroot, '=');
-    }
+
+
+  /**
+   * Return drupal with default arguments.
+   *
+   * @return \Robo\Task\Base\Exec
+   *   A drupal exec command.
+   */
+
+  protected function drupal()
+  {
+    return $this->taskExec('vendor/bin/drupal');
+  }
 
     /**
      * Get the absolute path to the docroot.

@@ -45,10 +45,7 @@
       <file>./tests/TestSuites/KernelTestSuite.php</file>
     </testsuite>
   </testsuites>
-  <listeners>
-    <listener class="\Drupal\Tests\Listeners\DrupalStandardsListener">
-    </listener>
-  </listeners>
+
   <!-- Filter for coverage reports. -->
   <filter>
     <whitelist processUncoveredFilesFromWhitelist="true">
