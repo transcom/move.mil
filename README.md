@@ -43,11 +43,18 @@ docker-compose up -d
 docker-compose run php composer install
 docker-compose run php drupal site:install --force --no-interaction
 docker-compose run php drupal config:import --no-interaction
-sudo echo "127.0.0.1  move.mil.localhost" >> /etc/hosts
+sudo sh -c "echo '127.0.0.1 move.mil.localhost' >> /etc/hosts"
 
 ```
-
 Then navigate to move.mil.localhost:8000
+
+## Database Import
+
+Instead of installing the site, you can choose to place a .sql or .sql.gz file
+in mariadb-init. All files in this folder will be imported, in alphabetical order.
+.sql and .sql.gz files are gitignored so you do not have to worry about them
+getting commited.
+ 
 ## Updating Drupal Core
 
 This project will attempt to keep all of your Drupal Core files up-to-date; the 
