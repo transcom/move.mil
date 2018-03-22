@@ -21,6 +21,7 @@
         "drupal-composer/drupal-scaffold": "^2.2",
         "drupal/console": "^1.0.2",
         "drupal/core": "~8.5",
+        "drupal/menu_export": "^1.0",
         "drupal/paragraphs": "^1.2",
         "drush/drush": "^9.0.0",
         "vlucas/phpdotenv": "^2.4",
