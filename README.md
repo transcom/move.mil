@@ -39,7 +39,7 @@ When installing the given `composer.json` some tasks are taken care of:
 git clone git@github.com:Bixal/move.mil.git
 cd move.mil
 cp .env.docker.example .env
-docker-compse up -d
+docker-compose up -d
 docker-compose run php composer install
 docker-compose run php drupal site:install --force --no-interaction
 docker-compose run php drupal config:import --no-interaction
@@ -71,12 +71,6 @@ Follow the steps below to update your core files.
    of a [three-way merge tool such as kdiff3](http://www.gitshah.com/2010/12/how-to-setup-kdiff-as-diff-tool-for-git.html). This setup is not necessary if your changes are simple; 
    keeping all of your modifications at the beginning or end of the file is a 
    good strategy to keep merges easy.
-
-## Generate composer.json from existing project
-
-With using [the "Composer Generate" drush extension](https://www.drupal.org/project/composer_generate)
-you can now generate a basic `composer.json` file from an existing project. Note
-that the generated `composer.json` might differ from this project's file.
 
 
 ## FAQ
@@ -133,6 +127,6 @@ To prevent this you can add this code to specify the PHP version you want to use
 ```json
 "config": {
     "sort-packages": true,
-    "platform": {"php": "5.5.9"}
+    "platform": {"php": "7.1"}
 },
 ```
