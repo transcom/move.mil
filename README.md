@@ -17,25 +17,7 @@ First you need to [install composer](https://getcomposer.org/doc/00-intro.md#ins
 You might need to replace `composer` with `php composer.phar` (or similar) 
 for your setup.
 
-After that you can create the project:
-
-```
-composer create-project drupal-composer/drupal-project:8.x-dev some-dir --stability dev --no-interaction
-```
-
-With `composer require ...` you can download new dependencies to your 
-installation.
-
-```
-cd some-dir
-composer require drupal/devel:~1.0
-```
-
-The `composer create-project` command passes ownership of all files to the 
-project that is created. You should create a new git repository, and commit 
-all files not excluded by the .gitignore file.
-
-## What does the template do?
+## How is this site laid out?
 
 When installing the given `composer.json` some tasks are taken care of:
 
@@ -49,8 +31,30 @@ When installing the given `composer.json` some tasks are taken care of:
 * Creates `web/sites/default/files`-directory.
 * Latest version of drush is installed locally for use at `vendor/bin/drush`.
 * Latest version of DrupalConsole is installed locally for use at `vendor/bin/drupal`.
-* Creates environment variables based on your .env file. See [.env.example](.env.example).
+* Creates environment variables based on your .env file. See [.env.docker.example](.env.docker.example).
 
+## Getting started
+
+```
+git clone git@github.com:Bixal/move.mil.git
+cd move.mil
+cp .env.docker.example .env
+docker-compose up -d
+docker-compose run php composer install
+docker-compose run php drupal site:install --force --no-interaction
+docker-compose run php drupal config:import --no-interaction
+sudo sh -c "echo '127.0.0.1 move.mil.localhost' >> /etc/hosts"
+
+```
+Then navigate to move.mil.localhost:8000
+
+## Database Import
+
+Instead of installing the site, you can choose to place a .sql or .sql.gz file
+in mariadb-init. All files in this folder will be imported, in alphabetical order.
+.sql and .sql.gz files are gitignored so you do not have to worry about them
+getting commited.
+ 
 ## Updating Drupal Core
 
 This project will attempt to keep all of your Drupal Core files up-to-date; the 
@@ -74,12 +78,6 @@ Follow the steps below to update your core files.
    of a [three-way merge tool such as kdiff3](http://www.gitshah.com/2010/12/how-to-setup-kdiff-as-diff-tool-for-git.html). This setup is not necessary if your changes are simple; 
    keeping all of your modifications at the beginning or end of the file is a 
    good strategy to keep merges easy.
-
-## Generate composer.json from existing project
-
-With using [the "Composer Generate" drush extension](https://www.drupal.org/project/composer_generate)
-you can now generate a basic `composer.json` file from an existing project. Note
-that the generated `composer.json` might differ from this project's file.
 
 
 ## FAQ
@@ -126,19 +124,4 @@ section of composer.json:
         }
     }
 }
-```
-### How do I switch from packagist.drupal-composer.org to packages.drupal.org?
-
-Follow the instructions in the [documentation on drupal.org](https://www.drupal.org/docs/develop/using-composer/using-packagesdrupalorg).
-
-### How do I specify a PHP version ?
-
-Currently Drupal 8 supports PHP 5.5.9 as minimum version (see [Drupal 8 PHP requirements](https://www.drupal.org/docs/8/system-requirements/drupal-8-php-requirements)), however it's possible that a `composer update` will upgrade some package that will then require PHP 7+.
-
-To prevent this you can add this code to specify the PHP version you want to use in the `config` section of `composer.json`:
-```json
-"config": {
-    "sort-packages": true,
-    "platform": {"php": "5.5.9"}
-},
 ```

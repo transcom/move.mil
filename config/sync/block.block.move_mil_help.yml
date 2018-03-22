@@ -1,0 +1,22 @@
+uuid: 00f633bd-e76a-40f4-8b91-3ed1c39a31c9
+langcode: en
+status: true
+dependencies:
+  module:
+    - help
+  theme:
+    - move_mil
+_core:
+  default_config_hash: 8I8iACSa0sKO3k3jlvUG1ge52rfcKX7USJAQYnzuBgg
+id: move_mil_help
+theme: move_mil
+region: content
+weight: -7
+provider: null
+plugin: help_block
+settings:
+  id: help_block
+  label: Help
+  provider: help
+  label_display: '0'
+visibility: {  }
