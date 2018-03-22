@@ -1967,6 +1967,109 @@
             }
         },
         {
+            "name": "drupal/twig_tweak",
+            "version": "1.9.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/twig_tweak",
+                "reference": "8.x-1.9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/twig_tweak-8.x-1.9.zip",
+                "reference": "8.x-1.9",
+                "shasum": "64dfcf7220204c4a8581ba80f51ea67e7f5a12be"
+            },
+            "require": {
+                "drupal/core": "~8.0"
+            },
+            "suggest": {
+                "symfony/var-dumper": "better dump() function for debugging Twig variables"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.9",
+                    "datestamp": "1505464444",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Chi",
+                    "homepage": "https://www.drupal.org/user/556138"
+                }
+            ],
+            "description": "A Twig extension with some useful functions and filters for Drupal development.",
+            "homepage": "https://www.drupal.org/project/twig_tweak",
+            "keywords": [
+                "Drupal",
+                "Twig"
+            ],
+            "support": {
+                "source": "http://cgit.drupalcode.org/twig_tweak",
+                "issues": "https://www.drupal.org/project/issues/twig_tweak"
+            }
+        },
+        {
+            "name": "drupal/uswds",
+            "version": "1.0.0-beta3",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/uswds",
+                "reference": "8.x-1.0-beta3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/uswds-8.x-1.0-beta3.zip",
+                "reference": "8.x-1.0-beta3",
+                "shasum": "f220e5edc916417c9215a54ac8fcd4247669a855"
+            },
+            "require": {
+                "drupal/core": "~8.0"
+            },
+            "type": "drupal-theme",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.0-beta3",
+                    "datestamp": "1515004684",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Project has not opted into security advisory coverage!"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "brockfanning",
+                    "homepage": "https://www.drupal.org/user/709486"
+                }
+            ],
+            "description": "Drupal theme for the U.S. Web Design Standards library.",
+            "homepage": "https://www.drupal.org/project/uswds",
+            "support": {
+                "source": "http://cgit.drupalcode.org/uswds",
+                "issues": "https://www.drupal.org/project/issues/uswds?categories=All"
+            }
+        },
+        {
             "name": "drush/drush",
             "version": "9.2.1",
             "source": {
@@ -7720,7 +7823,8 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "drupal/drupal-extension": 20
+        "drupal/drupal-extension": 20,
+        "drupal/uswds": 10
     },
     "prefer-stable": true,
     "prefer-lowest": false,
