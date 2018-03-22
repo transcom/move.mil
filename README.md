@@ -17,25 +17,7 @@ First you need to [install composer](https://getcomposer.org/doc/00-intro.md#ins
 You might need to replace `composer` with `php composer.phar` (or similar) 
 for your setup.
 
-After that you can create the project:
-
-```
-composer create-project drupal-composer/drupal-project:8.x-dev some-dir --stability dev --no-interaction
-```
-
-With `composer require ...` you can download new dependencies to your 
-installation.
-
-```
-cd some-dir
-composer require drupal/devel:~1.0
-```
-
-The `composer create-project` command passes ownership of all files to the 
-project that is created. You should create a new git repository, and commit 
-all files not excluded by the .gitignore file.
-
-## What does the template do?
+## How is this site laid out?
 
 When installing the given `composer.json` some tasks are taken care of:
 
@@ -51,6 +33,21 @@ When installing the given `composer.json` some tasks are taken care of:
 * Latest version of DrupalConsole is installed locally for use at `vendor/bin/drupal`.
 * Creates environment variables based on your .env file. See [.env.example](.env.example).
 
+## Getting started
+
+```
+git clone git@github.com:Bixal/move.mil.git
+cd move.mil
+cp .env.docker.example .env
+docker-compse up -d
+docker-compose run php composer install
+docker-compose run docker-compose run php drupal site:install --force --no-interaction
+docker-compose run php drupal config:import --no-interaction
+sudo echo "127.0.0.1  move.mil.localhost" >> /etc/hosts
+
+```
+
+Then navigate to move.mil.localhost:8000
 ## Updating Drupal Core
 
 This project will attempt to keep all of your Drupal Core files up-to-date; the 
@@ -127,9 +124,6 @@ section of composer.json:
     }
 }
 ```
-### How do I switch from packagist.drupal-composer.org to packages.drupal.org?
-
-Follow the instructions in the [documentation on drupal.org](https://www.drupal.org/docs/develop/using-composer/using-packagesdrupalorg).
 
 ### How do I specify a PHP version ?
 

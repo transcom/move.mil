@@ -23,5 +23,5 @@
 /.env
 
 # Databases
-/postgres-init/*.sql
-/postgres-init/*.sql.gz
+*.sql
+*.sql.gz

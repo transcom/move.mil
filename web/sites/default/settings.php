@@ -787,21 +787,20 @@ $settings['entity_update_batch_size'] = 50;
 $config_directories['sync'] = '../config/sync';
 
 try {
+  $db_driver = getenv('DB_DRIVER');
   $databases['default']['default'] = array (
     'database' => getenv('DB_NAME'),
     'username' => getenv('DB_USER'),
     'password' => getenv('DB_PASSWORD'),
     'prefix' => '',
     'host' => getenv('DB_HOST'),
-    'port' => '5432',
-    'namespace' => 'Drupal\\Core\\Database\\Driver\\pgsql',
-    'driver' => 'pgsql',
+    'port' => getenv('DB_PORT'),
+    'namespace' => 'Drupal\\Core\\Database\\Driver\\' . $db_driver,
+    'driver' => $db_driver,
   );
-  
+
   $settings['trusted_host_patterns'] = [getenv('TRUSTED_HOST_PATTERNS')];
   $settings['hash_salt'] = getenv('HASH_SALT');
 } catch(Exception $e) {
   echo $e->getMessage();
 }
-
-$settings['install_profile'] = 'standard';

@@ -11,6 +11,7 @@ services:
       DB_PASSWORD: $DB_PASSWORD
       DB_NAME: $DB_NAME
       DB_DRIVER: $DB_DRIVER
+      DB_PORT: $DB_PORT
       PHP_XDEBUG: 1
       PHP_XDEBUG_DEFAULT_ENABLE: 1
       PHP_XDEBUG_REMOTE_CONNECT_BACK: 0
@@ -50,16 +51,17 @@ services:
       - 'traefik.port=8025'
       - 'traefik.frontend.rule=Host:mailhog.${PROJECT_BASE_URL}'
 
-  postgres:
-    image: wodby/postgres:$POSTGRES_TAG
-    container_name: "${PROJECT_NAME}_postgres"
-    stop_grace_period: 30s
-    environment:
-      POSTGRES_PASSWORD: $DB_PASSWORD
-      POSTGRES_DB: $DB_NAME
-      POSTGRES_USER: $DB_USER
-#    volumes:
-#      - ./postgres-init:/docker-entrypoint-initdb.d # Place init file(s) here.
+  mariadb:
+      image: wodby/mariadb:$MARIADB_TAG
+      container_name: "${PROJECT_NAME}_mariadb"
+      stop_grace_period: 30s
+      environment:
+        MYSQL_ROOT_PASSWORD: $DB_ROOT_PASSWORD
+        MYSQL_DATABASE: $DB_NAME
+        MYSQL_USER: $DB_USER
+        MYSQL_PASSWORD: $DB_PASSWORD
+      volumes:
+        - ./mariadb-init:/docker-entrypoint-initdb.d # Place init .sql file(s) here.
 
   portainer:
     image: portainer/portainer
@@ -88,8 +90,6 @@ volumes:
 #    external: true
 ## For Xdebug profiler
   files:
-#    volumes:
-#      - ./postgres-init:/docker-entrypoint-initdb.d # Place init file(s) here.
 
 #  varnish:
 #    image: wodby/drupal-varnish:$VARNISH_TAG
