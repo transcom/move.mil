@@ -1,0 +1,60 @@
+uuid: 41de4a0f-e228-4010-9011-378c63c00836
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.tutorial_slideshow_image.field_pro_tip
+    - field.field.paragraph.tutorial_slideshow_image.field_slideshow_caption
+    - field.field.paragraph.tutorial_slideshow_image.field_slideshow_description
+    - field.field.paragraph.tutorial_slideshow_image.field_slideshow_image
+    - image.style.thumbnail
+    - paragraphs.paragraphs_type.tutorial_slideshow_image
+  module:
+    - image
+    - paragraphs
+    - text
+id: paragraph.tutorial_slideshow_image.default
+targetEntityType: paragraph
+bundle: tutorial_slideshow_image
+mode: default
+content:
+  field_pro_tip:
+    type: entity_reference_paragraphs
+    weight: 3
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
+    third_party_settings: {  }
+    region: content
+  field_slideshow_caption:
+    weight: 1
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_slideshow_description:
+    weight: 2
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+  field_slideshow_image:
+    weight: 0
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
+    region: content
+hidden:
+  created: true
+  status: true
+  uid: true

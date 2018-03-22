@@ -1,0 +1,33 @@
+uuid: 24800d55-3b3d-4f7f-b4cb-44107eb591e0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.pro_tip.field_protip_body
+    - field.field.paragraph.pro_tip.field_protip_image
+    - paragraphs.paragraphs_type.pro_tip
+  module:
+    - image
+    - text
+id: paragraph.pro_tip.default
+targetEntityType: paragraph
+bundle: pro_tip
+mode: default
+content:
+  field_protip_body:
+    weight: 1
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+  field_protip_image:
+    weight: 0
+    label: hidden
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+    region: content
+hidden: {  }

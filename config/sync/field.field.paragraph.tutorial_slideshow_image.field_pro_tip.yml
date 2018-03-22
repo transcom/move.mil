@@ -1,0 +1,34 @@
+uuid: e082a24d-86a2-4a79-badb-936f07935f31
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_pro_tip
+    - paragraphs.paragraphs_type.pro_tip
+    - paragraphs.paragraphs_type.tutorial_slideshow_image
+  module:
+    - entity_reference_revisions
+id: paragraph.tutorial_slideshow_image.field_pro_tip
+field_name: field_pro_tip
+entity_type: paragraph
+bundle: tutorial_slideshow_image
+label: Pro-tip
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      pro_tip: pro_tip
+    target_bundles_drag_drop:
+      pro_tip:
+        enabled: true
+        weight: 3
+      tutorial_slideshow_image:
+        weight: 4
+        enabled: false
+field_type: entity_reference_revisions

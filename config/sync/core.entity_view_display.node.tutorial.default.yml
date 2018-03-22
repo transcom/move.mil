@@ -1,0 +1,37 @@
+uuid: b0cd678a-cb55-4711-a58a-de57cbad1988
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.tutorial.field_tutorial_intro
+    - field.field.node.tutorial.field_tutorial_step
+    - node.type.tutorial
+  module:
+    - entity_reference_revisions
+    - user
+id: node.tutorial.default
+targetEntityType: node
+bundle: tutorial
+mode: default
+content:
+  field_tutorial_intro:
+    weight: 102
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_tutorial_step:
+    type: entity_reference_revisions_entity_view
+    weight: 103
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    region: content
+  links:
+    weight: 100
+    region: content
+hidden: {  }
