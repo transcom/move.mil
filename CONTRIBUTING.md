@@ -38,11 +38,7 @@ When installing the given `composer.json` some tasks are taken care of:
 
 ### Usage
 
-First you need to [install composer](https://getcomposer.org/doc/00-intro.md#installation-linux-unix-osx).
-
-> Note: The instructions below refer to the [global composer installation](https://getcomposer.org/doc/00-intro.md#globally).
-You might need to replace `composer` with `php composer.phar` (or similar) 
-for your setup.
+First you need to [install docker](https://docs.docker.com/docker-for-mac/install/).
 
 Clone this repo in your desired directory (move.mil by default):
 ```
@@ -67,7 +63,9 @@ docker-compose run php drupal site:install --force --no-interaction
 ```
 
 Setup Move.mil:
-*Note:* You don't have to execute this command if you have a db dump file(s) in your mariadb-init folder. 
+
+> Note: You don't have to execute this command if you have a db dump file(s) in your mariadb-init folder. 
+
 ```
 docker-compose ru`n php drupal config:import --no-interaction
 ```
@@ -197,8 +195,8 @@ section of composer.json:
 }
 ```
 
-[contributors]: https://github.com/Bixal/move.mil/CONTRIBUTORS.md
+[contributors]: https://github.com/Bixal/move.mil/blob/master/CONTRIBUTORS.md
 [issues]: https://github.com/Bixal/move.mil/issues
-[license]: https://github.com/Bixal/move.mil/LICENSE.md
+[license]: https://github.com/Bixal/move.mil/blob/master/LICENSE.md
 [pulls]: https://github.com/Bixal/move.mil/pulls
 [makefile]: https://github.com/Bixal/move.mil/blob/master/Makefile
