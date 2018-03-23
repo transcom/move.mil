@@ -1,0 +1,21 @@
+uuid: 9fc8c5b5-2bbc-4f8f-b84f-9f0c4484ae7d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_slideshow_description
+    - paragraphs.paragraphs_type.tutorial_slideshow_image
+  module:
+    - text
+id: paragraph.tutorial_slideshow_image.field_slideshow_description
+field_name: field_slideshow_description
+entity_type: paragraph
+bundle: tutorial_slideshow_image
+label: Description
+description: 'Add the instrucctions for this tutorial step'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

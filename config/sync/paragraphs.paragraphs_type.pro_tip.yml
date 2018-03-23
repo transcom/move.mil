@@ -1,0 +1,9 @@
+uuid: de70e43b-c3ab-474e-9c28-44dee4fdc4e1
+langcode: en
+status: true
+dependencies: {  }
+id: pro_tip
+label: Pro-tip
+icon_uuid: null
+description: ''
+behavior_plugins: {  }

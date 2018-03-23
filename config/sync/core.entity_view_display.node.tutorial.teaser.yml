@@ -1,0 +1,22 @@
+uuid: 82931fd6-8638-47f8-b2d2-31e6d41f319e
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.tutorial.field_tutorial_intro
+    - field.field.node.tutorial.field_tutorial_step
+    - node.type.tutorial
+  module:
+    - user
+id: node.tutorial.teaser
+targetEntityType: node
+bundle: tutorial
+mode: teaser
+content:
+  links:
+    weight: 100
+    region: content
+hidden:
+  field_tutorial_intro: true
+  field_tutorial_step: true
