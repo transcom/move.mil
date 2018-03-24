@@ -1,4 +1,7 @@
 // Import overrides of USWDS variables.
-@import "_variables.scss";
+@import 'base/variables/*';
+
+@import 'quick-fixes';
+
 // Import the USWDS source.
-@import "../node_modules/uswds/src/stylesheets/uswds.scss";
+@import '../node_modules/uswds/src/stylesheets/uswds';
