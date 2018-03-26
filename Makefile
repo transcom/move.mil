@@ -44,3 +44,7 @@ cim:
 cex:
 	@echo "Exporting Configuration"
 	docker-compose run php drupal config:export -y
+
+gm:
+	@echo "Displaying Generate Module UI"
+	docker-compose run php drupal generate:module
