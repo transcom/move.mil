@@ -1,0 +1,9 @@
+uuid: b43abf44-ab93-4799-93d8-533a0fc81000
+langcode: en
+status: true
+dependencies: {  }
+id: tutorial_slideshow_image
+label: 'Slideshow Image'
+icon_uuid: null
+description: 'Add a tutorial step'
+behavior_plugins: {  }

@@ -1,0 +1,21 @@
+uuid: 85b4cbfe-f1bb-42b1-9b81-026e31c73d1a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_protip_body
+    - paragraphs.paragraphs_type.pro_tip
+  module:
+    - text
+id: paragraph.pro_tip.field_protip_body
+field_name: field_protip_body
+entity_type: paragraph
+bundle: pro_tip
+label: Body
+description: 'Add your pro-tip(s) here'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long
