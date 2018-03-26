@@ -12,8 +12,8 @@ I have…
 - [ ] summarized below my changes and noted which issues (if any) this pull request fixes or addresses.
 - [ ] thoroughly outlined below the steps necessary to test my changes.
 - [ ] attached screenshots illustrating relevant behavior before and after my changes.
-- [ ] read, understand, and agree to the terms described in [CONTRIBUTING.md](https://github.com/deptofdefense/move.mil/blob/master/CONTRIBUTING.md).
-- [ ] added my name, email address, and copyright date to [CONTRIBUTORS.md](https://github.com/deptofdefense/move.mil/blob/master/CONTRIBUTORS.md).
+- [ ] read, understand, and agree to the terms described in [CONTRIBUTING.md](https://github.com/Bixal/move.mil/blob/master/CONTRIBUTING.md).
+- [ ] added my name, email address, and copyright date to [CONTRIBUTORS.md](https://github.com/Bixal/move.mil/blob/master/CONTRIBUTORS.md).
 
 ## Summary of Changes
 
