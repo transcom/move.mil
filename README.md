@@ -48,6 +48,8 @@ sudo sh -c "echo '127.0.0.1 move.mil.localhost' >> /etc/hosts"
 ```
 Then navigate to move.mil.localhost:8000
 
+For theme setup, see [the theme README](./web/themes/custom/move_mil/README.md)
+
 ## Database Import
 
 Instead of installing the site, you can choose to place a .sql or .sql.gz file

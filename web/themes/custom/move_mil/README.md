@@ -2,8 +2,12 @@
 
 ## Installation
 
-1. Copy this folder ("my_subtheme") out into the desired location for your subtheme (eg, themes/custom/my_subtheme).
-2. Rename the folder to the name of your theme (eg, my_renamed_theme).
-3. Rename the my_subtheme.info.yml.rename-me file to name-of-your-theme.info.yml (eg, my_renamed_theme.info.yml).
-4. Tweak that .info.yml file as needed, noting the instructions there for Sass workflow, if that is desired.
-5. Enable this theme in the usual way (eg, drush en my_renamed_subtheme).
+1. In your terminal, navigate to the theme folder: `cd <project root>/web/themes/custom/move_mil`
+2. run `npm install`
+
+
+## Test & compile sass during local development:
+
+1. run 'npm run watch'
+2. keep watching the terminal for linting results.
+3. Make a change to any file within the `sass` folder and save that file. The lint and build should both automatically rerun.
