@@ -4,9 +4,11 @@ Thanks for submitting a pull request! Below are a few things you can do to help 
 
 I have…
 
-- [ ] run the application locally (`bin/rails server`) and verified that my changes behave as expected.
-- [ ] run static code analysis (`bin/rubocop`) and vulnerability scan (`bin/brakeman`) against my changes.
-- [ ] run the test suite (`bin/rake spec`) and verified that all tests pass.
+- [ ] run the application locally (`make up`) and verified that my changes behave as expected.
+- [ ] run static behat test suite (`circleci build --job behat`) against my changes.
+- [ ] run the code sniffer (`circleci build --job code-sniffer`) against my changes.
+- [ ] run the code coverage tool (`circleci build --job code-coverage`) 
+      against my changes
 - [ ] summarized below my changes and noted which issues (if any) this pull request fixes or addresses.
 - [ ] thoroughly outlined below the steps necessary to test my changes.
 - [ ] attached screenshots illustrating relevant behavior before and after my changes.
