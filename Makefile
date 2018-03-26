@@ -44,3 +44,11 @@ cim:
 cex:
 	@echo "Exporting Configuration"
 	docker-compose run php drupal config:export -y
+
+composer:
+	@echo "Installing depenencies"
+	docker-compose run php composer install
+
+cr:
+	@echo "Clearing Drupal Caches"
+	docker-compose run php drupal cache:rebuild -y
