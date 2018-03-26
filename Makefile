@@ -48,3 +48,12 @@ cex:
 gm:
 	@echo "Displaying Generate Module UI"
 	docker-compose run php drupal generate:module
+
+menu_update:
+	@echo "Updating site menus"
+	docker-compose run php drush cim -y --partial --source=modules/custom/custom_move_mil_menus/config/install/
+	docker-compose run php drupal cache:rebuild all
+
+cr:
+	@echo "Clearing all caches"
+	docker-compose run php drupal cache:rebuild all

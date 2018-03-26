@@ -24,134 +24,134 @@
 ### Main Menu, Main Site Navigation links ###
 main_menu.moving_guide:
   title: 'Moving Guide'
-  url: 'internal:/home'
+  url: 'internal:/#'
   menu_name: main_menu
-  weight: 12
+  weight: 1
 
 main_menu.tutorials:
   title: 'Tutorial'
   url: 'internal:/tutorials'
   menu_name: main_menu
-  weight: 13
+  weight: 2
 
 main_menu.faq:
   title: 'FAQ'
   url: 'internal:/faqs'
   menu_name: main_menu
-  weight: 14
+  weight: 3
 
 main_menu.customer_service:
   title: 'Customer Service'
   url: 'internal:/customer-service'
   menu_name: main_menu
-  weight: 15
+  weight: 4
 
 main_menu.resources:
   title: 'Tools & Resources'
-  url: 'internal:/home'
+  url: 'internal:/#'
   menu_name: main_menu
-  weight: 16
+  weight: 5
 
 ### Moving Guide Subnav ###
 moving_guide.overview:
   title: 'Moving with the Military Overview'
   url: 'internal:/moving-guide'
   menu_name: moving_guide
-  weight: 12
+  weight: 1
 
 moving_guide.entitlements:
   title: 'Entitlements'
   url: 'internal:/moving-guide/entitlements'
   menu_name: moving_guide
-  weight: 13
+  weight: 2
 
 moving_guide.conus:
   title: 'What to Expect?'
   url: 'internal:/moving-guide/conus'
   menu_name: moving_guide
-  weight: 14
+  weight: 3
 
 moving_guide.reimbursements:
   title: 'Reimbursements'
   url: 'internal:/moving-guide/reimbursements'
   menu_name: moving_guide
-  weight: 15
+  weight: 4
 
 moving_guide.claims:
   title: 'Loss & Damage Claims'
   url: 'internal:/moving-guide/claims'
   menu_name: moving_guide
-  weight: 16
+  weight: 5
 
 moving_guide.tips:
   title: 'Moving Tips'
   url: 'internal:/moving-guide/tips'
   menu_name: moving_guide
-  weight: 17
+  weight: 6
 
 moving_guide.nightmare-moves:
   title: 'Nightmare Moves'
   url: 'internal:/moving-guide/nightmare-moves'
   menu_name: moving_guide
-  weight: 18
+  weight: 7
 
 moving_guide.oconus:
   title: 'Overseas Move (OCONUS)'
   url: 'internal:/moving-guide/oconus'
   menu_name: moving_guide
-  weight: 19
+  weight: 8
 
 moving_guide.tdy:
   title: 'TDY Move'
   url: 'internal:/moving-guide/tdy'
   menu_name: moving_guide
-  weight: 20
+  weight: 9
 
 moving_guide.retirees-separatees:
   title: 'Retiree/Separatee'
   url: 'internal:/moving-guide/retirees-separatees'
   menu_name: moving_guide
-  weight: 21
+  weight: 10
 
 moving_guide.civilians:
   title: 'DOD Civilian Employees'
   url: 'internal:/moving-guide/civilians'
   menu_name: moving_guide
-  weight: 22
+  weight: 11
 
 moving_guide.service-specific-information:
   title: 'Service-Specific Information'
   url: 'internal:/moving-guide/service-specific-information'
   menu_name: moving_guide
-  weight: 23
+  weight: 12
 
 ### Tools & Resources Subnav ###
 resources.links:
   title: 'Tools & Resources'
   url: 'internal:/resources'
   menu_name: resources
-  weight: 12
+  weight: 1
 
 resources.ppm-estimator:
   title: 'PPM Estimator'
   url: 'internal:/resources/ppm-estimator'
   menu_name: resources
-  weight: 13
+  weight: 2
 
 resources.weight-estimator:
   title: 'Weight Estimator'
   url: 'internal:/resources/weight-estimator'
   menu_name: resources
-  weight: 14
+  weight: 3
 
 resources.locator-maps:
   title: 'Find Nearby Locations'
   url: 'internal:/resources/locator-maps'
   menu_name: resources
-  weight: 15
+  weight: 4
 
 resources.inventory-form:
   title: 'Self-Inventory Form'
   url: 'internal:/resources/inventory-form'
   menu_name: resources
-  weight: 16
+  weight: 5
