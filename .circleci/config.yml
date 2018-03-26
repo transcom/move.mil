@@ -150,6 +150,6 @@ workflows:
   test_and_lint:
     jobs:
 #      - run-unit-kernel-tests
-      - run-behat-tests
-      - run-code-sniffer
-      - run-code-coverage
+      - behat
+      - code-sniffer
+      - code-coverage
