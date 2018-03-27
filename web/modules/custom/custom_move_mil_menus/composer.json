@@ -6,7 +6,7 @@
   "license": "GPL-2.0+",
   "minimum-stability": "dev",
   "support": {
-    "issues": "https://www.drupal.org/project/issues/custom_move_mil_menus",
+    "issues": "https://github.com/Bixal/move.mil",
     "source": "https://github.com/Bixal/move.mil"
   },
   "require": { }
