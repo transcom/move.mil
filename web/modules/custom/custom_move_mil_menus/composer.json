@@ -4,11 +4,10 @@
   "description": "Move.mil menus",
   "keywords": ["Drupal"],
   "license": "GPL-2.0+",
-  "homepage": "https://www.drupal.org/project/custom_move_mil_menus",
   "minimum-stability": "dev",
   "support": {
     "issues": "https://www.drupal.org/project/issues/custom_move_mil_menus",
-    "source": "http://cgit.drupalcode.org/custom_move_mil_menus"
+    "source": "https://github.com/Bixal/move.mil"
   },
   "require": { }
 }
