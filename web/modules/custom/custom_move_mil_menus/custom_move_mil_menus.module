@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ * Contains custom_move_mil_menus.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function custom_move_mil_menus_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the custom_move_mil_menus module.
+    case 'help.page.custom_move_mil_menus':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Move.mil menus') . '</p>';
+      return $output;
+
+    default:
+  }
+}

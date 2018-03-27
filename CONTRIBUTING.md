@@ -93,6 +93,17 @@ in mariadb-init. All files in this folder will be imported, in alphabetical orde
 .sql and .sql.gz files are gitignored so you do not have to worry about them
 getting commited.
 
+### Update Menu items
+
+Menu items are defined at `web/modules/custom/custom_move_mil_menus`.
+
+If you want to add an new menu, add the definition at `config/install/system.menu.new_menu.yml`. It is important that the file starts with `system.menu` so Drupal knows it has to be added to the menus configuration.
+
+
+To update or add the configuration of a menu, open `custom_move_mil_menus.links.menu.yml` file, here you'll update or add the menu links with the label, url, weight and other settings.
+
+After the configuration changes are done, execute `make menu-update` in order to see your changes on the site.
+
 ## Making Changes
 
 1. Fork and clone the project's repo.

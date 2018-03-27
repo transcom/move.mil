@@ -1,0 +1,5 @@
+name: 'Custom Move.mil Menus'
+type: module
+description: 'Move.mil menus'
+core: 8.x
+package: 'Custom'

@@ -1,0 +1,157 @@
+# yaml file to define one or more menu link(s).
+#
+# Definitions can contain any of the following:
+# title: (required) The untranslated title of the menu link.
+# description: The untranslated description of the link.
+# route_name: (optional) The route name to be used to build the path. Either a
+#   route_name or a link_path must be provided.
+# route_parameters: (optional) The route parameters to build the path. An array.
+# link_path: (optional) If you have an external link use link_path instead of
+#   providing a route_name.
+# parent: (optional) The machine name of the link that is this link's menu
+#   parent.
+# weight: (optional) An integer that determines the relative position of items
+#   in the menu; higher-weighted items sink. Defaults to 0.
+#   Menu items with the same weight are ordered alphabetically.
+# menu_name: (optional) The machine name of a menu to put the link in, if not
+#   the default Tools menu. Common names are account, admin, footer, main, tools
+# expanded: (optional) If set to TRUE, and if a menu link is provided for this
+#   menu item (as a result of other properties), then the menu link is always
+#   expanded, equivalent to its 'always expanded' checkbox being set in the UI.
+# options: (optional) An array of options to be passed to l() when generating
+#   a link from this menu item.
+
+### Main Menu, Main Site Navigation links ###
+main_menu.moving_guide:
+  title: 'Moving Guide'
+  url: 'internal:/#'
+  menu_name: main_menu
+  weight: 1
+
+main_menu.tutorials:
+  title: 'Tutorial'
+  url: 'internal:/tutorials'
+  menu_name: main_menu
+  weight: 2
+
+main_menu.faq:
+  title: 'FAQ'
+  url: 'internal:/faqs'
+  menu_name: main_menu
+  weight: 3
+
+main_menu.customer_service:
+  title: 'Customer Service'
+  url: 'internal:/customer-service'
+  menu_name: main_menu
+  weight: 4
+
+main_menu.resources:
+  title: 'Tools & Resources'
+  url: 'internal:/#'
+  menu_name: main_menu
+  weight: 5
+
+### Moving Guide Subnav ###
+moving_guide.overview:
+  title: 'Moving with the Military Overview'
+  url: 'internal:/moving-guide'
+  menu_name: moving_guide
+  weight: 1
+
+moving_guide.entitlements:
+  title: 'Entitlements'
+  url: 'internal:/moving-guide/entitlements'
+  menu_name: moving_guide
+  weight: 2
+
+moving_guide.conus:
+  title: 'What to Expect?'
+  url: 'internal:/moving-guide/conus'
+  menu_name: moving_guide
+  weight: 3
+
+moving_guide.reimbursements:
+  title: 'Reimbursements'
+  url: 'internal:/moving-guide/reimbursements'
+  menu_name: moving_guide
+  weight: 4
+
+moving_guide.claims:
+  title: 'Loss & Damage Claims'
+  url: 'internal:/moving-guide/claims'
+  menu_name: moving_guide
+  weight: 5
+
+moving_guide.tips:
+  title: 'Moving Tips'
+  url: 'internal:/moving-guide/tips'
+  menu_name: moving_guide
+  weight: 6
+
+moving_guide.nightmare-moves:
+  title: 'Nightmare Moves'
+  url: 'internal:/moving-guide/nightmare-moves'
+  menu_name: moving_guide
+  weight: 7
+
+moving_guide.oconus:
+  title: 'Overseas Move (OCONUS)'
+  url: 'internal:/moving-guide/oconus'
+  menu_name: moving_guide
+  weight: 8
+
+moving_guide.tdy:
+  title: 'TDY Move'
+  url: 'internal:/moving-guide/tdy'
+  menu_name: moving_guide
+  weight: 9
+
+moving_guide.retirees-separatees:
+  title: 'Retiree/Separatee'
+  url: 'internal:/moving-guide/retirees-separatees'
+  menu_name: moving_guide
+  weight: 10
+
+moving_guide.civilians:
+  title: 'DOD Civilian Employees'
+  url: 'internal:/moving-guide/civilians'
+  menu_name: moving_guide
+  weight: 11
+
+moving_guide.service-specific-information:
+  title: 'Service-Specific Information'
+  url: 'internal:/moving-guide/service-specific-information'
+  menu_name: moving_guide
+  weight: 12
+
+### Tools & Resources Subnav ###
+resources.links:
+  title: 'Tools & Resources'
+  url: 'internal:/resources'
+  menu_name: resources
+  weight: 1
+
+resources.ppm-estimator:
+  title: 'PPM Estimator'
+  url: 'internal:/resources/ppm-estimator'
+  menu_name: resources
+  weight: 2
+
+resources.weight-estimator:
+  title: 'Weight Estimator'
+  url: 'internal:/resources/weight-estimator'
+  menu_name: resources
+  weight: 3
+
+resources.locator-maps:
+  title: 'Find Nearby Locations'
+  url: 'internal:/resources/locator-maps'
+  menu_name: resources
+  weight: 4
+
+resources.inventory-form:
+  title: 'Self-Inventory Form'
+  url: 'internal:/resources/inventory-form'
+  menu_name: resources
+  weight: 5
