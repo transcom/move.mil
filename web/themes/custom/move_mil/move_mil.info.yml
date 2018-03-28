@@ -12,6 +12,9 @@ base theme: uswds
 #   npm install
 #   cp -r node_modules/uswds/dist assets
 #   npm run build
+
+libraries:
+  - move_mil/move.mil
 libraries-override:
   uswds/uswds:
     css:
