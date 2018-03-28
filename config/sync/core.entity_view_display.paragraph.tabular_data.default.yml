@@ -1,0 +1,41 @@
+uuid: ffcbf00e-cbee-443e-978b-bac71145358e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.tabular_data.field_body
+    - field.field.paragraph.tabular_data.field_plain_title
+    - field.field.paragraph.tabular_data.field_tabular_image
+    - paragraphs.paragraphs_type.tabular_data
+  module:
+    - image
+    - text
+id: paragraph.tabular_data.default
+targetEntityType: paragraph
+bundle: tabular_data
+mode: default
+content:
+  field_body:
+    weight: 2
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+  field_plain_title:
+    weight: 1
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+  field_tabular_image:
+    weight: 0
+    label: hidden
+    settings:
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+    region: content
+hidden: {  }

@@ -1,0 +1,22 @@
+uuid: bb6a0c72-8b39-46d2-ad01-000d504098f3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_body
+    - paragraphs.paragraphs_type.warning_callout_box
+  module:
+    - text
+id: paragraph.warning_callout_box.field_body
+field_name: field_body
+entity_type: paragraph
+bundle: warning_callout_box
+label: Body
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: false
+field_type: text_with_summary

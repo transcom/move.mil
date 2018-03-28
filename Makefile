@@ -57,3 +57,6 @@ menu-update:
 cr:
 	@echo "Clearing all caches"
 	docker-compose run php drupal cache:rebuild all
+
+composer-install:
+	docker-compose run php composer install
