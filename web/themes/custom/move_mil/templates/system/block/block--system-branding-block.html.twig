@@ -1,0 +1,43 @@
+{#
+/**
+ * @file
+ * Default theme implementation for a branding block.
+ *
+ * Each branding element variable (logo, name, slogan) is only available if
+ * enabled in the block configuration.
+ *
+ * Available variables:
+ * - site_logo: Logo for site as defined in Appearance or theme settings.
+ * - site_name: Name for site as defined in Site information settings.
+ * - site_slogan: Slogan for site as defined in Site information settings.
+ *
+ * @ingroup themeable
+ */
+#}
+<div class="usa-logo" id="logo">
+
+  <a class="logo-img" href="{{ path('<front>') }}" accesskey="1" title="{{ 'Home'|t }}" aria-label="Home">
+    {% if site_logo == true %}
+      <img src="{{ site_logo }}"  alt="{{ 'Home'|t }}" />
+    {% elseif site_logo == false %}
+      <img src="/themes/custom/move_mil/ustranscom-logo.svg"  alt="{{ 'Home'|t }}" />
+  </a>
+  {% endif %}
+
+  <div class="usa-logo-text-area">
+    {% if site_name %}
+    <em class="usa-logo-text">
+      <a href="{{ path('<front>') }}" accesskey="1" title="{{ 'Home'|t }}" aria-label="Home">
+        {{ site_name }}
+      </a>
+    </em>
+    {% endif %}
+
+    {% if site_slogan == true %}
+      <h2 class="usa-font-lead">{{ site_slogan }}</h2>
+      {% elseif site_logo == false %}
+      <span class="usa-font-lead"> Official <abbr title="Department of Defense">DOD</abbr> Moving Portal</span>
+    {% endif %}
+  </div>
+
+</div>
