@@ -1,11 +1,15 @@
 .usa-header-extended {
 
+  @include media($medium-large-screen) {
+    border: 0;
+  }
+
   .usa-navbar {
     border-bottom: none;
     padding: $spacing-medium 0;
     height: 10rem;
 
-    @include media($med-large-screen) {
+    @include media($medium-large-screen) {
       height: 15rem;
       padding: $spacing-medium 0 0;
     }
@@ -14,7 +18,7 @@
   .navbar-border {
     border-top: .5rem solid $color-blue-darkest;
 
-    @include media($med-large-screen) {
+    @include media($medium-large-screen) {
       border-top: 1.2rem solid $color-blue-darkest;
     }
   }
@@ -23,20 +27,20 @@
     display: flex;
     line-height: 4rem;
 
-    @include media($med-large-screen) {
+    @include media($medium-large-screen) {
       margin: 0 $spacing-small;
     }
 
     .logo-img {
       display: none;
 
-      @include media($med-large-screen) {
+      @include media($medium-large-screen) {
         display: block;
         float: left;
         margin: 0 $spacing-medium;
         position: relative;
         width: 18.5rem;
-        z-index: 90001;
+        z-index: 501;
       }
     }
 
@@ -50,7 +54,7 @@
         font-size: $h1-font-size;
         color: $color-blue-darkest;
 
-        @include media($med-large-screen) {
+        @include media($medium-large-screen) {
           font-size: $title-font-size;
           padding-top: $spacing-medium;
         }
@@ -66,7 +70,7 @@
         color: $color-blue-darkest;
         margin-top:$spacing-x-small;
 
-        @include media($med-large-screen) {
+        @include media($medium-large-screen) {
           font-size: $lead-font-size;
         }
 
