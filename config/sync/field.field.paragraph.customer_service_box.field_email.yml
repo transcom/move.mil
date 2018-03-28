@@ -9,7 +9,7 @@ id: paragraph.customer_service_box.field_email
 field_name: field_email
 entity_type: paragraph
 bundle: customer_service_box
-label: E-mail
+label: Email
 description: ''
 required: false
 translatable: false

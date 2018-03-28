@@ -3,14 +3,34 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.paragraph.customer_service_box.field_comm_phone
+    - field.field.paragraph.customer_service_box.field_dsn_phone
     - field.field.paragraph.customer_service_box.field_email
     - field.field.paragraph.customer_service_box.field_plain_title
+    - field.field.paragraph.customer_service_box.field_service_address
     - paragraphs.paragraphs_type.customer_service_box
+  module:
+    - address
+    - telephone
 id: paragraph.customer_service_box.default
 targetEntityType: paragraph
 bundle: customer_service_box
 mode: default
 content:
+  field_comm_phone:
+    weight: 3
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: telephone_default
+    region: content
+  field_dsn_phone:
+    weight: 2
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: telephone_default
+    region: content
   field_email:
     weight: 1
     settings:
@@ -26,6 +46,13 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textarea
+    region: content
+  field_service_address:
+    weight: 4
+    settings:
+      default_country: null
+    third_party_settings: {  }
+    type: address_default
     region: content
 hidden:
   created: true
