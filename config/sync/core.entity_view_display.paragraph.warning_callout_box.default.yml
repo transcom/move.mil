@@ -1,0 +1,39 @@
+uuid: 5400302c-ea1c-4291-a700-fd0dad94bc2c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.warning_callout_box.field_body
+    - field.field.paragraph.warning_callout_box.field_callout_box_type
+    - field.field.paragraph.warning_callout_box.field_plain_title
+    - paragraphs.paragraphs_type.warning_callout_box
+  module:
+    - options
+    - text
+id: paragraph.warning_callout_box.default
+targetEntityType: paragraph
+bundle: warning_callout_box
+mode: default
+content:
+  field_body:
+    weight: 1
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+  field_callout_box_type:
+    weight: 2
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+    region: content
+  field_plain_title:
+    weight: 0
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+hidden: {  }

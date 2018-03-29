@@ -1,0 +1,23 @@
+uuid: 7370743d-d305-4c50-b94c-1afa1dcb5810
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_callout_box_type
+    - paragraphs.paragraphs_type.warning_callout_box
+  module:
+    - options
+id: paragraph.warning_callout_box.field_callout_box_type
+field_name: field_callout_box_type
+entity_type: paragraph
+bundle: warning_callout_box
+label: 'Box type'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: warning
+default_value_callback: ''
+settings: {  }
+field_type: list_string

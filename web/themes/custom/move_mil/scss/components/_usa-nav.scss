@@ -1,0 +1,26 @@
+.usa-header-extended {
+
+  .usa-nav {
+
+    @include media($medium-large-screen) {
+      top: -4.4rem;
+      display: flex;
+      background: $color-white-transparent;
+      border-bottom: 1px solid $color-gray-lighter;
+    }
+
+    .usa-nav-inner {
+
+      @include media($medium-large-screen) {
+        padding: 0 0 0 2.5rem;
+      }
+
+      .usa-nav-link {
+        color: $color-blue;
+        font-size: 1.7rem;
+      }
+    }
+
+  }
+
+}

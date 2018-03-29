@@ -1,0 +1,30 @@
+uuid: 83a9cda4-2573-4064-9ce3-c9c7bf097e5d
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - paragraphs
+id: paragraph.field_callout_box_type
+field_name: field_callout_box_type
+entity_type: paragraph
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: warning
+      label: Warning
+    -
+      value: notice
+      label: Notice
+    -
+      value: info
+      label: 'Information needed'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

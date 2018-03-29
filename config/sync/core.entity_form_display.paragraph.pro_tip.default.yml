@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.paragraph.pro_tip.field_protip_body
     - field.field.paragraph.pro_tip.field_protip_image
+    - field.field.paragraph.pro_tip.field_protip_image_alignment
     - image.style.thumbnail
     - paragraphs.paragraphs_type.pro_tip
   module:
@@ -30,6 +31,12 @@ content:
       preview_image_style: thumbnail
     third_party_settings: {  }
     type: image_image
+    region: content
+  field_protip_image_alignment:
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
+    type: options_buttons
     region: content
 hidden:
   created: true
