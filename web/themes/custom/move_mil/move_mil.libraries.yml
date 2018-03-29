@@ -1,0 +1,7 @@
+move.mil:
+  version: 1.0.0
+  # css:
+  #   theme:
+  #     assets/css/styles.css: {}
+  js:
+    assets/js/scripts.min.js: {}

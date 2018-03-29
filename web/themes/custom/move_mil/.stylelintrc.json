@@ -1,0 +1,433 @@
+{
+  "extends": "stylelint-config-recommended",
+  "plugins": "stylelint-scss",
+  "rules": {
+    "at-rule-no-unknown": null,
+    "scss/at-rule-no-unknown": true,
+    "scss/at-import-no-partial-leading-underscore": [
+      true,
+      {
+        "severity": "warning"
+      }
+    ],
+    "scss/at-import-partial-extension-blacklist": [
+      [
+        "scss"
+      ],
+      {
+        "severity": "warning"
+      }
+    ],
+    "scss/at-extend-no-missing-placeholder": [
+      true,
+      {
+        "severity": "warning"
+      }
+    ],
+    "scss/dollar-variable-colon-space-after": [
+      "always",
+      {
+        "severity": "warning"
+      }
+    ],
+    "scss/dollar-variable-colon-space-before": [
+      "never",
+      {
+        "severity": "warning"
+      }
+    ],
+    "scss/selector-no-redundant-nesting-selector": [
+      true,
+      {
+        "severity": "warning"
+      }
+    ],
+    "color-hex-case": [
+      "lower",
+      {
+        "severity": "warning"
+      }
+    ],
+    "color-hex-length": [
+      "short",
+      {
+        "severity": "warning"
+      }
+    ],
+    "color-named": [
+      "never",
+      {
+        "severity": "warning"
+      }
+    ],
+    "declaration-no-important": [
+      true,
+      {
+        "severity": "warning"
+      }
+    ],
+    "unit-blacklist": [
+      [
+        "em"
+      ],
+      {
+        "message": "Using 'em' is risky and difficult to parse; use rem(base 10px) instead",
+        "severity": "warning"
+      }
+    ],
+    "selector-max-empty-lines": [
+      0,
+      {
+        "severity": "warning"
+      }
+    ],
+    "selector-no-vendor-prefix": [
+      true,
+      {
+        "severity": "warning"
+      }
+    ],
+    "at-rule-no-vendor-prefix": [
+      true,
+      {
+        "severity": "warning"
+      }
+    ],
+    "at-rule-blacklist": [
+      [
+        "debug"
+      ],
+      {
+        "severity": "warning"
+      }
+    ],
+    "max-nesting-depth": [
+      6,
+      {
+        "severity": "warning"
+      }
+    ],
+    "font-weight-notation": [
+      "numeric",
+      {
+        "severity": "warning"
+      }
+    ],
+    "function-comma-space-after": [
+      "always-single-line",
+      {
+        "severity": "warning"
+      }
+    ],
+    "function-comma-space-before": [
+      "never",
+      {
+        "severity": "warning"
+      }
+    ],
+    "function-max-empty-lines": [
+      0,
+      {
+        "severity": "warning"
+      }
+    ],
+    "function-name-case": [
+      "lower",
+      {
+        "severity": "warning"
+      }
+    ],
+    "function-parentheses-space-inside": [
+      "never-single-line",
+      {
+        "severity": "warning"
+      }
+    ],
+    "function-url-quotes": [
+      "always",
+      {
+        "severity": "warning"
+      }
+    ],
+    "function-whitespace-after": [
+      "always",
+      {
+        "severity": "warning"
+      }
+    ],
+    "number-leading-zero": [
+      "always",
+      {
+        "severity": "warning"
+      }
+    ],
+    "string-quotes": [
+      "single",
+      {
+        "severity": "warning"
+      }
+    ],
+    "length-zero-no-unit": [
+      true,
+      {
+        "severity": "warning"
+      }
+    ],
+    "unit-case": [
+      "lower",
+      {
+        "severity": "warning"
+      }
+    ],
+    "value-list-comma-space-after": [
+      "always-single-line",
+      {
+        "severity": "warning"
+      }
+    ],
+    "value-list-comma-space-before": [
+      "never",
+      {
+        "severity": "warning"
+      }
+    ],
+    "property-case": [
+      "lower",
+      {
+        "severity": "warning"
+      }
+    ],
+    "declaration-bang-space-after": [
+      "never",
+      {
+        "severity": "warning"
+      }
+    ],
+    "declaration-bang-space-before": [
+      "always",
+      {
+        "severity": "warning"
+      }
+    ],
+    "declaration-colon-space-after": [
+      "always-single-line",
+      {
+        "severity": "warning"
+      }
+    ],
+    "declaration-colon-space-before": [
+      "never",
+      {
+        "severity": "warning"
+      }
+    ],
+    "declaration-block-semicolon-newline-after": [
+      "always-multi-line",
+      {
+        "severity": "warning"
+      }
+    ],
+    "declaration-block-semicolon-space-after": [
+      "always-single-line",
+      {
+        "severity": "warning"
+      }
+    ],
+    "declaration-block-semicolon-space-before": [
+      "never",
+      {
+        "severity": "warning"
+      }
+    ],
+    "declaration-block-trailing-semicolon": [
+      "always",
+      {
+        "severity": "warning"
+      }
+    ],
+    "block-closing-brace-newline-after": [
+      "always",
+      {
+        "severity": "warning"
+      }
+    ],
+    "block-closing-brace-newline-before": [
+      "always-multi-line",
+      {
+        "severity": "warning"
+      }
+    ],
+    "block-closing-brace-space-before": [
+      "always-single-line",
+      {
+        "severity": "warning"
+      }
+    ],
+    "block-opening-brace-newline-after": [
+      "always-multi-line",
+      {
+        "severity": "warning"
+      }
+    ],
+    "block-opening-brace-space-after": [
+      "always-single-line",
+      {
+        "severity": "warning"
+      }
+    ],
+    "block-opening-brace-space-before": [
+      "always",
+      {
+        "severity": "warning"
+      }
+    ],
+    "selector-attribute-brackets-space-inside": [
+      "never",
+      {
+        "severity": "warning"
+      }
+    ],
+    "selector-attribute-operator-space-after": [
+      "never",
+      {
+        "severity": "warning"
+      }
+    ],
+    "selector-attribute-operator-space-before": [
+      "never",
+      {
+        "severity": "warning"
+      }
+    ],
+    "selector-combinator-space-after": [
+      "always",
+      {
+        "severity": "warning"
+      }
+    ],
+    "selector-combinator-space-before": [
+      "always",
+      {
+        "severity": "warning"
+      }
+    ],
+    "selector-list-comma-space-before": [
+      "never",
+      {
+        "severity": "warning"
+      }
+    ],
+    "selector-pseudo-class-case": [
+      "lower",
+      {
+        "severity": "warning"
+      }
+    ],
+    "selector-pseudo-class-parentheses-space-inside": [
+      "never",
+      {
+        "severity": "warning"
+      }
+    ],
+    "selector-pseudo-element-case": [
+      "lower",
+      {
+        "severity": "warning"
+      }
+    ],
+    "selector-type-case": [
+      "lower",
+      {
+        "severity": "warning"
+      }
+    ],
+    "rule-empty-line-before": [
+      "always-multi-line",
+      {
+        "ignore": [
+          "first-nested",
+          "after-comment"
+        ]
+      }
+    ],
+    "media-feature-colon-space-after": [
+      "always",
+      {
+        "severity": "warning"
+      }
+    ],
+    "media-feature-colon-space-before": [
+      "never",
+      {
+        "severity": "warning"
+      }
+    ],
+    "media-feature-range-operator-space-after": [
+      "always",
+      {
+        "severity": "warning"
+      }
+    ],
+    "media-feature-range-operator-space-before": [
+      "always",
+      {
+        "severity": "warning"
+      }
+    ],
+    "media-query-list-comma-space-after": [
+      "always-single-line",
+      {
+        "severity": "warning"
+      }
+    ],
+    "media-query-list-comma-space-before": [
+      "never",
+      {
+        "severity": "warning"
+      }
+    ],
+    "at-rule-empty-line-before": [
+      "always",
+      {
+        "except": [
+          "blockless-after-same-name-blockless",
+          "first-nested"
+        ],
+        "ignore": [
+          "after-comment"
+        ],
+        "severity": "warning"
+      }
+    ],
+    "at-rule-name-case": [
+      "lower",
+      {
+        "severity": "warning"
+      }
+    ],
+    "at-rule-name-space-after": [
+      "always-single-line",
+      {
+        "severity": "warning"
+      }
+    ],
+    "at-rule-semicolon-newline-after": [
+      "always",
+      {
+        "severity": "warning"
+      }
+    ],
+    "indentation": [
+      2,
+      {
+        "severity": "warning"
+      }
+    ],
+    "max-empty-lines": [
+      1,
+      {
+        "severity": "warning"
+      }
+    ]
+  }
+}
