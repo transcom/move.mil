@@ -1,0 +1,9 @@
+uuid: a272bf93-09c4-429b-9e19-4b734fc84b3c
+langcode: en
+status: true
+dependencies: {  }
+id: tabular_data
+label: 'Tabular Data'
+icon_uuid: null
+description: 'Tabular Data (example:https://www.move.mil/entitlements -- underneath form)'
+behavior_plugins: {  }

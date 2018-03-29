@@ -1,0 +1,19 @@
+uuid: 51c77371-87b1-422e-82d4-06edfdfe31ce
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_plain_title
+    - paragraphs.paragraphs_type.customer_service_box
+id: paragraph.customer_service_box.field_plain_title
+field_name: field_plain_title
+entity_type: paragraph
+bundle: customer_service_box
+label: Title
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

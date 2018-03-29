@@ -1,0 +1,9 @@
+uuid: f8ab253b-512d-49ff-9448-de3cc5218268
+langcode: en
+status: true
+dependencies: {  }
+id: warning_callout_box
+label: 'Warning/Callout Box'
+icon_uuid: null
+description: 'Add boxes such as “Information needed”, “Important”'
+behavior_plugins: {  }

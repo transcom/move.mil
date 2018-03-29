@@ -1,0 +1,57 @@
+uuid: a51b86e0-30dc-4553-8e15-ed820f470701
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.customer_service_box.field_comm_phone
+    - field.field.paragraph.customer_service_box.field_dsn_phone
+    - field.field.paragraph.customer_service_box.field_email
+    - field.field.paragraph.customer_service_box.field_plain_title
+    - field.field.paragraph.customer_service_box.field_service_address
+    - paragraphs.paragraphs_type.customer_service_box
+  module:
+    - address
+    - telephone
+id: paragraph.customer_service_box.default
+targetEntityType: paragraph
+bundle: customer_service_box
+mode: default
+content:
+  field_comm_phone:
+    weight: 3
+    label: inline
+    settings:
+      title: ''
+    third_party_settings: {  }
+    type: telephone_link
+    region: content
+  field_dsn_phone:
+    weight: 2
+    label: inline
+    settings:
+      title: ''
+    third_party_settings: {  }
+    type: telephone_link
+    region: content
+  field_email:
+    weight: 1
+    label: inline
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+  field_plain_title:
+    weight: 0
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+  field_service_address:
+    weight: 4
+    label: inline
+    settings: {  }
+    third_party_settings: {  }
+    type: address_default
+    region: content
+hidden: {  }

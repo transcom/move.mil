@@ -1,0 +1,13 @@
+uuid: 5aaf63b6-9c53-4230-8691-efcb6883be04
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - custom_move_mil_menus
+_core:
+  default_config_hash: ZDyuu8MWfEsMifaTQSOYkat3o1cxi6S-jL7y04Iybto
+id: main_menu
+label: 'Main Menu'
+description: 'Main Site Navigation'
+locked: false

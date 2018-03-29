@@ -27,7 +27,7 @@ uswds_twitter: ''
 uswds_youtube: ''
 uswds_rss: ''
 uswds_paragraphs_edge_to_edge: 0
-uswds_menu_accordion_duplicate_parent: 1
+uswds_menu_accordion_duplicate_parent: 0
 uswds_menu_bypass:
   primary_menu: 0
   secondary_menu: 0

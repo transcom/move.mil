@@ -1,0 +1,22 @@
+uuid: f5248972-3d22-44a0-9046-807ca5e8e0cc
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_body
+    - paragraphs.paragraphs_type.basic_text
+  module:
+    - text
+id: paragraph.basic_text.field_body
+field_name: field_body
+entity_type: paragraph
+bundle: basic_text
+label: Body
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: false
+field_type: text_with_summary
