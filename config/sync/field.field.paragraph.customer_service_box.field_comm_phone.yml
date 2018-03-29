@@ -1,0 +1,21 @@
+uuid: 0f016cb3-3284-4728-bac9-f63e704d2071
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_comm_phone
+    - paragraphs.paragraphs_type.customer_service_box
+  module:
+    - telephone
+id: paragraph.customer_service_box.field_comm_phone
+field_name: field_comm_phone
+entity_type: paragraph
+bundle: customer_service_box
+label: Comm
+description: 'Comm (telephone) - optional, multi-field'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: telephone

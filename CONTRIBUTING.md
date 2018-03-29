@@ -109,7 +109,8 @@ After the configuration changes are done, execute `make menu-update` in order to
 1. Fork and clone the project's repo.
 2. Setup your environment as outlined above.
 3. Create a feature branch for the code changes you're looking to make: `git checkout -b your-descriptive-branch-name origin/1.x-dev`.
-3. Import the current configuration: `make cim`.
+4. Install missing dependencies: `make composer-install`.
+5. Import the current configuration: `make cim`.
 5. _Write some code!_
 6. Run the application and verify that your changes function as intended.
 7. If your changes would benefit from testing, add the necessary tests and verify everything passes.

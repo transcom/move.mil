@@ -1,0 +1,13 @@
+uuid: 212e5bdd-bef1-4f21-9c8d-8395d5af0ae4
+langcode: en
+status: true
+dependencies:
+  module:
+    - custom_move_mil_menus
+  enforced:
+    module:
+      - custom_move_mil_menus
+id: moving_guide
+label: 'Moving Guide'
+description: 'Subnav - Moving Guide Main Nav item'
+locked: false

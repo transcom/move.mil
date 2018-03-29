@@ -1,0 +1,13 @@
+uuid: 6bf72ba2-9b38-44e1-b643-b5bb55fcf2cf
+langcode: en
+status: true
+dependencies:
+  module:
+    - custom_move_mil_menus
+  enforced:
+    module:
+      - custom_move_mil_menus
+id: main_menu
+label: 'Main Menu'
+description: 'Main Site Navigation'
+locked: false

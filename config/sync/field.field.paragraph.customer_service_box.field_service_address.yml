@@ -1,0 +1,36 @@
+uuid: 74d1210a-9219-4183-82f0-4b375583dc49
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_service_address
+    - paragraphs.paragraphs_type.customer_service_box
+  module:
+    - address
+id: paragraph.customer_service_box.field_service_address
+field_name: field_service_address
+entity_type: paragraph
+bundle: customer_service_box
+label: Address
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  available_countries:
+    US: US
+  fields:
+    administrativeArea: administrativeArea
+    locality: locality
+    postalCode: postalCode
+    sortingCode: sortingCode
+    addressLine1: addressLine1
+    addressLine2: addressLine2
+    dependentLocality: '0'
+    organization: '0'
+    givenName: '0'
+    additionalName: '0'
+    familyName: '0'
+  langcode_override: ''
+field_type: address
