@@ -1,0 +1,33 @@
+uuid: 4b3c755d-636c-46ea-89c7-1d3e0d6ce300
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - paragraphs
+id: paragraph.field_protip_image_alignment
+field_name: field_protip_image_alignment
+entity_type: paragraph
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: left
+      label: 'float left'
+    -
+      value: right
+      label: 'float right'
+    -
+      value: top
+      label: 'span top (100%)'
+    -
+      value: bottom
+      label: 'span bottom (100%)'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
