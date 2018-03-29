@@ -1,12 +1,12 @@
-uuid: 212e5bdd-bef1-4f21-9c8d-8395d5af0ae4
+uuid: 045e38c1-2028-4387-a016-56d062546010
 langcode: en
 status: true
 dependencies:
-  module:
-    - custom_move_mil_menus
   enforced:
     module:
       - custom_move_mil_menus
+_core:
+  default_config_hash: k21Og1hLX7fI08mn5qHCD9eW2cEHw7isRlTSCSvKHLY
 id: moving_guide
 label: 'Moving Guide'
 description: 'Subnav - Moving Guide Main Nav item'
