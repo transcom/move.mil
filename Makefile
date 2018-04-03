@@ -54,9 +54,10 @@ menu-update:
 	docker-compose run php drush cim -y --partial --source=modules/custom/custom_move_mil_menus/config/install/
 	docker-compose run php drupal cache:rebuild all
 
-cr:
-	@echo "Clearing all caches"
-	docker-compose run php drupal cache:rebuild all
-
-composer-install:
+composer:
+	@echo "Installing depenencies"
 	docker-compose run php composer install
+
+cr:
+	@echo "Clearing Drupal Caches"
+	docker-compose run php drupal cache:rebuild -y
