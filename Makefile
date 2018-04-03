@@ -55,7 +55,7 @@ menu-update:
 	docker-compose run php drupal cache:rebuild all
 
 composer:
-	@echo "Installing depenencies"
+	@echo "Installing dependencies"
 	docker-compose run php composer install
 
 cr:
