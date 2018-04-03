@@ -1,0 +1,22 @@
+uuid: 487c5b94-e767-42b8-8841-7141ed3bf151
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_body
+    - paragraphs.paragraphs_type.tabular_data
+  module:
+    - text
+id: paragraph.tabular_data.field_body
+field_name: field_body
+entity_type: paragraph
+bundle: tabular_data
+label: Body
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: false
+field_type: text_with_summary
