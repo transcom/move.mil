@@ -1,0 +1,29 @@
+.paragraph--text-with-image {
+  margin-bottom: 3rem;
+
+  .content {
+
+    .field--name-field-title-link,
+    .field--name-field-plain-title {
+      font-size: 1.7rem;
+      font-weight: 700;
+
+      > a {
+        text-decoration: none;
+
+        > span {
+          display: none;
+        }
+      }
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+  }
+
+  .image {
+    margin-bottom: 2rem;
+  }
+}
