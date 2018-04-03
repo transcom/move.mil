@@ -5,6 +5,8 @@
 @import "../node_modules/uswds/src/stylesheets/uswds.scss";
 
 // components
-@import "components/archive-banner";
-@import "components/usa-header-extended";
-@import "components/usa-nav";
+// @import "components/archive-banner";
+// @import "components/usa-header-extended";
+// @import "components/usa-nav";
+
+@import "components/**/*";
