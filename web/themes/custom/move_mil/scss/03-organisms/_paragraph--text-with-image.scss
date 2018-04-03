@@ -1,12 +1,11 @@
 .paragraph--text-with-image {
-  margin-bottom: 3rem;
+  margin-bottom: $spacing-large;
 
   .content {
 
     .field--name-field-title-link,
     .field--name-field-plain-title {
-      font-size: 1.7rem;
-      font-weight: 700;
+      @include h4();
 
       > a {
         text-decoration: none;
@@ -24,6 +23,6 @@
   }
 
   .image {
-    margin-bottom: 2rem;
+    margin-bottom: $spacing-medium;
   }
 }
