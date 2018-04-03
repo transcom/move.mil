@@ -804,3 +804,4 @@ try {
 } catch(Exception $e) {
   echo $e->getMessage();
 }
+$settings['install_profile'] = 'standard';
