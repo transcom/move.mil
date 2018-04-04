@@ -13,31 +13,17 @@
       {% if uswds_grid_class %}
       <div class="{{ uswds_grid_class }}">
       {% endif %}
-
-      {% if content.field_image_alignment[0]['#markup']  == 'left' %}
-
-        <div{{ create_attribute(
-          {'class': ['paragraph--text-with-image__left-align']}) }}>
-          <div{{ create_attribute({'class': ['image', 'image__left-align', 'usa-width-one-third']}) }}>{{ content.field_image }}</div>
-          <div{{ create_attribute({'class': ['content', 'content__left-align', 'usa-width-two-thirds']}) }}>
+        {# pass through our alignment value #}
+        <div class="paragraph--text-with-image__align-{{content.field_image_alignment[0]['#markup']}}">
+          <div class="image-title image-title__align-{{content.field_image_alignment[0]['#markup']}} usa-width-one-third">
             {{ content.field_plain_title }}
+            {{ content.field_image }}
+          </div>
+          <div class="content content__align-{{content.field_image_alignment[0]['#markup']}} usa-width-two-thirds">
             {{ content.field_title_link }}
             {{ content.field_body }}
           </div>
         </div>
-
-      {% elseif content.field_image_alignment[0]['#markup']  == 'right' %}
-
-        <div{{ create_attribute({'class': ['paragraph--text-with-image__right-align']}) }}>
-          <div{{ create_attribute({'class': ['content', 'content__right-align', 'usa-width-two-thirds']}) }}>
-            {{ content.field_plain_title }}
-            {{ content.field_title_link }}
-            {{ content.field_body }}
-          </div>
-          <div{{ create_attribute({'class': ['image', 'image__right-align', 'usa-width-one-third']}) }}>{{ content.field_image }}</div>
-        </div>
-
-      {% endif %}
 
       {% if uswds_grid_class %}
       </div>
