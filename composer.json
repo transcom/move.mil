@@ -23,6 +23,7 @@
         "drupal/admin_toolbar": "^1.23",
         "drupal/console": "^1.0.2",
         "drupal/core": "~8.5",
+        "drupal/extlink": "^1.0",
         "drupal/paragraphs": "^1.2",
         "drupal/twig_tweak": "^1.9",
         "drupal/uswds": "^1.0@beta",

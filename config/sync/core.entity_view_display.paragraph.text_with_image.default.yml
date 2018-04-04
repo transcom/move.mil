@@ -36,12 +36,12 @@ content:
     type: image
     region: content
   field_image_alignment:
+    type: list_key
     weight: 1
+    region: content
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    type: list_default
-    region: content
   field_plain_title:
     weight: 2
     label: hidden
