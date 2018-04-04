@@ -1,8 +1,6 @@
 {%
   set classes = [
-    'paragraph', 'paragraph--text-with-image',
-    'paragraph--type--' ~ paragraph.bundle|clean_class,
-    view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
+    'article-section', 'paragraph--text-with-image', 'usa-media_block'
   ]
 %}
 
@@ -15,11 +13,11 @@
       {% endif %}
         {# pass through our alignment value #}
         <div class="paragraph--text-with-image__align-{{content.field_image_alignment[0]['#markup']}}">
-          <div class="image-title image-title__align-{{content.field_image_alignment[0]['#markup']}} usa-width-one-third">
+          <div class="usa-media_block-img usa-media_block-img__align-{{content.field_image_alignment[0]['#markup']}} usa-width-one-third">
             {{ content.field_plain_title }}
             {{ content.field_image }}
           </div>
-          <div class="content content__align-{{content.field_image_alignment[0]['#markup']}} usa-width-two-thirds">
+          <div class="usa-media_block-body usa-media_block-body__align-{{content.field_image_alignment[0]['#markup']}} usa-width-two-thirds">
             {{ content.field_title_link }}
             {{ content.field_body }}
           </div>

@@ -7,7 +7,7 @@
     flex-direction: row;
   }
 
-  .image-title { // this is a class associated with an image or a title that gets aligned
+  .usa-media_block-img { // this is a class associated with an image or a title that gets aligned
     margin: 0 0 $spacing-medium 0;
 
     &__align-right {
@@ -32,7 +32,7 @@
     }
   }
 
-  .content {
+  .usa-media_block-body {
     margin: 0 0 $spacing-medium 0;
 
     &.usa-width-two-thirds {

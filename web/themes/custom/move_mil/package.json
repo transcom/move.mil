@@ -17,7 +17,7 @@
     "./scss/**/*.scss": [
       "build-css"
     ],
-    "./images": [
+    "./images/**/*": [
       "build-img"
     ],
     "./scripts/**/*.js": [
