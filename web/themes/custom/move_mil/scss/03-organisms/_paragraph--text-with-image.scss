@@ -1,0 +1,76 @@
+.paragraph--text-with-image__align-right,
+.paragraph--text-with-image__align-left {
+  display: flex;
+  flex-direction: column;
+
+  @include media($medium-screen) {
+    flex-direction: row;
+  }
+
+  .image-title { // this is a class associated with an image or a title that gets aligned
+    margin: 0 0 $spacing-medium 0;
+
+    &__align-right {
+      order: 1;
+    }
+
+    &__align-left {
+      order: 1;
+
+      @include media($medium-screen) {
+        order: 2;
+      }
+    }
+
+    .field--name-field-plain-title {
+      @include h4();
+    }
+
+    img {
+      width: 26.6rem;
+      min-width: 15rem;
+    }
+  }
+
+  .content {
+    margin: 0 0 $spacing-medium 0;
+
+    &.usa-width-two-thirds {
+      max-width: 50rem;
+    }
+
+    &__align-right {
+      order: 2;
+
+      @include media($medium-screen) {
+        margin: 0 0 $spacing-medium $spacing-large;
+      }
+    }
+
+    &__align-left {
+      order: 1;
+
+      @include media($medium-screen) {
+        margin: 0 $spacing-large $spacing-medium 0;
+      }
+    }
+
+    .field--name-field-title-link,
+    .field--name-field-plain-title {
+      @include h4();
+
+      > a {
+        text-decoration: none;
+
+        span {
+          display: none;
+        }
+      }
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{%
+  set classes = [
+    'paragraph', 'paragraph--text-with-image',
+    'paragraph--type--' ~ paragraph.bundle|clean_class,
+    view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
+  ]
+%}
+
+{% block paragraph %}
+  <div {{ attributes.addClass(classes) }}>
+    {% block content %}
+
+      {% if uswds_grid_class %}
+      <div class="{{ uswds_grid_class }}">
+      {% endif %}
+        {# pass through our alignment value #}
+        <div class="paragraph--text-with-image__align-{{content.field_image_alignment[0]['#markup']}}">
+          <div class="image-title image-title__align-{{content.field_image_alignment[0]['#markup']}} usa-width-one-third">
+            {{ content.field_plain_title }}
+            {{ content.field_image }}
+          </div>
+          <div class="content content__align-{{content.field_image_alignment[0]['#markup']}} usa-width-two-thirds">
+            {{ content.field_title_link }}
+            {{ content.field_body }}
+          </div>
+        </div>
+
+      {% if uswds_grid_class %}
+      </div>
+      {% endif %}
+
+    {% endblock %}
+  </div>
+{% endblock paragraph %}
