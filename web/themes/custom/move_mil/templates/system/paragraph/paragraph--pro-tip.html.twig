@@ -1,0 +1,23 @@
+{%
+  set classes = [
+    'paragraph--pro-tip', 'usa-media_block'
+  ]
+%}
+{% block paragraph %}
+  <div{{ attributes.addClass(classes) }} >
+    {% block content %}
+
+      {% if uswds_grid_class %}
+      <div class="{{ uswds_grid_class }} paragraph--pro-tip__align-{{ content.field_protip_image_alignment[0]['#markup']}}">
+      {% endif %}
+
+      <img class="usa-media_block-img" src="/themes/custom/move_mil/assets/img/icon--pro-tip.svg" alt="light bulb icon"></img>
+      <div class="usa-media_block-body">{{ content.field_protip_body }}</div>
+
+      {% if uswds_grid_class %}
+      </div>
+      {% endif %}
+
+    {% endblock %}
+  </div>
+{% endblock paragraph %}
