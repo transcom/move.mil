@@ -1,0 +1,15 @@
+.paragraph--type--warning-callout-box {
+  .field--name-field-plain-title {
+    @include h3();
+  }
+
+  .field--name-field-body {
+    p {
+      @include margin(0 null);
+
+      + p {
+        margin-top: 1.6rem;
+      }
+    }
+  }
+}

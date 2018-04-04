@@ -15,11 +15,14 @@ settings:
       value: warning
       label: Warning
     -
-      value: notice
-      label: Notice
-    -
       value: info
-      label: 'Information needed'
+      label: Information
+    -
+      value: error
+      label: Error
+    -
+      value: success
+      label: Success
   allowed_values_function: ''
 module: options
 locked: false
