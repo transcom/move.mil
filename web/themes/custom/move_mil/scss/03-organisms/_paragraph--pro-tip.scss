@@ -1,0 +1,50 @@
+.paragraph--pro-tip,
+.usa-media_block {
+
+  > div {
+    padding: $spacing-small;
+    border: solid 1px $color-cool-blue-lightest;
+  }
+
+  &__align-right {
+    margin: $spacing-medium 0;
+
+    @include media($medium-screen) {
+      float: right;
+      width: 35%;
+      margin: 0 0 0 $spacing-medium;
+    }
+  }
+
+  &__align-left {
+    margin: $spacing-medium 0;
+
+    @include media($medium-screen) {
+      float: left;
+      width: 35%;
+      margin: 0 $spacing-medium 0 0;
+    }
+  }
+
+  &__align-top {
+    margin: $spacing-medium 0 0;
+  }
+
+  &__align-bottom {
+    margin: 0 0 $spacing-medium;
+  }
+
+  &-img {
+    float: left;
+    margin-right: $spacing-small;
+    width: 3.3rem;
+  }
+
+  &-body {
+
+    p {
+      margin: 0;
+    }
+  }
+
+}
