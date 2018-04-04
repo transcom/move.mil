@@ -67,7 +67,7 @@ Setup Move.mil:
 > Note: You don't have to execute this command if you have a db dump file(s) in your mariadb-init folder. 
 
 ```
-docker-compose ru`n php drupal config:import --no-interaction
+docker-compose run php drupal config:import --no-interaction
 ```
 _See [this article](https://www.drupal.org/docs/8/configuration-management) for more information about configuramtion management_
 
@@ -93,6 +93,22 @@ in mariadb-init. All files in this folder will be imported, in alphabetical orde
 .sql and .sql.gz files are gitignored so you do not have to worry about them
 getting commited.
 
+## Making Changes
+
+1. Fork and clone the project's repo.
+2. Setup your environment as outlined above.
+3. Create a feature branch for the code changes you're looking to make: `git checkout -b your-descriptive-branch-name origin/1.x-dev`.
+4. Install missing dependencies: `make composer`.
+5. Import the current configuration: `make cim` (If this does not work, try a `make up` again).
+5. _Write some code!_
+6. Run the application and verify that your changes function as intended.
+7. If your changes would benefit from testing, add the necessary tests and verify everything passes.
+8. Export the configuration with your changes: `make cex`.
+9. Commit your changes: `git commit -am 'Add some new feature or fix some issue'`. _(See [this excellent article](https://chris.beams.io/posts/git-commit) for tips on writing useful Git commit messages.)_
+10. Push the branch to your fork: `git push -u origin your-descriptive-branch-name`.
+11. Create a new pull request and we'll review your changes.
+
+
 ### Update Menu items
 
 Menu items are defined at `web/modules/custom/custom_move_mil_menus`.
@@ -104,20 +120,6 @@ To update or add the configuration of a menu, open `custom_move_mil_menus.links.
 
 After the configuration changes are done, execute `make menu-update` in order to see your changes on the site.
 
-## Making Changes
-
-1. Fork and clone the project's repo.
-2. Setup your environment as outlined above.
-3. Create a feature branch for the code changes you're looking to make: `git checkout -b your-descriptive-branch-name origin/1.x-dev`.
-4. Install missing dependencies: `make composer-install`.
-5. Import the current configuration: `make cim`.
-5. _Write some code!_
-6. Run the application and verify that your changes function as intended.
-7. If your changes would benefit from testing, add the necessary tests and verify everything passes.
-8. Export the configuration with your changes: `make cex`.
-9. Commit your changes: `git commit -am 'Add some new feature or fix some issue'`. _(See [this excellent article](https://chris.beams.io/posts/git-commit) for tips on writing useful Git commit messages.)_
-10. Push the branch to your fork: `git push -u origin your-descriptive-branch-name`.
-11. Create a new pull request and we'll review your changes.
 
 ### Verifying Changes
 
