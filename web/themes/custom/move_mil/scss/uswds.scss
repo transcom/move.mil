@@ -1,14 +1,9 @@
 // Import new and overrides of USWDS partials.
-@import "variables";
+@import 'variables';
 
 // Import the USWDS source.
-@import "../node_modules/uswds/src/stylesheets/uswds.scss";
+@import '../node_modules/uswds/src/stylesheets/uswds';
 
 // components
-@import "01-atoms/**/*";
-@import "03-organisms/**/*";
-// @import "components/archive-banner";
-// @import "components/usa-header-extended";
-// @import "components/usa-nav";
-
-@import "03-organisms/**/*";
+@import '01-atoms/**/*';
+@import '03-organisms/**/*';

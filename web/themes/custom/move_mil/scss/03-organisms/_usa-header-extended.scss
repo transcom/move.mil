@@ -68,7 +68,7 @@
         font-size: $small-font-size;
         // font-weight: $font-normal;
         color: $color-blue-darkest;
-        margin-top:$spacing-x-small;
+        margin-top: $spacing-x-small;
 
         @include media($medium-large-screen) {
           font-size: $lead-font-size;
