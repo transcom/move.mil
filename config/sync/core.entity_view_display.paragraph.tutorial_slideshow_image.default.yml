@@ -36,7 +36,7 @@ content:
     region: content
   field_slideshow_description:
     weight: 2
-    label: inline
+    label: hidden
     settings: {  }
     third_party_settings: {  }
     type: text_default

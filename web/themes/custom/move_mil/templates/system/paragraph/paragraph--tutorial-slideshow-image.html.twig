@@ -1,0 +1,27 @@
+{%
+  set classes = [
+    'paragraph', 'paragraph--tutorial-slideshow'
+  ]
+%}
+{% block paragraph %}
+  <div{{ attributes.addClass(classes) }}>
+    {% block content %}
+
+      {% if uswds_grid_class %}
+      <div class="{{ uswds_grid_class }}">
+      {% endif %}
+
+      {{ content.field_slideshow_image }}
+        <figcaption class="move-mil--slide-caption">
+          <h3 class="move-mil--slide-caption__title">{{ content.field_slideshow_caption }}</h3>
+          {{ content.field_slideshow_description }}
+        </figcaption>
+      {{ content.field_pro_tip }}
+
+      {% if uswds_grid_class %}
+      </div>
+      {% endif %}
+
+    {% endblock %}
+  </div>
+{% endblock paragraph %}
