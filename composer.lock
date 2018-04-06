@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "c7e88807b0767b2d3fbc2adec8563e69",
+    "content-hash": "e8f55c74d631b3a5b6f67185db8148f7",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -121,6 +121,32 @@
                 "stack"
             ],
             "time": "2017-12-20T14:37:45+00:00"
+        },
+        {
+            "name": "bixal/jumplink",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Bixal/jumplink.git",
+                "reference": "c109a48757aef5a70680ce4acdbd7eb7b8c436fa"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Bixal/jumplink/zipball/c109a48757aef5a70680ce4acdbd7eb7b8c436fa",
+                "reference": "c109a48757aef5a70680ce4acdbd7eb7b8c436fa",
+                "shasum": ""
+            },
+            "type": "drupal-module",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "description": "A Drupal 8 Module which allows editors to create jumplinks without needing to set classes and anchors.",
+            "homepage": "https://www.drupal.org/project/jumplink",
+            "keywords": [
+                "drupal"
+            ],
+            "time": "2018-04-06T15:56:41+00:00"
         },
         {
             "name": "chi-teck/drupal-code-generator",
@@ -8117,6 +8143,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "bixal/jumplink": 20,
         "drupal/uswds": 10,
         "drupal/drupal-extension": 20
     },
