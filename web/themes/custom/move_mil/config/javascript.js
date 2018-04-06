@@ -19,7 +19,7 @@ gulp.task('eslint', function (done) {
 
   return gulp.src([
     './js/**/*.js',
-    '!./js/vendor/**/*.js'])
+    '!./js/vendor/**/*.js',])
     .pipe(linter('.eslintrc.json'))
     .pipe(linter.format());
 
@@ -29,18 +29,21 @@ gulp.task('copy-uswds-javascript', function (done) {
 
   dutil.logMessage(javascript, 'Copying JS from uswds');
 
-  var stream = gulp.src('./node_modules/uswds/dist/js/uswds.min.js')
+  var stream = gulp.src(
+    './node_modules/uswds/dist/js/uswds.min.js')
     .pipe(gulp.dest('assets/js'));
 
   return stream;
 
 });
 
-gulp.task(javascript, [ 'copy-uswds-javascript'], function (done) {
+gulp.task(javascript, [ 'copy-uswds-javascript' ], function (done) {
 
   dutil.logMessage(javascript, 'Compiling JavaScript');
 
-  return gulp.src('js/**/*.js')
+  return gulp.src([
+    './node_modules/slick-carousel/slick/slick.min.js',
+    'js/**/*.js'])
     .pipe(buffer())
     .pipe(sourcemaps.init({ loadMaps: true }))
       .pipe(concat('scripts.js'))
