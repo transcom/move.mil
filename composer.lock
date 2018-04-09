@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "ebf2e1baf344e71f7d250348ae465959",
+    "content-hash": "8dc28a07d031e08441ee28d5ca9d7114",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -2261,6 +2261,19 @@
             }
         },
         {
+            "name": "drupal/twig_field_value",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/twig_field_value",
+                "reference": "8.x-1.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/twig_field_value-8.x-1.1.zip",
+                "reference": "8.x-1.1",
+                "shasum": "793d634347eec904617e7bc3b03b75a69fceb928"
+            },
             "name": "drupal/stage_file_proxy",
             "version": "1.0.0-alpha3",
             "source": {

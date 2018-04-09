@@ -10,6 +10,8 @@
     @include h3();
     font-family: $font-sans;
     text-transform: uppercase;
+    border-bottom: none;
+    color: $color-black;
   }
 
   .carousel-gallery-nav {
@@ -22,8 +24,8 @@
       .slick-arrow {
         cursor: pointer;
         margin: 0;
-        background-color: white;
-        color: black;
+        background-color: $color-white;
+        color: $color-black;
         font-family: $font-sans;
         font-size: $font-normal;
 
@@ -44,7 +46,6 @@
           background-position: right;
           display: inline-block;
         }
-
       }
     }
   }
@@ -52,9 +53,9 @@
   .show-all-steps {
     cursor: pointer;
     margin: 0;
-    background-color: white;
     padding: 0 2rem;
     background: url('/themes/custom/move_mil/assets/img/icon--list.svg')  no-repeat;
+    background-color: $color-white;
     background-repeat: no-repeat;
     background-size: contain;
     background-position: right;
@@ -62,5 +63,4 @@
     width: 2.1rem;
     height: 2.1rem;
   }
-
 }
