@@ -16,7 +16,7 @@ bundle: tutorial
 mode: default
 content:
   field_tutorial_intro:
-    weight: 104
+    weight: 101
     label: hidden
     settings: {  }
     third_party_settings: {  }
