@@ -5,9 +5,9 @@
     margin-top: $spacing-small;
 
     &__title {
+      @include h3;
       margin: 0;
       padding-top: $spacing-small;
-      @include h3;
       font-family: $font-sans;
       text-transform: uppercase;
     }

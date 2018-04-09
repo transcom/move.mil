@@ -55,7 +55,7 @@ gulp.task('lint-scss', function (done) {
       // fix: true,
       debug: true
     }))
-    .pipe(gulp.dest('scss'))
+    // .pipe(gulp.dest('scss'))
 
 });
 
