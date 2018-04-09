@@ -1,20 +1,20 @@
-uuid: 44a25c99-a1d7-48a3-9281-fd725ddbdc35
+uuid: 7d409cc8-2487-450e-a443-249bebfd3aa5
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.paragraph.field_image
-    - paragraphs.paragraphs_type.text_with_image
+    - field.storage.node.field_image
+    - node.type.faq
   module:
     - image
-id: paragraph.text_with_image.field_image
+id: node.faq.field_image
 field_name: field_image
-entity_type: paragraph
-bundle: text_with_image
-label: Image
+entity_type: node
+bundle: faq
+label: 'FAQ icon'
 description: ''
 required: false
-translatable: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
