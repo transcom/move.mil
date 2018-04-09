@@ -1,28 +1,28 @@
-uuid: 4b3c755d-636c-46ea-89c7-1d3e0d6ce300
+uuid: 0db288aa-9584-4dd6-877b-132fa92f92d3
 langcode: en
 status: true
 dependencies:
   module:
     - options
     - paragraphs
-id: paragraph.field_protip_image_alignment
-field_name: field_protip_image_alignment
+id: paragraph.field_protip_alignment
+field_name: field_protip_alignment
 entity_type: paragraph
 type: list_string
 settings:
   allowed_values:
     -
-      value: left
-      label: 'float left'
+      value: 'float left'
+      label: left
     -
-      value: right
-      label: 'float right'
+      value: 'float right'
+      label: right
     -
-      value: top
-      label: 'span top (100%)'
+      value: 'span top (100%)'
+      label: top
     -
-      value: bottom
-      label: 'span bottom (100%)'
+      value: 'span bottom (100%)'
+      label: bottom
   allowed_values_function: ''
 module: options
 locked: false

@@ -9,7 +9,7 @@ id: paragraph.tutorial_slideshow_image.field_slideshow_caption
 field_name: field_slideshow_caption
 entity_type: paragraph
 bundle: tutorial_slideshow_image
-label: Caption
+label: 'Caption Title'
 description: ''
 required: false
 translatable: false

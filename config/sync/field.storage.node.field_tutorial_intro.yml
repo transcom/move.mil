@@ -1,18 +1,16 @@
-uuid: 0201f6a0-2a88-4875-849c-4faba68c2758
+uuid: b2fb5f66-960d-4cbe-ae49-f805610e86d7
 langcode: en
 status: true
 dependencies:
   module:
     - node
+    - text
 id: node.field_tutorial_intro
 field_name: field_tutorial_intro
 entity_type: node
-type: string
-settings:
-  max_length: 255
-  is_ascii: false
-  case_sensitive: false
-module: core
+type: text_long
+settings: {  }
+module: text
 locked: false
 cardinality: 1
 translatable: true

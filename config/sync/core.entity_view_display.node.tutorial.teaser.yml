@@ -4,7 +4,6 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
-    - field.field.node.tutorial.field_tutorial_intro
     - field.field.node.tutorial.field_tutorial_step
     - node.type.tutorial
   module:
@@ -18,5 +17,4 @@ content:
     weight: 100
     region: content
 hidden:
-  field_tutorial_intro: true
   field_tutorial_step: true
