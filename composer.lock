@@ -2273,6 +2273,7 @@
                 "url": "https://ftp.drupal.org/files/projects/twig_field_value-8.x-1.1.zip",
                 "reference": "8.x-1.1",
                 "shasum": "793d634347eec904617e7bc3b03b75a69fceb928"
+            },
             "name": "drupal/stage_file_proxy",
             "version": "1.0.0-alpha3",
             "source": {
