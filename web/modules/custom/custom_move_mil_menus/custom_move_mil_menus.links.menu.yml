@@ -63,7 +63,7 @@ main_menu.overview:
   weight: 1
 
 main_menu.entitlements:
-  title: 'Entitlements'
+  title: 'Entitlements/Guidelines'
   url: 'internal:/moving-guide/entitlements'
   menu_name: main_menu
   parent: main_menu.moving_guide
@@ -105,21 +105,21 @@ main_menu.nightmare-moves:
   weight: 7
 
 main_menu.oconus:
-  title: 'Overseas Move (OCONUS)'
+  title: 'Overseas Moves (OCONUS)'
   url: 'internal:/moving-guide/oconus'
   menu_name: main_menu
   parent: main_menu.moving_guide
   weight: 8
 
 main_menu.tdy:
-  title: 'TDY Move'
+  title: 'TDY Moves'
   url: 'internal:/moving-guide/tdy'
   menu_name: main_menu
   parent: main_menu.moving_guide
   weight: 9
 
 main_menu.retirees-separatees:
-  title: 'Retiree/Separatee'
+  title: 'Retirees/Separatees'
   url: 'internal:/moving-guide/retirees-separatees'
   menu_name: main_menu
   parent: main_menu.moving_guide
