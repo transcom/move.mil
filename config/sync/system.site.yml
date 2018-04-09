@@ -1,11 +1,11 @@
 uuid: df6e5dc0-7d2f-445e-8b17-608b44335f49
 name: Move.mil
-mail: ivonne.carrillo@bixal.com
+mail: info@bixal.com
 slogan: ''
 page:
   403: ''
-  404: ''
-  front: /node
+  404: /node/64
+  front: /node/65
 admin_compact_mode: false
 weight_select_max: 100
 langcode: en

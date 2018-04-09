@@ -17,4 +17,5 @@ content:
     weight: 100
     region: content
 hidden:
+  field_tutorial_intro: true
   field_tutorial_step: true
