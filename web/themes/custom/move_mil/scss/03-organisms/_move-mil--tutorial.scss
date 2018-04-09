@@ -10,6 +10,8 @@
     @include h3();
     font-family: $font-sans;
     text-transform: uppercase;
+    border-bottom: none;
+    color: $color-black;
   }
 
   .carousel-gallery-nav {
@@ -44,7 +46,6 @@
           background-position: right;
           display: inline-block;
         }
-
       }
     }
   }
@@ -62,5 +63,4 @@
     width: 2.1rem;
     height: 2.1rem;
   }
-
 }
