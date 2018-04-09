@@ -1,12 +1,12 @@
-uuid: b2fb5f66-960d-4cbe-ae49-f805610e86d7
+uuid: 22ca3f01-f51c-4cb9-ba3d-18531d0ba95c
 langcode: en
 status: true
 dependencies:
   module:
     - node
     - text
-id: node.field_tutorial_intro
-field_name: field_tutorial_intro
+id: node.field_page_intro_text
+field_name: field_page_intro_text
 entity_type: node
 type: text_long
 settings: {  }

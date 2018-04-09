@@ -1,17 +1,17 @@
-uuid: a88f28e3-5487-4f4a-bc51-fd27a973ea27
+uuid: 3bb20f54-325a-41f1-a6a6-aceae91c39a4
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.paragraph.field_protip_image_alignment
+    - field.storage.paragraph.field_protip_alignment
     - paragraphs.paragraphs_type.pro_tip
   module:
     - options
-id: paragraph.pro_tip.field_protip_image_alignment
-field_name: field_protip_image_alignment
+id: paragraph.pro_tip.field_protip_alignment
+field_name: field_protip_alignment
 entity_type: paragraph
 bundle: pro_tip
-label: 'Image alignment'
+label: Protip_alignment
 description: ''
 required: false
 translatable: false

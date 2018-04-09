@@ -8,6 +8,7 @@ dependencies:
     - node.type.tutorial
   module:
     - entity_reference_revisions
+    - text
     - user
 id: node.tutorial.default
 targetEntityType: node
@@ -15,12 +16,11 @@ bundle: tutorial
 mode: default
 content:
   field_tutorial_intro:
-    weight: 102
+    weight: 104
     label: hidden
-    settings:
-      link_to_entity: false
+    settings: {  }
     third_party_settings: {  }
-    type: string
+    type: text_default
     region: content
   field_tutorial_step:
     type: entity_reference_revisions_entity_view

@@ -7,10 +7,26 @@ var source      = require('vinyl-source-stream');
 var uglify      = require('gulp-uglify');
 var sourcemaps  = require('gulp-sourcemaps');
 var rename      = require('gulp-rename');
-var linter      = require('gulp-eslint');
+// var linter      = require('gulp-eslint');
+var jshint = require('gulp-jshint');
 var javascript  = 'javascript';
 
-gulp.task('eslint', function (done) {
+// gulp.task('eslint', function (done) {
+//
+//   // if (!cFlags.test) {
+//   //   dutil.logMessage('eslint', 'Skipping linting of JavaScript files.');
+//   //   return done();
+//   // }
+//
+//   return gulp.src([
+//     './js/**/*.js',
+//     '!./js/vendor/**/*.js',])
+//     .pipe(linter('.eslintrc.json'))
+//     .pipe(linter.format());
+//
+// });
+
+gulp.task('jshint', function (done) {
 
   // if (!cFlags.test) {
   //   dutil.logMessage('eslint', 'Skipping linting of JavaScript files.');
@@ -20,9 +36,8 @@ gulp.task('eslint', function (done) {
   return gulp.src([
     './js/**/*.js',
     '!./js/vendor/**/*.js',])
-    .pipe(linter('.eslintrc.json'))
-    .pipe(linter.format());
-
+    .pipe(jshint())
+    .pipe(jshint.reporter('jshint-stylish'));
 });
 
 gulp.task('copy-uswds-javascript', function (done) {

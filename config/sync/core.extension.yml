@@ -35,12 +35,14 @@ module:
   rdf: 0
   search: 0
   shortcut: 0
+  svg_image: 0
   system: 0
   taxonomy: 0
   telephone: 0
   text: 0
   toolbar: 0
   tour: 0
+  twig_field_value: 0
   twig_tweak: 0
   update: 0
   user: 0
