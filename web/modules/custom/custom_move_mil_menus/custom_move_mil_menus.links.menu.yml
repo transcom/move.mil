@@ -64,7 +64,7 @@ main_menu.overview:
 
 main_menu.entitlements:
   title: 'Entitlements/Guidelines'
-  url: 'internal:/moving-guide/entitlements'
+  url: 'internal:/entitlements'
   menu_name: main_menu
   parent: main_menu.moving_guide
   weight: 2
