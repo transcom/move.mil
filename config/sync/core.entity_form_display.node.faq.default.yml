@@ -4,9 +4,12 @@ status: true
 dependencies:
   config:
     - field.field.node.faq.body
+    - field.field.node.faq.field_image
     - field.field.node.faq.field_journey_step
+    - image.style.thumbnail
     - node.type.faq
   module:
+    - image
     - path
     - text
 id: node.faq.default
@@ -29,6 +32,14 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  field_image:
+    weight: 123
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
+    region: content
   field_journey_step:
     weight: 122
     settings: {  }
