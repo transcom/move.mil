@@ -1,0 +1,19 @@
+h1 {
+  border-bottom: 0.3rem solid $color-primary-darker;
+  color: $color-primary-darker;
+  font-family: $font-sans;
+  font-size: $h2-font-size;
+  padding-bottom: 2.5rem;
+
+  @include media($medium-screen) {
+    font-size: $h1-font-size;
+  }
+}
+
+h2 {
+  border-bottom: 0.1rem solid $color-primary-darker;
+  color: $color-primary-darker;
+  font-size: $h3-font-size;
+  margin-top: $site-margins;
+  padding-bottom: 0.5rem;
+}

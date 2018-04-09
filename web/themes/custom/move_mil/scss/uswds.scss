@@ -1,14 +1,13 @@
 // Import new and overrides of USWDS partials.
-@import "variables";
+@import 'variables';
 
 // Import the USWDS source.
-@import "../node_modules/uswds/src/stylesheets/uswds.scss";
+@import '../node_modules/uswds/src/stylesheets/uswds';
+
+// Import the SLICK SLIDER SCSS source
+@import "../node_modules/slick-carousel/slick/slick.scss";
 
 // components
 @import "01-atoms/**/*";
-@import "03-organisms/**/*";
-// @import "components/archive-banner";
-// @import "components/usa-header-extended";
-// @import "components/usa-nav";
-
+@import "02-molecules/**/*";
 @import "03-organisms/**/*";
