@@ -3,5 +3,19 @@
 // color
 $color-white-transparent: rgba(255, 255, 255, 0.9) !default;
 
+// new color for background shading, variable does not exist in uswds but probably should
+$color-gray-cool-lightest: #f3f7fa;
+
 // media breakpoints
 $medium-large-screen: 951px !default;
+
+@mixin strip-paragraph-spacing() {
+  p {
+    @include margin(0 null);
+    line-height: normal;
+
+    + p {
+      margin-top: 1.6rem;
+    }
+  }
+}
