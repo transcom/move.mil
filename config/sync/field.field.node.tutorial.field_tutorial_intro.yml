@@ -1,10 +1,12 @@
-uuid: d4a5900f-a641-43a5-ae06-fb7e83d1efa4
+uuid: e4959ae7-c0ad-4312-aa38-f28deb9871b1
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.node.field_tutorial_intro
     - node.type.tutorial
+  module:
+    - text
 id: node.tutorial.field_tutorial_intro
 field_name: field_tutorial_intro
 entity_type: node
@@ -16,4 +18,4 @@ translatable: false
 default_value: {  }
 default_value_callback: ''
 settings: {  }
-field_type: string
+field_type: text_long
