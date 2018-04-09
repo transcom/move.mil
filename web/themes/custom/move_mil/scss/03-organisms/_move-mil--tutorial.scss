@@ -22,8 +22,8 @@
       .slick-arrow {
         cursor: pointer;
         margin: 0;
-        background-color: white;
-        color: black;
+        background-color: $color-white;
+        color: $color-black;
         font-family: $font-sans;
         font-size: $font-normal;
 
@@ -52,9 +52,9 @@
   .show-all-steps {
     cursor: pointer;
     margin: 0;
-    background-color: white;
     padding: 0 2rem;
     background: url('/themes/custom/move_mil/assets/img/icon--list.svg')  no-repeat;
+    background-color: $color-white;
     background-repeat: no-repeat;
     background-size: contain;
     background-position: right;
