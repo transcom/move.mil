@@ -10,7 +10,7 @@
     "clean": "gulp clean-assets",
     "watch": "nswatch",
     "lint": "npm run lint-js lint-scss",
-    "lint-js": "gulp eslint",
+    "lint-js": "gulp jshint",
     "lint-scss": "gulp lint-scss"
   },
   "watch": {
@@ -18,9 +18,7 @@
     "./images/**/*": [
       "build-img"
     ],
-    "./js/**/*.js": [
-      "build-js"
-    ],
+    "./js/**/*.js": "lint-js!build-js",
     "./node_modules/uswds/src/stylesheets": [
       "build-css"
     ],
@@ -43,6 +41,7 @@
     "gulp-concat": "^2.6.1",
     "gulp-cssnano": "^2.1.3",
     "gulp-eslint": "^4.0.2",
+    "gulp-jshint": "^2.1.0",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^3.2.1",
     "gulp-sass-glob": "^1.0.8",
@@ -50,6 +49,8 @@
     "gulp-stylelint": "^7.0.0",
     "gulp-uglify": "^3.0.0",
     "gulp-util": "^3.0.8",
+    "jshint": "^2.9.5",
+    "jshint-stylish": "^2.2.1",
     "merge-stream": "^1.0.1",
     "node-notifier": "^5.2.1",
     "nswatch": "^0.2.0",
