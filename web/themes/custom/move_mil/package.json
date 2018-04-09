@@ -14,9 +14,7 @@
     "lint-scss": "gulp lint-scss"
   },
   "watch": {
-    "./scss/**/*.scss": [
-      "build-css"
-    ],
+    "./scss/**/*.scss": "lint-scss!build-css",
     "./images/**/*": [
       "build-img"
     ],
