@@ -25,6 +25,7 @@
         "drupal/core": "~8.5",
         "drupal/extlink": "^1.0",
         "drupal/paragraphs": "^1.2",
+        "drupal/stage_file_proxy": "^1.0@alpha",
         "drupal/twig_tweak": "^1.9",
         "drupal/uswds": "^1.0@beta",
         "drush/drush": "^9.0.0",
