@@ -9,7 +9,7 @@ _core:
 id: move_mil_local_tasks
 theme: move_mil
 region: content
-weight: -7
+weight: -6
 provider: null
 plugin: local_tasks_block
 settings:
