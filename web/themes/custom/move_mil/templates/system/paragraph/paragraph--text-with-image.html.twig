@@ -9,16 +9,36 @@
     {% block content %}
 
       {% if uswds_grid_class %}
-      <div class="{{ uswds_grid_class }}">
+      <div class="{{ uswds_grid_class }} paragraph--text-with-image">
       {% endif %}
-        {# pass through our alignment value #}
-        <div class="paragraph--text-with-image__align-{{content.field_image_alignment[0]['#markup']}}">
-          <div class="usa-media_block-img usa-media_block-img__align-{{content.field_image_alignment[0]['#markup']}} usa-width-one-third">
-            {{ content.field_plain_title }}
-            {{ content.field_image }}
+
+        {% set imageAlignment = content.field_image_alignment[0]['#markup'] %} {# pass through our alignment value #}
+        {% set titleLink = content.field_title_link[0]['#url'].uri %}
+        {# pass through our title link value #}
+
+        <div class="paragraph--text-with-image__align-{{ imageAlignment }}">
+          <div class="usa-media_block-img usa-media_block-img__align-{{ imageAlignment }} usa-width-one-third">
+
+            {% if content.field_image|field_value == true %}
+              <a href="{{ titleLink }}">{{ content.field_image }}</a>
+            {% elseif content.field_image|field_value == false and content.field_plain_title|field_value == true %}
+              {% if titleLink is not empty %}
+                <h3 class="field-title-plain--link"><a href="{{ titleLink }}">{{ content.field_plain_title }}</a></h3>
+              {% else %}
+                <h3 class="field-title-plain">{{ content.field_plain_title }}</h3>
+              {% endif %}
+            {% endif %}
+
           </div>
-          <div class="usa-media_block-body usa-media_block-body__align-{{content.field_image_alignment[0]['#markup']}} usa-width-two-thirds">
-            {{ content.field_title_link }}
+          <div class="usa-media_block-body usa-media_block-body__align-{{ imageAlignment }} usa-width-two-thirds">
+
+            {% if content.field_image|field_value == true and content.field_plain_title|field_value == true %}
+              {% if titleLink is not empty %}
+                <h3><a href="{{ titleLink }}">{{ content.field_plain_title }}</a></h3>
+              {% else %}
+                <h3>{{ content.field_plain_title }}</h3>
+              {% endif %}
+            {% endif %}
             {{ content.field_body }}
           </div>
         </div>
