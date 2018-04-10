@@ -8,10 +8,7 @@
     <div{{ attributes.addClass(classes) }} >
       {% block content %}
         {% if uswds_grid_class %}
-
-        {% set alignment = content.field_protip_alignment[0]['#markup'] %}
-
-          <div class="{{ uswds_grid_class }} paragraph--pro-tip__align-{{ alignment }} {% if alignment == 'right' or alignment == 'left' %}usa-width-one-third{% endif %}">
+          <div class="{{ uswds_grid_class }} paragraph--pro-tip__align-{{ content.field_protip_image_alignment[0]['#markup']}}">
           {% endif %}
 
           <img class="usa-media_block-img" src="/themes/custom/move_mil/assets/img/icon--pro-tip.svg" alt="light bulb icon"></img>
