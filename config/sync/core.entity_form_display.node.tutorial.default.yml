@@ -9,6 +9,7 @@ dependencies:
   module:
     - paragraphs
     - path
+    - text
 id: node.tutorial.default
 targetEntityType: node
 bundle: tutorial
@@ -23,10 +24,10 @@ content:
   field_tutorial_intro:
     weight: 1
     settings:
-      size: 60
+      rows: 5
       placeholder: ''
     third_party_settings: {  }
-    type: string_textfield
+    type: text_textarea
     region: content
   field_tutorial_step:
     type: entity_reference_paragraphs

@@ -1,0 +1,19 @@
+uuid: 79b75ad5-a4f6-444b-bdfe-08f0288ae203
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_table_image_title
+    - paragraphs.paragraphs_type.tabular_data
+id: paragraph.tabular_data.field_table_image_title
+field_name: field_table_image_title
+entity_type: paragraph
+bundle: tabular_data
+label: 'Image title'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -1,0 +1,19 @@
+uuid: e3e4d9ce-f131-4f64-9d9d-5fc66dab1806
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_table_image_subtitle
+    - paragraphs.paragraphs_type.tabular_data
+id: paragraph.tabular_data.field_table_image_subtitle
+field_name: field_table_image_subtitle
+entity_type: paragraph
+bundle: tabular_data
+label: 'Image subtitle'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -1,25 +1,25 @@
-uuid: 2008ae43-94fd-4ff9-a323-e7a19002bc85
+uuid: 7d409cc8-2487-450e-a443-249bebfd3aa5
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.paragraph.field_protip_image
-    - paragraphs.paragraphs_type.pro_tip
+    - field.storage.node.field_image
+    - node.type.faq
   module:
     - image
-id: paragraph.pro_tip.field_protip_image
-field_name: field_protip_image
-entity_type: paragraph
-bundle: pro_tip
-label: Image
-description: 'tabular blocks underneath the form'
+id: node.faq.field_image
+field_name: field_image
+entity_type: node
+bundle: faq
+label: 'FAQ icon'
+description: ''
 required: false
-translatable: false
+translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
   file_directory: '[date:custom:Y]-[date:custom:m]'
-  file_extensions: 'png gif jpg jpeg'
+  file_extensions: 'svg png gif jpg jpeg'
   max_filesize: ''
   max_resolution: ''
   min_resolution: ''

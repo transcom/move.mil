@@ -60,4 +60,4 @@ composer:
 
 cr:
 	@echo "Clearing Drupal Caches"
-	docker-compose run php drupal cache:rebuild -y
+	docker-compose run php drupal cache:rebuild -y all
