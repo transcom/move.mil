@@ -5,11 +5,13 @@ dependencies:
   config:
     - field.field.paragraph.tabular_data.field_body
     - field.field.paragraph.tabular_data.field_plain_title
+    - field.field.paragraph.tabular_data.field_table_image_subtitle
+    - field.field.paragraph.tabular_data.field_table_image_title
     - field.field.paragraph.tabular_data.field_tabular_image
     - image.style.thumbnail
     - paragraphs.paragraphs_type.tabular_data
   module:
-    - image
+    - svg_image
     - text
 id: paragraph.tabular_data.default
 targetEntityType: paragraph
@@ -33,8 +35,24 @@ content:
     third_party_settings: {  }
     type: string_textarea
     region: content
+  field_table_image_subtitle:
+    weight: 5
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_table_image_title:
+    weight: 4
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
   field_tabular_image:
-    weight: 0
+    weight: 3
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
