@@ -1,5 +1,4 @@
 .usa-header-extended {
-
   @include media($medium-large-screen) {
     border: 0;
   }
@@ -16,7 +15,7 @@
   }
 
   .navbar-border {
-    border-top: .5rem solid $color-blue-darkest;
+    border-top: 0.5rem solid $color-blue-darkest;
 
     @include media($medium-large-screen) {
       border-top: 1.2rem solid $color-blue-darkest;
@@ -72,10 +71,6 @@
 
         @include media($medium-large-screen) {
           font-size: $lead-font-size;
-        }
-
-        abbr[title] {
-          text-decoration: none;
         }
       }
     }
