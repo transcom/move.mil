@@ -1,0 +1,38 @@
+uuid: 804b4822-8161-4c8e-93d5-88c7cb9edb60
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.faqs
+  module:
+    - node
+    - system
+    - views
+  theme:
+    - move_mil
+id: faq_section_travel_tips
+theme: move_mil
+region: content
+weight: -2
+provider: null
+plugin: 'views_block:faqs-block_3'
+settings:
+  id: 'views_block:faqs-block_3'
+  label: ''
+  provider: views
+  label_display: '0'
+  views_label: ''
+  items_per_page: none
+visibility:
+  node_type:
+    id: node_type
+    bundles:
+      page: page
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+  request_path:
+    id: request_path
+    pages: /faqs
+    negate: false
+    context_mapping: {  }
