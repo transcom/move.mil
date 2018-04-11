@@ -11,13 +11,11 @@ id: paragraph.text_with_image.field_image_alignment
 field_name: field_image_alignment
 entity_type: paragraph
 bundle: text_with_image
-label: 'Image alignment'
+label: 'Image or title alignment'
 description: ''
 required: true
 translatable: false
-default_value:
-  -
-    value: right
+default_value: {  }
 default_value_callback: ''
 settings: {  }
 field_type: list_string

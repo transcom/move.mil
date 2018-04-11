@@ -1,5 +1,4 @@
-.paragraph--pro-tip,
-.usa-media_block {
+.paragraph--pro-tip {
 
   > div {
     padding: $spacing-small;
@@ -9,20 +8,22 @@
   &__align-right {
     margin: $spacing-medium 0;
 
-    @include media($medium-screen) {
-      float: right;
-      width: 35%;
-      margin: 0 0 0 $spacing-medium;
+    &.usa-width-one-third {
+      @include media($medium-screen) {
+        float: right;
+        margin: 0 0 0 $spacing-medium;
+      }
     }
   }
 
   &__align-left {
     margin: $spacing-medium 0;
 
-    @include media($medium-screen) {
-      float: left;
-      width: 35%;
-      margin: 0 $spacing-medium 0 0;
+    &.usa-width-one-third {
+      @include media($medium-screen) {
+        float: left;
+        margin: 0 $spacing-medium 0 0;
+      }
     }
   }
 

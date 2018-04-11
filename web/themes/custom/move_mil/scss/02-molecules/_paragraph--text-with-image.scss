@@ -1,76 +1,95 @@
-.paragraph--text-with-image__align-right,
-.paragraph--text-with-image__align-left {
-  display: flex;
-  flex-direction: column;
+.paragraph--text-with-image {
+  margin: $spacing-large 0;
 
-  @include media($medium-screen) {
-    flex-direction: row;
-  }
+  &__align-right,
+  &__align-left {
+    display: flex;
+    flex-direction: column;
 
-  .usa-media_block-img { // this is a class associated with an image or a title that gets aligned
-    margin: 0 0 $spacing-medium 0;
-
-    &__align-right {
-      order: 1;
+    @include media($medium-screen) {
+      flex-direction: row;
     }
 
-    &__align-left {
-      order: 1;
-
-      @include media($medium-screen) {
-        order: 2;
+    // clearing out some margins to keep things in line
+    p {
+      &:first-of-type {
+        margin-top: 0;
       }
     }
 
-    .field--name-field-plain-title {
-      @include h4();
-    }
+    .usa-media_block-img { // this is a class associated with an image or a title that gets aligned
+      margin: 0 0 $spacing-medium 0;
 
-    img {
-      width: 26.6rem;
-      min-width: 15rem;
-    }
-  }
+      &__align-right {
+        order: 1;
 
-  .usa-media_block-body {
-    margin: 0 0 $spacing-medium 0;
-
-    &.usa-width-two-thirds {
-      max-width: 50rem;
-    }
-
-    &__align-right {
-      order: 2;
-
-      @include media($medium-screen) {
-        margin: 0 0 $spacing-medium $spacing-large;
-      }
-    }
-
-    &__align-left {
-      order: 1;
-
-      @include media($medium-screen) {
-        margin: 0 $spacing-large $spacing-medium 0;
-      }
-    }
-
-    .field--name-field-title-link,
-    .field--name-field-plain-title {
-      @include h4();
-
-      > a {
-        text-decoration: none;
-
-        span {
-          display: none;
+        @include media($medium-screen) {
+          order: 2;
+          margin: 0 $spacing-large 0 0;
         }
       }
+
+      &__align-left {
+        order: 1;
+
+        @include media($medium-screen) {
+          order: 1;
+          margin: 0 $spacing-large 0 0;
+        }
+      }
+
+      h3.field-title-plain--link,
+      h3.field-title-plain {
+
+        a {
+          text-decoration: none;
+          display: flex;
+        }
+      }
+
+      img {
+        width: 26.6rem;
+        min-width: 15rem;
+      }
     }
 
-    ul {
-      list-style: none;
-      padding: 0;
+    .usa-media_block-body {
+      margin: 0 0 $spacing-medium 0;
+
+      &.usa-width-two-thirds {
+        max-width: 50rem;
+      }
+
+      &__align-right {
+        order: 1;
+
+        @include media($medium-screen) {
+          margin: 0 $spacing-large 0 0;
+        }
+      }
+
+      &__align-left {
+        order: 2;
+
+        @include media($medium-screen) {
+          order: 2;
+          margin: 0 0 0 $spacing-large;
+        }
+      }
+
+      h3.field-title-plain--link,
+      h3.field-title-plain {
+
+        a {
+          text-decoration: none;
+          display: flex;
+        }
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+      }
     }
   }
 }

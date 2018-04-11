@@ -22,7 +22,7 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_tutorial_intro:
-    weight: 26
+    weight: 1
     settings:
       rows: 5
       placeholder: ''
