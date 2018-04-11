@@ -1,0 +1,45 @@
+.usa-footer-secondary_section {
+
+  .usa-footer-logo-img {
+    float: none;
+  }
+
+  .footer-agency--content {
+
+    .usa-footer-logo-heading {
+      padding: 0;
+      font-family: $font-serif;
+
+      &:hover {
+        text-decoration: underline;
+      }
+
+      span {
+        font-family: $font-sans;
+        font-weight: 500;
+      }
+    }
+  }
+
+  .usa-footer-contact-links {
+
+    .usa-footer-contact-heading {
+      font-size: $h4-font-size;
+    }
+
+    span.ext,
+    span.mailto {
+      display: none;
+    }
+
+    dt {
+      @include h3();
+      font-size: $h5-font-size;
+      margin-top: $spacing-medium;
+    }
+
+    dd {
+      margin: 0;
+    }
+  }
+}
