@@ -1,0 +1,38 @@
+uuid: baeede13-324d-46f3-899b-94b98a9a30cb
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.faqs
+  module:
+    - node
+    - system
+    - views
+  theme:
+    - move_mil
+id: faq_section_delivery
+theme: move_mil
+region: content
+weight: -1
+provider: null
+plugin: 'views_block:faqs-block_4'
+settings:
+  id: 'views_block:faqs-block_4'
+  label: ''
+  provider: views
+  label_display: '0'
+  views_label: ''
+  items_per_page: none
+visibility:
+  node_type:
+    id: node_type
+    bundles:
+      page: page
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+  request_path:
+    id: request_path
+    pages: /faqs
+    negate: false
+    context_mapping: {  }

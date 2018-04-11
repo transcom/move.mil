@@ -17,3 +17,9 @@ h2 {
   margin-top: $site-margins;
   padding-bottom: 0.5rem;
 }
+
+h3 {
+  @include h3();
+  font-size: $h3-font-size;
+  font-family: $font-sans;
+}
