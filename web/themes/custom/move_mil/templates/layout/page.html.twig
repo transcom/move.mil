@@ -176,20 +176,24 @@
 
     {% if display_footer_agency %}
     <div class="usa-grid">
-      <div class="usa-footer-logo
-        {% if not footer_slim %}usa-width-one-half{% endif %}">
+      <div class="usa-footer-logo {% if not footer_slim %}usa-width-one-half{% endif %}">
 
         {% if footer_agency_url %}
         <a href="{{ footer_agency_url }}">
         {% endif %}
 
-        {% if footer_agency_logo %}
-        <img class="{{ footer_agency_logo_class }}" src="{{ footer_agency_logo }}" alt="{{ 'Agency logo'|t }}">
-        {% endif %}
+          {% if footer_agency_logo == true %}
+            <img class="{{ footer_agency_logo_class }}" src="{{ footer_agency_logo }}"  alt="{{ 'Home'|t }}" />
+          {% elseif site_logo == false %}
+            <img class="{{ footer_agency_logo_class }} usa-footer-big-logo-img" src="/themes/custom/move_mil/ustranscom-logo.svg"  alt="{{ 'United States Transportation Command emblem'|t }}" />
+          {% endif %}
 
-        {% if footer_agency_name %}
-        <h3 class="{{ footer_agency_heading_class }}">{{ footer_agency_name }}</h3>
-        {% endif %}
+        <div class="footer-agency--content">
+          {% if footer_agency_name %}
+          <h3 class="{{ footer_agency_heading_class }}">{{ footer_agency_name }}</br><span class="footer-agency-name--description usa-text-small">United States Transportation Command</span></h3>
+          {% endif %}
+          {# <a class="usa-text-small">United States Transportation Command</a> #}
+        </div>
 
         {% if footer_agency_url %}
         </a>
@@ -199,48 +203,23 @@
 
       {% if not footer_slim %}
       <div class="usa-footer-contact-links usa-width-one-half">
+        <h3 class="usa-footer-contact-heading">Technical Help Desk</h3>
+          <p class="usa-text-small">For help using Move.mil or <abbr title="Electronic Transportation Acquisition">ETA</abbr>.</p>
 
-        {% if facebook %}
-        <a class="usa-link-facebook" href="{{ facebook }}">
-          <span>Facebook</span>
-        </a>
+          <dl>
+            <dt>Phone</dt>
+            <dd class="usa-text-small">Toll-Free: <a href="tel:+18004622176">(800) 462-2176</a></dd>
+            <dd class="usa-text-small">Commercial: <a href="tel:+16185899445">(618) 589-9445</a></dd>
+
+            {% if email %}
+            <dt>Email</dt>
+            <a class="usa-text-small" href="mailto:{{ email }}">{{ email }}</a>
+            {% endif %}
+
+            <dt>Submit a ticket online</dt>
+            <dd class="usa-text-small"><a href="https://src.service-now.com/src/">https://src.service-now.com/src/</a></dd>
+          </dl>
         {% endif %}
-
-        {% if twitter %}
-        <a class="usa-link-twitter" href="{{ twitter }}">
-          <span>Twitter</span>
-        </a>
-        {% endif %}
-
-        {% if youtube %}
-        <a class="usa-link-youtube" href="{{ youtube }}">
-          <span>YouTube</span>
-        </a>
-        {% endif %}
-
-        {% if rss %}
-        <a class="usa-link-rss" href="{{ rss }}">
-          <span>RSS</span>
-        </a>
-        {% endif %}
-
-        <address>
-
-          {% if contact_center %}
-          <h3 class="usa-footer-contact-heading">{{ contact_center }}</h3>
-          {% endif %}
-
-          {% if phone %}
-          <p><a href="tel:{{ phone }}">{{ phone }}</a></p>
-          {% endif %}
-
-          {% if email %}
-          <a href="mailto:{{ email }}">{{ email }}</a>
-          {% endif %}
-
-        </address>
-      </div>
-      {% endif %}
 
     </div>
     {% endif %}
