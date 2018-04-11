@@ -1,5 +1,9 @@
 .usa-footer-secondary_section {
 
+  .usa-footer-logo > a { // removing decoration because of uswds css style sheet
+    text-decoration: none;
+  }
+
   .usa-footer-logo-img {
     float: none;
   }
@@ -9,6 +13,10 @@
     .usa-footer-logo-heading {
       padding: 0;
       font-family: $font-serif;
+
+      a {
+        text-decoration: none;
+      }
 
       &:hover {
         text-decoration: underline;
