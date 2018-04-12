@@ -56,7 +56,7 @@ menu-update:
 
 composer:
 	@echo "Installing dependencies"
-	docker-compose run php composer install
+	docker-compose run php composer install --prefer-source
 
 cr:
 	@echo "Clearing Drupal Caches"
