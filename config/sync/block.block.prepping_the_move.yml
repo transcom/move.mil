@@ -1,4 +1,4 @@
-uuid: baeede13-324d-46f3-899b-94b98a9a30cb
+uuid: d9ab9828-6d13-48e3-97b7-162f6867d0e7
 langcode: en
 status: true
 dependencies:
@@ -10,14 +10,14 @@ dependencies:
     - views
   theme:
     - move_mil
-id: faq_section_delivery
+id: prepping_the_move
 theme: move_mil
 region: content
-weight: -2
+weight: 0
 provider: null
-plugin: 'views_block:faqs-block_4'
+plugin: 'views_block:faqs-block_6'
 settings:
-  id: 'views_block:faqs-block_4'
+  id: 'views_block:faqs-block_6'
   label: ''
   provider: views
   label_display: visible
@@ -33,6 +33,6 @@ visibility:
       node: '@node.node_route_context:node'
   request_path:
     id: request_path
-    pages: /faqs
+    pages: /moving-guide/tips
     negate: false
     context_mapping: {  }
