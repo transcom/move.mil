@@ -1,0 +1,23 @@
+.faq-accordion {
+  .faq-accordion-button {
+    display: table;
+
+    img {
+      margin-right: 1.5rem;
+      display: none;
+
+      @include media($medium-screen) {
+        display: table-cell;
+        height: 50px;
+        max-width: 55px;
+        width: 55px;
+        vertical-align: middle;
+      }
+    }
+    .accordion-title {
+      display: table-cell;
+      vertical-align: middle;
+      line-height: normal;
+    }
+  }
+}

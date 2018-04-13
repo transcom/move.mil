@@ -18,6 +18,11 @@ h2 {
   padding-bottom: 0.5rem;
 }
 
+// override tweak from contrib USWDS Drupal theme
+div.block > h2 {
+  margin-top: $site-margins;
+}
+
 h3 {
   @include h3();
   font-size: $h3-font-size;
