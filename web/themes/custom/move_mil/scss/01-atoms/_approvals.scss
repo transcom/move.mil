@@ -1,0 +1,36 @@
+span.approvals.tag {
+  border-radius: 3px;
+  display: inline-block;
+  font-size: 1.5rem;
+  margin: 0.15rem 0;
+  padding: 0.4rem 1rem;
+  color: $color-white;
+
+  &.tag-unapproved {
+    color: $color-gray-light;
+    font-style: italic;
+
+    &:before {
+      content: "X";
+      margin-right: $spacing-small;
+    }
+  }
+
+  &.tag-approved {
+    background-color: $color-green-light;
+
+    &:before {
+      content: "✓";
+      margin-right: $spacing-small;
+    }
+  }
+
+  &.tag-semiapproved {
+    background-color: $color-gold;
+
+    &:before {
+      content: "✓";
+      margin-right: $spacing-small;
+    }
+  }
+}
