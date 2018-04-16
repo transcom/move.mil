@@ -1,0 +1,21 @@
+uuid: 1416c390-770c-4235-813e-549e537070e2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_comm_fax
+    - paragraphs.paragraphs_type.customer_service_box
+  module:
+    - telephone
+id: paragraph.customer_service_box.field_comm_fax
+field_name: field_comm_fax
+entity_type: paragraph
+bundle: customer_service_box
+label: Comm-Fax
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: telephone

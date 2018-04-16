@@ -1,0 +1,21 @@
+uuid: 119fcf59-63c4-4503-b3f7-c66912fd6507
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_service_description
+    - paragraphs.paragraphs_type.customer_service_box
+  module:
+    - text
+id: paragraph.customer_service_box.field_service_description
+field_name: field_service_description
+entity_type: paragraph
+bundle: customer_service_box
+label: 'Service Description'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long
