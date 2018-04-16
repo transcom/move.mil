@@ -1,0 +1,19 @@
+uuid: 050fd9bb-62b0-46e7-a088-7e9b07016ff3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_callout_title
+    - paragraphs.paragraphs_type.callout_accordion
+id: paragraph.callout_accordion.field_callout_title
+field_name: field_callout_title
+entity_type: paragraph
+bundle: callout_accordion
+label: 'Callout Title'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -3,22 +3,43 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.paragraph.customer_service_box.field_comm_fax
     - field.field.paragraph.customer_service_box.field_comm_phone
+    - field.field.paragraph.customer_service_box.field_dsn_fax
     - field.field.paragraph.customer_service_box.field_dsn_phone
     - field.field.paragraph.customer_service_box.field_email
+    - field.field.paragraph.customer_service_box.field_other_details
     - field.field.paragraph.customer_service_box.field_plain_title
     - field.field.paragraph.customer_service_box.field_service_address
+    - field.field.paragraph.customer_service_box.field_service_description
     - paragraphs.paragraphs_type.customer_service_box
   module:
     - address
     - telephone
+    - text
 id: paragraph.customer_service_box.default
 targetEntityType: paragraph
 bundle: customer_service_box
 mode: default
 content:
+  field_comm_fax:
+    weight: 7
+    label: inline
+    settings:
+      title: ''
+    third_party_settings: {  }
+    type: telephone_link
+    region: content
   field_comm_phone:
-    weight: 3
+    weight: 6
+    label: inline
+    settings:
+      title: ''
+    third_party_settings: {  }
+    type: telephone_link
+    region: content
+  field_dsn_fax:
+    weight: 5
     label: inline
     settings:
       title: ''
@@ -26,7 +47,7 @@ content:
     type: telephone_link
     region: content
   field_dsn_phone:
-    weight: 2
+    weight: 4
     label: inline
     settings:
       title: ''
@@ -34,11 +55,18 @@ content:
     type: telephone_link
     region: content
   field_email:
-    weight: 1
+    weight: 2
     label: inline
     settings: {  }
     third_party_settings: {  }
     type: basic_string
+    region: content
+  field_other_details:
+    weight: 8
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
     region: content
   field_plain_title:
     weight: 0
@@ -48,10 +76,17 @@ content:
     type: basic_string
     region: content
   field_service_address:
-    weight: 4
+    weight: 3
     label: inline
     settings: {  }
     third_party_settings: {  }
     type: address_default
+    region: content
+  field_service_description:
+    weight: 1
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
     region: content
 hidden: {  }
