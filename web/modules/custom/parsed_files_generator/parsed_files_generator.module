@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ * Contains parsed_files_generator.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function parsed_files_generator_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the parsed_files_generator module.
+    case 'help.page.parsed_files_generator':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Generate JSON files for move.mil tools') . '</p>';
+      return $output;
+
+    default:
+  }
+}

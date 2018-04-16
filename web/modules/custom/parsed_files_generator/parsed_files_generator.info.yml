@@ -1,0 +1,5 @@
+name: 'Parsed files generator'
+type: module
+description: 'Generate JSON files for move.mil tools'
+core: 8.x
+package: 'Custom'
