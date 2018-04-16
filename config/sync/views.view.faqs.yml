@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.node.teaser
     - field.storage.node.body
     - field.storage.node.field_image
     - node.type.faq
@@ -77,12 +78,10 @@ display:
           wrapper_class: ''
           class: usa-accordion-bordered
       row:
-        type: fields
+        type: 'entity:node'
         options:
-          inline: {  }
-          separator: ''
-          hide_empty: false
-          default_field_elements: true
+          relationship: none
+          view_mode: teaser
       fields:
         nid:
           id: nid
@@ -1082,6 +1081,8 @@ display:
         filters: false
         filter_groups: false
         fields: false
+        style: false
+        row: false
       filters:
         status:
           value: '1'
@@ -1493,6 +1494,20 @@ display:
           empty_zero: false
           hide_alter_empty: false
           plugin_id: custom
+      style:
+        type: html_list
+        options:
+          grouping: {  }
+          row_class: faq-accordion
+          default_row_class: false
+          type: ul
+          wrapper_class: ''
+          class: usa-accordion-bordered
+      row:
+        type: 'entity:node'
+        options:
+          relationship: none
+          view_mode: teaser
     cache_metadata:
       max-age: -1
       contexts:
