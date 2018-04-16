@@ -86,9 +86,9 @@
   <button class="usa-accordion-button" aria-controls="{{node.id}}" aria-expanded="false">
     {% if content.field_image[0] %}
       <div class="has-image">
-        {{content.field_image}}
+        {{content.field_image[0]}}
 
-        <span>{{label[0]}}</span>
+        <span class="accordion-title">{{label[0]}}</span>
       </div>
     {% else %}
       {{label[0]}}
