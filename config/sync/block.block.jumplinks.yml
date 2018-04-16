@@ -1,0 +1,20 @@
+uuid: b9cb013e-f5a4-4424-b1e3-85ac76370faa
+langcode: en
+status: true
+dependencies:
+  module:
+    - jumplink
+  theme:
+    - move_mil
+id: jumplinks
+theme: move_mil
+region: sidebar_first
+weight: 0
+provider: null
+plugin: jumplinks
+settings:
+  id: jumplinks
+  label: Jumplinks
+  provider: jumplink
+  label_display: '0'
+visibility: {  }
