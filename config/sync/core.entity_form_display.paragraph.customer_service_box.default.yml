@@ -3,41 +3,68 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.paragraph.customer_service_box.field_comm_fax
     - field.field.paragraph.customer_service_box.field_comm_phone
+    - field.field.paragraph.customer_service_box.field_dsn_fax
     - field.field.paragraph.customer_service_box.field_dsn_phone
     - field.field.paragraph.customer_service_box.field_email
+    - field.field.paragraph.customer_service_box.field_other_details
     - field.field.paragraph.customer_service_box.field_plain_title
     - field.field.paragraph.customer_service_box.field_service_address
+    - field.field.paragraph.customer_service_box.field_service_description
     - paragraphs.paragraphs_type.customer_service_box
   module:
     - address
     - telephone
+    - text
 id: paragraph.customer_service_box.default
 targetEntityType: paragraph
 bundle: customer_service_box
 mode: default
 content:
+  field_comm_fax:
+    weight: 7
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: telephone_default
+    region: content
   field_comm_phone:
-    weight: 3
+    weight: 6
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: telephone_default
+    region: content
+  field_dsn_fax:
+    weight: 5
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: telephone_default
     region: content
   field_dsn_phone:
-    weight: 2
+    weight: 4
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: telephone_default
     region: content
   field_email:
-    weight: 1
+    weight: 2
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
     type: email_default
+    region: content
+  field_other_details:
+    weight: 8
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
     region: content
   field_plain_title:
     weight: 0
@@ -48,11 +75,19 @@ content:
     type: string_textarea
     region: content
   field_service_address:
-    weight: 4
+    weight: 3
     settings:
       default_country: null
     third_party_settings: {  }
     type: address_default
+    region: content
+  field_service_description:
+    weight: 1
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
     region: content
 hidden:
   created: true

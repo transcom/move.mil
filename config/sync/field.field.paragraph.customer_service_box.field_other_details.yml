@@ -1,0 +1,21 @@
+uuid: ffc5cedf-0e93-4130-9f45-cae53843b5fd
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_other_details
+    - paragraphs.paragraphs_type.customer_service_box
+  module:
+    - text
+id: paragraph.customer_service_box.field_other_details
+field_name: field_other_details
+entity_type: paragraph
+bundle: customer_service_box
+label: 'Other Details'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long
