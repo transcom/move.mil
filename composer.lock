@@ -128,12 +128,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Bixal/jumplink.git",
-                "reference": "6d7552de5e9abe6f3c969992a2e74d54a9995a2a"
+                "reference": "e103e6e0d11914971decd4e2a9b6f79bb444c8ad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Bixal/jumplink/zipball/6d7552de5e9abe6f3c969992a2e74d54a9995a2a",
-                "reference": "6d7552de5e9abe6f3c969992a2e74d54a9995a2a",
+                "url": "https://api.github.com/repos/Bixal/jumplink/zipball/e103e6e0d11914971decd4e2a9b6f79bb444c8ad",
+                "reference": "e103e6e0d11914971decd4e2a9b6f79bb444c8ad",
                 "shasum": ""
             },
             "type": "drupal-module",
@@ -146,7 +146,7 @@
             "keywords": [
                 "drupal"
             ],
-            "time": "2018-04-11T15:00:08+00:00"
+            "time": "2018-04-17T21:03:55+00:00"
         },
         {
             "name": "chi-teck/drupal-code-generator",
