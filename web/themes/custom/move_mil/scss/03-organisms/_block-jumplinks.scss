@@ -2,7 +2,7 @@
   float: left;
   width: 100%;
 
-  & + .block-system-main-block {
+  + .block-system-main-block {
     float: left;
     width: 100%;
   }
@@ -16,7 +16,7 @@
     width: 20%;
     margin-right: 5%;
 
-    & + .block-system-main-block {
+    + .block-system-main-block {
       width: 75%;
     }
 
