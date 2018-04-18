@@ -81,13 +81,14 @@
 <article{{ attributes.addClass(classes) }}>
 
   <div{{ content_attributes.addClass('node__content') }}>
+  <a id="main-content" tabindex="-1"></a>
     <div class="move-mil--tutorial">
       <div class="move-mil--tutorial__header">
-        <h2 class="move-mil--tutorial__title" tabindex="0">{{ drupal_title() }}</h2>
-        <div tabindex="0" aria-label="tutorial intro">{{ content.field_tutorial_intro }}</div>
+        <h2 class="move-mil--tutorial__title">{{ drupal_title() }}</h2>
+        <div aria-label="tutorial intro">{{ content.field_tutorial_intro }}</div>
         <div class="carousel-gallery-nav">
           <div class="carousel-gallery-nav__items" aria-label="carousel buttons" aria-controls="carousel"></div>
-          <button id="show-all-steps" class="show-all-steps" aria-label="show all steps" tabindex="0"></button>
+          <button id="show-all-steps" class="show-all-steps" aria-label="show all steps"></button>
         </div>
       </div>
 
@@ -103,11 +104,14 @@
       <ul id="carousel-gallery" class="move-mil--tutorial__steps carousel-gallery__content" aria-live="polite">
         {% for key, step in steps if key matches '/^\\d+$/' %}
             <li id="item-{{ key + 1 }}" class="carousel-gallery__element" aria-label="step {{ key + 1 }}">
-              <span class="carousel-gallery__counter" tabindex="0">{{ loop.index }} of {{ keyArray|length }}</span>
+              <span class="carousel-gallery__counter">{{ loop.index }} of {{ keyArray|length }}</span>
               <span class="carousel-gallery__item">{{ step }}</span>
             </li>
         {% endfor %}
       </ul>
+      {# our accecibilty buttons at the end of a slide for screenreaders #}
+      <button class="slick-prev slick-arrow" aria-label="Previous" aria-hidden="false" type="button" style="position:absolute;overflow:hidden;clip: rect(0 0 0 0);height:1px;width:1px;margin:-1px;padding:0;border:0;">Previous</button>
+      <button class="slick-next slick-arrow" aria-label="Next" aria-hidden="false" type="button" style="position:absolute;overflow:hidden;clip: rect(0 0 0 0);height:1px;width:1px;margin:-1px;padding:0;border:0;">Next</button>
     </div>
   </div>
 
