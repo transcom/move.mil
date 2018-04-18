@@ -1,0 +1,37 @@
+.nightmare-moves {
+  .field--name-field-paragraph {
+    @include clearfix;
+
+    //main content paragraphs
+    > div.field__item:nth-child(2n-1) {
+
+
+      @include media($medium-large-screen) {
+        clear: both;
+        float: left;
+        width: 62%;
+        margin-right: 3%;
+      }
+    }
+
+    // pro tips callouts
+    > div.field__item:nth-child(2n) {
+      .paragraph--pro-tip .usa-width-one-third {
+        float: none;
+        margin: 0;
+        width: 100%;
+      }
+
+      @include media($medium-large-screen) {
+        float: right;
+        width: 35%;
+
+        .paragraph--pro-tip .usa-width-one-third {
+          float: none;
+          margin: 0;
+          width: 100%;
+        }
+      }
+    }
+  }
+}

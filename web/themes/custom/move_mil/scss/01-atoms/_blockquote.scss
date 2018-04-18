@@ -1,0 +1,22 @@
+blockquote {
+  margin: 0;
+
+  p {
+    line-height: 1.8;
+
+    &:first-child:before {
+      content: '“';
+    }
+
+    &:last-child:after {
+      content: '”'
+    }
+
+    &:first-child:before, &:last-child:after {
+      display: inline;
+      color: $color-primary;
+      font-size: 3.5rem;
+      line-height: 1.8rem;
+    }
+  }
+}
