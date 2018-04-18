@@ -22,9 +22,11 @@
       color: $color-primary;
       margin-bottom: 0.5rem;
       padding: 0;
+      text-decoration: underline;
 
       &:hover {
         background-color: $color-white;
+        color: $color-primary-darker;
         text-decoration: underline;
       }
     }
