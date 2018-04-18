@@ -1,0 +1,91 @@
+.paragraph--callout-accordion {
+  background-color: $color-gray-cool-lightest;
+  margin-bottom: $spacing-small;
+
+  h2.callout-accordion--title {
+    padding: $spacing-medium 0 0;
+    margin: 0 $spacing-medium;
+    font-family: $font-sans;
+    font-size: 1.7rem;
+    font-weight: $font-bold;
+  }
+
+  .field--name-field-callout-content {
+    padding: 0 $spacing-medium $spacing-medium $spacing-medium;
+
+    .field__item:last-of-type {
+
+      .paragraph--customer-service-box { // special styles for csbox
+        border-bottom: none;
+      }
+    }
+
+    .field__item:first-of-type {
+
+      .paragraph--customer-service-box { // special styles for csbox
+        padding-top: 0;
+      }
+    }
+  }
+
+  .side-bar-callout { // we hide this at mobile
+    display: none;
+
+    @include media($medium-screen) {
+      display: block;
+    }
+  }
+
+  .usa-accordion-button { // at mobile we are using a button and this class
+    display: block;
+    background-position: 95% 20px;
+    background-color: $color-gray-cool-lightest;
+
+    @include media($medium-screen) {
+      display: none;
+    }
+
+    h2.callout-accordion--title {
+      border: none;
+      padding: 0;
+      margin: 0;
+      font-size: 1.7rem;
+      font-weight: $font-bold;
+      font-family: $font-serif;
+    }
+
+    &[aria-expanded=false] {
+      background-image: url('../../assets/img/angle-arrow-down-primary.svg');
+
+      &:hover {
+        background-image: url('../../assets/img/angle-arrow-down-primary-hover.svg');
+      }
+
+      .field--name-field-callout-content {
+        display: none;
+      }
+    }
+
+    &[aria-expanded=true] {
+      background-image: url('../../assets/img/angle-arrow-up-primary.svg');
+
+      &:hover {
+        background-image: url('../../assets/img/angle-arrow-up-primary-hover.svg');
+      }
+
+      .field--name-field-callout-content {
+        padding: 0 $spacing-md-small;
+
+        p,
+        .svc-spec-links--title {
+          font-weight: $font-normal;
+        }
+      }
+    }
+
+    &:hover {
+      background-color: #dce4ef;
+      color: #205493;
+    }
+  }
+}

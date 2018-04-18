@@ -1,0 +1,80 @@
+.paragraph--customer-service-box {
+  font-size: 1.4rem;
+  word-break: normal;
+  word-wrap: break-word;
+  border-bottom: 1px solid color-gray;
+  margin: $spacing-small 0;
+  padding: $spacing-small 0;
+
+  p {
+    margin: 0;
+  }
+
+  a {
+    word-break: break-all;
+  }
+
+  h3.svc-title {
+    font-size: 1.4rem;
+  }
+
+  .svc-spec {
+
+    // our table data
+    table.svc-spec-links {
+      font-size: 1.4rem;
+      margin: 0; // overriding uswds table margin here
+
+      tbody {
+        vertical-align: top;
+
+        tr.svc-spec-links--group {
+          border: none;
+        }
+
+        th.svc-spec-links--title {
+          padding: 0 $spacing-small 0 0;
+          border: 0;
+          background-color: transparent;
+          word-break: keep-all;
+          white-space: nowrap;
+
+          &:after {
+            content: ":";
+          }
+        }
+
+        td.svc-spec-links--content {
+          padding: 0;
+          border: 0;
+          background-color: transparent;
+        }
+      }
+    }
+
+    // our address
+    .svc-spec-links--address-group {
+      margin-top: $spacing-small;
+
+        dt.svc-spec-links--title {
+          padding: 0 $spacing-small 0 0;
+          word-break: keep-all;
+          white-space: nowrap;
+
+          &:after {
+            content: ":";
+          }
+        }
+
+        dd.svc-spec-links--content {
+          margin: 0;
+          -webkit-margin-start: 0; // overridding uswds default
+        }
+      }
+    }
+
+  // our other details
+  .svc-other-details {
+    margin: $spacing-small 0;
+  }
+}

@@ -1,56 +1,54 @@
-uuid: f52a7181-2576-4d96-aa09-8ae39ed319c1
+uuid: 84c0c17e-e1a9-4098-905c-a1d1742ece4a
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_paragraph
-    - node.type.page
+    - field.storage.paragraph.field_tabular_data_rows
     - paragraphs.paragraphs_type.tabular_data
-    - paragraphs.paragraphs_type.tutorial_slideshow_image
+    - paragraphs.paragraphs_type.tabular_data_wrapper
   module:
     - entity_reference_revisions
-id: node.page.field_paragraph
-field_name: field_paragraph
-entity_type: node
-bundle: page
-label: paragraph
+id: paragraph.tabular_data_wrapper.field_tabular_data_rows
+field_name: field_tabular_data_rows
+entity_type: paragraph
+bundle: tabular_data_wrapper
+label: 'Tabular Data Rows'
 description: ''
-required: false
+required: true
 translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
   handler: 'default:paragraph'
   handler_settings:
-    negate: 1
+    negate: 0
     target_bundles:
       tabular_data: tabular_data
-      tutorial_slideshow_image: tutorial_slideshow_image
     target_bundles_drag_drop:
-      basic_text:
+      tabular_data_wrapper:
         weight: 10
         enabled: false
-      callout_accordion:
+      basic_text:
         weight: 11
         enabled: false
-      customer_service_box:
+      callout_accordion:
         weight: 12
         enabled: false
-      pro_tip:
+      customer_service_box:
         weight: 13
+        enabled: false
+      pro_tip:
+        weight: 14
         enabled: false
       tabular_data:
         enabled: true
-        weight: 14
-      tabular_data_wrapper:
         weight: 15
-        enabled: false
       text_with_image:
         weight: 16
         enabled: false
       tutorial_slideshow_image:
-        enabled: true
         weight: 17
+        enabled: false
       warning_callout_box:
         weight: 18
         enabled: false

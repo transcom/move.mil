@@ -1,0 +1,9 @@
+uuid: ab2f7c23-a007-4a79-a8da-5f09593ee70c
+langcode: en
+status: true
+dependencies: {  }
+id: tabular_data_wrapper
+label: 'Tabular Data Wrapper'
+icon_uuid: null
+description: 'Wrapper to aggregate tabular data paragraphs into a single table.'
+behavior_plugins: {  }
