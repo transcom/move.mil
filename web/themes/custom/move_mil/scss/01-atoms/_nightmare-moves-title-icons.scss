@@ -1,0 +1,36 @@
+// .nightmare-moves {
+  .field--name-field-paragraph {
+    .paragraph--type--basic-text {
+      .field--name-field-plain-title {
+        color: $color-primary-darker;
+        font-size: 2.5rem;
+        font-weight: $font-normal;
+        text-align: center;
+      }
+    }
+
+    > div.field__item:nth-child(2n-1) {
+      .field--name-field-plain-title:before {
+        display: block;
+        margin: 0 auto 2rem auto;
+        width: 105px;
+      }
+
+      &:nth-child(1) .field--name-field-plain-title:before {
+        content: url('../img/bolt-box.svg');
+      }
+
+      &:nth-child(3) .field--name-field-plain-title:before {
+        content: url('../img/drywall.svg');
+      }
+
+      &:nth-child(5) .field--name-field-plain-title:before {
+        content: url('../img/car-key.svg');
+      }
+
+      &:nth-child(7) .field--name-field-plain-title:before {
+        content: url('../img/sofa.svg');
+      }
+    }
+  }
+// }

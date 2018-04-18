@@ -6,38 +6,30 @@
   .paragraph--type--tabular-data {
     display: table-row;
 
-    // @media screen and (max-width: $medium-screen) {
-      > div {
-        // border-top: none;
-        display: block;
-        padding: 1rem 1.5rem;
-        border: 1px solid $color-gray;
-        border-top: none;
+    > div {
+      display: block;
+      padding: 1rem 1.5rem;
+      border: 1px solid $color-gray;
+      border-top: none;
 
-        &.tabular-data-left {
-          align-items: center;
-          display: flex;
-        }
+      &.tabular-data-left {
+        align-items: center;
+        display: flex;
       }
+    }
 
-      &:first-child > div.tabular-data-left {
-        border-top: 1px solid $color-gray;
-      }
+    &:first-child > div.tabular-data-left {
+      border-top: 1px solid $color-gray;
+    }
 
-      // tr:first-child th {
-      //   border-top: 1px solid $color-gray;
-      // }
-
-      img {
-        margin-right: $site-margins-mobile;
-      }
-    // }
+    img {
+      margin-right: $site-margins-mobile;
+    }
 
     @include media($medium-screen) {
       > div.tabular-data-left, div.tabular-data-right {
         display: table-cell;
         border-top: 1px solid $color-gray;
-
 
         &.tabular-data-left {
           vertical-align: top;
