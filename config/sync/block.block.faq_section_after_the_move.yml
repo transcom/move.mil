@@ -13,14 +13,14 @@ dependencies:
 id: faq_section_after_the_move
 theme: move_mil
 region: content
-weight: 0
+weight: -1
 provider: null
 plugin: 'views_block:faqs-block_5'
 settings:
   id: 'views_block:faqs-block_5'
   label: ''
   provider: views
-  label_display: '0'
+  label_display: visible
   views_label: ''
   items_per_page: none
 visibility:

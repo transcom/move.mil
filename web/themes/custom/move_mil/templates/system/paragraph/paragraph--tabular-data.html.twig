@@ -8,33 +8,17 @@
 {% block paragraph %}
   <div{{ attributes.addClass(classes).setAttribute('id', 'paragraph-'~paragraph.id.value) }}>
     {% block content %}
-
-      {% if uswds_grid_class %}
-      <div class="{{ uswds_grid_class }}">
-      {% endif %}
-
-      <table>
-        <tbody>
-          <tr>
-            <th scope="row" class="tabular-data-left">
-              {{content.field_tabular_image}}
-              <div class="field-image-title-subtitle">
-                {{content.field_table_image_title}}
-                {{content.field_table_image_subtitle}}
-              </div>
-            </th>
-            <td class="tabular-data-right">
-              {{content.field_plain_title}}
-              {{content.field_body}}
-            </td>
-          </tr>
-        </tbody>
-      </table>
-
-      {% if uswds_grid_class %}
+      <div class="tabular-data-left">
+        {{content.field_tabular_image[0]}}
+        <div class="field-image-title-subtitle">
+          {{content.field_table_image_title}}
+          {{content.field_table_image_subtitle}}
+        </div>
       </div>
-      {% endif %}
-
+      <div class="tabular-data-right">
+        {{content.field_plain_title}}
+        {{content.field_body}}
+      </div>
     {% endblock %}
   </div>
 {% endblock paragraph %}
