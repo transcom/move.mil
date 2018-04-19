@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\Tests\parsed_files_generator\Functional;
+namespace Drupal\Tests\parser\Functional;
 
 use Drupal\Core\Url;
 use Drupal\Tests\BrowserTestBase;
@@ -8,7 +8,7 @@ use Drupal\Tests\BrowserTestBase;
 /**
  * Simple test to ensure that main page loads with module enabled.
  *
- * @group parsed_files_generator
+ * @group parser
  */
 class LoadTest extends BrowserTestBase {
 
@@ -17,7 +17,7 @@ class LoadTest extends BrowserTestBase {
    *
    * @var array
    */
-  public static $modules = ['parsed_files_generator'];
+  public static $modules = ['file_parser'];
 
   /**
    * A user with permission to administer site configuration.

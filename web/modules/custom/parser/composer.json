@@ -1,0 +1,13 @@
+{
+  "name": "drupal/parser",
+  "type": "drupal-module",
+  "description": "Generate JSON files for move.mil tools",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "https://github.com/Bixal/move.mil",
+    "source": "https://github.com/Bixal/move.mil"
+  },
+  "require": { }
+}

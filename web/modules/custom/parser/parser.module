@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Contains parsed_files_generator.module.
+ * Contains parser.module.
  */
 
 use Drupal\Core\Routing\RouteMatchInterface;
@@ -10,10 +10,10 @@ use Drupal\Core\Routing\RouteMatchInterface;
 /**
  * Implements hook_help().
  */
-function parsed_files_generator_help($route_name, RouteMatchInterface $route_match) {
+function parser_help($route_name, RouteMatchInterface $route_match) {
   switch ($route_name) {
-    // Main module help for the parsed_files_generator module.
-    case 'help.page.parsed_files_generator':
+    // Main module help for the parser module.
+    case 'help.page.parser':
       $output = '';
       $output .= '<h3>' . t('About') . '</h3>';
       $output .= '<p>' . t('Generate JSON files for move.mil tools') . '</p>';
