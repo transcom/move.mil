@@ -10,7 +10,7 @@ use Drupal\parser\Writer\WriterInterface;
  * Parse a given array and returns a JSON structure.
  */
 class Zip5Writer implements WriterInterface {
-  
+
   /**
    * Writes zip5.json.
    */

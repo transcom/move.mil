@@ -3,14 +3,17 @@
 namespace Drupal\parser\Writer\Json;
 
 /**
- * trait JsonWriter.
+ * Trait JsonWriter.
  *
  * Encodes an array to JSON, and prettifies the JSON with 4 spaces indentation.
- * @param $data - The array ready to be encoded.
- * @param $filename - The file to write the encoded JSON.
+ *
+ * @param array $data
+ *  The array ready to be encoded.
+ * @param String $filename
+ *  The file to write the encoded JSON.
  */
 trait JsonWriter {
-  
+
   /**
    * Writes a json file.
    */

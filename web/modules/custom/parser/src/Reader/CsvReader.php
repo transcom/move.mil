@@ -2,6 +2,8 @@
 
 namespace Drupal\parser\Reader;
 
+use Drupal\parser\Reader\ReaderInterface;
+
 /**
  * Class CsvReader.
  *
@@ -13,10 +15,10 @@ class CsvReader implements ReaderInterface {
    * Parses csv file with php function str_getcsv.
    */
   public function parse($csvFile) {
-    if (!is_file($filename)) {
+    if (!is_file($csvFile)) {
       throw new \RuntimeException(sprintf('File "%s" does not exist.', $csvFile));
     }
-    if (!is_readable($filename)) {
+    if (!is_readable($csvFile)) {
       throw new \RuntimeException(sprintf('File "%s" cannot be read.', $csvFile));
     }
     $csv = array_map('str_getcsv', file($csvFile));

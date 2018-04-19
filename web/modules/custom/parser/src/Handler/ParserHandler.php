@@ -6,7 +6,7 @@ use Drupal\parser\Reader\CsvReader;
 use Drupal\parser\Reader\ExcelReader;
 use Drupal\parser\Reader\YamlReader;
 use Drupal\parser\Writer\Json\EntitlementsWriter;
-use Drupal\parser\Writer\Json\_400NGWriter;
+use Drupal\parser\Writer\Json\Rates400NGWriter;
 use Drupal\parser\Writer\Json\Zip5Writer;
 use Drupal\parser\Writer\Json\Zip3Writer;
 
@@ -19,7 +19,7 @@ use Drupal\parser\Writer\Json\Zip3Writer;
  * returns a JSON structure.
  */
 class ParserHandler {
-  
+
   protected $filename;
   protected $reader;
   protected $writer;
@@ -27,14 +27,18 @@ class ParserHandler {
 
   /**
    * Constructs a ParserHandler.
-   * @param $path Where the file input is located.
-   * @param $input The user input.
-   * @param $io DrupalStyle io.
+   *
+   * @param String $path
+   *  Where the file input is located.
+   * @param String $input
+   *  The user input.
+   * @param DrupalStyle $io
+   *  Console io.
    */
   public function __construct($path, $input, $io) {
     list(
-      $this->filename, 
-      $this->reader, 
+      $this->filename,
+      $this->reader,
       $this->writer
       ) = $this->filename($path, $input);
     $this->io = $io;
@@ -42,8 +46,8 @@ class ParserHandler {
 
   /**
    * Calls the reader parse method and gets an array with
-   * not normalized data.
-   * Calls the writer write method with the rawdata array.
+   * not normalized data and the writer write method with
+   * the rawdata array.
    */
   public function execute() {
     $this->io->info("Parsing {$this->filename}...");
@@ -71,13 +75,13 @@ class ParserHandler {
         $writer = new Zip5Writer();
         break;
 
-      case '2017-400NG': 
+      case '2017-400NG':
         $filename = "${path}/${input}.xlsx";
         $reader = new ExcelReader();
         $writer = new Rates400NGWriter();
         break;
 
-      case '2018-400NG': 
+      case '2018-400NG':
         $filename = "${path}/${input}.xlsx";
         $reader = new ExcelReader();
         $writer = new Rates400NGWriter();

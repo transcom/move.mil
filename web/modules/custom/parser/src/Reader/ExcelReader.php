@@ -2,6 +2,8 @@
 
 namespace Drupal\parser\Reader;
 
+use Drupal\parser\Reader\ReaderInterface;
+
 /**
  * Class ExcelReader.
  *
