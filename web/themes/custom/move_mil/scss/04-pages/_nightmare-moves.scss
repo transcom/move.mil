@@ -2,34 +2,55 @@
   .field--name-field-paragraph {
     @include clearfix;
 
-    //main content paragraphs
-    > div.field__item:nth-child(2n-1) {
-
-
-      @include media($medium-large-screen) {
-        clear: both;
-        float: left;
-        width: 62%;
-        margin-right: 3%;
-      }
+    .paragraph--pro-tip .usa-width-one-third {
+      float: none;
+      margin: 0;
+      width: 100%;
     }
 
-    // pro tips callouts
-    > div.field__item:nth-child(2n) {
-      .paragraph--pro-tip .usa-width-one-third {
-        float: none;
-        margin: 0;
-        width: 100%;
-      }
+    @include media($medium-large-screen) {
+      > div.field__item {
 
-      @include media($medium-large-screen) {
-        float: right;
-        width: 35%;
+        //main content paragraphs
+        &:nth-child(2n-1) {
+          clear: both;
+          float: left;
+          width: 62%;
+          margin-right: 3%;
+        }
 
-        .paragraph--pro-tip .usa-width-one-third {
-          float: none;
-          margin: 0;
-          width: 100%;
+        // pro tips callouts
+        &:nth-child(2n) {
+          float: right;
+          width: 35%;
+        }
+
+        &:nth-child(n+3) {
+          margin-top: 4rem;
+
+          // clean up section dividers
+          .paragraph--type--basic-text {
+            margin-top: 0;
+
+            &:before {
+              content: '';
+              position: absolute;
+              left: 0;
+              padding-right: 100%;
+              margin-top: -2rem;
+              border-top: 1px solid $color-cool-blue-lightest;
+            }
+
+            .field--name-field-plain-title {
+              padding-top: 0;
+              margin-top: 0;
+              border-top: 0;
+            }
+          }
+        }
+
+        &:nth-child(-n+2) {
+          margin-top: 2rem;
         }
       }
     }

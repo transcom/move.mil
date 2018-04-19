@@ -19,14 +19,14 @@
       .field--name-field-plain-title {
         &:before {
           display: block;
-          @include margin(0 auto 2rem);
+          margin: 0 auto 2rem;
         }
 
         @include media($medium-screen) {
           &:before {
             display: inline-block;
             vertical-align: middle;
-            @include margin(0 1rem 0 0);
+            margin: 0 1rem 0 0;
           }
         }
       }
