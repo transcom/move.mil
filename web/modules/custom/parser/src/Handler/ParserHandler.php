@@ -38,7 +38,7 @@ class ParserHandler {
   public function execute() {
     $this->io->info("Parsing {$this->filename}...");
     $rawdata = $this->reader->parse($this->filename);
-    return $this->writer->generateJson($rawdata);
+    $this->writer->write($rawdata);
   }
 
   private function filename($path, $input) {

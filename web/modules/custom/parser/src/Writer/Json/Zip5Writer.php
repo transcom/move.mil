@@ -12,7 +12,7 @@ use Drupal\parser\Writer\Writer;
 
 class Zip5Writer implements Writer {
 
-  public function generateJson(array $rawdata) {
+  public function write(array $rawdata) {
     $json = "'finished':'success'";
     return $json;
   }

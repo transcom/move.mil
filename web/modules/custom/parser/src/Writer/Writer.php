@@ -3,5 +3,5 @@
 namespace Drupal\parser\Writer;
 
 interface Writer {
-  function generateJson(array $rawdata);
+  function write(array $rawdata);
 }
