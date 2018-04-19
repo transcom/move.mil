@@ -31,6 +31,7 @@ module:
   node: 0
   options: 0
   page_cache: 0
+  parser: 0
   path: 0
   quickedit: 0
   rdf: 0
