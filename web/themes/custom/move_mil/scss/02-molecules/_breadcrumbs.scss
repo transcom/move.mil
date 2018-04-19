@@ -1,21 +1,21 @@
 .usa-breadcrumbs {
 
-    li {
+  li {
+
+    a {
+      margin: 0 !important;
+    }
+
+    &:not(:last-child) {
 
       a {
-        margin: 0 !important;
-      }
+        color: $color-purple;
+        text-decoration: underline;
 
-      &:not(:last-child) {
-
-        a {
-          color: $color-purple;
-          text-decoration: underline;
-
-          &:hover {
-            color: initial;
-          }
+        &:hover {
+          color: initial;
         }
+      }
 
       &:after {
         content: '/' !important;
