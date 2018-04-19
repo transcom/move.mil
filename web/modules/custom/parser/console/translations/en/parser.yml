@@ -1,0 +1,7 @@
+description: 'Parses a move.mil input file and prints the JSON output.'
+options: {file: 'The file name to parse'}
+arguments: {}
+messages:
+    success: 'JSON printed'
+questions:
+    file: 'Which is the file name to be parsed into JSON?'
