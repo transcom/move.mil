@@ -3,6 +3,7 @@
 namespace Drupal\parser\Writer\Json;
 
 use Drupal\parser\Writer\Writer;
+use Drupal\parser\Writer\Json\JsonWriter;
 
 /**
  * Class Zip3Writer
@@ -11,14 +12,14 @@ use Drupal\parser\Writer\Writer;
  */
 
 class Zip3Writer implements Writer {
+  use JsonWriter;
 
-  public function generateJson(array $rawdata) {
-    $zip3s = $this->hashjson($rawdata);
-    $json = "'finished':'success'";
-    return $json;
+  public function write(array $rawdata) {
+    $zip3s = $this->mapdata($rawdata);
+    $this->writeJson($zip3s, 'zip3.json'); 
   }
 
-  private function hashjson(array $rawdata) {
+  private function mapdata(array $rawdata) {
     $zip3s = array();
     while ($zip3 = current($rawdata)) {
       $zip3s[$zip3[0]] = array_combine($this->zip3_headers(),$zip3);
