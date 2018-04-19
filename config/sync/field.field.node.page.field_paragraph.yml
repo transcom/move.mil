@@ -10,7 +10,6 @@ dependencies:
     - paragraphs.paragraphs_type.basic_text
     - paragraphs.paragraphs_type.callout_accordion
     - paragraphs.paragraphs_type.pro_tip
-    - paragraphs.paragraphs_type.tabular_data
     - paragraphs.paragraphs_type.text_with_image
     - paragraphs.paragraphs_type.warning_callout_box
   module:

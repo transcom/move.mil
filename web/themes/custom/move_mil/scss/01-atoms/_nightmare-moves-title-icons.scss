@@ -1,0 +1,91 @@
+.nightmare-moves {
+  .field--name-field-paragraph {
+    .paragraph--type--basic-text {
+
+      // general section title field styling
+      .field--name-field-plain-title {
+        color: $color-primary-darker;
+        font-size: 2.5rem;
+        font-weight: $font-normal;
+        text-align: center;
+
+        @include media($medium-screen) {
+          font-size: $h2-font-size;
+        }
+      }
+    }
+
+    > div.field__item:nth-child(2n-1) {
+      .field--name-field-plain-title {
+        &:before {
+          display: block;
+          @include margin(0 auto 2rem);
+        }
+
+        @include media($medium-screen) {
+          &:before {
+            display: inline-block;
+            vertical-align: middle;
+            @include margin(0 1rem 0 0);
+          }
+        }
+      }
+
+      &:nth-child(1) .field--name-field-plain-title:before {
+        content: '';
+        background-image: url('../img/bolt-box.svg');
+        background-size: 105px 91.5px;
+        width: 105px;
+        height: 91.5px;
+
+        @include media($medium-screen) {
+          background-size: 65px 56.64px;
+          width: 65px;
+          height: 56.64px;
+        }
+      }
+
+      &:nth-child(3) .field--name-field-plain-title:before {
+        content: '';
+        background-image: url('../img/drywall.svg');
+        background-size: 105px 85px;
+        width: 105px;
+        height: 85px;
+
+        @include media($medium-screen) {
+          background-size: 65px 52.61px;
+          width: 65px;
+          height: 52.61px;
+        }
+      }
+
+      &:nth-child(5) .field--name-field-plain-title:before {
+        content: '';
+        background-image: url('../img/car-key.svg');
+        background-size: 105px 105px;
+        width: 105px;
+        height: 105px;
+
+        @include media($medium-screen) {
+          background-size: 65px 65px;
+          width: 65px;
+          height: 65px;
+        }
+      }
+
+      &:nth-child(7) .field--name-field-plain-title:before {
+        content: '';
+        background-image: url('../img/sofa.svg');
+        background-size: 105px 57.8px;
+        width: 105px;
+        height: 57.8px;
+
+        @include media($medium-screen) {
+          background-size: 65px 35.77px;
+          width: 65px;
+          height: 35.77px;
+        }
+      }
+    }
+  }
+}
