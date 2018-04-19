@@ -14,14 +14,12 @@
     @include clearfix;
 
     > .field__item {
-
       @include media($medium-screen) {
         float: left;
         width: 68%;
       }
 
       &:first-of-type {
-
         @include media($medium-screen) {
           float: right;
           width: 30%;
