@@ -28,12 +28,12 @@ class ParserHandler {
   /**
    * Constructs a ParserHandler.
    *
-   * @param String $path
-   *  Where the file input is located.
-   * @param String $input
-   *  The user input.
-   * @param DrupalStyle $io
-   *  Console io.
+   * @param string $path
+   *   Where the file input is located.
+   * @param string $input
+   *   The user input.
+   * @param \Drupal\Console\Core\Style\DrupalStyle $io
+   *   Console io.
    */
   public function __construct($path, $input, $io) {
     list(
@@ -45,9 +45,7 @@ class ParserHandler {
   }
 
   /**
-   * Calls the reader parse method and gets an array with
-   * not normalized data and the writer write method with
-   * the rawdata array.
+   * Parses data and then write file.
    */
   public function execute() {
     $this->io->info("Parsing {$this->filename}...");

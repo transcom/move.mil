@@ -3,7 +3,6 @@
 namespace Drupal\parser\Reader;
 
 use Drupal\parser\Reader\ReaderInterface;
-
 use Symfony\Component\Yaml\Yaml;
 
 /**
