@@ -4,8 +4,6 @@
 
     //main content paragraphs
     > div.field__item:nth-child(2n-1) {
-
-
       @include media($medium-large-screen) {
         clear: both;
         float: left;

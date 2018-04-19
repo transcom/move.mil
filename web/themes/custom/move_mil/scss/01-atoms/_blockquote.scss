@@ -9,7 +9,7 @@ blockquote {
     }
 
     &:last-child:after {
-      content: '”'
+      content: '”';
     }
 
     &:first-child:before, &:last-child:after {
