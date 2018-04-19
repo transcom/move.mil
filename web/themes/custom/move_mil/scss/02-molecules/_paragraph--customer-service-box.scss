@@ -40,7 +40,7 @@
           white-space: nowrap;
 
           &:after {
-            content: ":";
+            content: ':';
           }
         }
 
@@ -55,23 +55,23 @@
     // our address
     .svc-spec-links--address-group {
       margin-top: $spacing-small;
+      
+      dt.svc-spec-links--title {
+        padding: 0 $spacing-small 0 0;
+        word-break: keep-all;
+        white-space: nowrap;
 
-        dt.svc-spec-links--title {
-          padding: 0 $spacing-small 0 0;
-          word-break: keep-all;
-          white-space: nowrap;
-
-          &:after {
-            content: ":";
-          }
-        }
-
-        dd.svc-spec-links--content {
-          margin: 0;
-          -webkit-margin-start: 0; // overridding uswds default
+        &:after {
+          content: ':';
         }
       }
+
+      dd.svc-spec-links--content {
+        margin: 0;
+        -webkit-margin-start: 0; // overridding uswds default
+      }
     }
+  }
 
   // our other details
   .svc-other-details {

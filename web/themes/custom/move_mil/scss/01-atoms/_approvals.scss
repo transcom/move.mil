@@ -11,7 +11,7 @@ span.approvals.tag {
     font-style: italic;
 
     &:before {
-      content: "X";
+      content: 'X';
       margin-right: $spacing-small;
     }
   }
@@ -20,7 +20,7 @@ span.approvals.tag {
     background-color: $color-green-light;
 
     &:before {
-      content: "✓";
+      content: '✓';
       margin-right: $spacing-small;
     }
   }
@@ -29,7 +29,7 @@ span.approvals.tag {
     background-color: $color-gold;
 
     &:before {
-      content: "✓";
+      content: '✓';
       margin-right: $spacing-small;
     }
   }

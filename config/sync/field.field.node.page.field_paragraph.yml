@@ -7,6 +7,11 @@ dependencies:
     - node.type.page
     - paragraphs.paragraphs_type.tabular_data
     - paragraphs.paragraphs_type.tutorial_slideshow_image
+    - paragraphs.paragraphs_type.basic_text
+    - paragraphs.paragraphs_type.callout_accordion
+    - paragraphs.paragraphs_type.pro_tip
+    - paragraphs.paragraphs_type.text_with_image
+    - paragraphs.paragraphs_type.warning_callout_box
   module:
     - entity_reference_revisions
 id: node.page.field_paragraph
@@ -54,4 +59,37 @@ settings:
       warning_callout_box:
         weight: 18
         enabled: false
+    negate: 0
+    target_bundles:
+      basic_text: basic_text
+      callout_accordion: callout_accordion
+      pro_tip: pro_tip
+      tabular_data: tabular_data
+      text_with_image: text_with_image
+      warning_callout_box: warning_callout_box
+    target_bundles_drag_drop:
+      basic_text:
+        enabled: true
+        weight: -17
+      callout_accordion:
+        enabled: true
+        weight: -16
+      customer_service_box:
+        weight: -15
+        enabled: false
+      pro_tip:
+        enabled: true
+        weight: -14
+      tabular_data:
+        enabled: true
+        weight: -13
+      text_with_image:
+        enabled: true
+        weight: -12
+      tutorial_slideshow_image:
+        weight: -11
+        enabled: false
+      warning_callout_box:
+        enabled: true
+        weight: -10
 field_type: entity_reference_revisions
