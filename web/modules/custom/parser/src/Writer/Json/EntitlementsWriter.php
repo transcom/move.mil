@@ -2,18 +2,21 @@
 
 namespace Drupal\parser\Writer\Json;
 
-use Drupal\parser\Writer\Writer;
+use Drupal\parser\Writer\WriterInterface;
 
 /**
- * Class EntitlementsWriter
+ * Class EntitlementsWriter.
  *
- * Parse a given array and returns a JSON structure
+ * Parses a given array and returns a JSON structure.
  */
+class EntitlementsWriter implements WriterInterface {
 
-class EntitlementsWriter implements Writer {
-
+  /**
+   * Writes entitlements.json.
+   */
   public function write(array $rawdata) {
     $json = "'finished':'success'";
     return $json;
   }
+
 }

@@ -3,11 +3,9 @@
 namespace Drupal\parser\Command;
 
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Drupal\Console\Core\Command\Command;
-use Drupal\Console\Annotations\DrupalCommand;
 use Drupal\parser\Handler\ParserHandler;
 
 /**
@@ -31,17 +29,10 @@ class ParserCommand extends Command {
       ->setDescription($this->trans('commands.parser.description'))
       ->addOption(
         'file',
-        null,
+        NULL,
         InputOption::VALUE_REQUIRED,
         $this->trans('commands.parser.options.file')
         );
-  }
-
- /**
-  * {@inheritdoc}
-  */
-  protected function initialize(InputInterface $input, OutputInterface $output) {
-    parent::initialize($input, $output);
   }
 
   /**
@@ -68,13 +59,17 @@ class ParserCommand extends Command {
     $this->getIo()->info($this->trans('commands.parser.messages.success'));
   }
 
+  /**
+   * Returns supported files to be parsed.
+   */
   private function files() {
     return [
       'zip3',
       'zip5',
       '2017-400NG',
       '2018-400NG',
-      'entitlements'
+      'entitlements',
     ];
   }
+
 }

@@ -2,6 +2,17 @@
 
 namespace Drupal\parser\Writer;
 
-interface Writer {
-  function write(array $rawdata);
+/**
+ * Interface WriterInterface.
+ *
+ * Parser writes must implement write method.
+ * @param $rawdata - array with not normalized data.
+ */
+interface WriterInterface {
+  
+  /**
+   * Writes json file.
+   */
+  public function write(array $rawdata);
+
 }

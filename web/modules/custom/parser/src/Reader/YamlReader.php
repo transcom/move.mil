@@ -3,19 +3,20 @@
 namespace Drupal\parser\Reader;
 
 use Symfony\Component\Yaml\Yaml;
-use Symfony\Component\Yaml\Exception\ParseException;
-use Drupal\parser\Reader\Reader;
 
 /**
- * Class YamlReader
+ * Class YamlReader.
  *
- * Parse a given yaml file and returns an array
+ * Parses a given yaml file and returns an array.
  */
+class YamlReader implements ReaderInterface {
 
-class YamlReader implements Reader {
-
+  /**
+   * Parses yaml file with Symfony Yaml library.
+   */
   public function parse($yamlFile) {
     $yaml = Yaml::parseFile($yamlFile);
     return $yaml;
   }
+
 }

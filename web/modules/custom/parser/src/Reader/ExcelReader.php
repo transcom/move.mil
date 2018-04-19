@@ -2,19 +2,20 @@
 
 namespace Drupal\parser\Reader;
 
-use Drupal\parser\Reader\Reader;
-
 /**
- * Class ExcelReader
+ * Class ExcelReader.
  *
- * Parse a given xlsx file and returns an array
+ * Parses a given xlsx file and returns an array.
  */
+class ExcelReader implements ReaderInterface {
 
-class CsvReader implements Reader{
-
+  /**
+   * Parses csv file with TBD.
+   */
   public function parse($xlsxFile) {
     echo "getting array for xlsx \n";
-    $xlsx = array();
+    $xlsx = [];
     return $xlsx;
   }
+
 }
