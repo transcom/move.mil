@@ -1,0 +1,31 @@
+.usa-breadcrumbs {
+
+  li {
+
+    a {
+      margin: 0 !important;
+    }
+
+    &:not(:last-child) {
+
+      a {
+        color: $color-purple;
+        text-decoration: underline;
+
+        &:hover {
+          color: initial;
+        }
+      }
+
+      &:after {
+        content: '/' !important;
+        text-decoration: none;
+        color: initial;
+      }
+    }
+
+    &:last-child {
+      pointer-events: none;
+    }
+  }
+}

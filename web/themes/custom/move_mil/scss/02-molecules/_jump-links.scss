@@ -1,0 +1,34 @@
+.jump-links {
+  @include usa-sidenav-list;
+
+  .jump-link {
+    background-color: transparent;
+    font-size: $h4-font-size;
+  }
+
+  @include media($sidenav-screen-width) {
+    .jump-link {
+      border-top: 1px solid $color-gray;
+
+      &:first-child {
+        border-top: none;
+      }
+    }
+  }
+
+  // match existing undo of uswds sidenav standards for smaller screens
+  @media screen and (max-width: $sidenav-screen-width - 1) {
+    a {
+      color: $color-primary;
+      margin-bottom: 0.5rem;
+      padding: 0;
+      text-decoration: underline;
+
+      &:hover {
+        background-color: $color-white;
+        color: $color-primary-darker;
+        text-decoration: underline;
+      }
+    }
+  }
+}

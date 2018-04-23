@@ -1,0 +1,55 @@
+uuid: 84c0c17e-e1a9-4098-905c-a1d1742ece4a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_tabular_data_rows
+    - paragraphs.paragraphs_type.tabular_data
+    - paragraphs.paragraphs_type.tabular_data_wrapper
+  module:
+    - entity_reference_revisions
+id: paragraph.tabular_data_wrapper.field_tabular_data_rows
+field_name: field_tabular_data_rows
+entity_type: paragraph
+bundle: tabular_data_wrapper
+label: 'Tabular Data Rows'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      tabular_data: tabular_data
+    target_bundles_drag_drop:
+      tabular_data_wrapper:
+        weight: 10
+        enabled: false
+      basic_text:
+        weight: 11
+        enabled: false
+      callout_accordion:
+        weight: 12
+        enabled: false
+      customer_service_box:
+        weight: 13
+        enabled: false
+      pro_tip:
+        weight: 14
+        enabled: false
+      tabular_data:
+        enabled: true
+        weight: 15
+      text_with_image:
+        weight: 16
+        enabled: false
+      tutorial_slideshow_image:
+        weight: 17
+        enabled: false
+      warning_callout_box:
+        weight: 18
+        enabled: false
+field_type: entity_reference_revisions

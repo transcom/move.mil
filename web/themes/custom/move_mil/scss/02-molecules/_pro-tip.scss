@@ -3,7 +3,7 @@ p.pro-tip {
   border: solid 1px $color-cool-blue-lightest;
 
   &:before {
-    content: url(/themes/custom/move_mil/assets/img/icon--pro-tip.svg);
+    content: url('/themes/custom/move_mil/assets/img/icon--pro-tip.svg');
     position: absolute;
     left: 1rem;
   }

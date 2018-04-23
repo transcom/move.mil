@@ -25,10 +25,11 @@
         "drupal/console": "^1.0.2",
         "drupal/core": "~8.5",
         "drupal/extlink": "^1.0",
+        "drupal/node_class": "^1.0@beta",
         "drupal/paragraphs": "^1.2",
-        "drupal/twig_field_value": "^1.1",
         "drupal/stage_file_proxy": "^1.0@alpha",
         "drupal/svg_image": "^1.8",
+        "drupal/twig_field_value": "^1.1",
         "drupal/twig_tweak": "^1.9",
         "drupal/uswds": "^1.0@beta",
         "drush/drush": "^9.0.0",
@@ -81,6 +82,11 @@
             "web/profiles/contrib/{$name}": ["type:drupal-profile"],
             "web/themes/contrib/{$name}": ["type:drupal-theme"],
             "drush/contrib/{$name}": ["type:drupal-drush"]
+        },
+        "patches": {
+            "drupal/node_class": {
+                "Fixes https://www.drupal.org/project/node_class/issues/2907451": "https://www.drupal.org/files/issues/2018-03-10/undefined_offset-2907451-3_0.patch"
+            }
         }
     }
 }

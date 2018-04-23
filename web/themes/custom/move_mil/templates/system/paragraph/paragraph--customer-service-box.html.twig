@@ -1,0 +1,92 @@
+{%
+  set classes = [
+    'paragraph--customer-service-box',
+  ]
+%}
+{% block paragraph %}
+  <div{{ attributes.addClass(classes).setAttribute('id', 'paragraph-'~paragraph.id.value) }}>
+    {% block content %}
+
+      {% if uswds_grid_class %}
+      <div class="{{ uswds_grid_class }}">
+      {% endif %}
+
+      {% if content.field_plain_title|field_value == true %}
+        <h3 class="svc-title">{{ content.field_plain_title }}</h3>
+      {% endif %}
+
+      {% if content.field_service_description |field_value == true %}
+        <div class="svc-description">{{ content.field_service_description }}</div>
+      {% endif %}
+
+      <div class="svc-spec">
+        <table class="svc-spec-links">
+          <tbody>
+
+          {% if content.field_email|field_value == true %}
+            {% for key, item in content.field_email if key matches '/^\\d+$/' %}
+              <tr class="svc-spec-links--group">
+                <th class="svc-spec-links--title">{{ content.field_email['#title'] }}</th>
+                <td class="svc-spec-links--content"><a mailto="{{ item['#context'].value }}">{{ item['#context'].value }}</a></td>
+              </tr>
+            {% endfor %}
+          {% endif %}
+
+          {% if content.field_dsn_phone|field_value == true %}
+            {% for key, item in content.field_dsn_phone if key matches '/^\\d+$/' %}
+              <tr class="svc-spec-links--group">
+                <th class="svc-spec-links--title">{{ content.field_dsn_phone['#title'] }}</th>
+                <td class="svc-spec-links--content"><a href="{{ item['#url'].uri }}">{{ item['#title'] }}</a></td>
+              </tr>
+            {% endfor %}
+          {% endif %}
+
+          {% if content.field_dsn_fax|field_value == true %}
+            {% for key, item in content.field_dsn_fax if key matches '/^\\d+$/' %}
+              <tr class="svc-spec-links--group">
+                <th class="svc-spec-links--title">{{ content.field_dsn_fax['#title'] }}</th>
+                <td class="svc-spec-links--content"><a href="{{ item['#url'].uri }}">{{ item['#title'] }}</a></td>
+              </tr>
+            {% endfor %}
+          {% endif %}
+
+          {% if content.field_comm_phone|field_value == true %}
+            {% for key, item in content.field_comm_phone if key matches '/^\\d+$/' %}
+              <tr class="svc-spec-links--group">
+                <th class="svc-spec-links--title">{{ content.field_comm_phone['#title'] }}</th>
+                <td class="svc-spec-links--content"><a href="{{ item['#url'].uri }}">{{ item['#title'] }}</a></td>
+              </tr>
+            {% endfor %}
+          {% endif %}
+
+          {% if content.field_comm_fax|field_value == true %}
+            {% for key, item in content.field_comm_fax if key matches '/^\\d+$/' %}
+              <tr class="svc-spec-links--group">
+                <th class="svc-spec-links--title">{{ content.field_comm_fax['#title'] }}</th>
+                <td class="svc-spec-links--content"><a href="{{ item['#url'].uri }}">{{ item['#title'] }}</a></td>
+              </tr>
+            {% endfor %}
+          {% endif %}
+          </tbody>
+        </table>
+        {% if content.field_service_address|field_value == true %}
+            <div class="svc-spec-links--address-group">
+              <dt class="svc-spec-links--title">{{ content.field_service_address['#title'] }}</dt>
+              <dd class="svc-spec-links--content">
+                <address>{{ content.field_service_address[0] }}</address>
+              </dd>
+            </div>
+        {% endif %}
+      </div>
+
+      {% if content.field_other_details |field_value == true %}
+      <div class="svc-other-details">{{ content.field_other_details }}</div>
+      {% endif %}
+
+      {% if uswds_grid_class %}
+      </div>
+      {% endif %}
+
+    {% endblock %}
+  </div>
+{% endblock paragraph %}

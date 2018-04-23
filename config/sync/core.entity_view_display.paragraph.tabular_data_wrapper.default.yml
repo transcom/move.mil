@@ -1,0 +1,24 @@
+uuid: 670c85fe-7f8e-4e36-925d-b28c4b1ff369
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.tabular_data_wrapper.field_tabular_data_rows
+    - paragraphs.paragraphs_type.tabular_data_wrapper
+  module:
+    - entity_reference_revisions
+id: paragraph.tabular_data_wrapper.default
+targetEntityType: paragraph
+bundle: tabular_data_wrapper
+mode: default
+content:
+  field_tabular_data_rows:
+    type: entity_reference_revisions_entity_view
+    weight: 0
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    region: content
+hidden: {  }

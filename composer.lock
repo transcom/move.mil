@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "69b29f3b2ac64c705c200e5f4e5f7dc1",
+    "content-hash": "c8bb2f2124ca56e7ec9a0a2b57534e9d",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -128,12 +128,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Bixal/jumplink.git",
-                "reference": "6d7552de5e9abe6f3c969992a2e74d54a9995a2a"
+                "reference": "e103e6e0d11914971decd4e2a9b6f79bb444c8ad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Bixal/jumplink/zipball/6d7552de5e9abe6f3c969992a2e74d54a9995a2a",
-                "reference": "6d7552de5e9abe6f3c969992a2e74d54a9995a2a",
+                "url": "https://api.github.com/repos/Bixal/jumplink/zipball/e103e6e0d11914971decd4e2a9b6f79bb444c8ad",
+                "reference": "e103e6e0d11914971decd4e2a9b6f79bb444c8ad",
                 "shasum": ""
             },
             "type": "drupal-module",
@@ -146,7 +146,7 @@
             "keywords": [
                 "drupal"
             ],
-            "time": "2018-04-11T15:00:08+00:00"
+            "time": "2018-04-17T21:03:55+00:00"
         },
         {
             "name": "chi-teck/drupal-code-generator",
@@ -2219,6 +2219,69 @@
             "homepage": "https://www.drupal.org/project/extlink",
             "support": {
                 "source": "http://cgit.drupalcode.org/extlink"
+            }
+        },
+        {
+            "name": "drupal/node_class",
+            "version": "1.0.0-beta1",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/node_class",
+                "reference": "8.x-1.0-beta1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/node_class-8.x-1.0-beta1.zip",
+                "reference": "8.x-1.0-beta1",
+                "shasum": "9242c529240052aef9d1c4f50505bb346beb698a"
+            },
+            "require": {
+                "drupal/core": "~8.0"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.0-beta1",
+                    "datestamp": "1466182462",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Beta releases are not covered by Drupal security advisories."
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Anybody",
+                    "homepage": "https://www.drupal.org/user/291091"
+                },
+                {
+                    "name": "Pravin Ajaaz",
+                    "homepage": "https://www.drupal.org/user/2910049"
+                },
+                {
+                    "name": "dineshw",
+                    "homepage": "https://www.drupal.org/user/2279292"
+                },
+                {
+                    "name": "drnikki",
+                    "homepage": "https://www.drupal.org/user/385042"
+                },
+                {
+                    "name": "valor",
+                    "homepage": "https://www.drupal.org/user/393247"
+                }
+            ],
+            "description": "Adds classes specific to node",
+            "homepage": "https://www.drupal.org/project/node_class",
+            "support": {
+                "source": "http://cgit.drupalcode.org/node_class"
             }
         },
         {
@@ -8321,6 +8384,7 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "bixal/jumplink": 20,
+        "drupal/node_class": 10,
         "drupal/stage_file_proxy": 15,
         "drupal/uswds": 10,
         "drupal/drupal-extension": 20

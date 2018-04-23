@@ -8,8 +8,8 @@ dependencies:
     - move_mil
 id: jumplinks
 theme: move_mil
-region: sidebar_first
-weight: 0
+region: content
+weight: -7
 provider: null
 plugin: jumplinks
 settings:

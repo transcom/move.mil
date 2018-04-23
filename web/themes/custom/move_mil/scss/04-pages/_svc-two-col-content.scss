@@ -1,0 +1,30 @@
+.svc-two-col-content {
+
+  .field--name-field-page-intro-text {
+    padding: 0;
+    margin-bottom: $spacing-md-small;
+    background-color: $color-white;
+
+    @include media($medium-screen) {
+      margin-bottom: $spacing-medium;
+    }
+  }
+
+  .field--name-field-paragraph {
+    @include clearfix;
+
+    > .field__item {
+      @include media($medium-screen) {
+        float: left;
+        width: 68%;
+      }
+
+      &:first-of-type {
+        @include media($medium-screen) {
+          float: right;
+          width: 30%;
+        }
+      }
+    }
+  }
+}

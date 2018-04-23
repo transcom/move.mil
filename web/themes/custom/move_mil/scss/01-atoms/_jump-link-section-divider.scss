@@ -1,0 +1,12 @@
+.field--name-field-paragraph {
+  .field__item:not(:first-child) {
+    .paragraph--type--basic-text {
+      .field--name-field-plain-title {
+        // line & spacing above for section dividers
+        padding-top: 2rem;
+        margin-top: 2rem;
+        border-top: 1px solid $color-cool-blue-lightest;
+      }
+    }
+  }
+}
