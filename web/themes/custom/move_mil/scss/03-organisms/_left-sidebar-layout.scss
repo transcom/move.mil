@@ -27,3 +27,9 @@ aside.usa-width-one-fourth {
     }
   }
 }
+
+.usa-width-three-fourths {
+  @include media($large-screen) {
+    width: 100%;
+  }
+}
