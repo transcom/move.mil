@@ -18,7 +18,7 @@ trait JsonWriter {
    * Writes a json file.
    */
   public function writeJson(array $data, $filename) {
-    $json = json_encode($data, JSON_PRETTY_PRINT);
+    $json = json_encode($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
     file_put_contents(
       "/var/www/html/web/sites/default/files/tools/data/${filename}",
       $json
