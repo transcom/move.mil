@@ -20,4 +20,10 @@ aside.usa-width-one-fourth {
       width: 75%;
     }
   }
+
+  @include media($large-screen) {
+    &:nth-child(2n) {
+      width: 20%;
+    }
+  }
 }
