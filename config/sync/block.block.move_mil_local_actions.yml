@@ -9,7 +9,7 @@ _core:
 id: move_mil_local_actions
 theme: move_mil
 region: content
-weight: -7
+weight: -9
 provider: null
 plugin: local_actions_block
 settings:

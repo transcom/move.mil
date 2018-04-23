@@ -5,6 +5,12 @@ dependencies:
   config:
     - field.storage.node.field_paragraph
     - node.type.page
+    - paragraphs.paragraphs_type.basic_text
+    - paragraphs.paragraphs_type.callout_accordion
+    - paragraphs.paragraphs_type.pro_tip
+    - paragraphs.paragraphs_type.tabular_data_wrapper
+    - paragraphs.paragraphs_type.text_with_image
+    - paragraphs.paragraphs_type.warning_callout_box
   module:
     - entity_reference_revisions
 id: node.page.field_paragraph
@@ -21,5 +27,39 @@ settings:
   handler: 'default:paragraph'
   handler_settings:
     negate: 0
-    target_bundles: null
+    target_bundles:
+      basic_text: basic_text
+      callout_accordion: callout_accordion
+      pro_tip: pro_tip
+      text_with_image: text_with_image
+      warning_callout_box: warning_callout_box
+      tabular_data_wrapper: tabular_data_wrapper
+    target_bundles_drag_drop:
+      basic_text:
+        enabled: true
+        weight: -17
+      callout_accordion:
+        enabled: true
+        weight: -16
+      customer_service_box:
+        weight: -15
+        enabled: false
+      pro_tip:
+        enabled: true
+        weight: -14
+      tabular_data:
+        weight: -13
+        enabled: false
+      text_with_image:
+        enabled: true
+        weight: -12
+      tutorial_slideshow_image:
+        weight: -11
+        enabled: false
+      warning_callout_box:
+        enabled: true
+        weight: -10
+      tabular_data_wrapper:
+        enabled: true
+        weight: 15
 field_type: entity_reference_revisions

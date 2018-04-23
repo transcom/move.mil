@@ -7,6 +7,7 @@ $color-white-transparent: rgba(255, 255, 255, 0.9) !default;
 $color-gray-cool-lightest: #f3f7fa;
 
 // media breakpoints
+$sidenav-screen-width: 800px;
 $medium-large-screen: 951px !default;
 
 @mixin strip-paragraph-spacing() {

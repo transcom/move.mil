@@ -1,0 +1,30 @@
+uuid: 85f1adc4-6f75-437d-87ad-a1b2e8fd47c1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.tabular_data_wrapper.field_tabular_data_rows
+    - paragraphs.paragraphs_type.tabular_data_wrapper
+  module:
+    - paragraphs
+id: paragraph.tabular_data_wrapper.default
+targetEntityType: paragraph
+bundle: tabular_data_wrapper
+mode: default
+content:
+  field_tabular_data_rows:
+    type: entity_reference_paragraphs
+    weight: 0
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: tabular_data
+    third_party_settings: {  }
+    region: content
+hidden:
+  created: true
+  status: true
+  uid: true

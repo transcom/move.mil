@@ -1,0 +1,33 @@
+{%
+  set classes = [
+    'paragraph--callout-accordion', 'usa-accordion',
+  ]
+%}
+
+{% block paragraph %}
+  <div{{ attributes.addClass(classes).setAttribute('id', 'paragraph-'~paragraph.id.value) }}>
+    {% block content %}
+
+      {% if uswds_grid_class %}
+      <div class="{{ uswds_grid_class }}">
+      {% endif %}
+
+      {# at mobile #}
+      <button class="usa-accordion-button" aria-controls="{{ 'paragraph-'~paragraph.id.value }}" aria-expanded="false">
+        <h2 class="callout-accordion--title">{{ content.field_callout_title }}</h2>
+        {{ content.field_callout_content }}
+      </button>
+
+      {# at desktop #}
+      <div class="side-bar-callout">
+        <h2 class="callout-accordion--title">{{ content.field_callout_title }}</h2>
+        {{ content.field_callout_content }}
+      </div>
+
+      {% if uswds_grid_class %}
+      </div>
+      {% endif %}
+
+    {% endblock %}
+  </div>
+{% endblock paragraph %}

@@ -1,0 +1,38 @@
+uuid: 8bb2f44a-c628-419e-9ea1-d5dcd2937c86
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.faqs
+  module:
+    - node
+    - system
+    - views
+  theme:
+    - move_mil
+id: during_the_move
+theme: move_mil
+region: content
+weight: 1
+provider: null
+plugin: 'views_block:faqs-block_7'
+settings:
+  id: 'views_block:faqs-block_7'
+  label: 'During the Move (Packing & Unloading)'
+  provider: views
+  label_display: visible
+  views_label: 'During the Move (Packing & Unloading)'
+  items_per_page: none
+visibility:
+  node_type:
+    id: node_type
+    bundles:
+      page: page
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+  request_path:
+    id: request_path
+    pages: /moving-guide/tips
+    negate: false
+    context_mapping: {  }

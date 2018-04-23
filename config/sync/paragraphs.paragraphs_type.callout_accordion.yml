@@ -1,0 +1,9 @@
+uuid: 7679dc31-4f1d-40fb-b81a-81a04d02d345
+langcode: en
+status: true
+dependencies: {  }
+id: callout_accordion
+label: 'Callout Accordion'
+icon_uuid: null
+description: 'Callout that functions as an accordion at mobile.'
+behavior_plugins: {  }

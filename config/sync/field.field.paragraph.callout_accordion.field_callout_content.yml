@@ -1,0 +1,54 @@
+uuid: 502f9e8f-83ac-41ce-ac3d-27ff7bb39f27
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_callout_content
+    - paragraphs.paragraphs_type.basic_text
+    - paragraphs.paragraphs_type.callout_accordion
+    - paragraphs.paragraphs_type.customer_service_box
+  module:
+    - entity_reference_revisions
+id: paragraph.callout_accordion.field_callout_content
+field_name: field_callout_content
+entity_type: paragraph
+bundle: callout_accordion
+label: 'Callout Content'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      basic_text: basic_text
+      customer_service_box: customer_service_box
+    target_bundles_drag_drop:
+      basic_text:
+        enabled: true
+        weight: -17
+      callout_accordion:
+        weight: -16
+        enabled: false
+      customer_service_box:
+        enabled: true
+        weight: -15
+      pro_tip:
+        weight: -14
+        enabled: false
+      tabular_data:
+        weight: -13
+        enabled: false
+      text_with_image:
+        weight: -12
+        enabled: false
+      tutorial_slideshow_image:
+        weight: -11
+        enabled: false
+      warning_callout_box:
+        weight: -10
+        enabled: false
+field_type: entity_reference_revisions

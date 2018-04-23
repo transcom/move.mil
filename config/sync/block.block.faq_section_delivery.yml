@@ -13,14 +13,14 @@ dependencies:
 id: faq_section_delivery
 theme: move_mil
 region: content
-weight: -1
+weight: -2
 provider: null
 plugin: 'views_block:faqs-block_4'
 settings:
   id: 'views_block:faqs-block_4'
   label: ''
   provider: views
-  label_display: '0'
+  label_display: visible
   views_label: ''
   items_per_page: none
 visibility:
