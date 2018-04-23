@@ -4,12 +4,13 @@ status: true
 dependencies:
   module:
     - jumplink
+    - system
   theme:
     - move_mil
 id: jumplinks
 theme: move_mil
-region: content
-weight: -7
+region: sidebar_first
+weight: -11
 provider: null
 plugin: jumplinks
 settings:
@@ -17,4 +18,9 @@ settings:
   label: Jumplinks
   provider: jumplink
   label_display: '0'
-visibility: {  }
+visibility:
+  request_path:
+    id: request_path
+    pages: '<front>'
+    negate: true
+    context_mapping: {  }
