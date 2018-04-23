@@ -104,6 +104,9 @@
       </div>
       {% endif %}
 
+      {{ page.content.move_mil_local_tasks }}
+      {{ page.content.move_mil_page_title }}
+
     </div>
   </div>
 
@@ -118,7 +121,7 @@
     {% endif %}
 
     <div class="region-content {{ content_class }}">
-      {{ page.content }}
+      {{ page.content|without('move_mil_page_title', 'move_mil_local_tasks') }}
     </div>
 
     {% if page.sidebar_second %}
