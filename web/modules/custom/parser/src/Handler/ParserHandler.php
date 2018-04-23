@@ -9,6 +9,7 @@ use Drupal\parser\Writer\Json\EntitlementsWriter;
 use Drupal\parser\Writer\Json\Rates400NGWriter;
 use Drupal\parser\Writer\Json\Zip5Writer;
 use Drupal\parser\Writer\Json\Zip3Writer;
+use Drupal\Console\Core\Style\DrupalStyle;
 
 /**
  * Class ParserController.
@@ -33,9 +34,9 @@ class ParserHandler {
    * @param string $input
    *   The user input.
    * @param \Drupal\Console\Core\Style\DrupalStyle $io
-   *   Console io.
+   *   The DrupalStyle io.
    */
-  public function __construct($path, $input, $io) {
+  public function __construct($path, $input, DrupalStyle $io) {
     list(
       $this->filename,
       $this->reader,
