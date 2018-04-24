@@ -2,7 +2,6 @@
 
   .usa-nav {
     @include media($medium-large-screen) {
-      top: -4.4rem;
       display: flex;
       background: $color-white-transparent;
       border-bottom: 1px solid $color-gray-lighter;
