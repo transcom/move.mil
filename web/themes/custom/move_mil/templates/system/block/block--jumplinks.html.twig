@@ -32,7 +32,11 @@
     'block-' ~ plugin_id|clean_class,
   ]
 %}
-<div{{ attributes.addClass(classes) }}>
-    <div class="jumplinks-mobile-header">Jump to:</div>
-    {{ content }}
-</div>
+{% if content.jumplinks is iterable %}
+  <aside class="region-sidebar-first usa-width-one-fourth">
+    <div{{ attributes.addClass(classes) }}>
+      <div class="jumplinks-mobile-header">Jump to:</div>
+      {{ content }}
+    </div>
+  </aside>
+{% endif %}
