@@ -1,0 +1,7 @@
+.usa-section.uswds-middle-section {
+  padding-top: 0;
+
+  @include media($medium-large-screen) {
+    padding-top: 1.5rem;
+  }
+}
