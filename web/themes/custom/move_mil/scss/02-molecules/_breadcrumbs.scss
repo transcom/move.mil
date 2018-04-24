@@ -1,6 +1,44 @@
 .usa-breadcrumbs {
+  font-size: 1.4rem;
+  padding: 1rem 0;
+  position: relative;
+
+  &:before {
+    content: '';
+    position: absolute;
+    left: -9999px;
+    right: -9999px;
+    top: 0;
+    bottom: 0;
+    background-color: $color-gray-cool-light;
+    z-index: -1;
+  }
+
+  &:after {
+    content: none;
+  }
+
+  + div {
+    clear: both;
+  }
+
+  @include media($nav-width) {
+    padding: 0;
+
+    &:before {
+      content: none;
+    }
+
+    &:after {
+      content: '';
+    }
+  }
 
   li {
+
+    &.usa-nav-secondary-links {
+      margin-top: 0;
+    }
 
     a {
       margin: 0 !important;
