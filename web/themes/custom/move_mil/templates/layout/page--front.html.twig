@@ -1,0 +1,306 @@
+{#
+/**
+ * @file
+ * USWDS theme implementation to display a single page.
+ */
+#}
+<header class="{{ header_classes }}" id="header" role="banner">
+
+  {% if page.header_top or government_banner %}
+  <section class="usa-banner">
+
+    {{ government_banner }}
+
+    {% if page.header_top %}
+    <div class="usa-banner-inner">
+      {{ page.header_top }}
+    </div>
+    {% endif %}
+
+  </section>
+  {% endif %}
+
+  <div class="archive-banner">
+    <div class="usa-grid">
+      <p><b>Welcome to the new Move.mil!</b> Can’t find what you’re looking for? Legacy content can be found at <a href="https://archive.move.mil">archive.move.mil</a>.</p>
+    </div>
+  </div>
+
+  {% if header_basic %}
+  <div class="usa-nav-container">
+  {% endif %}
+
+  <div class="usa-navbar">
+    <button class="usa-menu-btn">{{ 'Menu'|t }}</button>
+    {{ page.header }}
+  </div>
+
+  <div class="navbar-border"></div>
+
+  <div class="usa-overlay"></div>
+  <div class="usa-nav" role="navigation">
+    <div class="usa-nav-inner">
+
+      <button class="usa-nav-close">
+        <img src="{{ active_theme_path }}/assets/img/close.svg" alt="close" />
+      </button>
+
+      {% if page.mobile_menu %}
+      <div class="usa-nav-mobile">
+        {{ page.mobile_menu }}
+      </div>
+      {% endif %}
+
+      {% if page.mobile_menu %}
+      <div class="usa-nav-desktop">
+      {% endif %}
+
+      {% if page.primary_menu %}
+      {{ page.primary_menu }}
+      {% endif %}
+
+      {% if page.secondary_menu %}
+      {{ page.secondary_menu }}
+      {% endif %}
+
+      {% if page.mobile_menu %}
+      </div>
+      {% endif %}
+
+    </div>
+  </div>
+
+  {% if header_basic %}
+  </div>
+  {% endif %}
+
+</header>
+
+{% if page.hero %}
+<section class="hero-section">
+  <div>
+    {{ page.hero }}
+  </div>
+</section>
+{% endif %}
+
+{# our login banner #}
+  <div class="homepage-login-banner">
+    <div class="login-banner">
+      <div class="login-banner-text">
+        <a href="https://eta.sddc.army.mil/ETASSOPortal/default.aspx">Sign in to <abbr title="Defense Personal Property System">DPS</abbr></a> or <a href="https://eta.sddc.army.mil/dpsRegister/dodCustomer.aspx">create a new account</a> to schedule your move, update information, or complete the claims process.
+      </div>
+    </div>
+  </div>
+
+<section class="usa-section uswds-middle-section {{ main_classes }}">
+
+  {# no need for a back-to-top on the homepage #}
+  {# <div class="back-to-top">
+    <a href="#">Return to top</a>
+  </div> #}
+
+  <div class="usa-grid">
+
+    <div class="usa-width-full">
+      {# no need for a breadcrumb on the homepage #}
+      {# {{ page.breadcrumb }} #}
+
+      {{ page.highlighted }}
+
+      {% if page.help|render|trim %}
+      <div class="usa-alert usa-alert-info">
+        <div class="usa-alert-body">
+          <p class="usa-alert-text">
+            {{ page.help }}
+          </p>
+        </div>
+      </div>
+      {% endif %}
+
+    </div>
+  </div>
+
+{# <div class="uswds-main-content-wrapper {% if edge_to_edge == false %}usa-grid{% endif %}"> #}
+<div class="uswds-main-content-wrapper usa-grid">
+    <a id="main-content" tabindex="-1"></a>
+
+    {# we are not using the page.sidebar_first on our homepage #}
+    {% if page.sidebar_first %}
+    <aside class="region-sidebar-first usa-width-one-fourth">
+      {{ page.sidebar_first }}
+    </aside>
+    {% endif %}
+
+  {# our anchor section #}
+  <div class="usa-grid-full homepage-anchor-section">
+  <div class="homepage-anchor-title">Prepare for your best move yet.</div>
+    <ul class="usa-unstyled-list homepage-anchor-list">
+      <li>
+        <a href="#paragraph-358">{# id from paragraph in content #}
+          <img alt="Plan your move icon" src="/themes/custom/move_mil/images/icon--plan-your-move.svg">Plan
+        </a>
+      </li>
+      <li>
+        <a href="#paragraph-359"> {# id from paragraph in content #}
+          <img alt="Schedule your move icon" src="/themes/custom/move_mil/images/icon--schedule-your-move.svg">Schedule
+        </a>
+      </li>
+      <li>
+        <a href="#paragraph-360"> {# id from paragraph in content #}
+          <img alt="Get ready for moving day icon" src="/themes/custom/move_mil/images/icon--get-ready-for-moving-day.svg">Moving Day
+        </a>
+      </li>
+      <li>
+        <a href="#paragraph-361"> {# id from paragraph in content #}
+          <img alt="Settling in icon" src="/themes/custom/move_mil/images/icon--settling-in.svg">Settle In
+        </a>
+      </li>
+    </ul>
+  </div>
+
+    {% if page.sidebar_second %}
+    <div class="region-sidebar-second usa-width-one-third">
+      {{ page.sidebar_second }}
+    </div>
+    {% endif %}
+
+    <div class="region-content usa-width-two-thirds">
+      {% if is_front %} {# just checking again that this is the frontpage #}
+        {{ page.content|without('move_mil_page_title') }} {# not printing our page title #}
+      {% endif %}
+    </div>
+
+  </div>
+</section>
+
+{# our service specific list #}
+<section class="usa-grid-full">
+      <div class="usa-grid">
+        <div class="homepage-service-section">
+          <h3>Service-Specific Guidance</h3>
+          <p>Select your branch of service for additional move-related information and resources.</p>
+          <div class="service-emblems-list">
+            <div class="service-emblems-list--item">
+              <a href="{{ drupal_url('service-specific-information', {absolute: true}) }}"><img alt="United States Department of the Army emblem" src="/themes/custom/move_mil/assets/img/united-states-department-of-the-army-emblem.svg">Army</a>
+            </div>
+            <div class="service-emblems-list--item">
+              <a href="{{ drupal_url('service-specific-information/marine-corps', {absolute: true}) }}"><img alt="United States Marine Corps emblem" src="/themes/custom/move_mil/assets/img/united-states-marine-corps-emblem.svg">Marine Corps</a>
+            </div>
+            <div class="service-emblems-list--item">
+              <a href="{{ drupal_url('service-specific-information/navy', {absolute: true}) }}"><img alt="United States Department of the Navy emblem" src="/themes/custom/move_mil/assets/img/united-states-department-of-the-navy-emblem.svg">Navy</a>
+            </div>
+            <div class="service-emblems-list--item">
+              <a href="{{ drupal_url('service-specific-information/air-force', {absolute: true}) }}"><img alt="United States Department of the Air Force emblem" src="/themes/custom/move_mil/assets/img/united-states-department-of-the-air-force-emblem.svg">Air Force</a>
+            </div>
+            <div class="service-emblems-list--item">
+              <a href="{{ drupal_url('service-specific-information/coast-guard', {absolute: true}) }}"><img alt="United States Coast Guard emblem" src="/themes/custom/move_mil/assets/img/united-states-coast-guard-emblem.svg">Coast Guard</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+<footer class="{{ footer_classes }}" role="contentinfo">
+
+  {% if display_footer_primary %}
+  <div class="usa-footer-primary-section">
+    <div class="usa-grid">
+      <nav class="usa-footer-nav {{ footer_menu_width }}">
+
+        {% if page.footer_menu %}
+        {{ page.footer_menu }}
+        {% endif %}
+
+      </nav>
+
+      {% if footer_slim and (phone or email) %}
+      <div class="usa-width-one-third">
+
+        {% if phone %}
+        <div class="usa-footer-primary-content usa-footer-contact_info">
+          <p><a href="tel:{{ phone }}">{{ phone }}</a></p>
+        </div>
+        {% endif %}
+
+        {% if email %}
+        <div class="usa-footer-primary-content usa-footer-contact_info">
+          <p><a href="mailto:{{ email }}">{{ email }}</a></p>
+        </div>
+        {% endif %}
+
+      </div>
+      {% endif %}
+
+      {% if page.footer %}
+      <div class="usa-grid">
+        {{ page.footer }}
+      </div>
+      {% endif %}
+
+    </div>
+  </div>
+  {% endif %}
+
+  {% if display_footer_secondary %}
+  <div class="usa-footer-secondary_section">
+
+    {% if display_footer_agency %}
+    <div class="usa-grid">
+      <div class="usa-footer-logo {% if not footer_slim %}usa-width-one-half{% endif %}">
+
+        {% if footer_agency_url %}
+        <a href="{{ footer_agency_url }}">
+        {% endif %}
+
+          {% if footer_agency_logo == true %}
+            <img class="{{ footer_agency_logo_class }}" src="{{ footer_agency_logo }}"  alt="{{ 'Home'|t }}" />
+          {% elseif site_logo == false %}
+            <img class="{{ footer_agency_logo_class }} usa-footer-big-logo-img" src="/themes/custom/move_mil/ustranscom-logo.svg"  alt="{{ 'United States Transportation Command emblem'|t }}" />
+          {% endif %}
+
+        <div class="footer-agency--content">
+          {% if footer_agency_name %}
+          <h3 class="{{ footer_agency_heading_class }}">{{ footer_agency_name }}</br><span class="footer-agency-name--description usa-text-small">United States Transportation Command</span></h3>
+          {% endif %}
+        </div>
+
+        {% if footer_agency_url %}
+        </a>
+        {% endif %}
+
+      </div>
+
+      {% if not footer_slim %}
+      <div class="usa-footer-contact-links usa-width-one-half">
+        <h3 class="usa-footer-contact-heading">Technical Help Desk</h3>
+          <p class="usa-text-small">For help using Move.mil or <abbr title="Electronic Transportation Acquisition">ETA</abbr>.</p>
+
+          <dl>
+            <dt>Phone</dt>
+            <dd class="usa-text-small">Toll-Free: <a href="tel:+18004622176">(800) 462-2176</a></dd>
+            <dd class="usa-text-small">Commercial: <a href="tel:+16185899445">(618) 589-9445</a></dd>
+
+            {% if email %}
+            <dt>Email</dt>
+            <a class="usa-text-small" href="mailto:{{ email }}">{{ email }}</a>
+            {% endif %}
+
+            <dt>Submit a ticket online</dt>
+            <dd class="usa-text-small"><a href="https://src.service-now.com/src/">https://src.service-now.com/src/</a></dd>
+          </dl>
+        {% endif %}
+
+    </div>
+    {% endif %}
+
+    {% if page.footer_secondary %}
+    <div class="usa-grid">
+      {{ page.footer_secondary }}
+    </div>
+    {% endif %}
+
+  </div>
+  {% endif %}
+
+</footer>
