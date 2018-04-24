@@ -5,7 +5,8 @@
 %}
 
 {% block paragraph %}
-  <div {{ attributes.addClass(classes) }}>
+
+  <div {{ attributes.addClass(classes).setAttribute('id', 'paragraph-'~paragraph.id.value) }}>
     {% block content %}
 
       {% if uswds_grid_class %}
