@@ -2,7 +2,6 @@
 
 namespace Drupal\parser\Reader;
 
-use Drupal\parser\Reader\ReaderInterface;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
 /**
@@ -18,14 +17,15 @@ class ExcelReader implements ReaderInterface {
   public function parse($xlsxFile) {
     $xlsx = [];
     $reader = new Xlsx();
-    $reader->setReadDataOnly(true);
+    $reader->setReadDataOnly(TRUE);
     $reader->setLoadSheetsOnly([
       'Geographical Schedule',
       'Linehaul',
       'Additional Rates',
-      ]);
+    ]);
     $spreadsheet = $reader->load($xlsxFile);
-    $xlsx['date'] = substr($xlsxFile, -15, 5); // Get year from filename
+    // Get year from filename.
+    $xlsx['date'] = substr($xlsxFile, -15, 5);
     $xlsx['schedules'] = $this->schedules($spreadsheet);
     $xlsx['linehauls'] = $this->linehauls($spreadsheet, $this->conusparams());
     $additonalrates = $this->additionalrates($spreadsheet);
@@ -42,7 +42,7 @@ class ExcelReader implements ReaderInterface {
     $worksheet = $spreadsheet->getSheetByName('Geographical Schedule');
     $lowestRow = 3;
     $highestRow = $worksheet->getHighestRow();
-    // Get service area data from the first 5 columns of each row
+    // Get service area data from the first 5 columns of each row.
     for ($row = $lowestRow; $row <= $highestRow; $row++) {
       $schedule = [];
       $servicearea = $worksheet->getCellByColumnAndRow(1, $row)->getValue();
@@ -67,7 +67,7 @@ class ExcelReader implements ReaderInterface {
     $lowestColumn = $params['lowestColumn'];
     $highestColumn = $params['highestColumn'];
     $maxDistance = $params['maxDistance'];
-    // Get miles from column 2, weight from row 2, and rate from col, row
+    // Get miles from column 2, weight from row 2, and rate from col, row.
     for ($row = $lowestRow; $row <= $highestRow; $row++) {
       $linehaul = [];
       $miles = $rate = $worksheet->getCellByColumnAndRow(2, $row)->getValue();
@@ -105,10 +105,10 @@ class ExcelReader implements ReaderInterface {
     $packunpack = [];
     $worksheet = $spreadsheet->getSheetByName('Additional Rates');
     foreach ($worksheet->getRowIterator() as $row) {
-      if($worksheet->getCellByColumnAndRow(1, $row->getRowIndex())->getValue() == 999) {
+      if ($worksheet->getCellByColumnAndRow(1, $row->getRowIndex())->getValue() == 999) {
         $shorthauls[] = $this->shorthaul($worksheet, $row);
       }
-      if($worksheet->getCellByColumnAndRow(2, $row->getRowIndex())->getValue() == '105A') {
+      if ($worksheet->getCellByColumnAndRow(2, $row->getRowIndex())->getValue() == '105A') {
         $packunpack[] = $this->packunpack($worksheet, $row);
       }
     }
@@ -125,11 +125,16 @@ class ExcelReader implements ReaderInterface {
     $rawcwtm = $worksheet->getCellByColumnAndRow(4, $row->getRowIndex())->getValue();
     if (preg_match("/less than or equal to/", $rawcwtm)) {
       $cwtm = "0";
-    } else if (preg_match("/between (?<cwtm>[\d,]+)/", $rawcwtm, $groups)) {
-      $cwtm = str_replace(',', '', $groups['cwtm']); // remove coma
-    } else if (preg_match("/greater than (?<cwtm>[\d,]+)/", $rawcwtm, $groups)) {
-      $cwtm = strval(intval(str_replace(',', '', $groups['cwtm'])) + 1); // add 1 and return value to string
-    } else {
+    }
+    elseif (preg_match("/between (?<cwtm>[\d,]+)/", $rawcwtm, $groups)) {
+      // Remove coma.
+      $cwtm = str_replace(',', '', $groups['cwtm']);
+    }
+    elseif (preg_match("/greater than (?<cwtm>[\d,]+)/", $rawcwtm, $groups)) {
+      // Add 1 and return value to string.
+      $cwtm = strval(intval(str_replace(',', '', $groups['cwtm'])) + 1);
+    }
+    else {
       throw new \RuntimeException('Excel file cannot be read.');
     }
     $rate = $worksheet->getCellByColumnAndRow(5, $row->getRowIndex())->getValue();
@@ -143,26 +148,30 @@ class ExcelReader implements ReaderInterface {
    */
   private function packunpack($worksheet, $row) {
     $packunpack = [];
-    // Get pack and unpack schedule
+    // Get pack and unpack schedule.
     $schedule = $worksheet->getCellByColumnAndRow(3, $row->getRowIndex())->getValue();
-    // Get pack weights on cwt
+    // Get pack weights on cwt.
     $rawcwt = $worksheet->getCellByColumnAndRow(4, $row->getRowIndex())->getValue();
     if (preg_match("/lbs and under/", $rawcwt)) {
       $cwt = 0;
-    } else if (preg_match("/(?<cwt>\d+) lbs to/", $rawcwt, $groups)) {
+    }
+    elseif (preg_match("/(?<cwt>\d+) lbs to/", $rawcwt, $groups)) {
       $cwt = $groups['cwt'];
-    } else if (preg_match("/over (?<cwt>\d+) lbs/", $rawcwt, $groups)) {
-      $cwt = strval(intval($groups['cwt']) + 1); // add 1 and return value to string
-    } else {
+    }
+    elseif (preg_match("/over (?<cwt>\d+) lbs/", $rawcwt, $groups)) {
+      // Add 1 and return value to string.
+      $cwt = strval(intval($groups['cwt']) + 1);
+    }
+    else {
       throw new \RuntimeException('Excel file cannot be read.');
     }
-    // Get pack charge for this schedule and cwt
+    // Get pack charge for this schedule and cwt.
     $rate = $worksheet->getCellByColumnAndRow(5, $row->getRowIndex())->getValue();
-    // Get unpack charge for this schedule
+    // Get unpack charge for this schedule.
     $rawunpack = $worksheet->getCellByColumnAndRow(6, $row->getRowIndex())->getValue();
     preg_match("/Unpack is (?<unpack>[\d\.]+) /", $rawunpack, $groups);
     $unpack = $groups['unpack'];
-    // Add parsed values to pack and unpack array
+    // Add parsed values to pack and unpack array.
     $packunpack['schedule'] = $schedule;
     $packunpack['cwt'] = $cwt;
     $packunpack['rate'] = $rate;

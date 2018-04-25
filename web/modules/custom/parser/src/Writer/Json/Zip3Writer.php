@@ -3,7 +3,6 @@
 namespace Drupal\parser\Writer\Json;
 
 use Drupal\parser\Writer\WriterInterface;
-use Drupal\parser\Writer\Json\JsonWriter;
 
 /**
  * Class Zip3Writer.

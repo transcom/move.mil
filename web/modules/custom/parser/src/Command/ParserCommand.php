@@ -6,13 +6,12 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Drupal\Console\Core\Command\Command;
-use Drupal\Console\Annotations\DrupalCommand;
 use Drupal\parser\Handler\ParserHandler;
 
 /**
  * Class ParserCommand.
  *
- * @DrupalCommand (
+ * @Drupal\Console\Annotations\DrupalCommand (
  *     extension="parser",
  *     extensionType="module"
  * )

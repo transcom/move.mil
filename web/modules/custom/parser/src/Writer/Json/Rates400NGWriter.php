@@ -3,7 +3,6 @@
 namespace Drupal\parser\Writer\Json;
 
 use Drupal\parser\Writer\WriterInterface;
-use Drupal\parser\Writer\Json\JsonWriter;
 
 /**
  * Class Rates400NGWriter.
@@ -14,20 +13,20 @@ class Rates400NGWriter implements WriterInterface {
   use JsonWriter;
 
   /**
-   * Normalizes data then writes service_areas, linehauls, shorthauls, and packunpack files.
+   * Normalizes data then writes jsons files.
    */
   public function write(array $rawdata) {
-    // Write service_areas.json
-    $this->writeJson($rawdata['schedules'], $rawdata['date'].'service_areas.json');
-    // Write linehauls.json
+    // Write service_areas.json.
+    $this->writeJson($rawdata['schedules'], $rawdata['date'] . 'service_areas.json');
+    // Write linehauls.json.
     $linehauls = $this->maplinehauldata($rawdata['linehauls']);
-    $this->writeJson($linehauls, $rawdata['date'].'linehauls.json');
-    // Write shorthauls.json
+    $this->writeJson($linehauls, $rawdata['date'] . 'linehauls.json');
+    // Write shorthauls.json.
     $shorthauls = $this->mapshorthauldata($rawdata['shorthauls']);
-    $this->writeJson($shorthauls, $rawdata['date'].'shorthauls.json');
-    // Write packunpacks.json
+    $this->writeJson($shorthauls, $rawdata['date'] . 'shorthauls.json');
+    // Write packunpacks.json.
     $packunpacks = $this->mappackunpackdata($rawdata['packunpack']);
-    $this->writeJson($packunpacks, $rawdata['date'].'packunpacks.json');
+    $this->writeJson($packunpacks, $rawdata['date'] . 'packunpacks.json');
   }
 
   /**
@@ -65,7 +64,7 @@ class Rates400NGWriter implements WriterInterface {
     while ($packunpack = current($rawdata)) {
       $key = $packunpack['schedule'];
       $packunpacks[$key]['pack'][$packunpack['cwt']] = $packunpack['rate'];
-      if ($packunpack['unpack'] != null) {
+      if ($packunpack['unpack'] != NULL) {
         $packunpacks[$key]['unpack'] = $packunpack['unpack'];
       }
       next($rawdata);
