@@ -73,11 +73,11 @@ class ExcelReader implements ReaderInterface {
       for ($col = $lowestColumn; $col <= $highestColumn; $col++) {
         $weight = $worksheet->getCellByColumnAndRow($col, 2)->getValue();
         $rate = $worksheet->getCellByColumnAndRow($col, $row)->getValue();
+        $linehaul['miles'] = $miles;
+        $linehaul['weight'] = $weight;
+        $linehaul['rate'] = $rate;
+        $linehauls[] = $linehaul;
       }
-      $linehaul['miles'] = $miles;
-      $linehaul['weight'] = $weight;
-      $linehaul['rate'] = $rate;
-      $linehauls[] = $linehaul;
     }
     return $linehauls;
   }
