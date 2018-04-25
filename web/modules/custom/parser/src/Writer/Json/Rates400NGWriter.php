@@ -3,6 +3,7 @@
 namespace Drupal\parser\Writer\Json;
 
 use Drupal\parser\Writer\WriterInterface;
+use Drupal\parser\Writer\Json\JsonWriter;
 
 /**
  * Class Rates400NGWriter.
@@ -10,13 +11,13 @@ use Drupal\parser\Writer\WriterInterface;
  * Parses a given array and returns a JSON structure.
  */
 class Rates400NGWriter implements WriterInterface {
+  use JsonWriter;
 
   /**
-   * Writes json files.
+   * Normalizes data then writes service_areas, linehauls, shorthauls, and packunpack files.
    */
   public function write(array $rawdata) {
-    $json = "'finished':'success'";
-    return $json;
+    $this->writeJson($rawdata['schedules'], 'service_areas.json');
   }
 
 }
