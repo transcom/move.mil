@@ -43,22 +43,22 @@
 
   // our hompeage service section at the bottom of the homepage
   .homepage-service-section {
-    border-top: 0.25rem solid #112e51;
+    border-top: 0.25rem solid $color-blue-darkest;
 
     .service-emblems-list {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-evenly;
       align-items: center;
-      margin: 1.5rem 0;
+      margin: $spacing-md-small 0;
 
       &--item {
         max-width: 120px;
         text-align: center;
-        margin: 0 auto 1.5rem auto;
+        margin: 0 auto $spacing-md-small auto;
 
         img {
-          margin: 0 auto 1.5rem auto;
+          margin: 0 auto $spacing-md-small auto;
         }
 
         a {
@@ -78,11 +78,11 @@
     }
 
     .homepage-anchor-title {
-      color: #205493;
+      color: $color-blue-darker;
       font-size: 2.5rem;
-      font-weight: 700;
+      font-weight: $font-bold;
       text-align: center;
-      margin-bottom: 1.5rem;
+      margin-bottom: $spacing-md-small;
     }
 
     .homepage-anchor-list {
@@ -95,12 +95,12 @@
 
         a {
           text-decoration: none;
-          font-size: 1.4rem;
+          font-size: $small-font-size;
           white-space: nowrap;
 
           img {
             display: block;
-            margin: 0 auto 1.5rem auto;
+            margin: 0 auto $spacing-md-small auto;
             max-height: 5rem;
           }
         }
@@ -111,7 +111,7 @@
   // our paragraphs in the main content section
   .field--name-field-paragraph {
     > .field__item {
-      border-bottom: 2px dotted #dce4ef;
+      border-bottom: 2px dotted $color-gray-cool-light;
 
       &:last-of-type {
         border-bottom: 0;
@@ -129,11 +129,11 @@
       .field--name-field-plain-title {
         color: #205493;
         font-size: 2.5rem;
-        font-weight: 500;
+        font-weight: $font-normal;
 
         @include media($medium-screen) {
           font-size: 3.5rem;
-          font-weight: 700;
+          font-weight: $font-bold;
         }
       }
 
