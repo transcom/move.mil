@@ -18,8 +18,6 @@ use Drupal\parser\Handler\ParserHandler;
  */
 class ParserCommand extends Command {
 
-  protected $parser;
-
   /**
    * {@inheritdoc}
    */
@@ -54,8 +52,8 @@ class ParserCommand extends Command {
   protected function execute(InputInterface $input, OutputInterface $output) {
     $file = $input->getOption('file');
     $path = "/var/www/html/lib/data";
-    $this->$parser = new ParserHandler($path, $file, $this->getIo());
-    $this->$parser->execute();
+    $parser = new ParserHandler($path, $file, $this->getIo());
+    $parser->execute();
     $this->getIo()->info($this->trans('commands.parser.messages.success'));
   }
 

@@ -70,7 +70,7 @@ class ExcelReader implements ReaderInterface {
     // Get miles from column 2, weight from row 2, and rate from col, row.
     for ($row = $lowestRow; $row <= $highestRow; $row++) {
       $linehaul = [];
-      $miles = $rate = $worksheet->getCellByColumnAndRow(2, $row)->getValue();
+      $miles = $worksheet->getCellByColumnAndRow(2, $row)->getValue();
       for ($col = $lowestColumn; $col <= $highestColumn; $col++) {
         $weight = $worksheet->getCellByColumnAndRow($col, 2)->getValue();
         $rate = $worksheet->getCellByColumnAndRow($col, $row)->getValue();
@@ -79,6 +79,30 @@ class ExcelReader implements ReaderInterface {
         $linehaul['rate'] = $rate;
         $linehauls[] = $linehaul;
       }
+    }
+    // Increment rates for each addl 100 miles using numbers after last row, up to maxDistance.
+    $miles = intval($worksheet->getCellByColumnAndRow(3, $highestRow)->getValue()) + 1;
+    $incrementRow = $highestRow + 1;
+    // Last rate value.
+    $num_weight_classes = ($highestColumn - $lowestColumn) + 1;
+    while ($miles <= $maxDistance) {
+      $linehaul = [];
+      for ($col = $lowestColumn; $col <= $highestColumn; $col++) {
+        $weight = $worksheet->getCellByColumnAndRow($col, 2)->getValue();
+        // Get increment from yellow (additonal rates) row.
+        $rateincrement = intval($worksheet->getCellByColumnAndRow($col, $incrementRow)->getValue());
+        // Get previous rate from previous miles, same weight.
+        $count = count($linehauls);
+        $lastrowvalue = $linehauls[$count-$num_weight_classes]['rate'];
+        // Get new rate.
+        $rate = $lastrowvalue + $rateincrement;
+        // Save values.
+        $linehaul['miles'] = strval($miles);
+        $linehaul['weight'] = $weight;
+        $linehaul['rate'] = $rate;
+        $linehauls[] = $linehaul;
+      }
+      $miles += 100;
     }
     return $linehauls;
   }
