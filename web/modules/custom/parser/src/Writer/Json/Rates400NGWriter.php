@@ -25,6 +25,9 @@ class Rates400NGWriter implements WriterInterface {
     // Write shorthauls.json
     $shorthauls = $this->mapshorthauldata($rawdata['shorthauls']);
     $this->writeJson($shorthauls, $rawdata['date'].'shorthauls.json');
+    // Write packunpacks.json
+    $packunpacks = $this->mappackunpackdata($rawdata['packunpack']);
+    $this->writeJson($packunpacks, $rawdata['date'].'packunpacks.json');
   }
 
   /**
@@ -52,6 +55,22 @@ class Rates400NGWriter implements WriterInterface {
       next($rawdata);
     }
     return $shorthauls;
+  }
+
+  /**
+   * Normalizes data mapping packunpacks.
+   */
+  private function mappackunpackdata(array $rawdata) {
+    $packunpacks = [];
+    while ($packunpack = current($rawdata)) {
+      $key = $packunpack['schedule'];
+      $packunpacks[$key]['pack'][$packunpack['cwt']] = $packunpack['rate'];
+      if ($packunpack['unpack'] != null) {
+        $packunpacks[$key]['unpack'] = $packunpack['unpack'];
+      }
+      next($rawdata);
+    }
+    return $packunpacks;
   }
 
 }
