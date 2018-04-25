@@ -88,4 +88,12 @@
       color: #205493;
     }
   }
+
+  .usa-accordion-content {
+    background-color: $color-gray-cool-lightest;
+
+    @include media($medium-screen) {
+      display: none;
+    }
+  }
 }
