@@ -1,0 +1,7 @@
+description: 'Parses a move.mil input file and writes a normalized output.'
+options: {file: 'The file name to parse'}
+arguments: {}
+messages:
+    success: 'File parsed'
+questions:
+    file: 'Which is the file name to be parsed?'
