@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ * Contains parser.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function parser_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the parser module.
+    case 'help.page.parser':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Generate JSON files for move.mil tools') . '</p>';
+      return $output;
+
+    default:
+  }
+}

@@ -1,0 +1,75 @@
+<?php
+
+namespace Drupal\parser\Writer\Json;
+
+use Drupal\parser\Writer\WriterInterface;
+
+/**
+ * Class Rates400NGWriter.
+ *
+ * Parses a given array and returns a JSON structure.
+ */
+class Rates400NGWriter implements WriterInterface {
+  use JsonWriter;
+
+  /**
+   * Normalizes data then writes jsons files.
+   */
+  public function write(array $rawdata) {
+    // Write service_areas.json.
+    $this->writeJson($rawdata['schedules'], $rawdata['date'] . 'service_areas.json');
+    // Write linehauls.json.
+    $linehauls = $this->maplinehauldata($rawdata['linehauls']);
+    $this->writeJson($linehauls, $rawdata['date'] . 'linehauls.json');
+    // Write shorthauls.json.
+    $shorthauls = $this->mapshorthauldata($rawdata['shorthauls']);
+    $this->writeJson($shorthauls, $rawdata['date'] . 'shorthauls.json');
+    // Write packunpacks.json.
+    $packunpacks = $this->mappackunpackdata($rawdata['packunpack']);
+    $this->writeJson($packunpacks, $rawdata['date'] . 'packunpacks.json');
+  }
+
+  /**
+   * Normalizes data mapping linehauls.
+   */
+  private function maplinehauldata(array $rawdata) {
+    $linehauls = [];
+    while ($linehaul = current($rawdata)) {
+      $key = $linehaul['miles'];
+      $linehauls[$key][$linehaul['weight']] = $linehaul['rate'];
+      next($rawdata);
+    }
+    return $linehauls;
+  }
+
+  /**
+   * Normalizes data mapping shorthauls.
+   */
+  private function mapshorthauldata(array $rawdata) {
+    $shorthauls = [];
+    while ($shorthaul = current($rawdata)) {
+      $key = $shorthaul['cwt_miles'];
+      $value = $shorthaul['rate'];
+      $shorthauls[$key] = $value;
+      next($rawdata);
+    }
+    return $shorthauls;
+  }
+
+  /**
+   * Normalizes data mapping packunpacks.
+   */
+  private function mappackunpackdata(array $rawdata) {
+    $packunpacks = [];
+    while ($packunpack = current($rawdata)) {
+      $key = $packunpack['schedule'];
+      $packunpacks[$key]['pack'][$packunpack['cwt']] = $packunpack['rate'];
+      if ($packunpack['unpack'] != NULL) {
+        $packunpacks[$key]['unpack'] = $packunpack['unpack'];
+      }
+      next($rawdata);
+    }
+    return $packunpacks;
+  }
+
+}
