@@ -13,10 +13,13 @@
       {% endif %}
 
       {# at mobile #}
-      <button class="usa-accordion-button" aria-controls="{{ 'paragraph-'~paragraph.id.value }}" aria-expanded="false">
+      <button class="usa-accordion-button" aria-controls="{{('callout-accordion-paragraph-'~paragraph.id.value)}}" aria-expanded="false">
         <h2 class="callout-accordion--title">{{ content.field_callout_title }}</h2>
-        {{ content.field_callout_content }}
       </button>
+      <div class="usa-accordion-content" id="{{('callout-accordion-paragraph-'~paragraph.id.value)}}" aria-hidden="true">
+        {{ content.field_callout_content }}
+      </div>
+
 
       {# at desktop #}
       <div class="side-bar-callout">
