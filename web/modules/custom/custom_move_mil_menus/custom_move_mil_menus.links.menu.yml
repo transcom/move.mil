@@ -134,14 +134,14 @@ main_menu.civilians:
 
 main_menu.service-specific-information:
   title: 'Service-Specific Information'
-  url: 'internal:/moving-guide/service-specific-information'
+  url: 'internal:/service-specific-information'
   menu_name: main_menu
   parent: main_menu.moving_guide
   weight: 12
 
 ### Tools & Resources Subnav ###
 main_menu.links:
-  title: 'Tools & Resources'
+  title: 'Helpful Links'
   url: 'internal:/resources'
   menu_name: main_menu
   parent: main_menu.resources
