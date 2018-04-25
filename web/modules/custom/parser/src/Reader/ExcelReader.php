@@ -25,6 +25,7 @@ class ExcelReader implements ReaderInterface {
       'Additional Rates',
       ]);
     $spreadsheet = $reader->load($xlsxFile);
+    $xlsx['date'] = substr($xlsxFile, -15, 5); // Get year from filename
     $xlsx['schedules'] = $this->schedules($spreadsheet);
     $xlsx['linehauls'] = $this->linehauls($spreadsheet, $this->conusparams());
     $additonalrates = $this->additionalrates($spreadsheet);
@@ -123,7 +124,7 @@ class ExcelReader implements ReaderInterface {
     $shorthaul = [];
     $rawcwtm = $worksheet->getCellByColumnAndRow(4, $row->getRowIndex())->getValue();
     if (preg_match("/less than or equal to/", $rawcwtm)) {
-      $cwtm = 0;
+      $cwtm = "0";
     } else if (preg_match("/between (?<cwtm>[\d,]+)/", $rawcwtm, $groups)) {
       $cwtm = str_replace(',', '', $groups['cwtm']); // remove coma
     } else if (preg_match("/greater than (?<cwtm>[\d,]+)/", $rawcwtm, $groups)) {

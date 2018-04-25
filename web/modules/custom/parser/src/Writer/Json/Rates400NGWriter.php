@@ -18,10 +18,13 @@ class Rates400NGWriter implements WriterInterface {
    */
   public function write(array $rawdata) {
     // Write service_areas.json
-    $this->writeJson($rawdata['schedules'], 'service_areas.json');
+    $this->writeJson($rawdata['schedules'], $rawdata['date'].'service_areas.json');
     // Write linehauls.json
     $linehauls = $this->maplinehauldata($rawdata['linehauls']);
-    $this->writeJson($linehauls, 'linehauls.json');
+    $this->writeJson($linehauls, $rawdata['date'].'linehauls.json');
+    // Write shorthauls.json
+    $shorthauls = $this->mapshorthauldata($rawdata['shorthauls']);
+    $this->writeJson($shorthauls, $rawdata['date'].'shorthauls.json');
   }
 
   /**
@@ -31,11 +34,24 @@ class Rates400NGWriter implements WriterInterface {
     $linehauls = [];
     while ($linehaul = current($rawdata)) {
       $key = $linehaul['miles'];
-      $value = [$linehaul['weight'] => $linehaul['rate']];
-      $linehauls[$key][] = $value;
+      $linehauls[$key][$linehaul['weight']] = $linehaul['rate'];
       next($rawdata);
     }
     return $linehauls;
+  }
+
+  /**
+   * Normalizes data mapping shorthauls.
+   */
+  private function mapshorthauldata(array $rawdata) {
+    $shorthauls = [];
+    while ($shorthaul = current($rawdata)) {
+      $key = $shorthaul['cwt_miles'];
+      $value = $shorthaul['rate'];
+      $shorthauls[$key] = $value;
+      next($rawdata);
+    }
+    return $shorthauls;
   }
 
 }
