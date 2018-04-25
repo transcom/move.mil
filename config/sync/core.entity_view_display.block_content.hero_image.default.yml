@@ -1,0 +1,28 @@
+uuid: e412eda2-7aa9-4c8f-8555-2c0b70ad33cb
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.hero_image
+    - field.field.block_content.hero_image.field_hero_image
+  module:
+    - svg_image
+id: block_content.hero_image.default
+targetEntityType: block_content
+bundle: hero_image
+mode: default
+content:
+  field_hero_image:
+    weight: 0
+    label: hidden
+    settings:
+      svg_attributes:
+        width: ''
+        height: ''
+      svg_render_as_image: true
+      image_style: ''
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+    region: content
+hidden: {  }

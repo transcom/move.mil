@@ -1,0 +1,8 @@
+uuid: 1e785339-f635-4a17-b5be-7e41648b3f1b
+langcode: en
+status: true
+dependencies: {  }
+id: custom_paragraph_block
+label: 'Custom Paragraph Block'
+revision: 0
+description: 'Build a block with paragraphs as the content to be rendered'

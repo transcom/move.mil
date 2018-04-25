@@ -1,0 +1,63 @@
+uuid: 469af375-b4dc-453c-aac1-2e06495a7397
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.custom_paragraph_block
+    - field.storage.block_content.field_block_paragraphs
+    - paragraphs.paragraphs_type.basic_text
+    - paragraphs.paragraphs_type.callout_accordion
+    - paragraphs.paragraphs_type.pro_tip
+    - paragraphs.paragraphs_type.text_with_image
+    - paragraphs.paragraphs_type.warning_callout_box
+  module:
+    - entity_reference_revisions
+id: block_content.custom_paragraph_block.field_block_paragraphs
+field_name: field_block_paragraphs
+entity_type: block_content
+bundle: custom_paragraph_block
+label: 'block paragraphs'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      basic_text: basic_text
+      callout_accordion: callout_accordion
+      pro_tip: pro_tip
+      text_with_image: text_with_image
+      warning_callout_box: warning_callout_box
+    target_bundles_drag_drop:
+      basic_text:
+        enabled: true
+        weight: 10
+      callout_accordion:
+        enabled: true
+        weight: 11
+      customer_service_box:
+        weight: 12
+        enabled: false
+      pro_tip:
+        enabled: true
+        weight: 13
+      tabular_data:
+        weight: 14
+        enabled: false
+      tabular_data_wrapper:
+        weight: 15
+        enabled: false
+      text_with_image:
+        enabled: true
+        weight: 16
+      tutorial_slideshow_image:
+        weight: 17
+        enabled: false
+      warning_callout_box:
+        enabled: true
+        weight: 18
+field_type: entity_reference_revisions
