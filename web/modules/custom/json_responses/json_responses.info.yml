@@ -1,0 +1,5 @@
+name: 'Json Responses'
+type: module
+description: 'Reads Json files from file system and creates appropiate Json responses.'
+core: 8.x
+package: 'Custom'
