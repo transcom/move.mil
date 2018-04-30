@@ -6,12 +6,18 @@
     list-style: none;
   }
 
-  h2.move-mil--tutorial__title {
+  h3.move-mil--tutorial__title--label {
     @include h3();
     font-family: $font-sans;
     text-transform: uppercase;
     border-bottom: none;
     color: $color-black;
+    margin-bottom: 0;
+  }
+
+  .move-mil--tutorial__title {
+    font-size: 2rem;
+    margin: 0;
   }
 
   .carousel-gallery-nav {
@@ -30,21 +36,23 @@
         font-size: $font-normal;
 
         &.slick-prev {
-          padding: 0 2rem;
+          padding: 0 1rem 0 2rem;
           background: url('/themes/custom/move_mil/assets/img/icon--arrow-left.svg')  no-repeat;
           background-repeat: no-repeat;
           background-size: contain;
           background-position: left;
           display: inline-block;
+          width: auto;
         }
 
         &.slick-next {
-          padding: 0 2rem;
+          padding: 0 2rem 0 1rem;
           background: url('/themes/custom/move_mil/assets/img/icon--arrow-right.svg')  no-repeat;
           background-repeat: no-repeat;
           background-size: contain;
           background-position: right;
           display: inline-block;
+          width: auto;
         }
       }
     }
