@@ -1,4 +1,6 @@
-.field--name-field-page-intro-text {
+.field--name-field-page-intro-text,
+.field--name-field-tutorial-intro // inclding our intro for tutorials
+{
   background: $color-gray-cool-lightest;
 
   @include margin(2rem 0-$site-margins-mobile);
