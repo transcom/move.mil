@@ -36,6 +36,7 @@ class WeightCalcJsonController extends ControllerBase {
     $array_obj = [];
 
     foreach ($json_obj as $obj) {
+      $items = [];
       foreach ($obj->household_goods as $item) {
         $items[preg_replace('/[^\p{L}\p{N}\s]/u', '', str_replace(' ', '-', $item->name))] = [
           'displayName' => $item->name,
