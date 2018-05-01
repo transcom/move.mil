@@ -9,7 +9,7 @@ use Drupal\Core\Url;
  *
  * @group json_responses
  */
-class LoadTest{
+class LoadTest {
 
   /**
    * Modules to enable.
