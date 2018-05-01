@@ -1,0 +1,31 @@
+{
+  "name": "move.mil",
+  "version": "1.0.0",
+  "description": "[![CircleCI](https://circleci.com/gh/Bixal/move.mil.svg?style=svg)](https://circleci.com/gh/Bixal/move.mil)",
+  "main": "backstop-settings.js",
+  "directories": {
+    "lib": "lib",
+    "test": "tests"
+  },
+  "dependencies": {
+    "backstopjs": "^3.2.15",
+    "casperjs": "^1.1.4",
+    "minimalist": "^1.0.0",
+    "minimist": "^1.2.0",
+    "slimerjs": "^1.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "backstop test --configPath=backstop-settings.js --refhost=https://stage.movemil.bixal.net --pathfile=backstop-paths"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bixal/move.mil.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Bixal/move.mil/issues"
+  },
+  "homepage": "https://github.com/Bixal/move.mil#readme"
+}
