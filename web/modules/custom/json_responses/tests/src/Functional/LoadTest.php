@@ -3,14 +3,13 @@
 namespace Drupal\Tests\json_responses\Functional;
 
 use Drupal\Core\Url;
-use Drupal\Tests\BrowserTestBase;
 
 /**
  * Simple test to ensure that main page loads with module enabled.
  *
  * @group json_responses
  */
-class LoadTest extends BrowserTestBase {
+class LoadTest{
 
   /**
    * Modules to enable.
