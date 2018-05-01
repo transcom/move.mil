@@ -17,7 +17,7 @@ class EntitlementsWriter implements WriterInterface {
    */
   public function write(array $rawdata) {
     $entitlements = $this->mapdata($rawdata);
-    $this->writetable($entitlements, 'entitlements');
+    $this->writetable($entitlements, 'parser_entitlements');
   }
 
   /**

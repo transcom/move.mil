@@ -15,10 +15,21 @@ namespace Drupal\parser\Writer\DB;
 trait DBWriter {
 
   /**
-   * Writes a db table.
+   * Save entries in the database.
+   *
+   * @param array $data
+   *   An array of arrays containing all the fields of the database record.
+   *
+   * @param string $table
+   *   The table for inserting the data.
+   *
+   * @see db_insert()
    */
   public function writetable(array $data, $table) {
-    echo 'writing on ' . $table;
+    foreach ($data as $record) {
+      db_insert($table)
+        ->fields($record)
+        ->execute();
+    }
   }
-
 }

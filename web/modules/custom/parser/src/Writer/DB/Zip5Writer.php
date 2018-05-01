@@ -17,7 +17,7 @@ class Zip5Writer implements WriterInterface {
    */
   public function write(array $rawdata) {
     $zip5s = $this->mapdata($rawdata);
-    $this->writetable($zip5s, 'zip5s');
+    $this->writetable($zip5s, 'parser_zip5s');
   }
 
   /**

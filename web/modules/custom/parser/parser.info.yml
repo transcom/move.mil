@@ -1,5 +1,5 @@
 name: 'Parser'
 type: module
-description: 'Generate JSON files for move.mil tools'
+description: 'Store data for move.mil tools'
 core: 8.x
 package: 'Custom'

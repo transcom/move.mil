@@ -17,30 +17,50 @@ class Rates400NGWriter implements WriterInterface {
    */
   public function write(array $rawdata) {
     // Write service_areas.
-    $service_areas = $this->adddate($rawdata['schedules'], $rawdata['date']);
-    $this->writetable($service_areas, 'service_areas');
+    $service_areas = $this->addyear($rawdata['schedules'], $rawdata['year']);
+    $this->writetable($service_areas, 'parser_service_areas');
     // Write linehauls.
-    $linehauls = $this->adddate($rawdata['linehauls'], $rawdata['date']);
-    $this->writetable($linehauls, 'linehauls');
+    $linehauls = $this->addyear($rawdata['linehauls'], $rawdata['year']);
+    $this->writetable($linehauls, 'parser_linehauls');
     // Write shorthauls.
-    $shorthauls = $this->adddate($rawdata['shorthauls'], $rawdata['date']);
-    $this->writetable($shorthauls, 'shorthauls');
+    $shorthauls = $this->addyear($rawdata['shorthauls'], $rawdata['year']);
+    $this->writetable($shorthauls, 'parser_shorthauls');
     // Write packunpacks.
-    $packunpacks = $this->adddate($rawdata['packunpack'], $rawdata['date']);
-    $this->writetable($packunpacks, 'packunpacks');
+    $packunpacks = $this->addyear($rawdata['packunpack'], $rawdata['year']);
+    $packunpacks = $this->mappackunpackdata($packunpacks);
+    $this->writetable($packunpacks, 'parser_packunpacks');
   }
 
   /**
-   * Add date to current array data.
+   * Add year to current array data.
    */
-  private function adddate(array $rawdata, $date) {
+  private function addyear(array $rawdata, $year) {
     $data = [];
     while ($record = current($rawdata)) {
-      $record['date'] = $date;
+      $record['year'] = $year;
       $data[] = $record;
       next($rawdata);
     }
     return $data;
+  }
+
+  /**
+   * Normalizes data mapping packunpacks.
+   */
+  private function mappackunpackdata(array $rawdata) {
+    $packunpacks = [];
+    $unpack = 0;
+    while ($packunpack = current($rawdata)) {
+      if ($packunpack['unpack'] != NULL) {
+        $unpack = $packunpack['unpack'];
+      }
+      else {
+        $packunpack['unpack'] = $unpack;
+      }
+      $packunpacks[] = $packunpack;
+      next($rawdata);
+    }
+    return $packunpacks;
   }
 
 }

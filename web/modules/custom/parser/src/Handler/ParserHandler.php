@@ -5,10 +5,10 @@ namespace Drupal\parser\Handler;
 use Drupal\parser\Reader\CsvReader;
 use Drupal\parser\Reader\ExcelReader;
 use Drupal\parser\Reader\YamlReader;
-use Drupal\parser\Writer\Json\EntitlementsWriter;
+use Drupal\parser\Writer\DB\EntitlementsWriter;
 use Drupal\parser\Writer\DB\Rates400NGWriter;
-use Drupal\parser\Writer\Json\Zip5Writer;
-use Drupal\parser\Writer\Json\Zip3Writer;
+use Drupal\parser\Writer\DB\Zip5Writer;
+use Drupal\parser\Writer\DB\Zip3Writer;
 use Drupal\Console\Core\Style\DrupalStyle;
 
 /**

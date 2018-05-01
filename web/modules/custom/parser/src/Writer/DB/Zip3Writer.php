@@ -17,7 +17,7 @@ class Zip3Writer implements WriterInterface {
    */
   public function write(array $rawdata) {
     $zip3s = $this->mapdata($rawdata);
-    $this->writetable($zip3s, 'zip3s');
+    $this->writetable($zip3s, 'parser_zip3s');
   }
 
   /**

@@ -1,7 +1,7 @@
-description: 'Parses a move.mil input file and writes a normalized output.'
+description: 'Parses a move.mil input file and writes a normalized output in a drupal custom table.'
 options: {file: 'The file name to parse'}
 arguments: {}
 messages:
-    success: 'File parsed'
+    success: 'File parsed and stored.'
 questions:
     file: 'Which is the file name to be parsed?'
