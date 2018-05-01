@@ -6,3 +6,4 @@ json_responses.weight_calc_json_controller_response:
     _title: 'response'
   requirements:
     _permission: 'access content'
+
