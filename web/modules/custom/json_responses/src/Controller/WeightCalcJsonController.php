@@ -33,21 +33,21 @@ class WeightCalcJsonController extends ControllerBase {
     $file_as_string = str_replace("\n", "", $file);
     $json_obj = json_decode($file_as_string);
 
-    $array_obj = NULL;
+    $array_obj = [];
 
     foreach ($json_obj as $obj) {
       foreach ($obj->household_goods as $item) {
-        $items[preg_replace('/[^\p{L}\p{N}\s]/u', '', str_replace(' ', '-', $item->name))] = array(
+        $items[preg_replace('/[^\p{L}\p{N}\s]/u', '', str_replace(' ', '-', $item->name))] = [
           'displayName' => $item->name,
           'weight' => $item->weight,
-        );
+        ];
       }
 
-      $array_obj[preg_replace('/[^\p{L}\p{N}\s]/u', '', str_replace(' ', '-', $obj->name))] = array(
+      $array_obj[preg_replace('/[^\p{L}\p{N}\s]/u', '', str_replace(' ', '-', $obj->name))] = [
         "displayName" => $obj->name,
         "icon" => $obj->icon,
         "items" => $items,
-      );
+      ];
     }
 
     $response = JsonResponse::create($array_obj, 200);
