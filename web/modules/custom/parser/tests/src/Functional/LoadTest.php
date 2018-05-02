@@ -7,7 +7,7 @@ use Drupal\Core\Url;
 /**
  * Simple test to ensure that main page loads with module enabled.
  *
- * @group json_responses
+ * @group parser
  */
 class LoadTest {
 
@@ -16,13 +16,21 @@ class LoadTest {
    *
    * @var array
    */
-  public static $modules = ['json_responses'];
+  public static $modules = ['parser'];
 
   /**
-   * Tests that the home page loads with a 200 response.
+   * Tests that weight_calculator loads with a 200 response.
    */
   public function testLoad() {
-    $this->drupalGet(Url::fromRoute('/json_response/weight_calculator'));
+    $this->drupalGet(Url::fromRoute('/parser/weight_calculator'));
+    $this->assertSession()->statusCodeEquals(200);
+  }
+
+  /**
+   * Tests that entitlements loads with a 200 response.
+   */
+  public function testEntitlements() {
+    $this->drupalGet(Url::fromRoute('/parser/entitlements'));
     $this->assertSession()->statusCodeEquals(200);
   }
 
