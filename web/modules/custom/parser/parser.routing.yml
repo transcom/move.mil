@@ -5,10 +5,17 @@ parser.weight_calc_json_controller_response:
     _title: 'response'
   requirements:
     _permission: 'access content'
-parser.entitlements_json_controller_index:
+parser.entitlements_controller_index:
   path: '/parser/entitlements'
   defaults:
     _controller: '\Drupal\parser\Controller\EntitlementsController::index'
     _title: 'index'
+  requirements:
+    _permission: 'access content'
+parser.ppm_estimator_controller_estimate:
+  path: '/parser/ppm_estimate'
+  defaults:
+    _controller: '\Drupal\parser\Controller\PpmEstimatorController::ppm_estimate'
+    _title: 'ppm_estimate'
   requirements:
     _permission: 'access content'

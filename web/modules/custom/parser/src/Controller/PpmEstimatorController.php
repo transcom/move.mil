@@ -4,18 +4,19 @@ namespace Drupal\parser\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\parser\Repositories\EntitlementsRepository;
 
 /**
- * Class EntitlementsController.
+ * Class PpmEstimatorController.
  */
-class EntitlementsController extends ControllerBase {
+class PpmEstimatorController extends ControllerBase {
 
   private $EntitlementsRepository;
 
   /**
-   * Constructs a EntitlementsController.
+   * Constructs a PpmEstimatorController.
    *
    * @param \Drupal\parser\Repositories\EntitlementsRepository $er
    *   A EntitlementsRepository object.
@@ -32,14 +33,38 @@ class EntitlementsController extends ControllerBase {
   }
 
   /**
-   * Get all entitlements table.
+   * Get PPM Incentive Estimate response.
    *
    * @return \Symfony\Component\HttpFoundation\JsonResponse
    *   Return entitlements as a Json object
    */
-  public function index() {
-    $entries = $this->EntitlementsRepository->getall();
-    $data = $this->mapdata($entries);
+  public function ppm_estimate(Request $request) {
+    $content = $request->getContent();
+    if (!empty($content)) {
+      $params = json_decode($content, TRUE);
+    }
+    $data = [
+      'locations' => [
+        'origin' => 'Fairfax, VA 22030',
+        'destination' => 'Beverly Hills, CA 90210',
+      ],
+      'weightOptions' => [
+        'houseHold' => 1111,
+        'proGear' => 2222,
+        'dependent' => FALSE,
+        'total' => 3333,
+      ],
+      'selectedMoveDate' => '2018-05-24T18:22:33.000Z',
+      'incentive' => [
+        'min' => 4500,
+        'max' => 5200,
+      ],
+      'advancePayment' => [
+        'min' => 2700,
+        'max' => 3120,
+        'discount' => 60
+      ],
+    ];
     $response = JsonResponse::create($data, 200);
     $response->setEncodingOptions(
       $response->getEncodingOptions() |
@@ -52,19 +77,6 @@ class EntitlementsController extends ControllerBase {
     else {
       return JsonResponse::create('Error while creating response.', 500);
     }
-  }
-
-  /**
-   * Normalizes data mapping entitlements code with the rest of the data.
-   */
-  private function mapdata(array $entries) {
-    $entitlements = [];
-    foreach ($entries as $entry) {
-      $entitlement = (array) $entry;
-      $key = $entitlement['slug'];
-      $entitlements[$key] = $entitlement;
-    }
-    return $entitlements;
   }
 
 }
