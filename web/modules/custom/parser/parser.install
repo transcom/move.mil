@@ -217,7 +217,7 @@ function parser_service_areas() {
         'description' => 'The service area number.',
       ],
       'linehaul_factor' => [
-        'type' => 'numeric', 
+        'type' => 'numeric',
         'unsigned' => TRUE,
         'not null' => TRUE,
         'default' => 0.0,

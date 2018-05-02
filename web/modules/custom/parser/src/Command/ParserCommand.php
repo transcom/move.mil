@@ -50,13 +50,12 @@ class ParserCommand extends Command {
       );
       $input->setOption('file', $file);
     }
-
     if (!$input->getOption('truncate')) {
-        $truncate = $this->getIo()->confirm(
-            $this->trans('commands.parser.questions.truncate'),
-            false
-        );
-        $input->setOption('truncate', $truncate);
+      $truncate = $this->getIo()->confirm(
+        $this->trans('commands.parser.questions.truncate'),
+        FALSE
+      );
+      $input->setOption('truncate', $truncate);
     }
   }
 

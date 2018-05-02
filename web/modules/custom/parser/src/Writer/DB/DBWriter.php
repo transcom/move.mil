@@ -42,7 +42,7 @@ trait DBWriter {
    */
   public function truncate($table) {
     db_truncate($table)
-        ->execute();
+      ->execute();
   }
 
 }
