@@ -3,6 +3,7 @@
 namespace Drupal\parser\Writer\DB;
 
 use Drupal\parser\Writer\WriterInterface;
+use Drupal\Console\Core\Style\DrupalStyle;
 
 /**
  * Class Rates400NGWriter.
@@ -15,20 +16,37 @@ class Rates400NGWriter implements WriterInterface {
   /**
    * Normalizes data then writes it into db tables.
    */
-  public function write(array $rawdata) {
+  public function write(array $rawdata, $truncate, DrupalStyle $io) {
     // Write service_areas.
-    $service_areas = $this->addyear($rawdata['schedules'], $rawdata['year']);
-    $this->writetable($service_areas, 'parser_service_areas');
+    $table = 'parser_service_areas';
+    $service_areas = $this->data($rawdata, $table, 'schedules', $truncate, $io);
+    $this->writetable($service_areas, $table);
     // Write linehauls.
-    $linehauls = $this->addyear($rawdata['linehauls'], $rawdata['year']);
-    $this->writetable($linehauls, 'parser_linehauls');
+    $table = 'parser_linehauls';
+    $linehauls = $this->data($rawdata, $table, 'linehauls', $truncate, $io);
+    $this->writetable($linehauls, $table);
     // Write shorthauls.
-    $shorthauls = $this->addyear($rawdata['shorthauls'], $rawdata['year']);
-    $this->writetable($shorthauls, 'parser_shorthauls');
+    $table = 'parser_shorthauls';
+    $shorthauls = $this->data($rawdata, $table, 'shorthauls', $truncate, $io);
+    $this->writetable($shorthauls, $table);
     // Write packunpacks.
-    $packunpacks = $this->addyear($rawdata['packunpack'], $rawdata['year']);
+    $table = 'parser_packunpacks';
+    $packunpacks = $this->data($rawdata, $table, 'packunpack', $truncate, $io);
     $packunpacks = $this->mappackunpackdata($packunpacks);
-    $this->writetable($packunpacks, 'parser_packunpacks');
+    $this->writetable($packunpacks, $table);
+  }
+
+  /**
+   * Prepare data.
+   */
+  private function data(array $rawdata, $table, $dataname, $truncate, DrupalStyle $io) {
+    if ($truncate) {
+      $io->info("Truncating {$table} table.");
+      $this->truncate($table);
+    }
+    $io->info("Writing new records on {$table} table.");
+    $data = $this->addyear($rawdata[$dataname], $rawdata['year']);
+    return $data;
   }
 
   /**

@@ -3,6 +3,7 @@
 namespace Drupal\parser\Writer\DB;
 
 use Drupal\parser\Writer\WriterInterface;
+use Drupal\Console\Core\Style\DrupalStyle;
 
 /**
  * Class Zip5Writer.
@@ -15,9 +16,15 @@ class Zip5Writer implements WriterInterface {
   /**
    * Normalizes data then writes zip5s table.
    */
-  public function write(array $rawdata) {
+  public function write(array $rawdata, $truncate, DrupalStyle $io) {
+    $table = 'parser_zip5s';
+    if ($truncate) {
+      $io->info("Truncating {$table} table.");
+      $this->truncate($table);
+    }
     $zip5s = $this->mapdata($rawdata);
-    $this->writetable($zip5s, 'parser_zip5s');
+    $io->info("Writing new records on {$table} table.");
+    $this->writetable($zip5s, $table);
   }
 
   /**

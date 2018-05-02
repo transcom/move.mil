@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * @file
+ * Schema used the parser module DB tables.
+ */
+
+/**
  * Implements hook_schema().
  *
  * Defines the database tables used by this module.
@@ -221,8 +226,8 @@ function parser_service_areas() {
         'description' => 'The linehaul factor.',
       ],
       'orig_dest_service_charge' => [
-        'type' => 'numeric', 
-        'unsigned' => TRUE, 
+        'type' => 'numeric',
+        'unsigned' => TRUE,
         'not null' => TRUE,
         'default' => 0.0,
         'precision' => 7,
@@ -313,8 +318,8 @@ function parser_shorthauls() {
         'description' => 'The lowest value in the cwt_miles range.',
       ],
       'rate' => [
-        'type' => 'numeric', 
-        'unsigned' => TRUE, 
+        'type' => 'numeric',
+        'unsigned' => TRUE,
         'not null' => TRUE,
         'default' => 0.0,
         'precision' => 7,
@@ -363,8 +368,8 @@ function parser_packunpacks() {
         'description' => 'The lowest value in the cwt range.',
       ],
       'pack' => [
-        'type' => 'numeric', 
-        'unsigned' => TRUE, 
+        'type' => 'numeric',
+        'unsigned' => TRUE,
         'not null' => TRUE,
         'default' => 0.0,
         'precision' => 7,
@@ -372,8 +377,8 @@ function parser_packunpacks() {
         'description' => 'The pack charge.',
       ],
       'unpack' => [
-        'type' => 'numeric', 
-        'unsigned' => TRUE, 
+        'type' => 'numeric',
+        'unsigned' => TRUE,
         'not null' => TRUE,
         'default' => 0.0,
         'precision' => 8,

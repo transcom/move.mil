@@ -30,6 +30,12 @@ class ParserCommand extends Command {
         NULL,
         InputOption::VALUE_REQUIRED,
         $this->trans('commands.parser.options.file')
+        )
+      ->addOption(
+        'truncate',
+        NULL,
+        InputOption::VALUE_REQUIRED,
+        $this->trans('commands.parser.options.truncate')
         );
   }
 
@@ -44,6 +50,14 @@ class ParserCommand extends Command {
       );
       $input->setOption('file', $file);
     }
+
+    if (!$input->getOption('truncate')) {
+        $truncate = $this->getIo()->confirm(
+            $this->trans('commands.parser.questions.truncate'),
+            false
+        );
+        $input->setOption('truncate', $truncate);
+    }
   }
 
   /**
@@ -52,7 +66,7 @@ class ParserCommand extends Command {
   protected function execute(InputInterface $input, OutputInterface $output) {
     $file = $input->getOption('file');
     $path = "/var/www/html/lib/data";
-    $parser = new ParserHandler($path, $file, $this->getIo());
+    $parser = new ParserHandler($path, $file, $input->getOption('truncate'), $this->getIo());
     $parser->execute();
     $this->getIo()->info($this->trans('commands.parser.messages.success'));
   }

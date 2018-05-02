@@ -3,6 +3,7 @@
 namespace Drupal\parser\Writer\DB;
 
 use Drupal\parser\Writer\WriterInterface;
+use Drupal\Console\Core\Style\DrupalStyle;
 
 /**
  * Class EntitlementsWriter.
@@ -15,9 +16,15 @@ class EntitlementsWriter implements WriterInterface {
   /**
    * Normalizes data then writes it into db tables.
    */
-  public function write(array $rawdata) {
+  public function write(array $rawdata, $truncate, DrupalStyle $io) {
+    $table = 'parser_entitlements';
+    if ($truncate) {
+      $io->info("Truncating {$table} table.");
+      $this->truncate($table);
+    }
     $entitlements = $this->mapdata($rawdata);
-    $this->writetable($entitlements, 'parser_entitlements');
+    $io->info("Writing new records on {$table} table.");
+    $this->writetable($entitlements, $table);
   }
 
   /**

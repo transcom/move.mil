@@ -1,7 +1,10 @@
 description: 'Parses a move.mil input file and writes a normalized output in a drupal custom table.'
-options: {file: 'The file name to parse'}
+options:
+    file: 'The file name to parse'
+    truncate: 'Delete all table(s) records'
 arguments: {}
 messages:
     success: 'File parsed and stored.'
 questions:
     file: 'Which is the file name to be parsed?'
+    truncate: 'Do you want to truncate the current table(s) of the file?'

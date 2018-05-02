@@ -17,13 +17,14 @@ use Drupal\Console\Core\Style\DrupalStyle;
  * Takes an input file, and according to the
  * extension, calls the proper parser.
  * Then, calls the proper output generator and
- * returns a JSON structure.
+ * store data in the DB.
  */
 class ParserHandler {
 
   protected $filename;
   protected $reader;
   protected $writer;
+  protected $truncate;
   protected $io;
 
   /**
@@ -33,15 +34,18 @@ class ParserHandler {
    *   Where the file input is located.
    * @param string $input
    *   The user input.
+   * @param bool $truncate
+   *   Truncate the db table before writing.
    * @param \Drupal\Console\Core\Style\DrupalStyle $io
    *   The DrupalStyle io.
    */
-  public function __construct($path, $input, DrupalStyle $io) {
+  public function __construct($path, $input, $truncate, DrupalStyle $io) {
     list(
       $this->filename,
       $this->reader,
       $this->writer
       ) = $this->filename($path, $input);
+    $this->truncate = $truncate;
     $this->io = $io;
   }
 
@@ -51,7 +55,7 @@ class ParserHandler {
   public function execute() {
     $this->io->info("Parsing {$this->filename}...");
     $rawdata = $this->reader->parse($this->filename);
-    $this->writer->write($rawdata);
+    $this->writer->write($rawdata, $this->truncate, $this->io);
   }
 
   /**
