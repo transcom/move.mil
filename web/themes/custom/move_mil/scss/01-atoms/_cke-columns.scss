@@ -4,7 +4,7 @@
 
     &.usa-grid-full {
       padding: 2%;
-      border: 1px solid lightgrey;
+      border: 1px solid $color-gray-light;
 
       .content-column {
         &.usa-width-one-half,
@@ -12,7 +12,7 @@
         &.usa-width-two-thirds,
         &.usa-width-one-fourth {
           padding: 2%;
-          border: 1px dotted lightgrey;
+          border: 1px dotted $color-gray-light;
           margin: 1rem 0;
         }
       }
