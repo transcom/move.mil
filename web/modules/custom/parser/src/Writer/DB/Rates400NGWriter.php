@@ -20,20 +20,20 @@ class Rates400NGWriter implements WriterInterface {
     // Write service_areas.
     $table = 'parser_service_areas';
     $service_areas = $this->data($rawdata, $table, 'schedules', $truncate, $io);
-    $this->writetable($service_areas, $table);
+    $this->writable($service_areas, $table);
     // Write linehauls.
     $table = 'parser_linehauls';
     $linehauls = $this->data($rawdata, $table, 'linehauls', $truncate, $io);
-    $this->writetable($linehauls, $table);
+    $this->writable($linehauls, $table);
     // Write shorthauls.
     $table = 'parser_shorthauls';
     $shorthauls = $this->data($rawdata, $table, 'shorthauls', $truncate, $io);
-    $this->writetable($shorthauls, $table);
+    $this->writable($shorthauls, $table);
     // Write packunpacks.
     $table = 'parser_packunpacks';
     $packunpacks = $this->data($rawdata, $table, 'packunpack', $truncate, $io);
     $packunpacks = $this->mappackunpackdata($packunpacks);
-    $this->writetable($packunpacks, $table);
+    $this->writable($packunpacks, $table);
   }
 
   /**

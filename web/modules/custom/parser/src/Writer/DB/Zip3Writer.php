@@ -24,7 +24,7 @@ class Zip3Writer implements WriterInterface {
     }
     $zip3s = $this->mapdata($rawdata);
     $io->info("Writing new records on {$table} table.");
-    $this->writetable($zip3s, $table);
+    $this->writable($zip3s, $table);
   }
 
   /**

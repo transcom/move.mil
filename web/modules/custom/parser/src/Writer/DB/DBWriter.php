@@ -1,6 +1,7 @@
 <?php
 
 namespace Drupal\parser\Writer\DB;
+use Drupal\Core\Database;
 
 /**
  * Trait DBWriter.
@@ -15,6 +16,17 @@ namespace Drupal\parser\Writer\DB;
 trait DBWriter {
 
   /**
+   * Returns a database connection object.
+   *
+   * @return object
+   *   Returns a connection object.
+   */
+  public function getDatabaseConnection() {
+    $connection = \Drupal::database();
+    return $connection;
+  }
+
+  /**
    * Save entries in the database.
    *
    * @param array $data
@@ -24,9 +36,9 @@ trait DBWriter {
    *
    * @see db_insert()
    */
-  public function writetable(array $data, $table) {
+  public function writable(array $data, $table) {
     foreach ($data as $record) {
-      db_insert($table)
+      $this->getDatabaseConnection()->insert($table)
         ->fields($record)
         ->execute();
     }
@@ -41,7 +53,7 @@ trait DBWriter {
    * @see db_truncate()
    */
   public function truncate($table) {
-    db_truncate($table)
+    $this->getDatabaseConnection()->truncate($table)
       ->execute();
   }
 

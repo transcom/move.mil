@@ -24,7 +24,7 @@ class EntitlementsWriter implements WriterInterface {
     }
     $entitlements = $this->mapdata($rawdata);
     $io->info("Writing new records on {$table} table.");
-    $this->writetable($entitlements, $table);
+    $this->writable($entitlements, $table);
   }
 
   /**

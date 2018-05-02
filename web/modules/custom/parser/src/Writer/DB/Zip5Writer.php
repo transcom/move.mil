@@ -24,7 +24,7 @@ class Zip5Writer implements WriterInterface {
     }
     $zip5s = $this->mapdata($rawdata);
     $io->info("Writing new records on {$table} table.");
-    $this->writetable($zip5s, $table);
+    $this->writable($zip5s, $table);
   }
 
   /**
