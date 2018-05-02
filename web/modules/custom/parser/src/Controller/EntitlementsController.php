@@ -5,30 +5,32 @@ namespace Drupal\parser\Controller;
 use Drupal\Core\Controller\ControllerBase;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Drupal\parser\Repositories\EntitlementsRepository;
+use Drupal\Core\Database\Connection as Connection;
 
 /**
  * Class EntitlementsController.
  */
 class EntitlementsController extends ControllerBase {
 
-  private $EntitlementsRepository;
+  private $databaseConnection;
 
   /**
    * Constructs a EntitlementsController.
    *
-   * @param \Drupal\parser\Repositories\EntitlementsRepository $er
-   *   A EntitlementsRepository object.
+   * @param \Drupal\Core\Database\Connection $databaseConnection
+   *   A Database Connection object.
    */
-  public function __construct(EntitlementsRepository $er) {
-    $this->EntitlementsRepository = $er;
+  public function __construct(Connection $databaseConnection) {
+    $this->databaseConnection = $databaseConnection;
   }
 
   /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
-    return new static(new EntitlementsRepository());
+    return new static(
+      $container->get('database')
+    );
   }
 
   /**
@@ -38,7 +40,11 @@ class EntitlementsController extends ControllerBase {
    *   Return entitlements as a Json object
    */
   public function index() {
-    $entries = $this->EntitlementsRepository->getall();
+    $entries = $this->databaseConnection
+      ->select('parser_entitlements')
+      ->fields('parser_entitlements')
+      ->execute()
+      ->fetchAll();
     $data = $this->mapdata($entries);
     $response = JsonResponse::create($data, 200);
     $response->setEncodingOptions(
