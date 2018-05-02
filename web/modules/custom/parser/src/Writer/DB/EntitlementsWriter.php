@@ -20,11 +20,11 @@ class EntitlementsWriter implements WriterInterface {
     $table = 'parser_entitlements';
     if ($truncate) {
       $io->info("Truncating {$table} table.");
-      $this->truncate($table);
+      $this->truncateTable($table);
     }
     $entitlements = $this->mapdata($rawdata);
     $io->info("Writing new records on {$table} table.");
-    $this->writable($entitlements, $table);
+    $this->insertToTable($entitlements, $table);
   }
 
   /**

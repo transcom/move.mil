@@ -20,11 +20,11 @@ class Zip5Writer implements WriterInterface {
     $table = 'parser_zip5s';
     if ($truncate) {
       $io->info("Truncating {$table} table.");
-      $this->truncate($table);
+      $this->truncateTable($table);
     }
     $zip5s = $this->mapdata($rawdata);
     $io->info("Writing new records on {$table} table.");
-    $this->writable($zip5s, $table);
+    $this->insertToTable($zip5s, $table);
   }
 
   /**

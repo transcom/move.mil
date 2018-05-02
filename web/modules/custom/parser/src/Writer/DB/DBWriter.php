@@ -1,7 +1,6 @@
 <?php
 
 namespace Drupal\parser\Writer\DB;
-use Drupal\Core\Database;
 
 /**
  * Trait DBWriter.
@@ -36,7 +35,7 @@ trait DBWriter {
    *
    * @see db_insert()
    */
-  public function writable(array $data, $table) {
+  public function insertToTable(array $data, $table) {
     foreach ($data as $record) {
       $this->getDatabaseConnection()->insert($table)
         ->fields($record)
@@ -52,7 +51,7 @@ trait DBWriter {
    *
    * @see db_truncate()
    */
-  public function truncate($table) {
+  public function truncateTable($table) {
     $this->getDatabaseConnection()->truncate($table)
       ->execute();
   }

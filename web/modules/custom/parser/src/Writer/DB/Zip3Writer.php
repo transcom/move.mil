@@ -20,11 +20,11 @@ class Zip3Writer implements WriterInterface {
     $table = 'parser_zip3s';
     if ($truncate) {
       $io->info("Truncating {$table} table.");
-      $this->truncate($table);
+      $this->truncateTable($table);
     }
     $zip3s = $this->mapdata($rawdata);
     $io->info("Writing new records on {$table} table.");
-    $this->writable($zip3s, $table);
+    $this->insertToTable($zip3s, $table);
   }
 
   /**

@@ -20,20 +20,20 @@ class Rates400NGWriter implements WriterInterface {
     // Write service_areas.
     $table = 'parser_service_areas';
     $service_areas = $this->data($rawdata, $table, 'schedules', $truncate, $io);
-    $this->writable($service_areas, $table);
+    $this->insertToTable($service_areas, $table);
     // Write linehauls.
     $table = 'parser_linehauls';
     $linehauls = $this->data($rawdata, $table, 'linehauls', $truncate, $io);
-    $this->writable($linehauls, $table);
+    $this->insertToTable($linehauls, $table);
     // Write shorthauls.
     $table = 'parser_shorthauls';
     $shorthauls = $this->data($rawdata, $table, 'shorthauls', $truncate, $io);
-    $this->writable($shorthauls, $table);
+    $this->insertToTable($shorthauls, $table);
     // Write packunpacks.
     $table = 'parser_packunpacks';
     $packunpacks = $this->data($rawdata, $table, 'packunpack', $truncate, $io);
     $packunpacks = $this->mappackunpackdata($packunpacks);
-    $this->writable($packunpacks, $table);
+    $this->insertToTable($packunpacks, $table);
   }
 
   /**
@@ -42,7 +42,7 @@ class Rates400NGWriter implements WriterInterface {
   private function data(array $rawdata, $table, $dataname, $truncate, DrupalStyle $io) {
     if ($truncate) {
       $io->info("Truncating {$table} table.");
-      $this->truncate($table);
+      $this->truncateTable($table);
     }
     $io->info("Writing new records on {$table} table.");
     $data = $this->addyear($rawdata[$dataname], $rawdata['year']);
