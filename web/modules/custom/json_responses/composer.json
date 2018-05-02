@@ -4,11 +4,11 @@
   "description": "Reads Json files from file system and creates appropiate Json responses.",
   "keywords": ["Drupal"],
   "license": "GPL-2.0+",
-  "homepage": "https://www.drupal.org/project/json_responses",
+  "homepage": "https://github.com/Bixal/move.mil",
   "minimum-stability": "dev",
   "support": {
-    "issues": "https://www.drupal.org/project/issues/json_responses",
-    "source": "http://cgit.drupalcode.org/json_responses"
+    "source": "https://github.com/Bixal/move.mil"
   },
   "require": { }
+
 }
