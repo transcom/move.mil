@@ -8,7 +8,7 @@
 
 {% block paragraph %}
   {% if content.field_plain_title[0] %}
-    <div{{ attributes.addClass(classes).setAttribute('id', content.field_plain_title[0]['#context'].value|clean_class ) }}>
+    <div{{ attributes.addClass(classes).setAttribute('id', content.field_plain_title[0]['#context'].value|clean_id ) }}>
   {% else %}
     <div{{ attributes.addClass(classes).setAttribute('id', 'paragraph-'~paragraph.id.value) }}>
   {% endif %}

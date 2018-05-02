@@ -29,22 +29,14 @@
   set classes = [
     'block',
     'block-' ~ configuration.provider|clean_class,
+    'block-sidebar-menu',
     'block-' ~ plugin_id|clean_class,
-    'block-' ~ label['#markup']|replace({'&amp;':'and'})|clean_class,
   ]
 %}
 
-{% if label['#markup'] %}
-  <div{{ attributes.addClass(classes).setAttribute('id', label['#markup']|replace({'&amp;':'and'})|clean_id) }}>
-{% else %}
-  <div{{ attributes.addClass(classes)}}>
-{% endif %}
-  {{ title_prefix }}
-  {% if label %}
-    <h2{{ title_attributes }}>{{ label }}</h2>
-  {% endif %}
-  {{ title_suffix }}
-  {% block content %}
+<aside class="region-sidebar-first usa-width-one-fourth">
+  <div{{ attributes.addClass(classes) }}>
+    <div class="jumplinks-mobile-header">Jump to:</div>
     {{ content }}
-  {% endblock %}
-</div>
+  </div>
+</aside>
