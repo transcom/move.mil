@@ -29,6 +29,11 @@
         color: $color-primary-darker;
         text-decoration: underline;
       }
+
+      &.usa-current {
+        border: none;
+        padding-left: 0;
+      }
     }
   }
 }
