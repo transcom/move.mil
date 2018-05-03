@@ -54,6 +54,10 @@ settings:
           name: Custom
           items:
             - Styles
+        -
+          name: Layouts
+          items:
+            - TemplateSelector
   plugins:
     language:
       language_list: un

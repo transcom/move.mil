@@ -1,0 +1,16 @@
+uuid: 81886649-fba0-4f5f-a846-632e1195daf9
+langcode: en
+status: true
+dependencies: {  }
+id: 2_col
+label: '1/2 Column Layout'
+description: ''
+body:
+  value: "<div class=\"usa-grid-full content-column-group\">\r\n<div class=\"usa-width-one-half content-column\">column 1: replace with your content</div>\r\n\r\n<div class=\"usa-width-one-half content-column\">column 2: replace with your content</div>\r\n</div>\r\n"
+  format: full_html
+weight: -10
+node_types:
+  - page
+  - article
+  - faq
+  - tutorial
