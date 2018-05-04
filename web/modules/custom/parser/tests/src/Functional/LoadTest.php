@@ -34,4 +34,12 @@ class LoadTest {
     $this->assertSession()->statusCodeEquals(200);
   }
 
+  /**
+   * Tests that ppm estimate loads with a 200 response.
+   */
+  public function testPpm() {
+    $this->drupalGet(Url::fromRoute('/parser/ppm_estimate'));
+    $this->assertSession()->statusCodeEquals(200);
+  }
+
 }
