@@ -1,0 +1,14 @@
+{
+  "name": "drupal/json_responses",
+  "type": "drupal-module",
+  "description": "Reads Json files from file system and creates appropiate Json responses.",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "https://github.com/Bixal/move.mil",
+  "minimum-stability": "dev",
+  "support": {
+    "source": "https://github.com/Bixal/move.mil"
+  },
+  "require": { }
+
+}

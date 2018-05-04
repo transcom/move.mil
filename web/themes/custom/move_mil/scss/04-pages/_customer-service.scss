@@ -109,6 +109,7 @@
             border-radius: $border-radius;
             display: inline-block;
             clear: both;
+
             @include padding(0.3rem 0.75rem);
             margin-bottom: 1.5rem;
           }

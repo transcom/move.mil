@@ -1,0 +1,22 @@
+.content-column-group {
+
+  &.usa-grid-full {
+
+    > :first-child {
+      margin-top: 1em;
+      margin-bottom: 1em;
+    }
+
+    .content-column {
+
+      &.usa-width-one-half,
+      &.usa-width-one-third,
+      &.usa-width-one-fourth {
+        margin-top: 1em;
+        margin-bottom: 1em;
+      }
+    }
+
+  }
+
+}
