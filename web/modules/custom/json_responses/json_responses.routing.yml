@@ -1,8 +1,0 @@
-
-json_responses.weight_calc_json_controller_response:
-  path: '/json_response/weight_calculator'
-  defaults:
-    _controller: '\Drupal\json_responses\Controller\WeightCalcJsonController::response'
-    _title: 'response'
-  requirements:
-    _permission: 'access content'
