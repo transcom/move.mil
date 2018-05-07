@@ -22,6 +22,7 @@ function parser_schema() {
   $schema['parser_linehauls'] = parser_linehauls();
   $schema['parser_shorthauls'] = parser_shorthauls();
   $schema['parser_packunpacks'] = parser_packunpacks();
+  $schema['parser_discounts'] = parser_discounts();
   return $schema;
 }
 
@@ -81,9 +82,6 @@ function parser_entitlements() {
       ],
     ],
     'primary key' => ['id'],
-    'indexes' => [
-      'slug' => ['slug'],
-    ],
   ];
 }
 
@@ -143,9 +141,6 @@ function parser_zip3s() {
       ],
     ],
     'primary key' => ['id'],
-    'indexes' => [
-      'zip3' => ['zip3'],
-    ],
   ];
 }
 
@@ -177,9 +172,6 @@ function parser_zip5s() {
       ],
     ],
     'primary key' => ['id'],
-    'indexes' => [
-      'zip5' => ['zip5'],
-    ],
   ];
 }
 
@@ -244,7 +236,7 @@ function parser_service_areas() {
     ],
     'primary key' => ['id'],
     'indexes' => [
-      'service_area' => ['service_area'],
+      'services_schedule' => ['services_schedule'],
     ],
   ];
 }
@@ -397,6 +389,56 @@ function parser_packunpacks() {
     'indexes' => [
       'schedule' => ['schedule'],
       'cwt' => ['cwt'],
+    ],
+  ];
+}
+
+/**
+ * Defines parser_discounts.
+ */
+
+function parser_discounts() {
+  return [
+    'description' => 'Discounts.',
+    'fields' => [
+      'id' => [
+        'type' => 'serial',
+        'not null' => TRUE,
+        'description' => 'Primary Key: Unique discounts ID.',
+      ],
+      'origin' => [
+        'type' => 'varchar',
+        'length' => 9,
+        'not null' => TRUE,
+        'description' => ''
+      ],
+      'destination' => [
+        'type' => 'varchar',
+        'length' => 9,
+        'not null' => TRUE,
+        'description' => ''
+      ],
+      'discounts' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'size' => 'tiny',
+        'description' => ''
+      ],
+      'site_rate' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'size' => 'tiny',
+        'description' => ''
+      ],
+      'tlb' => [
+        'type' => 'int',
+        'not null' => TRUE,
+      ]
+    ],
+    'primary key' => ['id'],
+    'indexes' => [
+      'origin' => ['origin'],
+      'destination' => ['destination'],
     ],
   ];
 }

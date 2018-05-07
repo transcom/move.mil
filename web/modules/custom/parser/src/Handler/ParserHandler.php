@@ -7,8 +7,8 @@ use Drupal\parser\Reader\ExcelReader;
 use Drupal\parser\Reader\YamlReader;
 use Drupal\parser\Writer\DB\EntitlementsWriter;
 use Drupal\parser\Writer\DB\Rates400NGWriter;
-use Drupal\parser\Writer\DB\Zip5Writer;
-use Drupal\parser\Writer\DB\Zip3Writer;
+use Drupal\parser\Writer\DB\CsvWriter;
+use Drupal\parser\Writer\DB\DiscountWriter;
 use Drupal\Console\Core\Style\DrupalStyle;
 
 /**
@@ -55,6 +55,8 @@ class ParserHandler {
   public function execute() {
     $this->io->info("Parsing {$this->filename}...");
     $rawdata = $this->reader->parse($this->filename);
+    $this->io->info("Finished parsing {$this->filename}...");
+
     $this->writer->write($rawdata, $this->truncate, $this->io);
   }
 
@@ -66,25 +68,13 @@ class ParserHandler {
     $reader = NULL;
     $writer = NULL;
     switch ($input) {
-      case 'zip3':
+      case (preg_match('/zip.*/', $input) ? TRUE : FALSE):
         $filename = "${path}/${input}.csv";
         $reader = new CsvReader();
-        $writer = new Zip3Writer();
+        $writer = new CsvWriter($input);
         break;
 
-      case 'zip5':
-        $filename = "${path}/${input}_rate_areas.csv";
-        $reader = new CsvReader();
-        $writer = new Zip5Writer();
-        break;
-
-      case '2017-400NG':
-        $filename = "${path}/${input}.xlsx";
-        $reader = new ExcelReader();
-        $writer = new Rates400NGWriter();
-        break;
-
-      case '2018-400NG':
+      case (preg_match('/\d+-400NG/', $input) ? TRUE : FALSE):
         $filename = "${path}/${input}.xlsx";
         $reader = new ExcelReader();
         $writer = new Rates400NGWriter();
@@ -95,6 +85,13 @@ class ParserHandler {
         $reader = new YamlReader();
         $writer = new EntitlementsWriter();
         break;
+
+      case (preg_match('/No 1 BVS Dom Discounts - Eff .*/', $input) ? TRUE : FALSE):
+        $filename = "${path}/${input}.csv";
+        $reader = new CsvReader();
+        $writer = new DiscountWriter($input);
+        break;
+
     }
     return [$filename, $reader, $writer];
   }

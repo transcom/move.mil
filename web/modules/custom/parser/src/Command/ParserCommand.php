@@ -80,6 +80,8 @@ class ParserCommand extends Command {
       '2017-400NG',
       '2018-400NG',
       'entitlements',
+      'No 1 BVS Dom Discounts - Eff 1Oct2017',
+      'No 1 BVS Dom Discounts - Eff 1Jan2018',
     ];
   }
 
