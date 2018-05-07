@@ -1,0 +1,8 @@
+uuid: 44717283-4165-4d90-84ef-e3e99e0eee0c
+langcode: en
+status: true
+dependencies: {  }
+id: retiree-separatee
+label: 'Retiree and Separatee Moves'
+description: 'Used on the retiree/separatee page in the sidebar to function as jumplinks.'
+locked: false

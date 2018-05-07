@@ -1,0 +1,29 @@
+uuid: d38adade-9596-4c40-9b74-41f31796d67b
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.customer-service
+  module:
+    - system
+  theme:
+    - move_mil
+id: customerservice
+theme: move_mil
+region: sidebar_first
+weight: 0
+provider: null
+plugin: 'system_menu_block:customer-service'
+settings:
+  id: 'system_menu_block:customer-service'
+  label: 'Customer Service'
+  provider: system
+  label_display: '0'
+  level: 1
+  depth: 0
+visibility:
+  request_path:
+    id: request_path
+    pages: /customer-service
+    negate: false
+    context_mapping: {  }

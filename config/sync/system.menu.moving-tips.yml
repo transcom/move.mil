@@ -1,0 +1,8 @@
+uuid: 0b5a1e8d-6f71-4422-8a33-b716bc85aa48
+langcode: en
+status: true
+dependencies: {  }
+id: moving-tips
+label: 'Moving Tips'
+description: 'Used in the sidebar of the moving tips page to serve as jumplinks.'
+locked: false
