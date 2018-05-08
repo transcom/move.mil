@@ -1,121 +1,107 @@
 {
-  "name": "drupal-composer/drupal-project",
-  "description": "Project template for Drupal 8 projects with composer",
-  "type": "project",
-  "license": "GPL-2.0-or-later",
-  "authors": [
-    {
-      "name": "",
-      "role": ""
-    }
-  ],
-  "repositories": [
-    {
-      "type": "composer",
-      "url": "https://packages.drupal.org/8"
-    },
-    {
-      "type": "package",
-      "package": {
-        "name": "ckeditor/templates",
-        "type": "drupal-library",
-        "version": "4.5.7",
-        "dist": {
-          "type": "zip",
-          "url": "https://download.ckeditor.com/templates/releases/templates_4.5.7.zip",
-          "reference": "master"
+    "name": "drupal-composer/drupal-project",
+    "description": "Project template for Drupal 8 projects with composer",
+    "type": "project",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "",
+            "role": ""
         }
-      }
-    }
-  ],
-  "require": {
-    "bixal/jumplink": "dev-master",
-    "composer/installers": "^1.2",
-    "cweagans/composer-patches": "^1.6",
-    "drupal-composer/drupal-scaffold": "^2.2",
-    "drupal/address": "~1.0",
-    "drupal/admin_toolbar": "^1.23",
-    "drupal/console": "^1.0.2",
-    "drupal/core": "~8.5",
-    "drupal/extlink": "^1.0",
-    "drupal/node_class": "^1.0@beta",
-    "drupal/paragraphs": "^1.2",
-    "drupal/stage_file_proxy": "^1.0@alpha",
-    "drupal/svg_image": "^1.8",
-    "drupal/twig_field_value": "^1.1",
-    "drupal/twig_tweak": "^1.9",
-    "drupal/uswds": "^1.0@beta",
-    "drupal/wysiwyg_template": "^2.0@beta",
-    "drush/drush": "^9.0.0",
-    "phpoffice/phpspreadsheet": "^1.2",
-    "vlucas/phpdotenv": "^2.4",
-    "webflo/drupal-finder": "^1.0.0",
-    "webmozart/path-util": "^2.3"
-  },
-  "require-dev": {
-    "behat/mink-extension": "v2.2",
-    "behat/mink-selenium2-driver": "^1.3",
-    "bex/behat-screenshot": "^1.2",
-    "drupal/coder": "^8.2",
-    "drupal/drupal-extension": "master-dev",
-    "webflo/drupal-core-require-dev": "~8.5"
-  },
-  "conflict": {
-    "drupal/drupal": "*"
-  },
-  "minimum-stability": "dev",
-  "prefer-stable": true,
-  "config": {
-    "sort-packages": true
-  },
-  "autoload": {
-    "classmap": [
-      "scripts/composer/ScriptHandler.php"
     ],
-    "files": [
-      "load.environment.php"
-    ]
-  },
-  "scripts": {
-    "drupal-scaffold": "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
-    "pre-install-cmd": [
-      "DrupalProject\\composer\\ScriptHandler::checkComposerVersion"
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://packages.drupal.org/8"
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "ckeditor/templates",
+                "type": "drupal-library",
+                "version": "4.5.7",
+                "dist": {
+                    "type": "zip",
+                    "url": "https://download.ckeditor.com/templates/releases/templates_4.5.7.zip",
+                    "reference": "master"
+                }
+            }
+        }
     ],
-    "pre-update-cmd": [
-      "DrupalProject\\composer\\ScriptHandler::checkComposerVersion"
-    ],
-    "post-install-cmd": [
-      "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
-    ],
-    "post-update-cmd": [
-      "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
-    ]
-  },
-  "extra": {
-    "installer-paths": {
-      "web/core": [
-        "type:drupal-core"
-      ],
-      "web/libraries/{$name}": [
-        "type:drupal-library"
-      ],
-      "web/modules/contrib/{$name}": [
-        "type:drupal-module"
-      ],
-      "web/profiles/contrib/{$name}": [
-        "type:drupal-profile"
-      ],
-      "web/themes/contrib/{$name}": [
-        "type:drupal-theme"
-      ],
-      "drush/contrib/{$name}": [
-        "type:drupal-drush"
-      ]
+    "require": {
+        "bixal/jumplink": "dev-master",
+        "composer/installers": "^1.2",
+        "cweagans/composer-patches": "^1.6",
+        "drupal-composer/drupal-scaffold": "^2.2",
+        "drupal/address": "~1.0",
+        "drupal/admin_toolbar": "^1.23",
+        "drupal/console": "^1.0.2",
+        "drupal/core": "~8.5",
+        "drupal/extlink": "^1.0",
+        "drupal/node_class": "^1.0@beta",
+        "drupal/paragraphs": "^1.2",
+        "drupal/stage_file_proxy": "^1.0@alpha",
+        "drupal/svg_image": "^1.8",
+        "drupal/twig_field_value": "^1.1",
+        "drupal/twig_tweak": "^1.9",
+        "drupal/uswds": "^1.0@beta",
+        "drupal/wysiwyg_template": "^2.0@beta",
+        "drush/drush": "^9.0.0",
+        "phpoffice/phpspreadsheet": "^1.2",
+        "vlucas/phpdotenv": "^2.4",
+        "webflo/drupal-finder": "^1.0.0",
+        "webmozart/path-util": "^2.3"
     },
-    "patches": {
-      "drupal/node_class": {
-        "Fixes https://www.drupal.org/project/node_class/issues/2907451": "https://www.drupal.org/files/issues/2018-03-10/undefined_offset-2907451-3_0.patch"
-      }
+    "require-dev": {
+        "behat/mink-extension": "v2.2",
+        "behat/mink-selenium2-driver": "^1.3",
+        "bex/behat-screenshot": "^1.2",
+        "drupal/coder": "^8.2",
+        "drupal/drupal-extension": "master-dev",
+        "webflo/drupal-core-require-dev": "~8.5"
+    },
+    "conflict": {
+        "drupal/drupal": "*"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "sort-packages": true
+    },
+    "autoload": {
+        "classmap": [
+            "scripts/composer/ScriptHandler.php"
+        ],
+        "files": ["load.environment.php"]
+    },
+    "scripts": {
+        "drupal-scaffold": "DrupalComposer\\DrupalScaffold\\Plugin::scaffold",
+        "pre-install-cmd": [
+            "DrupalProject\\composer\\ScriptHandler::checkComposerVersion"
+        ],
+        "pre-update-cmd": [
+            "DrupalProject\\composer\\ScriptHandler::checkComposerVersion"
+        ],
+        "post-install-cmd": [
+            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
+        ],
+        "post-update-cmd": [
+            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
+        ]
+    },
+    "extra": {
+        "installer-paths": {
+            "web/core": ["type:drupal-core"],
+            "web/libraries/{$name}": ["type:drupal-library"],
+            "web/modules/contrib/{$name}": ["type:drupal-module"],
+            "web/profiles/contrib/{$name}": ["type:drupal-profile"],
+            "web/themes/contrib/{$name}": ["type:drupal-theme"],
+            "drush/contrib/{$name}": ["type:drupal-drush"]
+        },
+        "patches": {
+            "drupal/node_class": {
+                "Fixes https://www.drupal.org/project/node_class/issues/2907451": "https://www.drupal.org/files/issues/2018-03-10/undefined_offset-2907451-3_0.patch"
+            }
+        }
     }
-  }
 }
