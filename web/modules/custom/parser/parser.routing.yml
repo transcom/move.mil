@@ -19,3 +19,10 @@ parser.ppm_estimator_controller_estimate:
     _title: 'estimate'
   requirements:
     _permission: 'access content'
+parser.locations_controller_locations:
+  path: '/parser/locator-maps'
+  defaults:
+    _controller: '\Drupal\parser\Controller\LocationsController::locations'
+    _title: 'locations'
+  requirements:
+    _permission: 'access content'

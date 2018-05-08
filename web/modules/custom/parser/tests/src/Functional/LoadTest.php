@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\Tests\json_responses\Functional;
+namespace Drupal\Tests\parser\Functional;
 
 use Drupal\Core\Url;
 
@@ -39,6 +39,14 @@ class LoadTest {
    */
   public function testPpm() {
     $this->drupalGet(Url::fromRoute('/parser/ppm_estimate'));
+    $this->assertSession()->statusCodeEquals(200);
+  }
+  
+  /**
+   * Tests that locator maps loads with a 200 response.
+   */
+  public function testPpm() {
+    $this->drupalGet(Url::fromRoute('/parser/locator-maps'));
     $this->assertSession()->statusCodeEquals(200);
   }
 
