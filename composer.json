@@ -22,7 +22,7 @@
                 "version": "4.5.7",
                 "dist": {
                     "type": "zip",
-                    "url": "http://download.ckeditor.com/templates/releases/templates_4.5.7.zip",
+                    "url": "https://download.ckeditor.com/templates/releases/templates_4.5.7.zip",
                     "reference": "master"
                 }
             }
@@ -51,9 +51,6 @@
         "vlucas/phpdotenv": "^2.4",
         "webflo/drupal-finder": "^1.0.0",
         "webmozart/path-util": "^2.3"
-    },
-    "replace": {
-        "ckeditor/templates": "*"
     },
     "require-dev": {
         "behat/mink-extension": "v2.2",

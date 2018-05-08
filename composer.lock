@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "03957c324fc4fd16fdfba73022e8e7f4",
+    "content-hash": "0e4468ec22839f9cda1ff1c4bbe6956b",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -128,12 +128,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Bixal/jumplink.git",
-                "reference": "e103e6e0d11914971decd4e2a9b6f79bb444c8ad"
+                "reference": "154e2dd6306a29a1ba10c61a467d0974ad003a2f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Bixal/jumplink/zipball/e103e6e0d11914971decd4e2a9b6f79bb444c8ad",
-                "reference": "e103e6e0d11914971decd4e2a9b6f79bb444c8ad",
+                "url": "https://api.github.com/repos/Bixal/jumplink/zipball/154e2dd6306a29a1ba10c61a467d0974ad003a2f",
+                "reference": "154e2dd6306a29a1ba10c61a467d0974ad003a2f",
                 "shasum": ""
             },
             "type": "drupal-module",
@@ -146,7 +146,7 @@
             "keywords": [
                 "drupal"
             ],
-            "time": "2018-04-17T21:03:55+00:00"
+            "time": "2018-05-03T17:06:38+00:00"
         },
         {
             "name": "chi-teck/drupal-code-generator",

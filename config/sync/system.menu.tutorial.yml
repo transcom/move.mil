@@ -1,0 +1,8 @@
+uuid: 8233bd2e-c955-422b-bc18-777b2c6dc349
+langcode: en
+status: true
+dependencies: {  }
+id: tutorial
+label: Tutorial
+description: 'Used on the tutorial pages to serve as a sidebar section menu.'
+locked: false

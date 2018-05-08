@@ -1,0 +1,29 @@
+uuid: b1d69f82-4d84-47a3-9ee1-cd1d558f7e25
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.tutorial
+  module:
+    - system
+  theme:
+    - move_mil
+id: tutorial
+theme: move_mil
+region: sidebar_first
+weight: 0
+provider: null
+plugin: 'system_menu_block:tutorial'
+settings:
+  id: 'system_menu_block:tutorial'
+  label: Tutorial
+  provider: system
+  label_display: '0'
+  level: 1
+  depth: 0
+visibility:
+  request_path:
+    id: request_path
+    pages: "/tutorials\r\n/tutorials/*"
+    negate: false
+    context_mapping: {  }
