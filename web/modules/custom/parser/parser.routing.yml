@@ -15,7 +15,7 @@ parser.entitlements_controller_index:
 parser.ppm_estimator_controller_estimate:
   path: '/parser/ppm_estimate'
   defaults:
-    _controller: '\Drupal\parser\Controller\PpmEstimatorController::ppm_estimate'
-    _title: 'ppm_estimate'
+    _controller: '\Drupal\parser\Controller\PpmEstimatorController::estimate'
+    _title: 'estimate'
   requirements:
     _permission: 'access content'

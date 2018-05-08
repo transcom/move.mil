@@ -10,7 +10,7 @@ use Drupal\Console\Core\Style\DrupalStyle;
  *
  * Parse a given array and saves it in a custom table.
  */
-class DiscountWriter implements WriterInterface{
+class DiscountWriter implements WriterInterface {
   use DBWriter;
 
   private $file = NULL;
@@ -25,7 +25,7 @@ class DiscountWriter implements WriterInterface{
    *   String containing the filename.
    */
   public function __construct($file) {
-    $this->file = str_replace("No 1 BVS Dom Discounts - Eff ", "", $file);
+    $this->file = $file;
   }
 
   /**
@@ -43,21 +43,17 @@ class DiscountWriter implements WriterInterface{
   }
 
   /**
-   * Normalizes data mapping zip5 code with the rest of the data.
+   * Normalizes data mapping discounts with the rest of the data.
    */
   private function mapdata(array $rawdata) {
     $discounts = [];
+    $phpDate = substr($this->file, 10);
+    $headers = $this->discountHeaders();
     array_shift($rawdata);
-    $formatteddata = array_map(function ($record) {
-      array_push($record, strtotime($this->file));
-      return $record;
-    }, $rawdata);
-
-    var_dump($formatteddata);
-
-    while ($discount = current($formatteddata)) {
-      $discounts[] = array_combine($this->discountHeaders(), $discount);
-      next($formatteddata);
+    while ($discount = current($rawdata)) {
+      $discount[] = strtotime($phpDate);
+      $discounts[] = array_combine($headers, $discount);
+      next($rawdata);
     }
     return $discounts;
   }
@@ -71,9 +67,8 @@ class DiscountWriter implements WriterInterface{
       'destination',
       'discounts',
       'site_rate',
-      'tlb'
+      'tdl',
     ];
   }
 
 }
-
