@@ -60,4 +60,16 @@ composer:
 
 cr:
 	@echo "Clearing Drupal Caches"
-	docker-compose run php drupal cache:rebuild -y all
+	docker-compose run php drupal cache:rebuild all
+
+logs:
+	@echo "Displaying past containers logs"
+	docker-compose logs
+
+logsf:
+	@echo "Follow containers logs output"
+	docker-compose logs -f
+
+parser:
+	@echo "Parsing all files for move.mil tools"
+	docker-compose run php drupal parser --file=all --truncate=no

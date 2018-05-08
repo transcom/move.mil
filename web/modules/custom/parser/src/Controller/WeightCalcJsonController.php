@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\json_responses\Controller;
+namespace Drupal\parser\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Symfony\Component\Finder\Finder;
@@ -19,7 +19,7 @@ class WeightCalcJsonController extends ControllerBase {
    */
   public function response() {
     $finder = new Finder();
-    $finder->files()->in(DRUPAL_ROOT . '/../lib/data/json-data')->name('household_goods_weights.json');
+    $finder->files()->in(DRUPAL_ROOT . '/../lib/data')->name('household_goods_weights.json');
     $file = NULL;
 
     foreach ($finder as $f) {
@@ -45,9 +45,9 @@ class WeightCalcJsonController extends ControllerBase {
       }
 
       $array_obj[preg_replace('/[^\p{L}\p{N}\s]/u', '', str_replace(' ', '-', $obj->name))] = [
-        "displayName" => $obj->name,
-        "icon" => $obj->icon,
-        "items" => $items,
+        'displayName' => $obj->name,
+        'icon' => $obj->icon,
+        'items' => $items,
       ];
     }
 
@@ -57,7 +57,7 @@ class WeightCalcJsonController extends ControllerBase {
       return $response;
     }
     else {
-      return JsonResponse::create('error while creating response', 500);
+      return JsonResponse::create('Error while creating response.', 500);
     }
   }
 

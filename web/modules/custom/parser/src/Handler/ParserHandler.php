@@ -5,10 +5,11 @@ namespace Drupal\parser\Handler;
 use Drupal\parser\Reader\CsvReader;
 use Drupal\parser\Reader\ExcelReader;
 use Drupal\parser\Reader\YamlReader;
-use Drupal\parser\Writer\Json\EntitlementsWriter;
-use Drupal\parser\Writer\Json\Rates400NGWriter;
-use Drupal\parser\Writer\Json\Zip5Writer;
-use Drupal\parser\Writer\Json\Zip3Writer;
+use Drupal\parser\Writer\DB\EntitlementsWriter;
+use Drupal\parser\Writer\DB\Rates400NGWriter;
+use Drupal\parser\Writer\DB\CsvWriter;
+use Drupal\parser\Writer\DB\DiscountWriter;
+use Drupal\parser\Writer\DB\ZipCodesWriter;
 use Drupal\Console\Core\Style\DrupalStyle;
 
 /**
@@ -17,13 +18,14 @@ use Drupal\Console\Core\Style\DrupalStyle;
  * Takes an input file, and according to the
  * extension, calls the proper parser.
  * Then, calls the proper output generator and
- * returns a JSON structure.
+ * store data in the DB.
  */
 class ParserHandler {
 
   protected $filename;
   protected $reader;
   protected $writer;
+  protected $truncate;
   protected $io;
 
   /**
@@ -33,16 +35,19 @@ class ParserHandler {
    *   Where the file input is located.
    * @param string $input
    *   The user input.
+   * @param bool $truncate
+   *   Truncate the db table before writing.
    * @param \Drupal\Console\Core\Style\DrupalStyle $io
    *   The DrupalStyle io.
    */
-  public function __construct($path, $input, DrupalStyle $io) {
+  public function __construct($path, $input, $truncate, DrupalStyle $io) {
+    $this->io = $io;
     list(
       $this->filename,
       $this->reader,
       $this->writer
       ) = $this->filename($path, $input);
-    $this->io = $io;
+    $this->truncate = $truncate;
   }
 
   /**
@@ -51,36 +56,24 @@ class ParserHandler {
   public function execute() {
     $this->io->info("Parsing {$this->filename}...");
     $rawdata = $this->reader->parse($this->filename);
-    $this->writer->write($rawdata);
+    $this->io->info("File read and pre-processed [{$this->filename}].");
+    $this->writer->write($rawdata, $this->truncate, $this->io);
   }
 
   /**
-   * Initilazes filename, reader, and writer according to the user input.
+   * Initializes filename, reader, and writer according to the user input.
    */
   private function filename($path, $input) {
-    $filename = $input;
     $reader = NULL;
     $writer = NULL;
     switch ($input) {
-      case 'zip3':
+      case (preg_match('/^zip[\d]+/', $input) ? TRUE : FALSE):
         $filename = "${path}/${input}.csv";
         $reader = new CsvReader();
-        $writer = new Zip3Writer();
+        $writer = new CsvWriter($input);
         break;
 
-      case 'zip5':
-        $filename = "${path}/${input}_rate_areas.csv";
-        $reader = new CsvReader();
-        $writer = new Zip5Writer();
-        break;
-
-      case '2017-400NG':
-        $filename = "${path}/${input}.xlsx";
-        $reader = new ExcelReader();
-        $writer = new Rates400NGWriter();
-        break;
-
-      case '2018-400NG':
+      case (preg_match('/[\d]{4}-400NG/', $input) ? TRUE : FALSE):
         $filename = "${path}/${input}.xlsx";
         $reader = new ExcelReader();
         $writer = new Rates400NGWriter();
@@ -91,6 +84,23 @@ class ParserHandler {
         $reader = new YamlReader();
         $writer = new EntitlementsWriter();
         break;
+
+      case (preg_match('/discounts-[\d]+[\w]{3}[\d]{4}/', $input) ? TRUE : FALSE):
+        $filename = "${path}/${input}.csv";
+        $reader = new CsvReader();
+        $writer = new DiscountWriter($input);
+        break;
+
+      case 'all_us_zipcodes':
+        $filename = "${path}/${input}.csv";
+        $reader = new CsvReader();
+        $writer = new ZipCodesWriter($input);
+        break;
+
+      default:
+        $this->io->error("Filename not found: [{$input}]");
+        exit(-1);
+
     }
     return [$filename, $reader, $writer];
   }

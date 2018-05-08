@@ -30,6 +30,12 @@ class ParserCommand extends Command {
         NULL,
         InputOption::VALUE_REQUIRED,
         $this->trans('commands.parser.options.file')
+        )
+      ->addOption(
+        'truncate',
+        NULL,
+        InputOption::VALUE_REQUIRED,
+        $this->trans('commands.parser.options.truncate')
         );
   }
 
@@ -37,12 +43,25 @@ class ParserCommand extends Command {
    * {@inheritdoc}
    */
   protected function interact(InputInterface $input, OutputInterface $output) {
+    $all = FALSE;
+    $file_options = $this->files();
+    $file_options[] = 'all';
     if (!$input->getOption('file')) {
       $file = $this->getIo()->choiceNoList(
         $this->trans('commands.parser.questions.file'),
-        $this->files()
+        $file_options
       );
       $input->setOption('file', $file);
+      if ($file == 'all') {
+        $all = TRUE;
+      }
+    }
+    if (!$all && !$input->getOption('truncate')) {
+      $truncate = $this->getIo()->confirm(
+        $this->trans('commands.parser.questions.truncate'),
+        FALSE
+      );
+      $input->setOption('truncate', $truncate);
     }
   }
 
@@ -52,9 +71,14 @@ class ParserCommand extends Command {
   protected function execute(InputInterface $input, OutputInterface $output) {
     $file = $input->getOption('file');
     $path = "/var/www/html/lib/data";
-    $parser = new ParserHandler($path, $file, $this->getIo());
-    $parser->execute();
-    $this->getIo()->info($this->trans('commands.parser.messages.success'));
+    if ($file == 'all') {
+      $this->parseAll($path);
+    }
+    else {
+      $parser = new ParserHandler($path, $file, $input->getOption('truncate'), $this->getIo());
+      $parser->execute();
+    }
+    $this->getIo()->success($this->trans('commands.parser.messages.success'));
   }
 
   /**
@@ -67,7 +91,36 @@ class ParserCommand extends Command {
       '2017-400NG',
       '2018-400NG',
       'entitlements',
+      'discounts-1Oct2017',
+      'discounts-1Jan2018',
+      'all_us_zipcodes',
     ];
+  }
+
+  /**
+   * Execute all parsers.
+   */
+  protected function parseAll($path) {
+    $all_files = $this->files();
+    foreach ($all_files as $file) {
+      $parser = new ParserHandler($path, $file, $this->truncate($file), $this->getIo());
+      $parser->execute();
+    }
+  }
+
+  /**
+   * Evaluate if the table should truncate or not.
+   */
+  protected function truncate($file) {
+    $appendRecords = [
+      '2018-400NG',
+      'discounts-1Jan2018',
+    ];
+    if (in_array($file, $appendRecords)) {
+      // Append these file records instead of truncate table.
+      return FALSE;
+    }
+    return TRUE;
   }
 
 }
