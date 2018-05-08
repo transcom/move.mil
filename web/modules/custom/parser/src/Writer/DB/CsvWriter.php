@@ -10,7 +10,7 @@ use Drupal\Console\Core\Style\DrupalStyle;
  *
  * Parse a given array and saves it in a custom table.
  */
-class CsvWriter implements WriterInterface{
+class CsvWriter implements WriterInterface {
   use DBWriter;
 
   private $file = NULL;
@@ -39,9 +39,9 @@ class CsvWriter implements WriterInterface{
     $this->insertToTable($zips, $table);
   }
 
-/**
- * Normalizes data mapping with the rest of the data.
- */
+  /**
+   * Normalizes data mapping with the rest of the data.
+   */
   private function mapdata(array $rawdata) {
     $zips = [];
     $headers = $this->zipHeaders();
@@ -66,13 +66,10 @@ class CsvWriter implements WriterInterface{
         'region',
       ];
     }
-    else {
-      return [
-        'zip5',
-        'service_area',
-      ];
-    }
+    return [
+      'zip5',
+      'service_area',
+    ];
   }
 
 }
-

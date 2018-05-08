@@ -69,3 +69,7 @@ logs:
 logsf:
 	@echo "Follow containers logs output"
 	docker-compose logs -f
+
+parser:
+	@echo "Parsing all files for move.mil tools"
+	docker-compose run php drupal parser --file=all --truncate=no

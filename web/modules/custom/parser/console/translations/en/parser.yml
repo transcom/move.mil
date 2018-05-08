@@ -4,7 +4,7 @@ options:
     truncate: 'Delete all table(s) records'
 arguments: {}
 messages:
-    success: 'File parsed and stored.'
+    success: 'File(s) parsed and stored.'
 questions:
     file: 'Which is the file name to be parsed?'
     truncate: 'Do you want to truncate the current table(s) of the file?'
