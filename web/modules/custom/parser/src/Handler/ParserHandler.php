@@ -9,6 +9,7 @@ use Drupal\parser\Writer\DB\EntitlementsWriter;
 use Drupal\parser\Writer\DB\Rates400NGWriter;
 use Drupal\parser\Writer\DB\CsvWriter;
 use Drupal\parser\Writer\DB\DiscountWriter;
+use Drupal\parser\Writer\DB\ZipCodesWriter;
 use Drupal\Console\Core\Style\DrupalStyle;
 
 /**
@@ -40,13 +41,13 @@ class ParserHandler {
    *   The DrupalStyle io.
    */
   public function __construct($path, $input, $truncate, DrupalStyle $io) {
+    $this->io = $io;
     list(
       $this->filename,
       $this->reader,
       $this->writer
       ) = $this->filename($path, $input);
     $this->truncate = $truncate;
-    $this->io = $io;
   }
 
   /**
@@ -55,26 +56,24 @@ class ParserHandler {
   public function execute() {
     $this->io->info("Parsing {$this->filename}...");
     $rawdata = $this->reader->parse($this->filename);
-    $this->io->info("Finished parsing {$this->filename}...");
-
+    $this->io->info("File read and pre-processed [{$this->filename}].");
     $this->writer->write($rawdata, $this->truncate, $this->io);
   }
 
   /**
-   * Initilazes filename, reader, and writer according to the user input.
+   * Initializes filename, reader, and writer according to the user input.
    */
   private function filename($path, $input) {
-    $filename = $input;
     $reader = NULL;
     $writer = NULL;
     switch ($input) {
-      case (preg_match('/zip.*/', $input) ? TRUE : FALSE):
+      case (preg_match('/^zip[\d]+/', $input) ? TRUE : FALSE):
         $filename = "${path}/${input}.csv";
         $reader = new CsvReader();
         $writer = new CsvWriter($input);
         break;
 
-      case (preg_match('/\d+-400NG/', $input) ? TRUE : FALSE):
+      case (preg_match('/[\d]{4}-400NG/', $input) ? TRUE : FALSE):
         $filename = "${path}/${input}.xlsx";
         $reader = new ExcelReader();
         $writer = new Rates400NGWriter();
@@ -86,11 +85,21 @@ class ParserHandler {
         $writer = new EntitlementsWriter();
         break;
 
-      case (preg_match('/No 1 BVS Dom Discounts - Eff .*/', $input) ? TRUE : FALSE):
+      case (preg_match('/discounts-[\d]+[\w]{3}[\d]{4}/', $input) ? TRUE : FALSE):
         $filename = "${path}/${input}.csv";
         $reader = new CsvReader();
         $writer = new DiscountWriter($input);
         break;
+
+      case 'all_us_zipcodes':
+        $filename = "${path}/${input}.csv";
+        $reader = new CsvReader();
+        $writer = new ZipCodesWriter($input);
+        break;
+
+      default:
+        $this->io->error("Filename not found: [{$input}]");
+        exit(-1);
 
     }
     return [$filename, $reader, $writer];
