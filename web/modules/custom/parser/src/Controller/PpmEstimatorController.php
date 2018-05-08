@@ -7,6 +7,7 @@ use Drupal\Core\Database\Connection as Connection;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use GuzzleHttp\Client;
 
 /**
  * Class PpmEstimatorController.
@@ -14,7 +15,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class PpmEstimatorController extends ControllerBase {
 
   private $databaseConnection;
-  private $EntitlementsRepository;
+  private $googleApi;
 
   /**
    * Constructs a PpmEstimatorController.
@@ -24,6 +25,7 @@ class PpmEstimatorController extends ControllerBase {
    */
   public function __construct(Connection $databaseConnection) {
     $this->databaseConnection = $databaseConnection;
+    $this->googleApi = $_SERVER['GOOGLE_MAPS_API_KEY'];
   }
 
   /**
@@ -38,15 +40,19 @@ class PpmEstimatorController extends ControllerBase {
   /**
    * Get PPM Incentive Estimate response.
    *
+   * @param \Symfony\Component\HttpFoundation\Request $request
+   *   The http request object.
+   *
    * @return \Symfony\Component\HttpFoundation\JsonResponse
    *   Return entitlements as a Json object
    */
-  public function ppm_estimate(Request $request) {
+  public function estimate(Request $request) {
+    $params = NULL;
     $content = $request->getContent();
     if (!empty($content)) {
       $params = json_decode($content, TRUE);
     }
-    if (!$this->validate($params)) {
+    if (!$params || !$this->validate($params)) {
       return JsonResponse::create('Invalid parameters.', 500);
     }
     // Get zip3s records.
@@ -55,20 +61,20 @@ class PpmEstimatorController extends ControllerBase {
     // Get year to use in 400NG queries.
     $year = substr($params['selectedMoveDate'], 0, 4);
     // Get service areas records.
-    $start_service_area = $this->service_area($start_zip3['service_area'], $year);
-    $end_service_area = $this->service_area($end_zip3['service_area'], $year);
+    $start_service_area = $this->serviceArea($start_zip3['service_area'], $year);
+    $end_service_area = $this->serviceArea($end_zip3['service_area'], $year);
     // Get full weight.
     list($household, $progear, $spouse_progear) = $this->weights($params);
     $weight = $household + $progear + $spouse_progear;
     // Weight divided by 100, AKA the hundredweight (centiweight?).
     $cwt = $weight / 100;
     // Calculate PPM incentive estimates.
-    $linehaul_charges = $this->linehaul_charges($start_service_area, $end_service_area, $year, $weight, $cwt, $params);
-    $other_charges = $this->other_charges($start_service_area, $end_service_area, $year, $weight, $cwt);
+    $linehaul_charges = $this->linehaulCharges($start_service_area, $end_service_area, $year, $weight, $cwt, $params);
+    $other_charges = $this->otherCharges($start_service_area, $end_service_area, $year, $weight, $cwt);
     $discounts = $this->discounts($start_zip3, $end_zip3, $params['locations']['origin'], $params['selectedMoveDate']);
     $total = $linehaul_charges + $other_charges;
     $incentives = $this->incentives($total, $discounts);
-    // Build data response
+    // Build data response.
     $data['locations'] = $this->locations($params['locations']['origin'], $params['locations']['destination']);
     $data['weightOptions'] = [
       'houseHold' => $household,
@@ -103,7 +109,7 @@ class PpmEstimatorController extends ControllerBase {
   /**
    * Validate request params.
    */
-  public function validate(array $params) {
+  private function validate(array $params) {
     $valid = $params['locations'] && $params['locations']['origin'] && $params['locations']['destination'];
     $valid = $valid  && strlen($params['locations']['origin']) == 5;
     $valid = $valid  && strlen($params['locations']['destination']) == 5;
@@ -115,7 +121,7 @@ class PpmEstimatorController extends ControllerBase {
   /**
    * Validate entitlement param.
    */
-  public function validWeights(array $params) {
+  private function validWeights(array $params) {
     $valid = $params['isDependencies'] && $params['selectedEntitlement'];
     $valid = $valid && $params['weightOptions']['houseHold'];
     return $valid;
@@ -124,12 +130,12 @@ class PpmEstimatorController extends ControllerBase {
   /**
    * Get zip3 object according to the given zip code.
    */
-  public function zip3($zipcode) {
+  private function zip3($zipcode) {
     $zip3str = substr($zipcode, 0, 3);
     $zip3 = $this->databaseConnection
       ->select('parser_zip3s')
       ->fields('parser_zip3s')
-      ->condition('zip3', $zip3str)
+      ->condition('zip3', intval($zip3str))
       ->execute()
       ->fetch();
     return (array) $zip3;
@@ -138,7 +144,7 @@ class PpmEstimatorController extends ControllerBase {
   /**
    * Get service area object according to the given service area number.
    */
-  public function service_area($service_area, $year) {
+  private function serviceArea($service_area, $year) {
     $sa = $this->databaseConnection
       ->select('parser_service_areas')
       ->fields('parser_service_areas')
@@ -152,15 +158,18 @@ class PpmEstimatorController extends ControllerBase {
   /**
    * Get weights to use.
    */
-  public function weights(array $params) {
+  private function weights(array $params) {
     $household = 0;
     $progear = 0;
     $spouse_progear = 0;
     // Get entitlement.
     $entitlement = $this->entitlement($params['selectedEntitlement']);
-    if (!$entitlement) return [$household, $progear, $spouse_progear];
+    if (!$entitlement) {
+      return [$household, $progear, $spouse_progear];
+    }
     // Get household goods weight.
     $household = $params['weightOptions']['houseHold'];
+    $dependencies = isset($params['isDependencies']) && $params['isDependencies'];
     if ($dependencies) {
       $max_household = intval($entitlement['total_weight_self_plus_dependents']);
     }
@@ -181,7 +190,9 @@ class PpmEstimatorController extends ControllerBase {
     if ($progear > $max_progear) {
       $progear = $max_progear;
     }
-    if (!$params['isDependencies']) return [$household, $progear, $spouse_progear];
+    if (!$dependencies) {
+      return [$household, $progear, $spouse_progear];
+    }
     // Get spouse pro gear weight.
     if (!$params['weightOptions']['dependent']) {
       $spouse_progear = 0;
@@ -199,7 +210,7 @@ class PpmEstimatorController extends ControllerBase {
   /**
    * Get entitlement object according to the given entitlement slug.
    */
-  public function entitlement($slug) {
+  private function entitlement($slug) {
     $e = $this->databaseConnection
       ->select('parser_entitlements')
       ->fields('parser_entitlements')
@@ -212,8 +223,22 @@ class PpmEstimatorController extends ControllerBase {
   /**
    * Get Google route distance between two zipcodes.
    */
-  public function distance($start_zip, $end_zip) {
-    return 2774;
+  private function distance($start_zip, $end_zip) {
+    $client = new Client();
+    $locations = $this->locations($start_zip, $end_zip);
+    // Build Google Distance Matrix Request.
+    $googleUrl = 'https://maps.googleapis.com/maps/api/distancematrix/json';
+    $origins = "{$locations['origin']['lat']},{$locations['origin']['lon']}";
+    $destinations = "{$locations['destination']['lat']},{$locations['destination']['lon']}";
+    $key = $this->googleApi;
+    $request = "{$googleUrl}?origins={$origins}&destinations={$destinations}&key={$key}";
+    $res = $client->request('GET', $request);
+    $data = json_decode($res->getBody()->getContents(), JSON_OBJECT_AS_ARRAY);
+    if ($res->getStatusCode() == 200) {
+      // Get distance value and convert it from meters to miles.
+      return round($data['rows'][0]['elements'][0]['distance']['value'] / 1609.344, 2);
+    }
+    return 0;
   }
 
   /**
@@ -229,70 +254,52 @@ class PpmEstimatorController extends ControllerBase {
    * Build location response with the given zipcode.
    */
   private function location($zipcode) {
-    $uszipcode = $this->uszipcode($zip);
-    $location['address'] = "{$uszipcode['city']}, {$uszipcode['state']} {$uszipcode['zipcode']}";
+    $uszipcode = $this->uszipcode($zipcode);
+    $location['address'] = "{$uszipcode['city']}, {$uszipcode['state']} {$uszipcode['code']}";
     $location['lat'] = floatval($uszipcode['lat']);
-    $location['lon'] = floatval($uszipcode['lat']);
+    $location['lon'] = floatval($uszipcode['lon']);
     return $location;
   }
 
   /**
    * Get uszipcode object according to the given zip code.
    */
-  public function uszipcode($zipcode) {
-    // $uszipcode = $this->databaseConnection
-    //   ->select('parser_uszipcodes')
-    //   ->fields('parser_uszipcodes')
-    //   ->condition('code', $zipcode)
-    //   ->execute()
-    //   ->fetch();
-    // return (array) $uszipcode;
-    return [
-      'code' => 90210,
-      'city' => 'Beverly Hills',
-      'state' => 'CA',
-      'lat' => 33.786594,
-      'lon' => -118.298662,
-    ];
+  private function uszipcode($zipcode) {
+    $uszipcode = $this->databaseConnection
+      ->select('parser_zipcodes')
+      ->fields('parser_zipcodes')
+      ->condition('code', $zipcode)
+      ->execute()
+      ->fetch();
+    return (array) $uszipcode;
   }
 
   /**
    * Get linehaul object according to the given distance, weight, year.
    */
-  public function linehaul($distance, $weight, $year) {
+  private function linehaul($distance, $weight, $year) {
     // Get the linehaul object that is in between 2 distances.
-    $lh = $this->databaseConnection
+    $lhs = $this->databaseConnection
       ->select('parser_linehauls')
       ->fields('parser_linehauls')
-      ->condition('miles', $distance, '>')
-      ->range(0, 1)
       ->execute()
-      ->fetch();
-    $linehaul = (array) $lh;
-    $lh = $this->databaseConnection
-      ->select('parser_linehauls')
-      ->fields('parser_linehauls')
-      ->condition('id', $linehaul['id'] - 1)
-      ->range(0, 1)
-      ->execute()
-      ->fetch();
-    $linehaul = (array) $lh;
-    $miles = $linehaul['miles'];
+      ->fetchAll();
+    $closestMiles = $this->closestValue($lhs, $distance, 'miles');
     // Get the linehaul object that is in between 2 weights.
-    $lh = $this->databaseConnection
+    $lhs = $this->databaseConnection
       ->select('parser_linehauls')
       ->fields('parser_linehauls')
-      ->condition('miles', $miles)
+      ->condition('miles', $closestMiles)
       ->condition('year', $year)
-      ->condition('weight', $weight, '>')
-      ->range(0, 1)
       ->execute()
-      ->fetch();
-    $linehaul = (array) $lh;
+      ->fetchAll();
+    $closestWeight = $this->closestValue($lhs, $weight, 'weight');
     $lh = $this->databaseConnection
       ->select('parser_linehauls')
       ->fields('parser_linehauls')
-      ->condition('id', $linehaul['id'] - 1)
+      ->condition('miles', $closestMiles)
+      ->condition('year', $year)
+      ->condition('weight', $closestWeight)
       ->range(0, 1)
       ->execute()
       ->fetch();
@@ -302,30 +309,19 @@ class PpmEstimatorController extends ControllerBase {
   /**
    * Get shorthaul object according to the given distance, weight, year.
    */
-  public function shorthaul($distance, $cwt, $year) {
+  private function shorthaul($distance, $cwt, $year) {
     // Get the shorthaul object that is in between 2 cwt_miles.
-    $s = $this->databaseConnection
+    $ss = $this->databaseConnection
       ->select('parser_shorthauls')
       ->fields('parser_shorthauls')
-      ->condition('cwt_miles', $cwt * $distance, '>')
-      ->range(0, 1)
       ->execute()
-      ->fetch();
-    $shorthaul = (array) $s;
-    $s = $this->databaseConnection
-      ->select('parser_shorthauls')
-      ->fields('parser_shorthauls')
-      ->condition('id', $shorthaul['id'] - 1)
-      ->range(0, 1)
-      ->execute()
-      ->fetch();
-    $shorthaul = (array) $s;
-    $cwt_miles = $shorthaul['cwt_miles'];
+      ->fetchAll();
+    $closestCwtMiles = $this->closestValue($ss, $cwt * $distance, 'cwt_miles');
     // Get the shorthaul object.
     $s = $this->databaseConnection
       ->select('parser_shorthauls')
       ->fields('parser_shorthauls')
-      ->condition('cwt_miles', $cwt_miles)
+      ->condition('cwt_miles', $closestCwtMiles)
       ->condition('year', $year)
       ->range(0, 1)
       ->execute()
@@ -336,30 +332,20 @@ class PpmEstimatorController extends ControllerBase {
   /**
    * Get packunpack object according to the given service_area, year, weight.
    */
-  public function packunpack($service_area, $year, $weight = 0) {
+  private function packunpack($service_area, $year, $weight = 0) {
     // Get the packunpack object that is in between 2 weights.
-    $p = $this->databaseConnection
+    $ps = $this->databaseConnection
       ->select('parser_packunpacks')
       ->fields('parser_packunpacks')
-      ->condition('cwt', $weight, '>')
-      ->range(0, 1)
       ->execute()
-      ->fetch();
-    $packunpack = (array) $p;
-    $p = $this->databaseConnection
-      ->select('parser_packunpacks')
-      ->fields('parser_packunpacks')
-      ->condition('id', $packunpack['id'] - 1)
-      ->range(0, 1)
-      ->execute()
-      ->fetch();
-    $packunpack = (array) $p;
+      ->fetchAll();
+    $closestCwt = $this->closestValue($ps, $weight, 'cwt');
     // Get the shorthaul object.
     $p = $this->databaseConnection
       ->select('parser_packunpacks')
       ->fields('parser_packunpacks')
       ->condition('schedule', $service_area['services_schedule'])
-      ->condition('cwt', $packunpack['cwt'])
+      ->condition('cwt', $closestCwt)
       ->condition('year', $year)
       ->range(0, 1)
       ->execute()
@@ -370,7 +356,7 @@ class PpmEstimatorController extends ControllerBase {
   /**
    * Get zip5 object according to the given zip code.
    */
-  public function zip5($zipcode) {
+  private function zip5($zipcode) {
     $zip5 = $this->databaseConnection
       ->select('parser_zip5s')
       ->fields('parser_zip5s')
@@ -383,58 +369,58 @@ class PpmEstimatorController extends ControllerBase {
   /**
    * Get discount object according to the given area, region and date.
    */
-  public function discount($area, $region, $date) {
-    // $tdls = $this->databaseConnection
-    //   ->select('parser_discounts', 'd')
-    //   ->addField('d', 'tdl')
-    //   ->distinct()
-    //   ->execute()
-    //   ->fetchAll();
-    // $tdldate = $this->lowest_value($tdls, $date, 'tdl');
-    // $discount = $this->databaseConnection
-    //   ->select('parser_discounts')
-    //   ->fields('parser_discounts')
-    //   ->condition('area', $area)
-    //   ->condition('region', $region)
-    //   ->condition('date', $tdldate)
-    //   ->execute()
-    //   ->fetch();
-    // return (array) $discount;
-    return [
-      'origin' => 'US11',
-      'region' => 'REGION 14',
-      'discount' => 68,
-      'sit_rate' => 60,
-    ];
+  private function discount($origin, $destination, $date) {
+    $ds = $this->databaseConnection
+      ->select('parser_discounts')
+      ->fields('parser_discounts')
+      ->execute()
+      ->fetchAll();
+    $closestTdl = $this->closestValue($ds, $date, 'tdl');
+    $discount = $this->databaseConnection
+      ->select('parser_discounts')
+      ->fields('parser_discounts')
+      ->condition('origin', $origin)
+      ->condition('destination', $destination)
+      ->condition('tdl', $closestTdl)
+      ->execute()
+      ->fetch();
+    return (array) $discount;
   }
 
   /**
    * Look for the range that a given number belongs to.
+   *
    * Then return the lowest value of that range.
    */
-  public function lowest_value(array $entries, $rawvalue, $column) {
+  private function closestValue(array $entries, $rawvalue, $column) {
     $highest = 0;
-    foreach ($entries as $key => $entry) {
+    $closest = 0;
+    foreach ($entries as $entry) {
       $e = (array) $entry;
-      $value = $e[$column];
-      if ($value > $rawvalue) {
-        $highest = $key;
-        break;
+      $value = intval($e[$column]);
+      if ($rawvalue >= $value) {
+        $closest = $value;
+      }
+      if ($value > $highest) {
+        $highest = $value;
       }
     }
-    $entry = (array) $entries[$highest - 1];
-    return $entry[$column];
+    // If value higher thant the values in the db, just return the highest.
+    if ($rawvalue > $highest) {
+      $closest = $highest;
+    }
+    return $closest;
   }
 
   /**
    * Calculate linehaul charges.
    */
-  public function linehaul_charges($start_service_area, $end_service_area, $year, $weight, $cwt, $params) {
+  private function linehaulCharges($start_service_area, $end_service_area, $year, $weight, $cwt, $params) {
     // Sum service areas linehaul factors.
     $linehaul_factor = $start_service_area['linehaul_factor'] + $end_service_area['linehaul_factor'];
     // Get distance.
     $distance = $this->distance($params['locations']['origin'], $params['locations']['destination']);
-    // Get linehaul rate.   
+    // Get linehaul rate.
     $linehaul = $this->linehaul($distance, $weight, $year);
     if ($weight < 1000) {
       // If weight is less than 1000lbs then use rate * (weight / 1000).
@@ -457,7 +443,7 @@ class PpmEstimatorController extends ControllerBase {
   /**
    * Calculate non related linehaul charges.
    */
-  public function other_charges($start_service_area, $end_service_area, $year, $weight, $cwt) {
+  private function otherCharges($start_service_area, $end_service_area, $year, $weight, $cwt) {
     $charges = $start_service_area['orig_dest_service_charge'] + $end_service_area['orig_dest_service_charge'];
     $pack = $this->packunpack($start_service_area, $year, $weight);
     $unpack = $this->packunpack($end_service_area, $year);
@@ -469,7 +455,7 @@ class PpmEstimatorController extends ControllerBase {
   /**
    * Get discounts from tsp discounts table.
    */
-  public function discounts($start_zip3, $end_zip3, $start_zipcode, $move_date) {
+  private function discounts($start_zip3, $end_zip3, $start_zipcode, $move_date) {
     $area = $start_zip3['rate_area'];
     if ($area === 'ZIP') {
       $zip5 = $this->zip5($start_zipcode);
@@ -481,8 +467,7 @@ class PpmEstimatorController extends ControllerBase {
     else {
       $region = $end_zip3['region'];
     }
-    $mysqldate = date('Y-m-d H:i:s', strtotime($move_date));
-    $discount_entry = $this->discount("US#{$area}", "REGION #{$region}", $mysqldate);
+    $discount_entry = $this->discount("US{$area}", "REGION {$region}", strtotime($move_date));
     $discount_pct = $discount_entry['discount'];
     $discount = 1 - ($discount_pct / 100);
     // Don't go below 0% or above 100% before applying PPM incentive.
@@ -494,14 +479,14 @@ class PpmEstimatorController extends ControllerBase {
   /**
    * Get the nearest int multiple of 100 less than or equal to the input.
    */
-  public function floor_hundred($input) {
+  private function floorHundred($input) {
     return intval($input - $input % 100);
   }
 
   /**
    * Get the nearest int multiple of 100 greater than or equal to the input.
    */
-  public function ceil_hundred($input) {
+  private function ceilHundred($input) {
     $remainder = $input % 100;
     if ($remainder == 0) {
       return intval($input);
@@ -513,8 +498,8 @@ class PpmEstimatorController extends ControllerBase {
    * Round PPM incentives with total cost and dscounts.
    */
   private function incentives($total, array $discounts) {
-    $incentives['min'] = $this->floor_hundred($total * $discounts['min']);
-    $incentives['max'] = $this->ceil_hundred($total * $discounts['max']);
+    $incentives['min'] = $this->floorHundred($total * $discounts['min']);
+    $incentives['max'] = $this->ceilHundred($total * $discounts['max']);
     return $incentives;
   }
 
