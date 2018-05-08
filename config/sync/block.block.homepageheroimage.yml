@@ -1,0 +1,31 @@
+uuid: 449771c4-5f22-4833-b9af-236dd51ca36f
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:hero_image:ed93f839-aba9-4bf9-871c-aa15e107f6cf'
+  module:
+    - block_content
+    - system
+  theme:
+    - move_mil
+id: homepageheroimage
+theme: move_mil
+region: hero
+weight: 0
+provider: null
+plugin: 'block_content:ed93f839-aba9-4bf9-871c-aa15e107f6cf'
+settings:
+  id: 'block_content:ed93f839-aba9-4bf9-871c-aa15e107f6cf'
+  label: 'Homepage Hero Image'
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    pages: '<front>'
+    negate: false
+    context_mapping: {  }

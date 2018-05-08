@@ -22,7 +22,7 @@
                 "version": "4.5.7",
                 "dist": {
                     "type": "zip",
-                    "url": "http://download.ckeditor.com/templates/releases/templates_4.5.7.zip",
+                    "url": "https://download.ckeditor.com/templates/releases/templates_4.5.7.zip",
                     "reference": "master"
                 }
             }
@@ -38,6 +38,7 @@
         "drupal/console": "^1.0.2",
         "drupal/core": "~8.5",
         "drupal/extlink": "^1.0",
+        "drupal/geolocation": "^1.11",
         "drupal/node_class": "^1.0@beta",
         "drupal/paragraphs": "^1.2",
         "drupal/stage_file_proxy": "^1.0@alpha",
@@ -51,9 +52,6 @@
         "vlucas/phpdotenv": "^2.4",
         "webflo/drupal-finder": "^1.0.0",
         "webmozart/path-util": "^2.3"
-    },
-    "replace": {
-        "ckeditor/templates": "*"
     },
     "require-dev": {
         "behat/mink-extension": "v2.2",
