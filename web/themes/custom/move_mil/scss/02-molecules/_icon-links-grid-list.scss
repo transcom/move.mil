@@ -1,5 +1,6 @@
 .icon-links-grid-list {
   position: relative;
+
   ul {
     @include unstyled-list;
     @include clearfix;
@@ -7,14 +8,16 @@
     li {
       float: left;
       width: 50%;
+
       @include padding(0.8rem 2rem);
 
-      &:nth-child(2n-1){
+      &:nth-child(2n-1) {
         clear: left;
       }
 
       @include media($medium-screen) {
         width: 25%;
+
         &:nth-child(2n-1) {
           clear: none;
         }
