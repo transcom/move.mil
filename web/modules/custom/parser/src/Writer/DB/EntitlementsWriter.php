@@ -1,23 +1,30 @@
 <?php
 
-namespace Drupal\parser\Writer\Json;
+namespace Drupal\parser\Writer\DB;
 
 use Drupal\parser\Writer\WriterInterface;
+use Drupal\Console\Core\Style\DrupalStyle;
 
 /**
  * Class EntitlementsWriter.
  *
- * Parses a given array and returns a JSON structure.
+ * Parses a given array and saves it in a custom table.
  */
 class EntitlementsWriter implements WriterInterface {
-  use JsonWriter;
+  use DBWriter;
 
   /**
-   * Normalizes data then writes entitlements.json.
+   * Normalizes data then writes it into db tables.
    */
-  public function write(array $rawdata) {
+  public function write(array $rawdata, $truncate, DrupalStyle $io) {
+    $table = 'parser_entitlements';
+    if ($truncate) {
+      $io->info("Truncating {$table} table.");
+      $this->truncateTable($table);
+    }
     $entitlements = $this->mapdata($rawdata);
-    $this->writeJson($entitlements, 'entitlements.json');
+    $io->info("Writing new records on {$table} table.");
+    $this->insertToTable($entitlements, $table);
   }
 
   /**
@@ -26,9 +33,8 @@ class EntitlementsWriter implements WriterInterface {
   private function mapdata(array $rawdata) {
     $entitlements = [];
     while ($entitlement = current($rawdata)) {
-      $key = $this->entitlementslug($entitlement['rank']);
-      $entitlement['slug'] = $key;
-      $entitlements[$key] = $entitlement;
+      $entitlement['slug'] = $this->entitlementslug($entitlement['rank']);
+      $entitlements[] = $entitlement;
       next($rawdata);
     }
     return $entitlements;

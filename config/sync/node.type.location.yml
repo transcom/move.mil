@@ -1,0 +1,21 @@
+uuid: 1dda786f-fd50-452c-a487-90a2725fd573
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+    - wysiwyg_template
+third_party_settings:
+  menu_ui:
+    available_menus:
+      - main
+    parent: 'main:'
+  wysiwyg_template:
+    default_template: ''
+name: Location
+type: location
+description: 'Stores offices (transportation and shipping) as well as scales locations'
+help: ''
+new_revision: true
+preview_mode: 1
+display_submitted: true

@@ -14,23 +14,11 @@
     z-index: -1;
   }
 
-  &:after {
-    content: none;
-  }
-
-  + div {
-    clear: both;
-  }
-
   @include media($nav-width) {
     padding: 0;
 
     &:before {
       content: none;
-    }
-
-    &:after {
-      content: '';
     }
   }
 

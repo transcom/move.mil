@@ -1,0 +1,23 @@
+uuid: 2328f408-f5db-4be6-a7b9-11a947d7e4ec
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_location_link
+    - node.type.location
+  module:
+    - link
+id: node.location.field_location_link
+field_name: field_location_link
+entity_type: node
+bundle: location
+label: 'Location link'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 17
+  title: 1
+field_type: link

@@ -1,0 +1,31 @@
+uuid: bdd53766-6643-435a-8a8e-71aae85fb147
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:custom_paragraph_block:a2b4edfe-f6ce-4a2a-adb5-e86452c28a19'
+  module:
+    - block_content
+    - system
+  theme:
+    - move_mil
+id: homepagehelpfullinks
+theme: move_mil
+region: sidebar_second
+weight: 0
+provider: null
+plugin: 'block_content:a2b4edfe-f6ce-4a2a-adb5-e86452c28a19'
+settings:
+  id: 'block_content:a2b4edfe-f6ce-4a2a-adb5-e86452c28a19'
+  label: 'Homepage Helpful Links'
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    pages: '<front>'
+    negate: false
+    context_mapping: {  }

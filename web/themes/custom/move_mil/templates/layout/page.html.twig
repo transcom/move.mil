@@ -90,31 +90,32 @@
 
 <section class="usa-section uswds-middle-section {{ main_classes }}">
 
-    <div class="back-to-top">
-      <a href="#">Return to top</a>
-    </div>
-
   <div class="usa-grid">
     <div class="usa-width-full">
-
       {{ page.breadcrumb }}
-
-      {{ page.highlighted }}
-
-      {% if page.help|render|trim %}
-      <div class="usa-alert usa-alert-info">
-        <div class="usa-alert-body">
-          <p class="usa-alert-text">
-            {{ page.help }}
-          </p>
-        </div>
-      </div>
-      {% endif %}
-
-      {{ page.content.move_mil_local_tasks }}
-      {{ page.content.move_mil_page_title }}
-
     </div>
+  </div>
+
+  <div class="back-to-top">
+    <a href="#">Back to top</a>
+  </div>
+
+  <div class="usa-grid">
+
+    {{ page.highlighted }}
+
+    {% if page.help|render|trim %}
+    <div class="usa-alert usa-alert-info">
+      <div class="usa-alert-body">
+        <p class="usa-alert-text">
+          {{ page.help }}
+        </p>
+      </div>
+    </div>
+    {% endif %}
+
+    {{ page.content.move_mil_local_tasks }}
+    {{ page.content.move_mil_page_title }}
   </div>
 
   <div class="uswds-main-content-wrapper {% if edge_to_edge == false %}usa-grid{% endif %}">

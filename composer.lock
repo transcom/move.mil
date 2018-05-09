@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "8cb4a6b9c493c9ee47fee4839fdfcadd",
+    "content-hash": "b28b86e1f193b1aaad59c49d65343d0e",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -128,12 +128,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Bixal/jumplink.git",
-                "reference": "e103e6e0d11914971decd4e2a9b6f79bb444c8ad"
+                "reference": "154e2dd6306a29a1ba10c61a467d0974ad003a2f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Bixal/jumplink/zipball/e103e6e0d11914971decd4e2a9b6f79bb444c8ad",
-                "reference": "e103e6e0d11914971decd4e2a9b6f79bb444c8ad",
+                "url": "https://api.github.com/repos/Bixal/jumplink/zipball/154e2dd6306a29a1ba10c61a467d0974ad003a2f",
+                "reference": "154e2dd6306a29a1ba10c61a467d0974ad003a2f",
                 "shasum": ""
             },
             "type": "drupal-module",
@@ -146,7 +146,7 @@
             "keywords": [
                 "drupal"
             ],
-            "time": "2018-04-17T21:03:55+00:00"
+            "time": "2018-05-03T17:06:38+00:00"
         },
         {
             "name": "chi-teck/drupal-code-generator",
@@ -186,6 +186,17 @@
             ],
             "description": "Drupal code generator",
             "time": "2018-03-03T04:17:26+00:00"
+        },
+        {
+            "name": "ckeditor/templates",
+            "version": "4.5.7",
+            "dist": {
+                "type": "zip",
+                "url": "https://download.ckeditor.com/templates/releases/templates_4.5.7.zip",
+                "reference": "master",
+                "shasum": null
+            },
+            "type": "drupal-library"
         },
         {
             "name": "commerceguys/addressing",
@@ -2222,6 +2233,57 @@
             }
         },
         {
+            "name": "drupal/geolocation",
+            "version": "1.11.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/geolocation",
+                "reference": "8.x-1.11"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/geolocation-8.x-1.11.zip",
+                "reference": "8.x-1.11",
+                "shasum": "a401d5c576a8c4886e84272f2ca2a3c524c46869"
+            },
+            "require": {
+                "drupal/core": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.11",
+                    "datestamp": "1505687043",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "ChristianAdamski",
+                    "homepage": "https://www.drupal.org/user/867880"
+                },
+                {
+                    "name": "derjochenmeyer",
+                    "homepage": "https://www.drupal.org/user/106134"
+                }
+            ],
+            "description": "Provides a simple geolocation Drupal field type to store and display location data (lat, lng).",
+            "homepage": "https://www.drupal.org/project/geolocation",
+            "support": {
+                "source": "http://cgit.drupalcode.org/geolocation"
+            }
+        },
+        {
             "name": "drupal/node_class",
             "version": "1.0.0-beta1",
             "source": {
@@ -2630,6 +2692,151 @@
             "support": {
                 "source": "http://cgit.drupalcode.org/uswds",
                 "issues": "https://www.drupal.org/project/issues/uswds?categories=All"
+            }
+        },
+        {
+            "name": "drupal/wysiwyg_template",
+            "version": "2.0.0-beta1",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/wysiwyg_template",
+                "reference": "8.x-2.0-beta1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/wysiwyg_template-8.x-2.0-beta1.zip",
+                "reference": "8.x-2.0-beta1",
+                "shasum": "eb6bd41d7a99487b0bea7ee0be82629c509aeed1"
+            },
+            "require": {
+                "ckeditor/templates": "4.5.7",
+                "drupal/core": "~8.0",
+                "drupal/wysiwyg_template_core": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-2.x": "2.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-2.0-beta1",
+                    "datestamp": "1499440442",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Beta releases are not covered by Drupal security advisories."
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Drupal\\wysiwyg_template\\": "src/"
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "guybedford",
+                    "homepage": "https://www.drupal.org/user/746802"
+                },
+                {
+                    "name": "jenlampton",
+                    "homepage": "https://www.drupal.org/user/85586"
+                },
+                {
+                    "name": "jhedstrom",
+                    "homepage": "https://www.drupal.org/user/208732"
+                },
+                {
+                    "name": "jurgenhaas",
+                    "homepage": "https://www.drupal.org/user/168924"
+                },
+                {
+                    "name": "recidive",
+                    "homepage": "https://www.drupal.org/user/12564"
+                },
+                {
+                    "name": "sebas5384",
+                    "homepage": "https://www.drupal.org/user/567694"
+                },
+                {
+                    "name": "snipebin",
+                    "homepage": "https://www.drupal.org/user/858710"
+                }
+            ],
+            "description": "Manage templates for use in a WYSIWYG.",
+            "homepage": "https://www.drupal.org/project/wysiwyg_template",
+            "keywords": [
+                "Drupal",
+                "Templates",
+                "WYSIWYG"
+            ],
+            "support": {
+                "source": "https://drupal.org/project/wysiwyg_template",
+                "issues": "https://drupal.org/project/issues/wysiwyg_template"
+            }
+        },
+        {
+            "name": "drupal/wysiwyg_template_core",
+            "version": "2.0.0-beta1",
+            "require": {
+                "drupal/core": "~8.0",
+                "drupal/wysiwyg_template": "self.version"
+            },
+            "type": "metapackage",
+            "extra": {
+                "branch-alias": {
+                    "dev-2.x": "2.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-2.0-beta1",
+                    "datestamp": "1499440442",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Beta releases are not covered by Drupal security advisories."
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "guybedford",
+                    "homepage": "https://www.drupal.org/user/746802"
+                },
+                {
+                    "name": "jenlampton",
+                    "homepage": "https://www.drupal.org/user/85586"
+                },
+                {
+                    "name": "jhedstrom",
+                    "homepage": "https://www.drupal.org/user/208732"
+                },
+                {
+                    "name": "jurgenhaas",
+                    "homepage": "https://www.drupal.org/user/168924"
+                },
+                {
+                    "name": "recidive",
+                    "homepage": "https://www.drupal.org/user/12564"
+                },
+                {
+                    "name": "sebas5384",
+                    "homepage": "https://www.drupal.org/user/567694"
+                },
+                {
+                    "name": "snipebin",
+                    "homepage": "https://www.drupal.org/user/858710"
+                }
+            ],
+            "description": "Core functionality for the WYSIWYG Template module",
+            "homepage": "https://www.drupal.org/project/wysiwyg_template",
+            "support": {
+                "source": "http://cgit.drupalcode.org/wysiwyg_template"
             }
         },
         {
@@ -8525,6 +8732,7 @@
         "drupal/node_class": 10,
         "drupal/stage_file_proxy": 15,
         "drupal/uswds": 10,
+        "drupal/wysiwyg_template": 10,
         "drupal/drupal-extension": 20
     },
     "prefer-stable": true,

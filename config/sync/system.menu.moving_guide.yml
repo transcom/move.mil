@@ -2,6 +2,8 @@ uuid: 045e38c1-2028-4387-a016-56d062546010
 langcode: en
 status: true
 dependencies:
+  module:
+    - custom_move_mil_menus
   enforced:
     module:
       - custom_move_mil_menus

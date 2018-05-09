@@ -44,6 +44,14 @@ content:
       default_paragraph_type: ''
     third_party_settings: {  }
     region: content
+  node_class:
+    type: string_textfield
+    weight: 35
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   path:
     type: path
     weight: 5

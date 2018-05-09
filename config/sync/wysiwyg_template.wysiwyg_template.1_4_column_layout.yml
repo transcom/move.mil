@@ -1,0 +1,16 @@
+uuid: 50754d78-a0da-49a4-ac35-a8b4791eafc0
+langcode: en
+status: true
+dependencies: {  }
+id: 1_4_column_layout
+label: '1/4 column layout'
+description: ''
+body:
+  value: "<div class=\"usa-grid-full content-column-group\">\r\n<div class=\"usa-width-one-fourth content-column\">column 1: replace with your content</div>\r\n\r\n<div class=\"usa-width-one-fourth content-column\">column 2: replace with your content</div>\r\n\r\n<div class=\"usa-width-one-fourth content-column\">column 3: replace with your content</div>\r\n\r\n<div class=\"usa-width-one-fourth content-column\">column 4: replace with your content</div>\r\n</div>\r\n"
+  format: full_html
+weight: -10
+node_types:
+  - article
+  - faq
+  - page
+  - tutorial

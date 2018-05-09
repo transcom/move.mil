@@ -25,7 +25,7 @@ class ExcelReader implements ReaderInterface {
     ]);
     $spreadsheet = $reader->load($xlsxFile);
     // Get year from filename.
-    $xlsx['date'] = substr($xlsxFile, -15, 5);
+    $xlsx['year'] = substr($xlsxFile, -15, 4);
     $xlsx['schedules'] = $this->schedules($spreadsheet);
     $xlsx['linehauls'] = $this->linehauls($spreadsheet, $this->conusparams());
     $additonalrates = $this->additionalrates($spreadsheet);
@@ -199,7 +199,7 @@ class ExcelReader implements ReaderInterface {
     // Add parsed values to pack and unpack array.
     $packunpack['schedule'] = $schedule;
     $packunpack['cwt'] = $cwt;
-    $packunpack['rate'] = $rate;
+    $packunpack['pack'] = $rate;
     $packunpack['unpack'] = $unpack;
     return $packunpack;
   }

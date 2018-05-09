@@ -1,0 +1,16 @@
+uuid: 35a9acb5-a0f8-4fd0-a49b-72353a6b9255
+langcode: en
+status: true
+dependencies: {  }
+id: 3_column_layout
+label: '1/3 column layout'
+description: ''
+body:
+  value: "<div class=\"usa-grid-full content-column-group\">\r\n<div class=\"usa-width-one-third content-column\">column 1: replace with your content</div>\r\n\r\n<div class=\"usa-width-one-third content-column\">column 2: replace with your content</div>\r\n\r\n<div class=\"usa-width-one-third content-column\">column 3: replace with your content</div>\r\n</div>\r\n"
+  format: full_html
+weight: -10
+node_types:
+  - page
+  - article
+  - faq
+  - tutorial
