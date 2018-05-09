@@ -38,6 +38,7 @@
         "drupal/console": "^1.0.2",
         "drupal/core": "~8.5",
         "drupal/extlink": "^1.0",
+        "drupal/geolocation": "^1.11",
         "drupal/node_class": "^1.0@beta",
         "drupal/paragraphs": "^1.2",
         "drupal/stage_file_proxy": "^1.0@alpha",
