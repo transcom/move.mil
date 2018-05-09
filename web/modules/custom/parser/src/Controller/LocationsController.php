@@ -2,6 +2,7 @@
 
 namespace Drupal\parser\Controller;
 
+use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
 use Drupal\Core\Controller\ControllerBase;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -46,101 +47,185 @@ class LocationsController extends ControllerBase {
    *   Return locations as a Json object
    */
   public function locations() {
-    $entities = $this->entityTypeManager->getStorage('node')->loadMultiple();
-    foreach ($entities as $entity) {
-      dump([$entity->label() => $entity->getEntityTypeId()]);
+    try {
+      $taxonomy_terms = $this->entityTypeManager
+        ->getStorage('taxonomy_term')
+        ->loadByProperties(['vid' => 'location_type']);
+      $entities = $this->entityTypeManager->getStorage('node')->loadByProperties(['type' => 'location']);
     }
-    $json = '  {
-      "name": "PPPO Fort Belvoir / Logistics Readiness Center (LRC)",
-      "location": {
-        "street_address": "9910 Tracy Loop",
-        "extended_address": "Bldg 766, 406th Army Field Support Battalion (AFSB) Army Sustainment Command (ASC)",
-        "locality": "Fort Belvoir",
-        "region": "Virginia",
-        "region_code": "VA",
-        "postal_code": "22060",
-        "country_name": "United States",
-        "country_code": "US",
-        "latitude": 38.6891689,
-        "longitude": -77.1472925
-      },
-      "email_addresses": [
-        {
-          "email_address": "usarmy.belvoir.mbx.outboundpcsing@mail.mil",
-          "note": "Customer Service"
-        }
-      ],
-      "phone_numbers": [
-        {
-          "phone_number": "(703) 805-5674",
-          "phone_type": "voice",
-          "dsn": false
-        }
-      ],
-      "hours": "0800 - 1130 hrs\n1230 - 1500 hrs\nClosed for lunch 1200-1230 hrs.\nClosed Friday Afternoon",
-      "services": [
-        "Walk-In Help",
-        "Appointments"
-      ],
-      "note": "Walk-in help is available on a case-by-case basis.",
-      "shipping_office":   {
-        "name": "JPPSO-MA: Customer Service Management Division",
-        "location": {
-          "street_address": "9325 Gunston Rd",
-          "extended_address": "Ste N110 Bldg. 1466",
-          "locality": "Fort Belvoir",
-          "region": "Virginia",
-          "region_code": "VA",
-          "postal_code": "22060",
-          "country_name": "United States",
-          "country_code": "US",
-          "latitude": 38.704505,
-          "longitude": -77.148212
-        },
-        "email_addresses": [
-          {
-            "email_address": "usarmy.belvoir.imcom.mbx.jppsowa@mail.mil",
-            "note": "Customer Service"
-          }
-        ],
-        "phone_numbers": [
-          {
-            "phone_number": "(703) 806-4900",
-            "phone_type": "voice",
-            "dsn": false
-          },
-          {
-            "phone_number": "312-656-4900",
-            "phone_type": "voice",
-            "dsn": true
-          }
-        ],
-        "urls": [
-          {
-            "url": "http://www.belvoir.army.mil/jppsoma/"
-          }
-        ],
-        "hours": "0800-1600",
-        "services": [
-          "Walk-In Help",
-          "Call Center",
-          "QA Inspections"
-        ]
+    catch (InvalidPluginDefinitionException $ipde) {
+      $msg = "Error while creating response => {$ipde->getMessage()}";
+      return JsonResponse::create($msg, 500);
+    }
+    $taxonomies = [];
+    foreach ($taxonomy_terms as $term) {
+      $taxonomies[$term->id()] = $term->label();
+    }
+    $data = [];
+    foreach ($entities as $entity) {
+      $location = $entity->toArray();
+      $type = $this->locationType($location, $taxonomies);
+      if (!$this->searchable($type)) {
+        continue;
       }
-    }';
-    $data = json_decode($json, TRUE);
+      $data[$entity->label()] = $this->parse($location, $type);
+      $shipping = $this->shippingOffice($location);
+      $data[$entity->label()]['shipping_office'] = $this->parse($shipping, 'Shipping Office');
+    }
+    return $this->response($data);
+  }
+
+  /**
+   * Get location type (taxonomy term).
+   *
+   * @param array $location
+   *   Array of the location entity.
+   * @param array $taxonomies
+   *   Array of taxonomy terms found of type 'location_type'.
+   *
+   * @return string
+   *   Term value.
+   */
+  private function locationType(array $location, array $taxonomies) {
+    $type_id = $location['field_location_type'][0]['target_id'];
+    return $taxonomies[$type_id];
+  }
+
+  /**
+   * Evaluate if should be include in the closest locations search.
+   *
+   * @param string $type
+   *   Location type.
+   *
+   * @return bool
+   *   Whether a entity should be included.
+   */
+  private function searchable($type) {
+    return $type == 'Transportation Office' ||
+      $type == 'Weight Scales';
+  }
+
+  /**
+   * Get values from Drupal fields array.
+   *
+   * @param array $fields
+   *   Array of fields to strip the value from.
+   *
+   * @return array
+   *   Array of fields values.
+   */
+  private function values(array $fields) {
+    $values = [];
+    foreach ($fields as $field) {
+      $values[] = $field['value'];
+    }
+    return $values;
+  }
+
+  /**
+   * Get uri from Drupal links array.
+   *
+   * @param array $links
+   *   Array of Drupal links to strip the uri from.
+   *
+   * @return array
+   *   Array of fields uris.
+   */
+  private function uris(array $links) {
+    $uris = [];
+    foreach ($links as $link) {
+      $uris[] = $link['uri'];
+    }
+    return $uris;
+  }
+
+  /**
+   * Parse a drupal entity data to more human readable data.
+   *
+   * @param array $location
+   *   Drupal entity array with a lot of nested arrays.
+   * @param string $type
+   *   Location type.
+   *
+   * @return array
+   *   Flattened and filtered array.
+   */
+  private function parse(array $location = NULL, $type) {
+    if ($location == NULL || !count($location)) {
+      return NULL;
+    }
+    $data = [];
+    $data['type'] = $type;
+    $data['title'] = $location['title'][0]['value'];
+    $data['location'] = $location['field_location_address'][0];
+    $data['location']['lat'] = $location['field_geolocation'][0]['lat'];
+    $data['location']['lon'] = $location['field_geolocation'][0]['lng'];
+    $data['email_addresses'] = $this->values($location['field_location_email']);
+    $data['hours'] = $location['field_location_hours'][0]['value'];
+    $data['websites'] = $this->uris($location['field_location_link']);
+    $data['notes'] = $location['field_location_note'][0]['value'];
+    $data['services'] = $this->values($location['field_location_services']);
+    $data['phones'] = $this->values($location['field_location_telephone']);
+    return $data;
+  }
+
+  /**
+   * Evaluate if a transportation office has a shipping office.
+   *
+   * @param array $location
+   *   Drupal entity array with a lot of nested arrays.
+   *
+   * @return bool
+   *   Whether location has a shipping office.
+   */
+  private function hasShippingOffice(array $location) {
+    return array_key_exists('field_location_reference', $location) &&
+      count($location['field_location_reference']);
+  }
+
+  /**
+   * Look for a location entity, of type shipping office, by id.
+   *
+   * @param array $location
+   *   Drupal entity array with a lot of nested arrays.
+   *
+   * @return mixed[]|\Symfony\Component\HttpFoundation\JsonResponse
+   *   Drupal entity array with a lot of nested arrays.
+   */
+  private function shippingOffice(array $location) {
+    if (!$this->hasShippingOffice($location)) {
+      // Not all PPPOs or scales have a shipping office, or data is missing.
+      return NULL;
+    }
+    $id = $location['field_location_reference'][0]['target_id'];
+    try {
+      $entity = $this->entityTypeManager->getStorage('node')->load($id);
+    }
+    catch (InvalidPluginDefinitionException $ipde) {
+      return NULL;
+    }
+    return $entity->toArray();
+  }
+
+  /**
+   * Create JSON response.
+   *
+   * @param array $data
+   *   Data to encode.
+   *
+   * @return \Symfony\Component\HttpFoundation\JsonResponse
+   *   The JSON response.
+   */
+  private function response(array $data) {
     $response = JsonResponse::create($data, 200);
     $response->setEncodingOptions(
       $response->getEncodingOptions() |
-      JSON_PRETTY_PRINT |
-      JSON_FORCE_OBJECT
+      JSON_PRETTY_PRINT
     );
     if (gettype($response) == 'object') {
       return $response;
     }
-    else {
-      return JsonResponse::create('Error while creating response.', 500);
-    }
+    return JsonResponse::create('Error while creating response.', 500);
   }
 
 }
