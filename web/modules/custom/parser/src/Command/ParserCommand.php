@@ -94,6 +94,7 @@ class ParserCommand extends Command {
       'discounts-1Oct2017',
       'discounts-1Jan2018',
       'all_us_zipcodes',
+      'locations',
     ];
   }
 

@@ -5,9 +5,11 @@ namespace Drupal\parser\Handler;
 use Drupal\parser\Reader\CsvReader;
 use Drupal\parser\Reader\ExcelReader;
 use Drupal\parser\Reader\YamlReader;
+use Drupal\parser\Reader\LocationReader;
 use Drupal\parser\Writer\DB\EntitlementsWriter;
 use Drupal\parser\Writer\DB\Rates400NGWriter;
 use Drupal\parser\Writer\DB\CsvWriter;
+use Drupal\parser\Writer\DB\LocationWriter;
 use Drupal\parser\Writer\DB\DiscountWriter;
 use Drupal\parser\Writer\DB\ZipCodesWriter;
 use Drupal\Console\Core\Style\DrupalStyle;
@@ -97,10 +99,19 @@ class ParserHandler {
         $writer = new ZipCodesWriter($input);
         break;
 
+      case 'locations':
+        $filename = [
+          "{$path}/shipping_offices.json",
+          "{$path}/transportation_offices.json",
+          "{$path}/weight_scales.json"
+        ];
+        $reader = new LocationReader();
+        $writer = new LocationWriter();
+        break;
+
       default:
         $this->io->error("Filename not found: [{$input}]");
         exit(-1);
-
     }
     return [$filename, $reader, $writer];
   }
