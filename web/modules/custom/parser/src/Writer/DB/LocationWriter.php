@@ -64,7 +64,7 @@ class LocationWriter implements WriterInterface {
           'field_location_link'       => $urls,
           'field_location_note'       => $obj->note,
           'field_location_reference'  => [
-            'target_id' => $ref,
+            'target_id' => $ref ? $ref : null,
             'target_type' => "node",
           ],
           'field_location_services'   => $obj->services,

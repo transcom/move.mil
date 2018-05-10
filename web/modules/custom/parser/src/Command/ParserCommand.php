@@ -70,7 +70,7 @@ class ParserCommand extends Command {
    */
   protected function execute(InputInterface $input, OutputInterface $output) {
     $file = $input->getOption('file');
-    $path = "/var/www/html/lib/data";
+    $path = DRUPAL_ROOT .  "/../lib/data";
     if ($file == 'all') {
       $this->parseAll($path);
     }
