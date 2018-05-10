@@ -16,7 +16,8 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "backstop test --configPath=backstop-settings.js --refhost=https://stage.movemil.bixal.net --pathfile=backstop-paths"
+    "vis-test": "backstop test --configPath=backstop-settings --pathfile=backstop-paths",
+    "vis-ref": "backstop reference --configPath=backstop-settings --pathfile=backstop-paths"    
   },
   "repository": {
     "type": "git",

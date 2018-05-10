@@ -25,14 +25,16 @@ var scenarios = []; // The array that'll have the pages to test
 /*
   Work out the environments that are being compared
  */
-// The host to test
-if (!arguments.testhost) {
-    arguments.testhost  = "http://move.mil.localhost:8000"; // Default test host
-}
 // The host to reference
 if (!arguments.refhost) {
-    arguments.refhost  = "https://move.mil"; // Default test host
+    arguments.refhost  = "http://move-mil-stage.us-east-1.elasticbeanstalk.com/"; // Default refhost host
 }
+
+// The host to test
+if (!arguments.testhost) {
+    arguments.testhost  = "http://move.mil.localhost:8000/"; // Default test host
+}
+
 /*
   Work out which paths to use, either a supplied array, an array from a file, or the defaults
  */
@@ -50,16 +52,13 @@ if (arguments.paths) {
 for (var k = 0; k < paths.length; k++) {
     scenarios.push({
         "label": paths[k],
-        "referenceUrl": arguments.refhost+paths[k],
         "url": arguments.testhost+paths[k],
-        "hideSelectors": [],
-        "removeSelectors": [],
+        "referenceUrl": arguments.refhost+paths[k],
         "selectors": [],
-        "readyEvent": null,
-        "delay": 500,
-        "misMatchThreshold" : 0.1,
-        "onBeforeScript": "onBefore.js",
-        "onReadyScript": "onReady.js"
+        "selectorExpansion": false,
+        "readyEvent": "backstopjs_ready",
+        "delay": 1000,
+        "requireSameDimensions": false,
     });
 }
 
@@ -69,34 +68,22 @@ module.exports =
         "id": "prod_test",
         "viewports": [
             {
-                "name": "small",
-                "width": 320,
-                "height": 480
+              "label": "phone",
+              "width": 320,
+              "height": 1800
             },
             {
-                "name": "mediumish",
-                "width": 568,
-                "height": 760
+              "label": "tablet",
+              "width": 1024,
+              "height": 1800
             },
             {
-                "name": "medium",
-                "width": 768,
-                "height": 1024
-            },
-            {
-                "name": "large",
-                "width": 1024,
-                "height": 768
-            },
-            {
-                "name": "xlarge",
-                "width": 1440,
-                "height": 900
+              "label": "desktop",
+              "width": 2880,
+              "height": 1800
             }
         ],
-        "scenarios":
-        scenarios
-        ,
+        "scenarios": scenarios,
         "paths": {
             "bitmaps_reference": "backstop_data/bitmaps_reference",
             "bitmaps_test":      "backstop_data/bitmaps_test",
