@@ -95,18 +95,19 @@ getting commited.
 
 ## Making Changes
 
-1. Fork and clone the project's repo.
-2. Setup your environment as outlined above.
-3. Create a feature branch for the code changes you're looking to make: `git checkout -b your-descriptive-branch-name origin/1.x-dev`.
-4. Install missing dependencies: `make composer`.
-5. Import the current configuration: `make cim` (If this does not work, try a `make up` again).
-5. _Write some code!_
-6. Run the application and verify that your changes function as intended.
-7. If your changes would benefit from testing, add the necessary tests and verify everything passes.
-8. Export the configuration with your changes: `make cex`.
-9. Commit your changes: `git commit -am 'Add some new feature or fix some issue'`. _(See [this excellent article](https://chris.beams.io/posts/git-commit) for tips on writing useful Git commit messages.)_
-10. Push the branch to your fork: `git push -u origin your-descriptive-branch-name`.
-11. Create a new pull request and we'll review your changes.
+1. Clone the project's repo.
+1. Setup your environment as outlined above.
+1. Create a feature branch for the code changes you're looking to make: `git checkout -b your-descriptive-branch-name origin/1.x-dev`.
+1. Install missing dependencies: `make composer`.
+1. Import the current configuration: `make cim` (If this does not work, try a `make up` again).
+1. Go to `web/themes/custom/move_mil` and execute `npm install` and `npm run build`.
+1. _Write some code!_
+1. Run the application and verify that your changes function as intended.
+1. If your changes would benefit from testing, add the necessary tests and verify everything passes.
+1. Export the configuration with your changes: `make cex`.
+1. Commit your changes: `git commit -am 'Add some new feature or fix some issue'`. _(See [this excellent article](https://chris.beams.io/posts/git-commit) for tips on writing useful Git commit messages.)_
+1. Push the branch to your fork: `git push -u origin your-descriptive-branch-name`.
+1. Create a new pull request and we'll review your changes.
 
 
 ### Update Menu items
