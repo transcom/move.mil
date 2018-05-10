@@ -41,11 +41,11 @@ class LoadTest {
     $this->drupalGet(Url::fromRoute('/parser/ppm_estimate'));
     $this->assertSession()->statusCodeEquals(200);
   }
-  
+
   /**
    * Tests that locator maps loads with a 200 response.
    */
-  public function testPpm() {
+  public function testLocator() {
     $this->drupalGet(Url::fromRoute('/parser/locator-maps'));
     $this->assertSession()->statusCodeEquals(200);
   }
