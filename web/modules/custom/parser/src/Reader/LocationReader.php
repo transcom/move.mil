@@ -5,8 +5,9 @@ namespace Drupal\parser\Reader;
 /**
  * Class LocationReader.
  *
- *
+ * Parses the given json files and returns an array of arrays.
  */
+
 class LocationReader implements ReaderInterface {
 
   /**
@@ -15,7 +16,7 @@ class LocationReader implements ReaderInterface {
   public function parse($input) {
     return array_map(function ($file) {
       return $rawdata = file_get_contents("{$file}");
-    },$input);
+    }, $input);
   }
 
 }
