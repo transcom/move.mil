@@ -29,20 +29,20 @@ class LocationWriter implements WriterInterface {
           $ref = $query->fetchField();
         }
 
-        $emails = array_map(function ($mail) {
-          return $mail->email_address;
-        }, $obj->email_addresses);
+          $emails = property_exists($obj, 'email_addresses')?
+            array_map(function ($mail) {
+              return $mail->email_address;
+            }, $obj->email_addresses) : null;
 
-        $urls = array_map(function ($links) {
-          return [
-            'uri' => $links->url,
-            'title' => '',
-          ];
-        }, $obj->urls);
+        $urls = property_exists($obj, 'email_addresses') ?
+          array_map(function ($links) {
+            return [ 'uri' => $links->url, 'title' => '',];
+          }, $obj->urls) : null;
 
-        $phone_numbers = array_map(function ($phone) {
-          return $phone->phone_number;
-        }, $obj->phone_numbers);
+        $phone_numbers = property_exists($obj, 'phone_numbers') ?
+          array_map(function ($phone) {
+            return $phone->phone_number;
+          }, $obj->phone_numbers) : null;
 
         $node = Node::create([
           'title'                     => $obj->name,
@@ -60,14 +60,14 @@ class LocationWriter implements WriterInterface {
             'postal_code' => $obj->location->postal_code,
           ],
           'field_location_email'      => $emails,
-          'field_location_hours'      => $obj->hours,
+          'field_location_hours'      => property_exists($obj->hours) ? $obj->hours : null ,,
           'field_location_link'       => $urls,
-          'field_location_note'       => $obj->note,
+          'field_location_note'       => property_exists($obj->note) ? $obj->note : null ,
           'field_location_reference'  => [
             'target_id' => $ref ? $ref : null,
             'target_type' => "node",
           ],
-          'field_location_services'   => $obj->services,
+          'field_location_services'   => property_exists($obj->services) ? $obj->services : null ,
           'field_location_telephone'  => $phone_numbers,
           'field_location_type'       => [
             'target_id' => 11 - $key,
