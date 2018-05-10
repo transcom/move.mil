@@ -5,9 +5,11 @@ namespace Drupal\parser\Controller;
 use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
 use Drupal\Core\Controller\ControllerBase;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Database\Connection as Connection;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use GuzzleHttp\Client;
 
 /**
  * Class LocationsController.
@@ -16,6 +18,7 @@ class LocationsController extends ControllerBase {
 
   private $databaseConnection;
   protected $entityTypeManager;
+  private $googleApi;
 
   /**
    * Constructs a LocationsController.
@@ -28,6 +31,7 @@ class LocationsController extends ControllerBase {
   public function __construct(Connection $databaseConnection, EntityTypeManagerInterface $entity_type_manager) {
     $this->databaseConnection = $databaseConnection;
     $this->entityTypeManager = $entity_type_manager;
+    $this->googleApi = $_SERVER['GOOGLE_MAPS_API_KEY'];
   }
 
   /**
@@ -43,10 +47,103 @@ class LocationsController extends ControllerBase {
   /**
    * Get all search results.
    *
+   * @param \Symfony\Component\HttpFoundation\Request $request
+   *   The http request object.
+   *
    * @return \Symfony\Component\HttpFoundation\JsonResponse
    *   Return locations as a Json object
+   *
+   * @throws \GuzzleHttp\Exception\GuzzleException
    */
-  public function locations() {
+  public function locations(Request $request) {
+    $params = NULL;
+    $content = $request->getContent();
+    if (!empty($content)) {
+      $params = json_decode($content, TRUE);
+    }
+    if (!$params || !$this->validate($params)) {
+      return $this->response();
+    }
+    $geolocation = $this->geoLocation($params);
+    $data['geolocation'] = $geolocation;
+    $locations = $this->loadLocations($geolocation);
+    $data['offices'] = $this->orderedLocations($locations);
+    return $this->response($data);
+  }
+
+  /**
+   * Evaluate if the request has search params.
+   *
+   * @param array $params
+   *   Params sent within the http request.
+   *
+   * @return bool
+   *   Whether the params are valid.
+   */
+  private function validate(array $params) {
+    $lat_regex = "/^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)$/";
+    $lon_regex = "/^[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$/";
+    $valid = $params['latitude'] && $params['longitude'];
+    $valid = $valid && preg_match($lat_regex, $params['latitude']);
+    $valid = $valid && preg_match($lon_regex, $params['longitude']);
+    $valid = $valid || $params['query'];
+    return $valid;
+  }
+
+  /**
+   * Get geo location according to the params given.
+   *
+   * @param array $params
+   *   Params sent within the http request.
+   *
+   * @return array
+   *   Array with the geolocation of the search.
+   *
+   * @throws \GuzzleHttp\Exception\GuzzleException
+   */
+  private function geoLocation(array $params) {
+    if ($params['latitude'] && $params['longitude']) {
+      return [
+        'lat' => $params['latitude'],
+        'lon' => $params['longitude'],
+      ];
+    }
+    elseif ($params['query'] && preg_match("/^\d{5}$/", $params['query'])) {
+      $uszipcode = $this->uszipcode($params['query']);
+      return [
+        'lat' => floatval($uszipcode['lat']),
+        'lon' => floatval($uszipcode['lon']),
+      ];
+    }
+    $key = $this->googleApi;
+    $request = "https://maps.google.com/maps/api/geocode/json?address={$params['query']}&key=$key";
+    $client = new Client();
+    $res = $client->request('GET', $request);
+    $data = json_decode($res->getBody()->getContents(), JSON_OBJECT_AS_ARRAY);
+    $location = $data['results'][0]['geometry']['location'];
+    return [
+      'lat' => $location['lat'],
+      'lon' => $location['lng'],
+    ];
+  }
+
+  /**
+   * Get uszipcode object according to the given zip code.
+   */
+  private function uszipcode($zipcode) {
+    $uszipcode = $this->databaseConnection
+      ->select('parser_zipcodes')
+      ->fields('parser_zipcodes')
+      ->condition('code', $zipcode)
+      ->execute()
+      ->fetch();
+    return (array) $uszipcode;
+  }
+
+  /**
+   * Load and parse all location entities.
+   */
+  private function loadLocations($origin) {
     try {
       $taxonomy_terms = $this->entityTypeManager
         ->getStorage('taxonomy_term')
@@ -55,7 +152,7 @@ class LocationsController extends ControllerBase {
     }
     catch (InvalidPluginDefinitionException $ipde) {
       $msg = "Error while creating response => {$ipde->getMessage()}";
-      return JsonResponse::create($msg, 500);
+      return ['error' => $msg];
     }
     $taxonomies = [];
     foreach ($taxonomy_terms as $term) {
@@ -71,8 +168,51 @@ class LocationsController extends ControllerBase {
       $data[$entity->label()] = $this->parse($location, $type);
       $shipping = $this->shippingOffice($location);
       $data[$entity->label()]['shipping_office'] = $this->parse($shipping, 'Shipping Office');
+      $data[$entity->label()]['distance'] = $this->distance($origin, $data[$entity->label()]['location']);
     }
-    return $this->response($data);
+    return $data;
+  }
+
+  /**
+   * Return closest locations first.
+   */
+  private function orderedLocations($locations) {
+    $locs = $locations;
+    uasort($locs, function ($a, $b) {
+      if ($a['distance'] == $b['distance']) {
+        return 0;
+      }
+      return ($a['distance'] < $b['distance']) ? -1 : 1;
+    });
+    return $locs;
+  }
+
+  /**
+   * Return miles from the origin to the given location.
+   *
+   * @param array $origin
+   *   Geolocation of the origin or search.
+   * @param array $location
+   *   Geolocation of the trasnportation office or weight scale.
+   *
+   * @return float
+   *   The distance in miles.
+   */
+  private function distance(array $origin, array $location) {
+    // Convert from degrees to radians.
+    $lat1 = deg2rad($origin['lat']);
+    $lon1 = deg2rad($origin['lon']);
+    $lat2 = deg2rad($location['lat']);
+    $lon2 = deg2rad($location['lon']);
+    $theta = deg2rad($lon1 - $lon2);
+    // Get distance.
+    $dist = rad2deg(
+      acos(
+        sin($lat1) * sin($lat2) + cos($lat1) * cos($lat2) * cos($theta)
+      )
+    );
+    $miles = $dist * 60 * 1.1515;
+    return round($miles);
   }
 
   /**
@@ -216,8 +356,13 @@ class LocationsController extends ControllerBase {
    * @return \Symfony\Component\HttpFoundation\JsonResponse
    *   The JSON response.
    */
-  private function response(array $data) {
-    $response = JsonResponse::create($data, 200);
+  private function response(array $data = []) {
+    if (isset($data['error'])) {
+      $response = JsonResponse::create($data['error'], 500);
+    }
+    else {
+      $response = JsonResponse::create($data, 200);
+    }
     $response->setEncodingOptions(
       $response->getEncodingOptions() |
       JSON_PRETTY_PRINT
