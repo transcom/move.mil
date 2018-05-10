@@ -4,7 +4,7 @@ namespace Drupal\parser\Writer\DB;
 
 use Drupal\parser\Writer\WriterInterface;
 use Drupal\Console\Core\Style\DrupalStyle;
-use \Drupal\node\Entity\Node;
+use Drupal\node\Entity\Node;
 
 /**
  * Class LocationWriter.
@@ -36,14 +36,13 @@ class LocationWriter implements WriterInterface {
         $urls = array_map(function ($links) {
           return [
             'uri' => $links->url,
-            'title' => ''
+            'title' => '',
           ];
         }, $obj->urls);
 
         $phone_numbers = array_map(function ($phone) {
           return $phone->phone_number;
         }, $obj->phone_numbers);
-
 
         $node = Node::create([
           'title'                     => $obj->name,

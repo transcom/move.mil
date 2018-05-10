@@ -103,7 +103,7 @@ class ParserHandler {
         $filename = [
           "{$path}/shipping_offices.json",
           "{$path}/transportation_offices.json",
-          "{$path}/weight_scales.json"
+          "{$path}/weight_scales.json",
         ];
         $reader = new LocationReader();
         $writer = new LocationWriter();
