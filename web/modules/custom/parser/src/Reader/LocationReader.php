@@ -14,7 +14,7 @@ class LocationReader implements ReaderInterface {
    */
   public function parse($input) {
     return array_map(function ($file) {
-      return $rawdata = file_get_contents("{$file}");
+      return file_get_contents("{$file}");
     }, $input);
   }
 
