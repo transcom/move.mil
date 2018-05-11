@@ -56,9 +56,10 @@ class ParserHandler {
    * Parses data and then write file.
    */
   public function execute() {
-    $this->io->info("Parsing {$this->filename}...");
+    $filename_to_string = is_array($this->filename) ? implode(",\n", $this->filename) : $this->filename;
+    $this->io->info("Parsing {$filename_to_string}...");
     $rawdata = $this->reader->parse($this->filename);
-    $this->io->info("File read and pre-processed [{$this->filename}].");
+    $this->io->info("File read and pre-processed [{$filename_to_string}].");
     $this->writer->write($rawdata, $this->truncate, $this->io);
   }
 

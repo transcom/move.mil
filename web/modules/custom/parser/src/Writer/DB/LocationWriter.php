@@ -33,6 +33,8 @@ class LocationWriter implements WriterInterface {
               return $mail->email_address;
             }, $obj->email_addresses) : NULL;
 
+        $urls = NULL;
+
         if (property_exists($obj, 'urls')) {
           if (is_array($obj->urls)) {
             $urls = array_map(function ($links) {
@@ -43,8 +45,17 @@ class LocationWriter implements WriterInterface {
             $urls = $obj->urls->url;
           }
         }
-        else {
-          $urls = NULL;
+
+        $phone_numbers = NULL;
+        if (property_exists($obj, 'phone_numbers')) {
+          if (is_array($obj->phone_numbers)) {
+            $phone_numbers = array_map(function ($phone) {
+                return $phone->phone_number;
+            }, $obj->phone_numbers);
+          }
+          else {
+            $phone_numbers = $obj->phone_numbers->phone_number;
+          }
         }
 
         $phone_numbers = property_exists($obj, 'phone_numbers') ?
