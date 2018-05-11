@@ -21,33 +21,31 @@ class LocationWriter implements WriterInterface {
     foreach ($rawdata as $key => $file) {
       foreach (json_decode($file) as $obj) {
 
-        if ($obj->shipping_office_name) {
+        $ref = property_exists($obj, 'shipping_office_name') ?
           $query = $this->getDatabaseConnection()
             ->select('node_field_data', 'n')
             ->condition('n.title', $obj->shipping_office_name, '=')
             ->fields('n', ['nid'])
-            ->execute();
-          $ref = $query->fetchField();
-        }
+            ->execute()->fetchField() : NULL;
 
-          $emails = property_exists($obj, 'email_addresses')?
+        $emails = property_exists($obj, 'email_addresses') ?
             array_map(function ($mail) {
               return $mail->email_address;
-            }, $obj->email_addresses) : null;
+            }, $obj->email_addresses) : NULL;
 
         $urls = property_exists($obj, 'email_addresses') ?
           array_map(function ($links) {
-            return [ 'uri' => $links->url, 'title' => '',];
-          }, $obj->urls) : null;
+            return ['uri' => $links->url, 'title' => ''];
+          }, $obj->urls) : NULL;
 
         $phone_numbers = property_exists($obj, 'phone_numbers') ?
           array_map(function ($phone) {
             return $phone->phone_number;
-          }, $obj->phone_numbers) : null;
+          }, $obj->phone_numbers) : NULL;
 
-          $hours = property_exists($obj->hours)       ? $obj->hours     : null;
-          $note = property_exists($obj->note)         ? $obj->note      : null;
-          $services = property_exists($obj->services) ? $obj->services  : null;
+        $hours = property_exists($obj, 'hours') ? $obj->hours : NULL;
+        $note = property_exists($obj, 'note') ? $obj->note : NULL;
+        $services = property_exists($obj, 'services') ? $obj->services : NULL;
 
         $node = Node::create([
           'title'                     => $obj->name,
@@ -69,7 +67,7 @@ class LocationWriter implements WriterInterface {
           'field_location_link'       => $urls,
           'field_location_note'       => $note ,
           'field_location_reference'  => [
-            'target_id' => $ref ? $ref : null,
+            'target_id' => $ref,
             'target_type' => "node",
           ],
           'field_location_services'   => $services ,
@@ -79,7 +77,7 @@ class LocationWriter implements WriterInterface {
             'target_type' => "taxonomy_term",
           ],
         ]);
-        //$node->save();
+        $node->save();
       }
     }
   }
