@@ -30,7 +30,7 @@
         "dsn": false
       },
       {
-        "phone)number": "(254) 287-2200",
+        "phone_number": "(254) 287-2200",
         "phone_type": "voice",
         "dsn": false
       },
@@ -7958,11 +7958,6 @@
         "phone_number": "671-366-4846",
         "phone_type": "voice",
         "dsn": false
-      },
-      {
-        "phone_number": null,
-        "phone_type": "voice",
-        "dsn": true
       }
     ]
   },
@@ -7991,11 +7986,6 @@
         "phone_number": "805-355-2180",
         "phone_type": "voice",
         "dsn": false
-      },
-      {
-        "phone_number": null,
-        "phone_type": "voice",
-        "dsn": true
       }
     ]
   },

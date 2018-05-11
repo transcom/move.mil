@@ -58,11 +58,6 @@ class LocationWriter implements WriterInterface {
           }
         }
 
-        $phone_numbers = property_exists($obj, 'phone_numbers') ?
-          array_map(function ($phone) {
-            return $phone->phone_number;
-          }, $obj->phone_numbers) : NULL;
-
         $hours = property_exists($obj, 'hours') ? $obj->hours : NULL;
         $note = property_exists($obj, 'note') ? $obj->note : NULL;
         $services = property_exists($obj, 'services') ? $obj->services : NULL;
