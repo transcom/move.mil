@@ -20,6 +20,7 @@ class LocationWriter implements WriterInterface {
   public function write(array $rawdata, $truncate, DrupalStyle $io) {
     foreach ($rawdata as $key => $file) {
       foreach (json_decode($file) as $obj) {
+
         if ($obj->shipping_office_name) {
           $query = $this->getDatabaseConnection()
             ->select('node_field_data', 'n')
@@ -44,6 +45,10 @@ class LocationWriter implements WriterInterface {
             return $phone->phone_number;
           }, $obj->phone_numbers) : null;
 
+          $hours = property_exists($obj->hours)       ? $obj->hours     : null;
+          $note = property_exists($obj->note)         ? $obj->note      : null;
+          $services = property_exists($obj->services) ? $obj->services  : null;
+
         $node = Node::create([
           'title'                     => $obj->name,
           'type'                      => 'location',
@@ -60,21 +65,21 @@ class LocationWriter implements WriterInterface {
             'postal_code' => $obj->location->postal_code,
           ],
           'field_location_email'      => $emails,
-          'field_location_hours'      => property_exists($obj->hours) ? $obj->hours : null ,,
+          'field_location_hours'      => $hours,
           'field_location_link'       => $urls,
-          'field_location_note'       => property_exists($obj->note) ? $obj->note : null ,
+          'field_location_note'       => $note ,
           'field_location_reference'  => [
             'target_id' => $ref ? $ref : null,
             'target_type' => "node",
           ],
-          'field_location_services'   => property_exists($obj->services) ? $obj->services : null ,
+          'field_location_services'   => $services ,
           'field_location_telephone'  => $phone_numbers,
           'field_location_type'       => [
             'target_id' => 11 - $key,
             'target_type' => "taxonomy_term",
           ],
         ]);
-        $node->save();
+        //$node->save();
       }
     }
   }

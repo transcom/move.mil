@@ -14,6 +14,12 @@ class LocationReader implements ReaderInterface {
    */
   public function parse($input) {
     return array_map(function ($file) {
+      if (!is_file($file)) {
+        throw new \RuntimeException(sprintf('File "%s" does not exist.', $file));
+      }
+      if (!is_readable($file)) {
+        throw new \RuntimeException(sprintf('File "%s" cannot be read.', $file));
+      }
       return file_get_contents("{$file}");
     }, $input);
   }
