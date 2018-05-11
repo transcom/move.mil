@@ -46,7 +46,8 @@ class ParserCommand extends Command {
     $all = FALSE;
     $file_options = $this->files();
 
-    // array_push to add options to the autocomplete that wont be used in the parseAll()
+    // array_push to add options to the autocomplete that wont be used in the
+    // parseAll()
     array_push($file_options, 'locations', 'all');
     if (!$input->getOption('file')) {
       $file = $this->getIo()->choiceNoList(
