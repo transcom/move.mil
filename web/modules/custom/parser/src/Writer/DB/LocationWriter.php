@@ -18,15 +18,30 @@ class LocationWriter implements WriterInterface {
    * Normalizes data then creates Location nodes.
    */
   public function write(array $rawdata, $truncate, DrupalStyle $io) {
+    $this->check();
+    $location_type = NULL;
+    $db = $this->getDatabaseConnection();
     foreach ($rawdata as $key => $file) {
-      foreach (json_decode($file) as $obj) {
 
-        $ref = property_exists($obj, 'shipping_office_name') ?
-          $query = $this->getDatabaseConnection()
-            ->select('node_field_data', 'n')
-            ->condition('n.title', $obj->shipping_office_name, '=')
-            ->fields('n', ['nid'])
-            ->execute()->fetchField() : NULL;
+      switch ($key) {
+        case 0:
+          $query_term = 'Shipping Office';
+          break;
+
+        case 1:
+          $query_term = 'Transportation Office';
+          break;
+
+        case 2:
+          $query_term = 'Weight Scale';
+          break;
+      }
+
+      $location_type = $db->query("SELECT tid FROM taxonomy_term_field_data WHERE name = '{$query_term}'")->fetchField();
+
+      foreach (json_decode($file) as $obj) {
+        $node_ref = property_exists($obj, 'shipping_office_name') ?
+          $db->query("SELECT nid FROM node_field_data WHERE title = '{$obj->shipping_office_name}'")->fetchField() : NULL;
 
         $emails = property_exists($obj, 'email_addresses') ?
             array_map(function ($mail) {
@@ -34,7 +49,6 @@ class LocationWriter implements WriterInterface {
             }, $obj->email_addresses) : NULL;
 
         $urls = NULL;
-
         if (property_exists($obj, 'urls')) {
           if (is_array($obj->urls)) {
             $urls = array_map(function ($links) {
@@ -82,18 +96,28 @@ class LocationWriter implements WriterInterface {
           'field_location_link'       => $urls,
           'field_location_note'       => $note ,
           'field_location_reference'  => [
-            'target_id' => $ref,
+            'target_id' => $node_ref,
             'target_type' => "node",
           ],
           'field_location_services'   => $services ,
           'field_location_telephone'  => $phone_numbers,
           'field_location_type'       => [
-            'target_id' => 11 - $key,
+            'target_id' => $location_type,
             'target_type' => "taxonomy_term",
           ],
         ]);
         $node->save();
       }
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function check() {
+    $db_objs = $this->getDatabaseConnection()->query("SELECT * FROM node_field_data WHERE type = 'location'")->fetchAll();
+    if (count($db_objs) > 0) {
+      throw new \RuntimeException(sprintf('Files already parsed.'));
     }
   }
 

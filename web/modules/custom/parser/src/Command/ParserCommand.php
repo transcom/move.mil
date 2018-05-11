@@ -45,7 +45,9 @@ class ParserCommand extends Command {
   protected function interact(InputInterface $input, OutputInterface $output) {
     $all = FALSE;
     $file_options = $this->files();
-    $file_options[] = 'all';
+
+    // array_push to add options to the autocomplete that wont be used in the parseAll()
+    array_push($file_options, 'locations', 'all');
     if (!$input->getOption('file')) {
       $file = $this->getIo()->choiceNoList(
         $this->trans('commands.parser.questions.file'),
@@ -70,7 +72,7 @@ class ParserCommand extends Command {
    */
   protected function execute(InputInterface $input, OutputInterface $output) {
     $file = $input->getOption('file');
-    $path = DRUPAL_ROOT .  "/../lib/data";
+    $path = DRUPAL_ROOT . "/../lib/data";
     if ($file == 'all') {
       $this->parseAll($path);
     }
@@ -94,7 +96,6 @@ class ParserCommand extends Command {
       'discounts-1Oct2017',
       'discounts-1Jan2018',
       'all_us_zipcodes',
-      'locations',
     ];
   }
 
