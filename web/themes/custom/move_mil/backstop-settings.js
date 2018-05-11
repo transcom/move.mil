@@ -27,7 +27,7 @@ var scenarios = []; // The array that'll have the pages to test
  */
 // The host to reference
 if (!arguments.refhost) {
-    arguments.refhost  = "http://move-mil-stage.us-east-1.elasticbeanstalk.com/"; // Default refhost host
+    arguments.refhost  = "http://ec2-35-153-184-157.compute-1.amazonaws.com/"; // Default refhost host
 }
 
 // The host to test
@@ -42,45 +42,63 @@ if (arguments.paths) {
     pathString = arguments.paths;
     var paths = pathString.split(',');
 } else if (arguments.pathfile) {
-    var pathConfig = require('./'+arguments.pathfile+'.js');
+    var pathConfig = require('./'+arguments.pathfile);
     var paths = pathConfig.array;
 } else {
     var paths = defaultPaths; // keep with the default of just the homepage
 }
 
-
-for (var k = 0; k < paths.length; k++) {
+for (var i = 0; i < paths.length; i++) {
     scenarios.push({
-        "label": paths[k],
-        "url": arguments.testhost+paths[k],
-        "referenceUrl": arguments.refhost+paths[k],
-        "selectors": [],
-        "selectorExpansion": false,
-        "readyEvent": "backstopjs_ready",
+        "label": paths[i],
+        "url": arguments.testhost+paths[i],
+        "referenceUrl": arguments.refhost+paths[i],
+        "selectors": [
+          "document"
+        ],
+        "selectorExpansion": true,
         "delay": 1000,
-        "requireSameDimensions": false,
+        "misMatchThreshold" : 0.1,
+        "removeSelectors": []
     });
 }
+
+// our breakpoints for ref
+// $xsmall-screen: 321px !default;
+// $small-screen:  481px !default;
+// $medium-screen: 600px !default;
+// $medium-large-screen: 951px !default;
+// $large-screen:  1201px !default;
 
 // Configuration
 module.exports =
     {
-        "id": "prod_test",
+        "id": "vis_test",
         "viewports": [
             {
-              "label": "phone",
-              "width": 320,
-              "height": 1800
+              "label": "x-small",
+              "width": 321,
+              "height": 6000
             },
             {
-              "label": "tablet",
-              "width": 1024,
-              "height": 1800
+              "label": "small-screen",
+              "width": 481,
+              "height": 6000
             },
             {
-              "label": "desktop",
-              "width": 2880,
-              "height": 1800
+              "label": "medium-screen",
+              "width": 600,
+              "height": 6000
+            },
+            {
+              "label": "medium-large-screen",
+              "width": 951,
+              "height": 6000
+            },
+            {
+              "label": "large-screen",
+              "width": 1201,
+              "height": 6000
             }
         ],
         "scenarios": scenarios,
@@ -92,7 +110,20 @@ module.exports =
             "ci_report":         "backstop_data/ci_report"
         },
         "casperFlags": [],
-        "engine": "phantomjs",
+        "engine": [
+          "chromy"
+        ],
         "report": ["browser"],
-        "debug": true
+        "asyncCaptureLimit": 5,
+        "asyncCompareLimit": 50,
+        "resembleOutputOptions": {
+            "errorColor": {
+              "red": 255,
+              "green": 0,
+              "blue": 255
+            },
+            "errorType": "movement",
+            "transparency": 0.3,
+            "ignoreAntialiasing": true
+          }
     };
