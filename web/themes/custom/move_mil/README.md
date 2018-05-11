@@ -7,7 +7,6 @@ Extends and customizes imported parent theme built by 18F, incorporating US Web 
 
 ## Setup
 
-2. In your terminal, navigate to the theme folder: `cd <project root>/web/themes/custom/move_mil`
 3. run `npm install`
 
 
@@ -15,12 +14,20 @@ Extends and customizes imported parent theme built by 18F, incorporating US Web 
 
 ### Local/Dev
 1. In your command line, run `npm run clean` to remove any legacy files in your `assets` folder
-2. check the `assets` folder. It should be empty other than a `.gitkeep` file. Manually delete any other remaining files.
-3. In your command line, run `npm run lint` to try out linting css and js code. With this current code base, the css linter should error out due to exactly one breaking error, though there will be a few other warning-level violations. There is not yet any custom javascript to lint, so that process will complete smoothly.
-4. Run `npm run watch` to both dynamically build the assets folder and watch the custom theme's  source folders for further changes. NOTE: the linters will NOT run through watch, just build scripts. You still have to run the linters manually.
-5. When all changes are made and ready for test/push, run `npm run lint`,
-6. If the js and/or scss linters flag needed changes, make those changes, rerun the linters until the issues are resolved, then run `npm run build` one final time to integrate the changes (this is only necessary for local testing, not for code deployment).
+2. Check the `assets` folder. It should be empty other than a `.gitkeep` file. Manually delete any other remaining files.
+3. Run `npm run watch` to both dynamically build the assets folder and watch the custom theme's source folders for further changes.
+
+### Visual Testing
+We are using [backstop.js](https://github.com/garris/BackstopJS) to run visual regression testing.
+
+You can set configuration and update testing scripts at
+- `backstop-path.js` to set up an array of paths for our test to run
+- `backstop-settings.js` to configure our scenarios and process the test
+
+From the command line in the theme root
+1. Run `npm run vis-ref` to capture current reference images from the source url and store them in backstop_data.
+2. Run `npm run vis-test`, this will both capture current images from your local:: and compare them with our reference images that is launched as a new tab in the browser from which you can inspect the diffs.
 
 ### Production
-1. repeat steps 1-2 above
+1. Repeat steps 1-2 above
 2. Run `npm run build` to generate production-ready assets.
