@@ -1,5 +1,6 @@
 .content-column-group {
   // stylelint-disable unit-blacklist
+  // ignore our unit-blacklist rule to keep in line with parent theme grid
 
   &.usa-grid-full {
     > :first-child {
