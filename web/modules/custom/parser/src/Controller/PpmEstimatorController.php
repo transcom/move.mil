@@ -122,7 +122,7 @@ class PpmEstimatorController extends ControllerBase {
    * Validate entitlement param.
    */
   private function validWeights(array $params) {
-    $valid = $params['isDependencies'] && $params['selectedEntitlement'];
+    $valid = isset($params['isDependencies']) && $params['selectedEntitlement'];
     $valid = $valid && $params['weightOptions']['houseHold'];
     return $valid;
   }
