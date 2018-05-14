@@ -6,7 +6,9 @@ var linter      = require('gulp-stylelint');
 var sourcemaps  = require('gulp-sourcemaps');
 var glob        = require('gulp-sass-glob');
 var rename      = require('gulp-rename');
-var cssnano     = require('gulp-cssnano')
+var cssnano     = require('gulp-cssnano');
+var postcss = require('gulp-postcss');
+var autoprefixer = require('autoprefixer');
 var runSequence = require('run-sequence');
 
 gulp.task('copy-doc-styles', function (done) {
@@ -18,6 +20,10 @@ gulp.task('copy-doc-styles', function (done) {
     .pipe(glob())
     .on('error', gutil.log)
     .pipe(sass())
+    .pipe(postcss([ autoprefixer({
+      browsers: ['cover 99.5%', 'last 2 major versions', 'last 3 ie versions'],
+      cascade: false
+      }) ]))
     .pipe(gulp.dest('assets/css'))
     .pipe(cssnano())
     .pipe(rename('styles.min.css'))
