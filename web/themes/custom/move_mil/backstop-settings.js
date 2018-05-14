@@ -27,7 +27,7 @@ var scenarios = []; // The array that'll have the pages to test
  */
 // The host to reference
 if (!arguments.refhost) {
-    arguments.refhost  = "http://ec2-35-153-184-157.compute-1.amazonaws.com/"; // Default refhost host
+    arguments.refhost  = "http://move-mil-stage.us-east-1.elasticbeanstalk.com/"; // Default refhost host
 }
 
 // The host to test
