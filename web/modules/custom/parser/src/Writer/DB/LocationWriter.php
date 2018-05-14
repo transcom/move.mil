@@ -20,7 +20,6 @@ class LocationWriter implements WriterInterface {
   public function write(array $rawdata, $truncate, DrupalStyle $io) {
     $this->check();
     $location_type = NULL;
-    $db = $this->getDatabaseConnection();
     foreach ($rawdata as $key => $file) {
 
       switch ($key) {
@@ -37,11 +36,22 @@ class LocationWriter implements WriterInterface {
           break;
       }
 
-      $location_type = $db->query("SELECT tid FROM taxonomy_term_field_data WHERE name = '{$query_term}'")->fetchField();
+      $location_type = $this->getDatabaseConnection()
+        ->select('taxonomy_term_field_data', 't')
+        ->fields('t', ['tid'])
+        ->condition('name', $query_term, '=')
+        ->execute()
+        ->fetchField();
 
       foreach (json_decode($file) as $obj) {
-        $node_ref = property_exists($obj, 'shipping_office_name') ?
-          $db->query("SELECT nid FROM node_field_data WHERE title = '{$obj->shipping_office_name}'")->fetchField() : NULL;
+        $node_ref = (property_exists($obj, 'shipping_office_name')) &&
+        ($obj->shipping_office_name != NULL) ?
+          $this->getDatabaseConnection()
+            ->select('node_field_data', 'n')
+            ->fields('n', ['nid'])
+            ->condition('title', $obj->shipping_office_name, '=')
+            ->execute()
+            ->fetchField() : NULL;
 
         $emails = property_exists($obj, 'email_addresses') ?
             array_map(function ($mail) {
@@ -106,7 +116,7 @@ class LocationWriter implements WriterInterface {
             'target_type' => "taxonomy_term",
           ],
         ]);
-        $node->save();
+         $node->save();
       }
     }
   }
@@ -115,7 +125,16 @@ class LocationWriter implements WriterInterface {
    * {@inheritdoc}
    */
   protected function check() {
-    $db_objs = $this->getDatabaseConnection()->query("SELECT * FROM node_field_data WHERE type = 'location'")->fetchAll();
+    $db_objs = $this->getDatabaseConnection()
+      ->select('node_field_data', 'n')
+      ->condition('n.type', 'location', '=')
+      ->fields('n', ['nid'])
+      ->execute()
+      ->fetchAll();
+
+
+    var_dump($db_objs);
+
     if (count($db_objs) > 0) {
       throw new \RuntimeException(sprintf('Files already parsed.'));
     }
