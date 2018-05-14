@@ -5,9 +5,11 @@ namespace Drupal\parser\Handler;
 use Drupal\parser\Reader\CsvReader;
 use Drupal\parser\Reader\ExcelReader;
 use Drupal\parser\Reader\YamlReader;
+use Drupal\parser\Reader\LocationReader;
 use Drupal\parser\Writer\DB\EntitlementsWriter;
 use Drupal\parser\Writer\DB\Rates400NGWriter;
 use Drupal\parser\Writer\DB\CsvWriter;
+use Drupal\parser\Writer\DB\LocationWriter;
 use Drupal\parser\Writer\DB\DiscountWriter;
 use Drupal\parser\Writer\DB\ZipCodesWriter;
 use Drupal\Console\Core\Style\DrupalStyle;
@@ -54,9 +56,10 @@ class ParserHandler {
    * Parses data and then write file.
    */
   public function execute() {
-    $this->io->info("Parsing {$this->filename}...");
+    $filename_to_string = is_array($this->filename) ? implode(",\n", $this->filename) : $this->filename;
+    $this->io->info("Parsing {$filename_to_string}...");
     $rawdata = $this->reader->parse($this->filename);
-    $this->io->info("File read and pre-processed [{$this->filename}].");
+    $this->io->info("File read and pre-processed [{$filename_to_string}].");
     $this->writer->write($rawdata, $this->truncate, $this->io);
   }
 
@@ -97,10 +100,19 @@ class ParserHandler {
         $writer = new ZipCodesWriter($input);
         break;
 
+      case 'locations':
+        $filename = [
+          "{$path}/shipping_offices.json",
+          "{$path}/transportation_offices.json",
+          "{$path}/weight_scales.json",
+        ];
+        $reader = new LocationReader();
+        $writer = new LocationWriter();
+        break;
+
       default:
         $this->io->error("Filename not found: [{$input}]");
         exit(-1);
-
     }
     return [$filename, $reader, $writer];
   }
