@@ -13,6 +13,7 @@ use Drupal\parser\Writer\DB\LocationWriter;
 use Drupal\parser\Writer\DB\DiscountWriter;
 use Drupal\parser\Writer\DB\ZipCodesWriter;
 use Drupal\Console\Core\Style\DrupalStyle;
+use Symfony\Component\Finder\Finder;
 
 /**
  * Class ParserController.
@@ -69,6 +70,7 @@ class ParserHandler {
   private function filename($path, $input) {
     $reader = NULL;
     $writer = NULL;
+
     switch ($input) {
       case (preg_match('/^zip[\d]+/', $input) ? TRUE : FALSE):
         $filename = "${path}/${input}.csv";
@@ -88,10 +90,19 @@ class ParserHandler {
         $writer = new EntitlementsWriter();
         break;
 
-      case (preg_match('/discounts-[\d]+[\w]{3}[\d]{4}/', $input) ? TRUE : FALSE):
-        $filename = "${path}/${input}.csv";
+      case 'discounts':
+        $filename = [];
+        $files = [];
+        $finder = new Finder();
+        $finder->in(DRUPAL_ROOT . '/../lib/data');
+        $finder->files()->name('/discounts-[\d]+[\w]{3}[\d]{4}/');
+        foreach ($finder as $file) {
+          array_push($filename, $file->getPathname());
+          array_push($files, $file->getFilename());
+
+        }
         $reader = new CsvReader();
-        $writer = new DiscountWriter($input);
+        $writer = new DiscountWriter($files);
         break;
 
       case 'all_us_zipcodes':
