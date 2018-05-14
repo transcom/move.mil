@@ -116,7 +116,7 @@ class LocationWriter implements WriterInterface {
             'target_type' => "taxonomy_term",
           ],
         ]);
-         $node->save();
+        $node->save();
       }
     }
   }
@@ -131,9 +131,6 @@ class LocationWriter implements WriterInterface {
       ->fields('n', ['nid'])
       ->execute()
       ->fetchAll();
-
-
-    var_dump($db_objs);
 
     if (count($db_objs) > 0) {
       throw new \RuntimeException(sprintf('Files already parsed.'));
