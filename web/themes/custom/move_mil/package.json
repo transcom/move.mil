@@ -76,14 +76,9 @@
   "devDependencies": {
     "backstopjs": "^3.2.15",
     "casperjs": "^1.1.4",
-    "file-system": "^2.2.2",
     "minimalist": "^1.0.0",
     "minimist": "^1.2.0",
     "path": "^0.12.7",
-    "slimerjs": "^1.0.0",
-    "wdio-mocha-framework": "^0.5.13",
-    "wdio-screenshot": "^0.6.0",
-    "wdio-selenium-standalone-service": "0.0.10",
-    "webdriverio": "^4.12.0"
+    "slimerjs": "^1.0.0"
   }
 }
