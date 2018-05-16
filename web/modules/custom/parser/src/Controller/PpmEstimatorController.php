@@ -65,9 +65,9 @@ class PpmEstimatorController extends ControllerBase {
     $end_service_area = $this->serviceArea($end_zip3['service_area'], $year);
     // Get full weight.
     list($household, $progear, $spouse_progear) = $this->weights($params);
-    $weight = $household + $progear + $spouse_progear;
+    $weight = floatval($household + $progear + $spouse_progear);
     // Weight divided by 100, AKA the hundredweight (centiweight?).
-    $cwt = $weight / 100;
+    $cwt = floatval($weight / 100.0);
     // Calculate PPM incentive estimates.
     $linehaul_charges = $this->linehaulCharges($start_service_area, $end_service_area, $year, $weight, $cwt, $params);
     $other_charges = $this->otherCharges($start_service_area, $end_service_area, $year, $weight, $cwt);
@@ -168,7 +168,7 @@ class PpmEstimatorController extends ControllerBase {
       return [$household, $progear, $spouse_progear];
     }
     // Get household goods weight.
-    $household = $params['weightOptions']['houseHold'];
+    $household = intval($params['weightOptions']['houseHold']);
     $dependencies = isset($params['isDependencies']) && $params['isDependencies'];
     if ($dependencies) {
       $max_household = intval($entitlement['total_weight_self_plus_dependents']);
@@ -184,7 +184,7 @@ class PpmEstimatorController extends ControllerBase {
       $progear = 0;
     }
     else {
-      $progear = $params['weightOptions']['proGear'];
+      $progear = intval($params['weightOptions']['proGear']);
     }
     $max_progear = intval($entitlement['pro_gear_weight']);
     if ($progear > $max_progear) {
@@ -198,7 +198,7 @@ class PpmEstimatorController extends ControllerBase {
       $spouse_progear = 0;
     }
     else {
-      $spouse_progear = $params['weightOptions']['dependent'];
+      $spouse_progear = intval($params['weightOptions']['dependent']);
     }
     $max_spouse_progear = intval($entitlement['pro_gear_weight_spouse']);
     if ($spouse_progear > $max_spouse_progear) {
@@ -405,7 +405,7 @@ class PpmEstimatorController extends ControllerBase {
         $highest = $value;
       }
     }
-    // If value higher thant the values in the db, just return the highest.
+    // If value higher than the values in the db, just return the highest.
     if ($rawvalue > $highest) {
       $closest = $highest;
     }
@@ -421,12 +421,13 @@ class PpmEstimatorController extends ControllerBase {
     // Get distance.
     $distance = $this->distance($params['locations']['origin'], $params['locations']['destination']);
     // Get linehaul rate.
-    $linehaul = $this->linehaul($distance, $weight, $year);
     if ($weight < 1000) {
       // If weight is less than 1000lbs then use rate * (weight / 1000).
+      $linehaul = $this->linehaul($distance, 1000, $year);
       $linehaul_rate = floatval($linehaul['rate']) * ($weight / 1000.0);
     }
     else {
+      $linehaul = $this->linehaul($distance, $weight, $year);
       $linehaul_rate = floatval($linehaul['rate']);
     }
     // Get shorthaul rate.
@@ -445,8 +446,8 @@ class PpmEstimatorController extends ControllerBase {
    */
   private function otherCharges($start_service_area, $end_service_area, $year, $weight, $cwt) {
     $charges = $start_service_area['orig_dest_service_charge'] + $end_service_area['orig_dest_service_charge'];
-    $pack = $this->packunpack($start_service_area, $year, $weight);
-    $unpack = $this->packunpack($end_service_area, $year);
+    $pack = floatval($this->packunpack($start_service_area, $year, $weight));
+    $unpack = floatval($this->packunpack($end_service_area, $year));
     $packunpack = $pack['pack'] + $unpack['unpack'];
     $charges += $packunpack;
     return $charges * $cwt;
@@ -468,11 +469,11 @@ class PpmEstimatorController extends ControllerBase {
       $region = $end_zip3['region'];
     }
     $discount_entry = $this->discount("US{$area}", "REGION {$region}", strtotime($move_date));
-    $discount_pct = $discount_entry['discount'];
+    $discount_pct = $discount_entry['discounts'];
     $discount = 1 - ($discount_pct / 100);
     // Don't go below 0% or above 100% before applying PPM incentive.
-    $discounts['min'] = max($discount - 0.02, 0) * 0.95;
-    $discounts['max'] = min($discount + 0.02, 1) * 0.95;
+    $discounts['min'] = max($discount - 0.02, 0.0) * 0.95;
+    $discounts['max'] = min($discount + 0.02, 1.0) * 0.95;
     return $discounts;
   }
 
@@ -480,26 +481,28 @@ class PpmEstimatorController extends ControllerBase {
    * Get the nearest int multiple of 100 less than or equal to the input.
    */
   private function floorHundred($input) {
-    return intval($input - $input % 100);
+    return intval($input - $input % 100.0);
   }
 
   /**
    * Get the nearest int multiple of 100 greater than or equal to the input.
    */
   private function ceilHundred($input) {
-    $remainder = $input % 100;
+    $remainder = $input % 100.0;
     if ($remainder == 0) {
       return intval($input);
     }
-    return intval($input + (100 - $remainder));
+    return intval($input + (100.0 - $remainder));
   }
 
   /**
    * Round PPM incentives with total cost and dscounts.
    */
   private function incentives($total, array $discounts) {
-    $incentives['min'] = $this->floorHundred($total * $discounts['min']);
-    $incentives['max'] = $this->ceilHundred($total * $discounts['max']);
+    $mincost = floatval($total * $discounts['min']);
+    $maxcost = floatval($total * $discounts['max']);
+    $incentives['min'] = $this->floorHundred($mincost);
+    $incentives['max'] = $this->ceilHundred($maxcost);
     return $incentives;
   }
 
