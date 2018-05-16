@@ -1,0 +1,14 @@
+{
+  "name": "drupal/react_tools",
+  "type": "drupal-module",
+  "description": "React Tools for Move.mil",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "https://www.drupal.org/project/react_tools",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/react_tools",
+    "source": "http://cgit.drupalcode.org/react_tools"
+  },
+  "require": { }
+}
