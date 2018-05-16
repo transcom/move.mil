@@ -5,8 +5,6 @@ namespace Drupal\parser\Controller;
 use Drupal\Core\Controller\ControllerBase;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Dotenv\Dotenv;
-
 
 /**
  * Class WeightCalcJsonController.
