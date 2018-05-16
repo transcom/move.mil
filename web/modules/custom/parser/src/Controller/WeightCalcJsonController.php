@@ -5,6 +5,8 @@ namespace Drupal\parser\Controller;
 use Drupal\Core\Controller\ControllerBase;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Dotenv\Dotenv;
+
 
 /**
  * Class WeightCalcJsonController.
@@ -21,6 +23,8 @@ class WeightCalcJsonController extends ControllerBase {
     $finder = new Finder();
     $finder->files()->in(DRUPAL_ROOT . '/../lib/data')->name('household_goods_weights.json');
     $file = NULL;
+
+    $base_url = getenv('PROJECT_BASE_URL');
 
     foreach ($finder as $f) {
       $file = $f->getContents();
@@ -46,7 +50,7 @@ class WeightCalcJsonController extends ControllerBase {
 
       $array_obj[preg_replace('/[^\p{L}\p{N}\s]/u', '', str_replace(' ', '-', $obj->name))] = [
         'displayName' => $obj->name,
-        'icon' => $obj->icon,
+        'icon' => $base_url . '/themes/custom/move_mil/assets/img/icons/' . $obj->icon,
         'items' => $items,
       ];
     }
