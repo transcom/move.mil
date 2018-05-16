@@ -7,10 +7,12 @@ use Dotenv\Dotenv;
 /**
  * Class DecryptReader.
  *
+ * Parse and decrypts a given file and returns an array.
  */
 class DecryptReader implements ReaderInterface {
 
   /**
+   * Parses and decrypt the given file(s).
    */
   public function parse($files) {
     $dotenv = new Dotenv(DRUPAL_ROOT . '/../');
