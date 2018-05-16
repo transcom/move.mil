@@ -3,6 +3,7 @@
 namespace Drupal\parser\Handler;
 
 use Drupal\parser\Reader\CsvReader;
+use Drupal\parser\Reader\DecryptReader;
 use Drupal\parser\Reader\ExcelReader;
 use Drupal\parser\Reader\YamlReader;
 use Drupal\parser\Reader\LocationReader;
@@ -95,14 +96,15 @@ class ParserHandler {
         $files = [];
         $finder = new Finder();
         $finder->in(DRUPAL_ROOT . '/../lib/data');
-        $finder->files()->name('/discounts-[\d]+[\w]{3}[\d]{4}/');
+        $finder->files()->name('/discounts-[ADFJMNOS][aceopu][bcglnprtvy]-\d{2}-\d{4}.csv.enc/');
         foreach ($finder as $file) {
           array_push($filename, $file->getPathname());
           array_push($files, $file->getFilename());
 
         }
-        $reader = new CsvReader();
-        $writer = new DiscountWriter($files);
+
+        $reader = new DecryptReader();
+        $writer = new DiscountWriter($filename);
         break;
 
       case 'all_us_zipcodes':

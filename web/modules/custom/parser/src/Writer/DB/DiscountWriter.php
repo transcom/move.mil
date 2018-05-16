@@ -50,19 +50,22 @@ class DiscountWriter implements WriterInterface {
     $discounts = [];
 
     foreach ($rawdata as $key => $data) {
-      $phpDate = substr($this->file[$key], 10, 9);
+      preg_match('/[ADFJMNOS][aceopu][bcglnprtvy]-\d{2}-\d{4}/', $this->file[$key], $phpDate);
       array_shift($data);
 
       foreach ($data as $row) {
-        $row[] = strtotime($phpDate);
-        array_push($discounts, array_combine($headers, $row));
+        $row[] = strtotime($phpDate[0]);
+
+        if ($row[0] != NULL) {
+          array_push($discounts, array_combine($headers, $row));
+        }
       }
     }
     return $discounts;
   }
 
   /**
-   * Returns an array containg the discounts headers.
+   * Returns an array containing the discounts headers.
    */
   private function discountHeaders() {
     return [
