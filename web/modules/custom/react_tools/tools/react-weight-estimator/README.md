@@ -1,18 +1,21 @@
+# Run Locally
 
-npm install from root dir
+  1. $cd <rootDir> -- this file location
 
-To compile development CSS from Sass (and watch for changed):
-  $ cd src/sass
-  $ sass --watch main.scss:../localcss/main.css --style nested
+  2. $ npm install
 
-  * note: if dir localcss is not created it will be.
+  3. Compile development CSS from Sass (and watch for changed):
+    $ cd src/sass
+    $ sass --watch main.scss:../localcss/main.css --style nested
 
-To run development environment from localhost:3000:
-  $cd <approot>
-  $ npm start
+    * note: if dir localcss is not created it will be.
 
-  * note: this needs to be running in order to debug.
+  4. Run development environment from localhost:3000:
+    $ npm start
 
-To run internally (withing drupal): (compiles build folder)
-  $cd <approot>
-  $ npm run build
+    * note: this needs to be running in order to debug.
+
+# Build to Drupal (production)
+
+  1. To run internally (withing drupal): (compiles build folder)
+     $ npm run build
