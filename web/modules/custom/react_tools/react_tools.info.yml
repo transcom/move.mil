@@ -1,0 +1,5 @@
+name: 'React tools'
+type: module
+description: 'React Tools for Move.mil'
+core: 8.x
+package: 'Custom'

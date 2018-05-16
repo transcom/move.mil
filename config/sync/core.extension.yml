@@ -37,6 +37,7 @@ module:
   path: 0
   quickedit: 0
   rdf: 0
+  react_tools: 0
   search: 0
   shortcut: 0
   svg_image: 0
