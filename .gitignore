@@ -7,6 +7,12 @@
 /web/profiles/contrib/
 /web/libraries/
 
+# Ignore localcss directory 
+localcss/
+
+# Ignore .sass-cache files
+.sass-cache
+
 # Ignore directories by node/npm
 node_modules/
 
