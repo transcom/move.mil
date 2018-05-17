@@ -34,7 +34,7 @@ class ParserCommand extends Command {
       ->addOption(
         'truncate',
         NULL,
-        InputOption::VALUE_REQUIRED,
+        InputOption::VALUE_OPTIONAL,
         $this->trans('commands.parser.options.truncate')
         );
   }
@@ -73,7 +73,7 @@ class ParserCommand extends Command {
    */
   protected function execute(InputInterface $input, OutputInterface $output) {
     $file = $input->getOption('file');
-    $path = DRUPAL_ROOT . "/../lib/data";
+    $path = DRUPAL_ROOT . '/../lib/data';
     if ($file == 'all') {
       $this->parseAll($path);
     }

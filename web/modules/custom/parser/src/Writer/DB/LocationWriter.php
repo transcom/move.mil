@@ -18,10 +18,9 @@ class LocationWriter implements WriterInterface {
    * Normalizes data then creates Location nodes.
    */
   public function write(array $rawdata, $truncate, DrupalStyle $io) {
-    $this->check();
     $location_type = NULL;
+    $error = '';
     foreach ($rawdata as $key => $file) {
-
       switch ($key) {
         case 0:
           $query_term = 'Shipping Office';
@@ -34,6 +33,9 @@ class LocationWriter implements WriterInterface {
         case 2:
           $query_term = 'Weight Scale';
           break;
+
+        default:
+          throw new \RuntimeException(sprintf('Unknown file key ["%s"].', $key));
       }
 
       $location_type = $this->getDatabaseConnection()
@@ -43,6 +45,10 @@ class LocationWriter implements WriterInterface {
         ->execute()
         ->fetchField();
 
+      if (!$this->isEmpty($location_type)) {
+        $error .= "{$query_term} file is already parsed. Remove all Location nodes and try again." . PHP_EOL;
+        continue;
+      }
       foreach (json_decode($file) as $obj) {
         $node_ref = (property_exists($obj, 'shipping_office_name')) &&
         ($obj->shipping_office_name != NULL) ?
@@ -118,23 +124,29 @@ class LocationWriter implements WriterInterface {
         ]);
         $node->save();
       }
+      $io->info("{$query_term} nodes were successfully created.");
+    }
+    if ($error) {
+      throw new \RuntimeException($error);
     }
   }
 
   /**
    * {@inheritdoc}
    */
-  protected function check() {
+  protected function isEmpty($location_type) {
     $db_objs = $this->getDatabaseConnection()
-      ->select('node_field_data', 'n')
-      ->condition('n.type', 'location', '=')
-      ->fields('n', ['nid'])
+      ->select('node__field_location_type', 'n')
+      ->fields('n')
+      ->condition('n.bundle', 'location', '=')
+      ->condition('n.field_location_type_target_id', $location_type, '=')
       ->execute()
       ->fetchAll();
 
     if (count($db_objs) > 0) {
-      throw new \RuntimeException(sprintf('Files already parsed.'));
+      return FALSE;
     }
+    return TRUE;
   }
 
 }
