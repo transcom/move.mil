@@ -18,25 +18,33 @@ class DecryptReader implements ReaderInterface {
     $dotenv = new Dotenv(DRUPAL_ROOT . '/../');
     $dotenv->load();
 
-    return array_map(function ($file) {
-      $encrypted_data = file_get_contents($file);
+    return array_map([$this, 'fileDecryption'], $files);
+  }
 
-      $iv = getenv('SEEDS_ENC_IV');
-      $key = getenv('SEEDS_ENC');
+  /**
+   * Reads and decrypts the given file.
+   */
+  protected function fileDecryption($file) {
+    $encrypted_data = file_get_contents($file);
 
-      $decrypt = openssl_decrypt($encrypted_data, 'AES-256-CBC', hex2bin($key), OPENSSL_RAW_DATA, hex2bin($iv));
+    $iv = getenv('SEEDS_ENC_IV');
+    $key = getenv('SEEDS_ENC');
 
-      $unquoted_string = str_replace('"', "", $decrypt);
+    $decrypted_data = openssl_decrypt($encrypted_data, 'AES-256-CBC', hex2bin($key), OPENSSL_RAW_DATA, hex2bin($iv));
 
-      return array_map(function ($row) {
-        $row_array = explode(",", $row);
-        $row_array[2] = intval($row_array[2]);
-        $row_array[3] = intval($row_array[3]);
-        var_dump($row_array);
-        return $row_array;
-      }, explode("\n", $unquoted_string));
+    $unquoted_data = str_replace('"', "", $decrypted_data);
 
-    }, $files);
+    return array_map([$this, 'rowCreation'], explode("\n", $unquoted_data));
+  }
+
+  /**
+   * Splices the rows into values and cast them to integer where necessary.
+   */
+  protected function rowCreation($row) {
+    $row_array = explode(",", $row);
+    $row_array[2] = intval($row_array[2]);
+    $row_array[3] = intval($row_array[3]);
+    return $row_array;
   }
 
 }
