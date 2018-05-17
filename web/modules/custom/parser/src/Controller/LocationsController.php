@@ -10,6 +10,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Database\Connection as Connection;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 
 /**
  * Class LocationsController.
@@ -17,8 +18,9 @@ use GuzzleHttp\Client;
 class LocationsController extends ControllerBase {
 
   private $databaseConnection;
-  protected $entityTypeManager;
   private $googleApi;
+  protected $entityTypeManager;
+  protected $errors;
 
   /**
    * Constructs a LocationsController.
@@ -32,6 +34,7 @@ class LocationsController extends ControllerBase {
     $this->databaseConnection = $databaseConnection;
     $this->entityTypeManager = $entity_type_manager;
     $this->googleApi = $_SERVER['GOOGLE_MAPS_API_KEY'];
+    $errors = [];
   }
 
   /**
@@ -52,8 +55,6 @@ class LocationsController extends ControllerBase {
    *
    * @return \Symfony\Component\HttpFoundation\JsonResponse
    *   Return locations as a Json object
-   *
-   * @throws \GuzzleHttp\Exception\GuzzleException
    */
   public function locations(Request $request) {
     $params = NULL;
@@ -65,10 +66,13 @@ class LocationsController extends ControllerBase {
       return $this->response();
     }
     $geolocation = $this->geoLocation($params);
-    $data['geolocation'] = $geolocation;
-    $locations = $this->loadLocations($geolocation);
-    $data['offices'] = $this->orderedLocations($locations);
-    return $this->response($data);
+    if (empty($this->errors)) {
+      $data['geolocation'] = $geolocation;
+      $locations = $this->loadLocations($geolocation);
+      $data['offices'] = $this->orderedLocations($locations);
+      return $this->response($data);
+    }
+    return $this->response();
   }
 
   /**
@@ -83,10 +87,17 @@ class LocationsController extends ControllerBase {
   private function validate(array $params) {
     $lat_regex = "/^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)$/";
     $lon_regex = "/^[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$/";
-    $valid = $params['latitude'] && $params['longitude'];
-    $valid = $valid && preg_match($lat_regex, $params['latitude']);
-    $valid = $valid && preg_match($lon_regex, $params['longitude']);
+    $loc = $params['latitude'] && $params['longitude'];
+    $valid = $loc && preg_match($lat_regex, $params['latitude']);
+    $valid = $valid && $loc && preg_match($lon_regex, $params['longitude']);
+    if ($loc && !$valid) {
+      $this->errors[] = 'Invalid parameters format: latitude/longitude.';
+      return $valid;
+    }
     $valid = $valid || $params['query'];
+    if (!$valid) {
+      $this->errors[] = "Missing parameters: 'query', OR 'latitude and longitude'.";
+    }
     return $valid;
   }
 
@@ -98,8 +109,6 @@ class LocationsController extends ControllerBase {
    *
    * @return array
    *   Array with the geolocation of the search.
-   *
-   * @throws \GuzzleHttp\Exception\GuzzleException
    */
   private function geoLocation(array $params) {
     if ($params['latitude'] && $params['longitude']) {
@@ -110,20 +119,34 @@ class LocationsController extends ControllerBase {
     }
     elseif ($params['query'] && preg_match("/^\d{5}$/", $params['query'])) {
       $uszipcode = $this->uszipcode($params['query']);
-      return [
-        'lat' => floatval($uszipcode['lat']),
-        'lon' => floatval($uszipcode['lon']),
-      ];
+      if ($uszipcode) {
+        return [
+          'lat' => floatval($uszipcode['lat']),
+          'lon' => floatval($uszipcode['lon']),
+        ];
+      }
     }
     $key = $this->googleApi;
     $request = "https://maps.google.com/maps/api/geocode/json?address={$params['query']}&key=$key";
     $client = new Client();
-    $res = $client->request('GET', $request);
+    try {
+      $res = $client->request('GET', $request);
+    }
+    catch (GuzzleException $ge) {
+      $this->errors[] = 'There was an network problem. Mind trying again?';
+      return NULL;
+    }
     $data = json_decode($res->getBody()->getContents(), JSON_OBJECT_AS_ARRAY);
+    if ($data['status'] == 'ZERO_RESULTS' || empty($data['results'])) {
+      $this->errors[] = 'There was a problem performing that search. Mind trying again with another location?';
+      return NULL;
+    }
     $location = $data['results'][0]['geometry']['location'];
+    $address = $data['results'][0]['formatted_address'];
     return [
       'lat' => $location['lat'],
       'lon' => $location['lng'],
+      'result' => $address,
     ];
   }
 
@@ -151,8 +174,8 @@ class LocationsController extends ControllerBase {
       $entities = $this->entityTypeManager->getStorage('node')->loadByProperties(['type' => 'location']);
     }
     catch (InvalidPluginDefinitionException $ipde) {
-      $msg = "Error while creating response => {$ipde->getMessage()}";
-      return ['error' => $msg];
+      $this->errors[] = "Error while creating response: {$ipde->getMessage()}.";
+      return NULL;
     }
     $taxonomies = [];
     foreach ($taxonomy_terms as $term) {
@@ -357,11 +380,11 @@ class LocationsController extends ControllerBase {
    *   The JSON response.
    */
   private function response(array $data = []) {
-    if (isset($data['error'])) {
-      $response = JsonResponse::create($data['error'], 500);
+    if (empty($this->errors)) {
+      $response = JsonResponse::create($data, 200);
     }
     else {
-      $response = JsonResponse::create($data, 200);
+      $response = JsonResponse::create($this->errors, 500);
     }
     $response->setEncodingOptions(
       $response->getEncodingOptions() |
