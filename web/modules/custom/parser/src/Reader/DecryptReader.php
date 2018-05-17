@@ -18,7 +18,7 @@ class DecryptReader implements ReaderInterface {
     $dotenv = new Dotenv(DRUPAL_ROOT . '/../');
     $dotenv->load();
 
-    return array_map(array($this, 'fileDecryption'), $files);
+    return array_map([$this, 'fileDecryption'], $files);
   }
 
   /**
@@ -34,7 +34,7 @@ class DecryptReader implements ReaderInterface {
 
     $unquoted_data = str_replace('"', "", $decrypted_data);
 
-    return array_map(array($this, 'rowCreation'), explode("\n", $unquoted_data));
+    return array_map([$this, 'rowCreation'], explode("\n", $unquoted_data));
   }
 
   /**
