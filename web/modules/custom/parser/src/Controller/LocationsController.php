@@ -242,7 +242,7 @@ class LocationsController extends ControllerBase {
    */
   private function searchable($type) {
     return $type == 'Transportation Office' ||
-      $type == 'Weight Scales';
+      $type == 'Weight Scale';
   }
 
   /**
