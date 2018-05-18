@@ -59,9 +59,9 @@ class ParserHandler {
    */
   public function execute() {
     $filename_to_string = is_array($this->filename) ? implode(",\n", $this->filename) : $this->filename;
-    $this->io->info("Parsing {$filename_to_string}...");
+    $this->io->info('Parsing file(s):' . PHP_EOL . $filename_to_string);
     $rawdata = $this->reader->parse($this->filename);
-    $this->io->info("File read and pre-processed [{$filename_to_string}].");
+    $this->io->info('File(s) read and pre-processed.');
     $this->writer->write($rawdata, $this->truncate, $this->io);
   }
 
