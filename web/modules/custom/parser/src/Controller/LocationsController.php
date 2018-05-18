@@ -234,8 +234,8 @@ class LocationsController extends ControllerBase {
         sin($lat1) * sin($lat2) + cos($lat1) * cos($lat2) * cos($theta)
       )
     );
-    $miles = $dist * 60 * 1.1515;
-    return round($miles);
+    $miles = $dist * 60.0 * 1.1515;
+    return $miles;
   }
 
   /**
