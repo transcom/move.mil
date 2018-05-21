@@ -5,7 +5,10 @@
 @import '../node_modules/uswds/src/stylesheets/uswds';
 
 // Import the SLICK SLIDER SCSS source
+// stylelint-disable scss/at-import-partial-extension-blacklist
+// ignore our scss/at-import-partial-extension-blacklist for this partial import from our slick library
 @import '../node_modules/slick-carousel/slick/slick.scss';
+// stylelint-enable scss/at-import-partial-extension-blacklist
 
 // components
 @import '01-atoms/**/*';

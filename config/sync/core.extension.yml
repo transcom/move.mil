@@ -22,6 +22,7 @@ module:
   field_ui: 0
   file: 0
   filter: 0
+  geolocation: 0
   help: 0
   history: 0
   image: 0
@@ -32,9 +33,11 @@ module:
   node_class: 0
   options: 0
   page_cache: 0
+  parser: 0
   path: 0
   quickedit: 0
   rdf: 0
+  react_tools: 0
   search: 0
   shortcut: 0
   svg_image: 0
@@ -49,6 +52,8 @@ module:
   update: 0
   user: 0
   views_ui: 0
+  wysiwyg_template: 0
+  wysiwyg_template_core: 0
   extlink: 1
   menu_link_content: 1
   views: 10

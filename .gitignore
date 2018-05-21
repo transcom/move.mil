@@ -7,6 +7,15 @@
 /web/profiles/contrib/
 /web/libraries/
 
+# Ignore localcss directory 
+localcss/
+
+# Ignore .sass-cache files
+.sass-cache
+
+# Ignore directories by node/npm
+node_modules/
+
 # Ignore sensitive information
 /web/sites/*/settings.local.php
 
@@ -32,3 +41,11 @@
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+
+# Backstop
+backstop_data/bitmaps_reference/*
+!backstop_data/bitmaps_reference/.gitkeep
+backstop_data/bitmaps_test/*
+!backstop_data/bitmaps_test/.gitkeep
+backstop_data/html_report/*
+!backstop_data/html_report/.gitkeep

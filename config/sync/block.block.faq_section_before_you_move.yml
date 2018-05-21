@@ -13,7 +13,7 @@ dependencies:
 id: faq_section_before_you_move
 theme: move_mil
 region: content
-weight: -5
+weight: -6
 provider: null
 plugin: 'views_block:faqs-block_1'
 settings:

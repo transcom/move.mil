@@ -1,17 +1,21 @@
-.back-to-top {
+.usa-section > .back-to-top {
+  //positioning & alignment
   float: right;
-  margin-top: 0.5rem;
   position: -webkit-sticky;
   position: sticky;
   top: 1rem;
+  margin-top: 1rem;
   z-index: 1000;
 
-  .breadcrumbs + & {
-    @include media($nav-width) {
-      margin-top: -3.75rem;
-    }
+  @include media($nav-width) {
+    margin-top: -2.7rem;
   }
 
+  + .usa-grid {
+    clear: both;
+  }
+
+  // internal button styles
   a {
     @include padding(0.75rem 1.5rem);
     background-color: $color-gold;
@@ -29,6 +33,7 @@
   }
 }
 
+// account for admin toolbar
 .user-logged-in.toolbar-fixed {
   .back-to-top {
     top: 4.9rem;

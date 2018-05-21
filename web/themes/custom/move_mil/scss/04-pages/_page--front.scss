@@ -1,0 +1,181 @@
+// lot's of overrides here on the homepage
+.path-frontpage {
+
+  // setting up our regions in a different order since we need the content in our sidebar-second region to stack on top of our content region
+  .region-sidebar-second {
+    @include media($medium-screen) {
+      float: right;
+    }
+
+    &.usa-width-one-third {
+      margin: 0;
+
+      @include media($medium-screen) {
+        margin-left: 2.35765%;
+      }
+    }
+  }
+
+  // updating the margins in our content region because of the former adjustment
+  .region-content {
+    margin: 0 2.35765%;
+
+    @include media($small-screen) {
+      margin: 0;
+    }
+  }
+
+  // our hero image
+  .hero-section {
+    z-index: -1;
+
+    .field--name-field-hero-image {
+      line-height: 0;
+
+      > img {
+        max-width: none;
+        width: 100%;
+      }
+    }
+  }
+
+  // NOTE: our homepage login banner styles are handle in a seperate file
+
+  // our hompeage service section at the bottom of the homepage
+  .homepage-service-section {
+    border-top: 0.25rem solid $color-blue-darkest;
+
+    .service-emblems-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-evenly;
+      align-items: center;
+      margin: $spacing-md-small 0;
+
+      &--item {
+        max-width: 120px;
+        text-align: center;
+        margin: 0 auto $spacing-md-small auto;
+
+        img {
+          margin: 0 auto $spacing-md-small auto;
+        }
+
+        a {
+          font-weight: $font-bold;
+        }
+      }
+    }
+  }
+
+  // our homepage anchor section for jumplinks to he content at mobile
+  .homepage-anchor-section {
+    display: block;
+    margin-bottom: 3rem;
+
+    @include media($medium-screen) {
+      display: none;
+    }
+
+    .homepage-anchor-title {
+      color: $color-blue-darker;
+      font-size: 2.5rem;
+      font-weight: $font-bold;
+      text-align: center;
+      margin-bottom: $spacing-md-small;
+    }
+
+    .homepage-anchor-list {
+
+      li {
+        padding: 0.6rem;
+        float: left;
+        width: 25%;
+        text-align: center;
+
+        a {
+          text-decoration: none;
+          font-size: $small-font-size;
+          white-space: nowrap;
+
+          img {
+            display: block;
+            margin: 0 auto $spacing-md-small auto;
+            max-height: 5rem;
+          }
+        }
+      }
+    }
+  }
+
+  // our paragraphs in the main content section
+  .field--name-field-paragraph {
+    > .field__item {
+      border-bottom: 2px dotted $color-gray-cool-light;
+
+      &:last-of-type {
+        border-bottom: 0;
+      }
+    }
+  }
+
+  // we are using paragraph text with image for the current content with many overrides to match styling to design
+  .paragraph--text-with-image {
+    position: relative;
+
+    .paragraph--text-with-image__align-left {
+      flex-direction: row;
+
+      .field--name-field-plain-title {
+        color: #205493;
+        font-size: 2.5rem;
+        font-weight: $font-normal;
+
+        @include media($medium-screen) {
+          font-size: 3.5rem;
+          font-weight: $font-bold;
+        }
+      }
+
+      .usa-media_block-img {
+        position: absolute;
+        width: 100%;
+        margin: 0;
+
+        @include media($medium-screen) {
+          width: 15%;
+        }
+
+        .field--name-field-image img {
+          min-width: 0;
+          width: 4rem;
+          position: relative;
+          top: 2rem;
+
+          @include media($medium-screen) {
+            width: 100%;
+            top: 0;
+          }
+        }
+      }
+
+      .usa-media_block-body {
+        max-width: none;
+        width: 100%;
+
+        @include media($medium-screen) {
+          margin-left: 20%;
+          width: 78%;
+        }
+
+        > h3 {
+          margin-left: 4.5rem;
+
+          @include media($medium-screen) {
+            margin-left: 0;
+          }
+        }
+      }
+    }
+  }
+} // everything is wrapped with the .path-frontpage class

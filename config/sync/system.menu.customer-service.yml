@@ -1,0 +1,8 @@
+uuid: d21b703b-8df8-419a-b867-24a5853f1cdf
+langcode: en
+status: true
+dependencies: {  }
+id: customer-service
+label: 'Customer Service'
+description: 'Used in the sidebar of the customer service page to serve as a section-nav.'
+locked: false

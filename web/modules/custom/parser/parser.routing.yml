@@ -1,0 +1,28 @@
+parser.weight_calc_json_controller_response:
+  path: '/parser/weight_calculator'
+  defaults:
+    _controller: '\Drupal\parser\Controller\WeightCalcJsonController::response'
+    _title: 'response'
+  requirements:
+    _permission: 'access content'
+parser.entitlements_controller_index:
+  path: '/parser/entitlements'
+  defaults:
+    _controller: '\Drupal\parser\Controller\EntitlementsController::index'
+    _title: 'index'
+  requirements:
+    _permission: 'access content'
+parser.ppm_estimator_controller_estimate:
+  path: '/parser/ppm_estimate'
+  defaults:
+    _controller: '\Drupal\parser\Controller\PpmEstimatorController::estimate'
+    _title: 'estimate'
+  requirements:
+    _permission: 'access content'
+parser.locations_controller_locations:
+  path: '/parser/locator-maps'
+  defaults:
+    _controller: '\Drupal\parser\Controller\LocationsController::locations'
+    _title: 'locations'
+  requirements:
+    _permission: 'access content'

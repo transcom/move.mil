@@ -1,0 +1,35 @@
+aside.usa-width-one-fourth {
+  float: left;
+  width: 100%;
+
+  + .region-content.usa-width-three-fourths {
+    float: left;
+    width: 100%;
+  }
+
+  @include media($sidenav-screen-width) {
+    padding-top: 1.5rem;
+    width: 20%;
+    margin-right: 5%;
+
+    &:nth-child(2n) {
+      margin-right: 5%;
+    }
+
+    + .region-content.usa-width-three-fourths {
+      width: 75%;
+    }
+  }
+
+  @include media($large-screen) {
+    &:nth-child(2n) {
+      width: 20%;
+    }
+  }
+}
+
+.usa-width-three-fourths {
+  @include media($large-screen) {
+    width: 100%;
+  }
+}

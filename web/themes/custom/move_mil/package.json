@@ -1,8 +1,16 @@
 {
   "name": "move.mil-uswds-subtheme",
   "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bixal/move.mil.git"
+  },
+  "license": "ISC",
   "scripts": {
     "build": "gulp build",
+    "vis-ref": "backstop reference --configPath=backstop-settings --pathfile=backstop-paths",
+    "vis-test": "backstop test --configPath=backstop-settings --pathfile=backstop-paths",
+    "screenshots:local": "wdio wdio.conf.js",
     "build-css": "gulp sass",
     "build-js": "gulp javascript",
     "build-img": "gulp images",
@@ -33,6 +41,7 @@
     ]
   },
   "dependencies": {
+    "autoprefixer": "^8.4.1",
     "browserify": "^16.1.1",
     "chalk": "^2.3.2",
     "del": "^3.0.0",
@@ -42,6 +51,7 @@
     "gulp-cssnano": "^2.1.3",
     "gulp-eslint": "^4.0.2",
     "gulp-jshint": "^2.1.0",
+    "gulp-postcss": "^7.0.1",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^3.2.1",
     "gulp-sass-glob": "^1.0.8",
@@ -62,5 +72,13 @@
     "uswds": "^1.6.1",
     "vinyl-buffer": "^1.0.1",
     "vinyl-source-stream": "^2.0.0"
+  },
+  "devDependencies": {
+    "backstopjs": "^3.2.15",
+    "casperjs": "^1.1.4",
+    "minimalist": "^1.0.0",
+    "minimist": "^1.2.0",
+    "path": "^0.12.7",
+    "slimerjs": "^1.0.0"
   }
 }

@@ -82,29 +82,38 @@
 </section>
 {% endif %}
 
+<div class="login-banner">
+  <div class="login-banner-text">
+    <a href="https://eta.sddc.army.mil/ETASSOPortal/default.aspx">Sign in to <abbr title="Defense Personal Property System">DPS</abbr></a> or <a href="https://eta.sddc.army.mil/dpsRegister/dodCustomer.aspx">create a new account</a> to schedule your move, update information, or complete the claims process.
+  </div>
+</div>
+
 <section class="usa-section uswds-middle-section {{ main_classes }}">
 
+  <div class="usa-width-full">
+    {{ page.breadcrumb }}
+  </div>
+
   <div class="back-to-top">
-    <a href="#">Return to top</a>
+    <a href="#">Back to top</a>
   </div>
 
   <div class="usa-grid">
-    <div class="usa-width-full">
-      {{ page.breadcrumb }}
 
-      {{ page.highlighted }}
+    {{ page.highlighted }}
 
-      {% if page.help|render|trim %}
-      <div class="usa-alert usa-alert-info">
-        <div class="usa-alert-body">
-          <p class="usa-alert-text">
-            {{ page.help }}
-          </p>
-        </div>
+    {% if page.help|render|trim %}
+    <div class="usa-alert usa-alert-info">
+      <div class="usa-alert-body">
+        <p class="usa-alert-text">
+          {{ page.help }}
+        </p>
       </div>
-      {% endif %}
-
     </div>
+    {% endif %}
+
+    {{ page.content.move_mil_local_tasks }}
+    {{ page.content.move_mil_page_title }}
   </div>
 
   <div class="uswds-main-content-wrapper {% if edge_to_edge == false %}usa-grid{% endif %}">
@@ -112,13 +121,11 @@
 
 
     {% if page.sidebar_first %}
-    <aside class="region-sidebar-first usa-width-one-fourth">
       {{ page.sidebar_first }}
-    </aside>
     {% endif %}
 
     <div class="region-content {{ content_class }}">
-      {{ page.content }}
+      {{ page.content|without('move_mil_page_title', 'move_mil_local_tasks') }}
     </div>
 
     {% if page.sidebar_second %}

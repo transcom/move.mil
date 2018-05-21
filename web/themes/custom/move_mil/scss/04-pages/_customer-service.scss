@@ -1,0 +1,156 @@
+.customer-service {
+  .paragraph--type--tabular-data-wrapper {
+    position: relative;
+    table-layout: fixed;
+
+    .paragraph--type--tabular-data {
+      border-top: 1px solid $color-gray;
+
+      > div {
+        border: none;
+        padding: 1rem 0;
+      }
+
+      img {
+        // width: 42px;
+      }
+
+      .tabular-data-left {
+        padding-top: 3rem;
+
+        .field--name-field-table-image-subtitle {
+          // display: block;
+          // clear: left;
+          font-style: normal;
+          font-size: $base-font-size;
+          margin: 1.5rem 0;
+          // font-weight: $font-bold;
+          // background-color: $color-gold;
+          // border-radius: $border-radius;
+          display: none;
+
+          @include padding(0.3rem 0.75rem);
+        }
+      }
+
+      .tabular-data-right {
+        // border: none;
+
+        .field--name-field-plain-title {
+          font-style: normal;
+          font-weight: $font-normal;
+          font-size: $base-font-size;
+          border-bottom: none;
+          padding-bottom: 1.5rem;
+        }
+
+        .field--name-field-body {
+          @include clearfix;
+
+          p:first-child {
+            margin-top: 0;
+          }
+        }
+
+        table {
+          table-layout: fixed;
+          max-width: 100%;
+          margin: 0;
+
+          th, td {
+            border: none;
+            padding: 0;
+            word-break: break-all;
+            overflow: hidden;
+            vertical-align: top;
+          }
+
+          th {
+            width: 11rem;
+          }
+
+          // td {
+          //
+          //   // a {
+          //   //   overflow-wrap: break-word;
+          //   //   word-wrap: break-word;
+          //   //   word-break: break-all;
+          //   // }
+          // }
+        }
+      }
+
+      &:first-child {
+        border-top: none;
+
+        .tabular-data-left {
+          padding-top: 0;
+          border-top: none;
+
+          .field--name-field-table-image-subtitle {
+            font-style: normal;
+            font-size: 1.4rem;
+            font-weight: $font-bold;
+            background-color: $color-gold;
+            border-radius: $border-radius;
+
+            @include padding(0.3rem 0.75rem);
+          }
+        }
+
+        .tabular-data-right {
+
+          .field--name-field-plain-title {
+            font-style: normal;
+            font-size: 1.4rem;
+            font-weight: $font-bold;
+            background-color: $color-gold;
+            // border-bottom: none;
+            border-radius: $border-radius;
+            display: inline-block;
+            clear: both;
+
+            @include padding(0.3rem 0.75rem);
+            margin-bottom: 1.5rem;
+          }
+        }
+      }
+
+      @include media($medium-screen) {
+        > div {
+          padding: 3rem 0 2rem;
+
+          &.tabular-data-left {
+            @include span-columns(4);
+            text-align: left;
+
+            img {
+              margin: 0 0 1rem 0;
+            }
+
+            .field--name-field-table-image-subtitle {
+              display: inline-block;
+            }
+          }
+
+          &.tabular-data-right {
+            @include span-columns(8);
+
+            .field--name-field-plain-title {
+              display: none;
+            }
+
+          }
+        }
+
+        &:first-child .tabular-data-right {
+          padding-top: 0;
+
+          .field--name-field-plain-title {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}

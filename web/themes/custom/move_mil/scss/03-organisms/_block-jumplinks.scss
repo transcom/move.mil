@@ -1,25 +1,9 @@
-.block-jumplinks {
-  float: left;
-  width: 100%;
-
-  + .block-system-main-block {
-    float: left;
-    width: 100%;
-  }
-
+.block-jumplinks, .block-sidebar-menu {
   .jumplinks-mobile-header {
     margin-bottom: 0.5rem;
   }
 
   @include media($sidenav-screen-width) {
-    padding-top: 1.5rem;
-    width: 20%;
-    margin-right: 5%;
-
-    + .block-system-main-block {
-      width: 75%;
-    }
-
     .jumplinks-mobile-header {
       display: none;
     }

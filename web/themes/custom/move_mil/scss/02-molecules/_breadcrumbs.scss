@@ -1,31 +1,50 @@
-.usa-breadcrumbs {
+.region-breadcrumb {
+  background: $color-gray-cool-light;
 
-  li {
+  @include media($nav-width) {
+    background: none;
+  }
 
-    a {
-      margin: 0 !important;
+  .usa-breadcrumbs {
+    font-size: 1.4rem;
+    padding: 1rem 0;
+    position: relative;
+
+    @include media($nav-width) {
+      padding: 0;
     }
 
-    &:not(:last-child) {
+    li {
+
+      &.usa-nav-secondary-links {
+        margin-top: 0;
+      }
 
       a {
-        color: $color-purple;
-        text-decoration: underline;
+        margin: 0;
+      }
 
-        &:hover {
+      &:not(:last-child) {
+
+        a {
+          color: $color-purple;
+          text-decoration: underline;
+
+          &:hover {
+            color: initial;
+          }
+        }
+
+        &:after {
+          content: '/';
+          text-decoration: none;
           color: initial;
         }
       }
 
-      &:after {
-        content: '/' !important;
-        text-decoration: none;
-        color: initial;
+      &:last-child {
+        pointer-events: none;
       }
-    }
-
-    &:last-child {
-      pointer-events: none;
     }
   }
 }

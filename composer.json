@@ -13,6 +13,19 @@
         {
             "type": "composer",
             "url": "https://packages.drupal.org/8"
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "ckeditor/templates",
+                "type": "drupal-library",
+                "version": "4.5.7",
+                "dist": {
+                    "type": "zip",
+                    "url": "https://download.ckeditor.com/templates/releases/templates_4.5.7.zip",
+                    "reference": "master"
+                }
+            }
         }
     ],
     "require": {
@@ -25,6 +38,7 @@
         "drupal/console": "^1.0.2",
         "drupal/core": "~8.5",
         "drupal/extlink": "^1.0",
+        "drupal/geolocation": "^1.11",
         "drupal/node_class": "^1.0@beta",
         "drupal/paragraphs": "^1.2",
         "drupal/stage_file_proxy": "^1.0@alpha",
@@ -32,7 +46,9 @@
         "drupal/twig_field_value": "^1.1",
         "drupal/twig_tweak": "^1.9",
         "drupal/uswds": "^1.0@beta",
+        "drupal/wysiwyg_template": "^2.0@beta",
         "drush/drush": "^9.0.0",
+        "phpoffice/phpspreadsheet": "^1.2",
         "vlucas/phpdotenv": "^2.4",
         "webflo/drupal-finder": "^1.0.0",
         "webmozart/path-util": "^2.3"

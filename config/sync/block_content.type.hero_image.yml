@@ -1,0 +1,8 @@
+uuid: 23ff043a-8e45-41fd-b24e-b69e2f65438b
+langcode: en
+status: true
+dependencies: {  }
+id: hero_image
+label: 'Hero Image'
+revision: 0
+description: 'Displays a Hero Image when placed in the Hero Image region'

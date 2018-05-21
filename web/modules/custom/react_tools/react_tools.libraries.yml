@@ -1,0 +1,15 @@
+react-weight-estimator:
+  version: 1.x
+  css:
+      theme:
+        tools/react-weight-estimator/build/static/css/main.min.css: {}
+  js:
+    tools/react-weight-estimator/build/static/js/main.min.js: {}
+
+react-ppm-tool:
+  version: 1.x
+  css:
+      theme:
+       tools/react-ppm-tool/build/static/css/main.min.css: {}
+  js:
+    tools/react-ppm-tool/build/static/js/main.min.js: {}

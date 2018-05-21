@@ -1,0 +1,503 @@
+<?php
+
+/**
+ * @file
+ * Schema used the parser module DB tables.
+ */
+
+/**
+ * Implements hook_schema().
+ *
+ * Defines the database tables used by this module.
+ *
+ * @see hook_schema()
+ *
+ * @ingroup parser
+ */
+function parser_schema() {
+  $schema['parser_entitlements'] = parser_entitlements();
+  $schema['parser_zip3s'] = parser_zip3s();
+  $schema['parser_zip5s'] = parser_zip5s();
+  $schema['parser_service_areas'] = parser_service_areas();
+  $schema['parser_linehauls'] = parser_linehauls();
+  $schema['parser_shorthauls'] = parser_shorthauls();
+  $schema['parser_packunpacks'] = parser_packunpacks();
+  $schema['parser_discounts'] = parser_discounts();
+  $schema['parser_zipcodes'] = parser_zipcodes();
+  return $schema;
+}
+
+/**
+ * Defines parser_entitlements.
+ */
+function parser_entitlements() {
+  return [
+    'description' => 'Stores entitlements/rank entries.',
+    'fields' => [
+      'id' => [
+        'type' => 'serial',
+        'not null' => TRUE,
+        'description' => 'Primary Key: Unique rank ID.',
+      ],
+      'rank' => [
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'Rank of the person.',
+      ],
+      'total_weight_self' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'size' => 'small',
+        'description' => 'Estimated Household Goods Weight (lbs).',
+      ],
+      'total_weight_self_plus_dependents' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'size' => 'small',
+        'description' => 'Estimated Household Goods Weight (lbs) with dependents.',
+      ],
+      'pro_gear_weight' => [
+        'type' => 'int',
+        'not null' => FALSE,
+        'default' => 0,
+        'size' => 'small',
+        'description' => 'Estimated Pro-Gear Weight (lbs).',
+      ],
+      'pro_gear_weight_spouse' => [
+        'type' => 'int',
+        'not null' => FALSE,
+        'default' => 0,
+        'size' => 'small',
+        'description' => 'Estimated Spouses Pro-Gear Weight (lbs).',
+      ],
+      'slug' => [
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'Friendly rank.',
+      ],
+    ],
+    'primary key' => ['id'],
+  ];
+}
+
+/**
+ * Defines parser_zip3s.
+ */
+function parser_zip3s() {
+  return [
+    'description' => 'Zip3s data.',
+    'fields' => [
+      'id' => [
+        'type' => 'serial',
+        'not null' => TRUE,
+        'description' => 'Primary Key: Unique zip3 ID.',
+      ],
+      'zip3' => [
+        'type' => 'varchar',
+        'length' => 3,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'First 3 digits of a zipcode.',
+      ],
+      'basepoint_city' => [
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'The basepoint city the zip3 belongs to.',
+      ],
+      'state' => [
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'The state the zip3 belongs to.',
+      ],
+      'service_area' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'size' => 'medium',
+        'description' => 'The service area the zip3 belongs to.',
+      ],
+      'rate_area' => [
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'The rate area the zip3 belongs to.',
+      ],
+      'region' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'size' => 'small',
+        'description' => 'The region the zip3 belongs to.',
+      ],
+    ],
+    'primary key' => ['id'],
+  ];
+}
+
+/**
+ * Defines parser_zip5s.
+ */
+function parser_zip5s() {
+  return [
+    'description' => 'Zip5s data.',
+    'fields' => [
+      'id' => [
+        'type' => 'serial',
+        'not null' => TRUE,
+        'description' => 'Primary Key: Unique zip5 ID.',
+      ],
+      'zip5' => [
+        'type' => 'varchar',
+        'length' => 5,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'Zipcode.',
+      ],
+      'service_area' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'size' => 'medium',
+        'description' => 'The service area the zip5 belongs to.',
+      ],
+    ],
+    'primary key' => ['id'],
+  ];
+}
+
+/**
+ * Defines parser_service_areas.
+ */
+function parser_service_areas() {
+  return [
+    'description' => 'Moving service areas data.',
+    'fields' => [
+      'id' => [
+        'type' => 'serial',
+        'not null' => TRUE,
+        'description' => 'Primary Key: Unique service areas ID.',
+      ],
+      'service_area' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'size' => 'medium',
+        'description' => 'The service area number.',
+      ],
+      'name' => [
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'The service area name.',
+      ],
+      'services_schedule' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'size' => 'tiny',
+        'description' => 'The service area number.',
+      ],
+      'linehaul_factor' => [
+        'type' => 'numeric',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0.0,
+        'precision' => 7,
+        'scale' => 2,
+        'description' => 'The linehaul factor.',
+      ],
+      'orig_dest_service_charge' => [
+        'type' => 'numeric',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0.0,
+        'precision' => 7,
+        'scale' => 2,
+        'description' => 'The service charge.',
+      ],
+      'year' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'size' => 'small',
+        'description' => 'The year this data is effective.',
+      ],
+    ],
+    'primary key' => ['id'],
+    'indexes' => [
+      'services_schedule' => ['services_schedule'],
+    ],
+  ];
+}
+
+/**
+ * Defines parser_linehauls.
+ */
+function parser_linehauls() {
+  return [
+    'description' => 'Linehaul rates.',
+    'fields' => [
+      'id' => [
+        'type' => 'serial',
+        'not null' => TRUE,
+        'description' => 'Primary Key: Unique linehauls ID.',
+      ],
+      'miles' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'size' => 'small',
+        'description' => 'The shortest distance in miles.',
+      ],
+      'weight' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'size' => 'small',
+        'description' => 'The lowest weight in pounds.',
+      ],
+      'rate' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'size' => 'medium',
+        'description' => 'The service area number.',
+      ],
+      'year' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'size' => 'small',
+        'description' => 'The year this data is effective.',
+      ],
+    ],
+    'primary key' => ['id'],
+    'indexes' => [
+      'miles' => ['miles'],
+      'weight' => ['weight'],
+    ],
+  ];
+}
+
+/**
+ * Defines parser_shorthauls.
+ */
+function parser_shorthauls() {
+  return [
+    'description' => 'Shorthauls rates.',
+    'fields' => [
+      'id' => [
+        'type' => 'serial',
+        'not null' => TRUE,
+        'description' => 'Primary Key: Unique shorthauls ID.',
+      ],
+      'cwt_miles' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'size' => 'medium',
+        'description' => 'The lowest value in the cwt_miles range.',
+      ],
+      'rate' => [
+        'type' => 'numeric',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0.0,
+        'precision' => 7,
+        'scale' => 2,
+        'description' => 'The shorthaul charge.',
+      ],
+      'year' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'size' => 'small',
+        'description' => 'The year this data is effective.',
+      ],
+    ],
+    'primary key' => ['id'],
+    'indexes' => [
+      'year' => ['year'],
+    ],
+  ];
+}
+
+/**
+ * Defines parser_packunpacks.
+ */
+function parser_packunpacks() {
+  return [
+    'description' => 'Full Pack and Full Unpacks rates.',
+    'fields' => [
+      'id' => [
+        'type' => 'serial',
+        'not null' => TRUE,
+        'description' => 'Primary Key: Unique packunpacks ID.',
+      ],
+      'schedule' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'size' => 'tiny',
+        'description' => 'The pack or unpack schedule.',
+      ],
+      'cwt' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'size' => 'small',
+        'description' => 'The lowest value in the cwt range.',
+      ],
+      'pack' => [
+        'type' => 'numeric',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0.0,
+        'precision' => 7,
+        'scale' => 2,
+        'description' => 'The pack charge.',
+      ],
+      'unpack' => [
+        'type' => 'numeric',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0.0,
+        'precision' => 8,
+        'scale' => 5,
+        'description' => 'The unpack charge.',
+      ],
+      'year' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'size' => 'small',
+        'description' => 'The year this data is effective.',
+      ],
+    ],
+    'primary key' => ['id'],
+    'indexes' => [
+      'year' => ['year'],
+    ],
+  ];
+}
+
+/**
+ * Defines parser_discounts.
+ */
+function parser_discounts() {
+  return [
+    'description' => 'Discounts.',
+    'fields' => [
+      'id' => [
+        'type' => 'serial',
+        'not null' => TRUE,
+        'description' => 'Primary Key: Unique discounts ID.',
+      ],
+      'origin' => [
+        'type' => 'varchar',
+        'length' => 9,
+        'not null' => TRUE,
+        'description' => '',
+      ],
+      'destination' => [
+        'type' => 'varchar',
+        'length' => 9,
+        'not null' => TRUE,
+        'description' => '',
+      ],
+      'discounts' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'size' => 'tiny',
+        'description' => '',
+      ],
+      'site_rate' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'size' => 'tiny',
+        'description' => '',
+      ],
+      'tdl' => [
+        'type' => 'int',
+        'not null' => TRUE,
+      ],
+    ],
+    'primary key' => ['id'],
+    'indexes' => [
+      'origin' => ['origin'],
+      'destination' => ['destination'],
+    ],
+  ];
+}
+
+/**
+ * Defines parser_zipcodes.
+ */
+function parser_zipcodes() {
+  return [
+    'description' => 'Zip codes data.',
+    'fields' => [
+      'id' => [
+        'type' => 'serial',
+        'not null' => TRUE,
+        'description' => 'Primary Key: Unique zip code ID.',
+      ],
+      'code' => [
+        'type' => 'varchar',
+        'length' => 5,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'Zipcode.',
+      ],
+      'city' => [
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'The city the zip code belongs to.',
+      ],
+      'state' => [
+        'type' => 'varchar',
+        'length' => 3,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'The state abbr the zip code belongs to.',
+      ],
+      'lat' => [
+        'type' => 'numeric',
+        'unsigned' => FALSE,
+        'not null' => TRUE,
+        'default' => 0.0,
+        'precision' => 15,
+        'scale' => 10,
+        'description' => 'The geo location latitude.',
+      ],
+      'lon' => [
+        'type' => 'numeric',
+        'unsigned' => FALSE,
+        'not null' => TRUE,
+        'default' => 0.0,
+        'precision' => 15,
+        'scale' => 10,
+        'description' => 'The geo location longitude.',
+      ],
+    ],
+    'primary key' => ['id'],
+    'indexes' => [
+      'code' => ['code'],
+      'lat_lon' => ['lat', 'lon'],
+    ],
+  ];
+}

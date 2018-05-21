@@ -1,0 +1,298 @@
+[
+  {
+    "name": "Joint Personal Property Shipping Office Northwest",
+    "location": {
+      "street_address": "2150 Liggett Ave",
+      "extended_address": "Building 2150, Box 339500, Mail Stop 53",
+      "locality": "Joint Base Lewis McChord",
+      "region": "Washington",
+      "region_code": "WA",
+      "postal_code": "98433",
+      "country_name": "United States",
+      "country_code": "US",
+      "latitude": 47.8802,
+      "longitude": -122.593356
+    },
+    "email_addresses": [
+      {
+        "email_address": "usarmy.jblm.usamc.mbx.jppsonw-cs@mail.mil ",
+        "note": "Customer Service"
+      }
+    ],
+    "phone_numbers": [
+      {
+        "phone_number": "(253)967-5093",
+        "phone_type": "voice",
+        "dsn": false
+      },
+      {
+        "phone_number": "(312)357-5093",
+        "phone_type": "voice",
+        "dsn": true
+      }
+    ],
+    "urls": [
+      {
+        "url": "http://www.lewis-mcchord.army.mil/jppso/"
+      }
+    ],
+    "hours": "Monday - Friday 0730-1600: Sat/Sun/Holidays Closed.",
+    "services": [
+      "Walk-In Help",
+      "Call Center",
+      "QA Inspections"
+    ]
+  },
+  {
+    "name": "JPPSO-NC / JPPSO-COS",
+    "location": {
+      "street_address": "5136 Eagle Dr",
+      "extended_address": null,
+      "locality": "U.S. Air Force Academy",
+      "region": "Colorado",
+      "region_code": "CO",
+      "postal_code": "80840",
+      "country_name": "United States",
+      "country_code": "US",
+      "latitude": 38.978249,
+      "longitude": -104.864165
+    },
+    "email_addresses": [
+      {
+        "email_address": "jppso-nc.pppo-afacademy@us.af.mil",
+        "note": "Customer Service"
+      }
+    ],
+    "phone_numbers": [
+      {
+        "phone_number": "(719) 333-3007",
+        "phone_type": "voice",
+        "dsn": false
+      },
+      {
+        "phone_number": "333-3007",
+        "phone_type": "voice",
+        "dsn": true
+      }
+    ],
+    "hours": "Monday - Friday 0800-1600; Sat/Sun Closed",
+    "services": [
+      "Walk-In Help",
+      "Briefings",
+      "Appointments",
+      "QA Inspections"
+    ]
+  },
+  {
+    "name": "JPPSO SW",
+    "location": {
+      "street_address": "32nd St",
+      "extended_address": "Bldg 3376",
+      "locality": "San Diego",
+      "region": "California",
+      "region_code": "CA",
+      "postal_code": "92136",
+      "country_name": "United States",
+      "country_code": "US",
+      "latitude": 32.6924637,
+      "longitude": -117.1302941
+    },
+    "email_addresses": [
+      {
+        "email_address": "jppso_sw_qa@navy.mil",
+        "note": "Customer Service"
+      }
+    ],
+    "phone_numbers": [
+      {
+        "phone_number": "855-444-6683",
+        "phone_type": "voice",
+        "dsn": false
+      }
+    ],
+    "hours": "Mon-Tues, Thurs-Fri 0730-1600; Wed 0900-1600",
+    "services": [
+      "Walk-In Help",
+      "Call Center",
+      "Computer Lab",
+      "Appointments",
+      "QA Inspections"
+    ],
+    "note": "PPM  Briefing occurs W @0900"
+  },
+  {
+    "name": "Joint Personal Property Shipping Office South East (JPPSO-SE), Jacksonville, FL",
+    "location": {
+      "street_address": "Yorktown Ave.",
+      "extended_address": "Bldg. 110",
+      "locality": "Jacksonville",
+      "region": "Florida",
+      "region_code": "FL",
+      "postal_code": "32244",
+      "country_name": "United States",
+      "country_code": "US",
+      "latitude": 30.2259167,
+      "longitude": -81.6772551
+    },
+    "email_addresses": [
+      {
+        "email_address": "jppso_se_counseling@navy.mil",
+        "note": "Customer Service"
+      }
+    ],
+    "phone_numbers": [
+      {
+        "phone_number": "(904) 546-6130",
+        "phone_type": "voice",
+        "dsn": false,
+        "note": "Customer Service"
+      },
+      {
+        "phone_number": "546-6120/6130",
+        "phone_type": "voice",
+        "dsn": true
+      }
+    ]
+  },
+  {
+    "name": "JPPSO-MA: Customer Service Management Division",
+    "location": {
+      "street_address": "9325 Gunston Rd",
+      "extended_address": "Ste N110 Bldg. 1466",
+      "locality": "Fort Belvoir",
+      "region": "Virginia",
+      "region_code": "VA",
+      "postal_code": "22060",
+      "country_name": "United States",
+      "country_code": "US",
+      "latitude": 38.704505,
+      "longitude": -77.148212
+    },
+    "email_addresses": [
+      {
+        "email_address": "usarmy.belvoir.imcom.mbx.jppsowa@mail.mil",
+        "note": "Customer Service"
+      }
+    ],
+    "phone_numbers": [
+      {
+        "phone_number": "(703) 806-4900",
+        "phone_type": "voice",
+        "dsn": false
+      },
+      {
+        "phone_number": "312-656-4900",
+        "phone_type": "voice",
+        "dsn": true
+      }
+    ],
+    "urls": [
+      {
+        "url": "http://www.belvoir.army.mil/jppsoma/"
+      }
+    ],
+    "hours": "0800-1600",
+    "services": [
+      "Walk-In Help",
+      "Call Center",
+      "QA Inspections"
+    ]
+  },
+  {
+    "name": "JPPSO-NE (DET 2)",
+    "location": {
+      "street_address": "25 Chennault St.",
+      "extended_address": "Building 1723",
+      "locality": "Bedford",
+      "region": "Massachusetts",
+      "region_code": "MA",
+      "postal_code": "01731",
+      "country_name": "United States",
+      "country_code": "US",
+      "latitude": 42.4638084,
+      "longitude": -71.2842004
+    },
+    "email_addresses": [
+      {
+        "email_address": "jppsone.cs@us.af.mil"
+      }
+    ],
+    "phone_numbers": [
+      {
+        "phone_number": "1 (800) 235-7776 / (781) 225-3700",
+        "phone_type": "voice",
+        "dsn": false
+      }
+    ]
+  },
+  {
+    "name": "Joint Personal Property Shipping Office South Central, San Antonio TX - JPPSO-SC (DET 3)",
+    "location": {
+      "street_address": "2261 Hughes Ave.",
+      "extended_address": null,
+      "locality": "Lackland AFB",
+      "region": "Texas",
+      "region_code": "TX",
+      "postal_code": "78236",
+      "country_name": "United States",
+      "country_code": "US",
+      "latitude": 29.378272,
+      "longitude": -98.6239922
+    },
+    "email_addresses": [
+      {
+        "email_address": "jppso-sc.cs-ms@us.af.mil",
+        "note": "Customer Service"
+      }
+    ],
+    "phone_numbers": [
+      {
+        "phone_number": "1-800-599-7709",
+        "phone_type": "voice",
+        "dsn": false
+      },
+      {
+        "phone_number": "(210) 321-4200",
+        "phone_type": "voice",
+        "dsn": false
+      }
+    ]
+  },
+  {
+    "name": "JPPSO Anchorage",
+    "location": {
+      "street_address": "8517 20th St",
+      "extended_address": "Ste 239",
+      "locality": "JBER",
+      "region": "Alaska",
+      "region_code": "AK",
+      "postal_code": "99506",
+      "country_name": "United States",
+      "country_code": "US",
+      "latitude": 61.2416,
+      "longitude": -149.801798
+    },
+    "email_addresses": [
+      {
+        "email_address": "jppso-anc@us.af.mil",
+        "note": "Customer Service"
+      }
+    ],
+    "phone_numbers": [
+      {
+        "phone_number": "907-552-2209 ",
+        "phone_type": "voice",
+        "dsn": false
+      },
+      {
+        "phone_number": "317-552-2209",
+        "phone_type": "voice",
+        "dsn": true
+      }
+    ],
+    "hours": "Monday - Friday 0800 - 1530",
+    "services": [
+      "QA Inspections"
+    ]
+  }
+]

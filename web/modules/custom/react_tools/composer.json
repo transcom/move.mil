@@ -1,0 +1,14 @@
+{
+  "name": "drupal/react_tools",
+  "type": "drupal-module",
+  "description": "React Tools for Move.mil",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "https://github.com/Bixal/move.mil",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "https://github.com/Bixal/move.mil",
+    "source": "https://github.com/Bixal/move.mil"
+  },
+  "require": { }
+}

@@ -770,20 +770,6 @@ $settings['file_scan_ignore_directories'] = [
  */
 $settings['entity_update_batch_size'] = 50;
 
-/**
- * Load local development override configuration, if available.
- *
- * Use settings.local.php to override variables on secondary (staging,
- * development, etc) installations of this site. Typically used to disable
- * caching, JavaScript/CSS compression, re-routing of outgoing emails, and
- * other things that should not happen on development and testing sites.
- *
- * Keep this code block at the end of this file to take full effect.
- */
-#
-if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
-  include $app_root . '/' . $site_path . '/settings.local.php';
-}
 $config_directories['sync'] = '../config/sync';
 
 try {
@@ -801,7 +787,36 @@ try {
 
   $settings['trusted_host_patterns'] = [getenv('TRUSTED_HOST_PATTERNS')];
   $settings['hash_salt'] = getenv('HASH_SALT');
+
+  if (!empty($_SERVER['RDS_DB_NAME'])) {
+    $databases = [];
+    $databases['default']['default'] = array (
+      'database' => $_SERVER['RDS_DB_NAME'],
+      'username' => $_SERVER['RDS_USERNAME'],
+      'password' => $_SERVER['RDS_PASSWORD'],
+      'prefix' => '',
+      'host' => $_SERVER['RDS_HOSTNAME'],
+      'port' => $_SERVER['RDS_PORT'],
+      'namespace' => 'Drupal\\Core\\Database\\Driver\\mysql',
+      'driver' => 'mysql',
+);
+  }
 } catch(Exception $e) {
   echo $e->getMessage();
 }
 $settings['install_profile'] = 'standard';
+
+/**
+ * Load local development override configuration, if available.
+ *
+ * Use settings.local.php to override variables on secondary (staging,
+ * development, etc) installations of this site. Typically used to disable
+ * caching, JavaScript/CSS compression, re-routing of outgoing emails, and
+ * other things that should not happen on development and testing sites.
+ *
+ * Keep this code block at the end of this file to take full effect.
+ */
+#
+if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
+  include $app_root . '/' . $site_path . '/settings.local.php';
+}

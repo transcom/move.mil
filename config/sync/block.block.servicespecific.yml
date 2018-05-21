@@ -1,0 +1,29 @@
+uuid: 1e2a1deb-538d-4e9d-b6ab-c1daabcc913b
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.service-specific
+  module:
+    - system
+  theme:
+    - move_mil
+id: servicespecific
+theme: move_mil
+region: sidebar_first
+weight: 0
+provider: null
+plugin: 'system_menu_block:service-specific'
+settings:
+  id: 'system_menu_block:service-specific'
+  label: Service-Specific
+  provider: system
+  label_display: '0'
+  level: 1
+  depth: 0
+visibility:
+  request_path:
+    id: request_path
+    pages: "/service-specific-information/\r\n/service-specific-information/*"
+    negate: false
+    context_mapping: {  }
