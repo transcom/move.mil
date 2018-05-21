@@ -1,0 +1,30 @@
+{
+    "locations": {
+        "origin": {
+            "address": "Fairfax, VA 04688",
+            "lat": 38.853231,
+            "lon": -77.305097
+        },
+        "destination": {
+            "address": "Beverly Hills, CA 90210",
+            "lat": 38.025472,
+            "lon": -121.291628
+        }
+    },
+    "weightOptions": {
+        "houseHold": 1100,
+        "proGear": 500,
+        "dependent": 0,
+        "total": 1600
+    },
+    "selectedMoveDate": "2018-05-24T18:22:33.000Z",
+    "incentive": {
+        "min": 7498.832600000001,
+        "max": 7804.907400000001
+    },
+    "advancePayment": {
+        "min": 7498.832600000001,
+        "max": 7804.907400000001,
+        "discount": 60
+    }
+}

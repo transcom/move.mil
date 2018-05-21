@@ -1,0 +1,7 @@
+{
+  "main.css": "static/css/main.min.css",
+  "main.css.map": "static/css/main.min.css.map",
+  "main.js": "static/js/main.min.js",
+  "main.js.map": "static/js/main.min.js.map",
+  "static/media/warning.svg": "static/media/warning.svg"
+}
