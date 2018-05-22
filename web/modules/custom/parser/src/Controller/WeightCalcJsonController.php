@@ -22,6 +22,8 @@ class WeightCalcJsonController extends ControllerBase {
     $finder->files()->in(DRUPAL_ROOT . '/../lib/data')->name('household_goods_weights.json');
     $file = NULL;
 
+    $base_url = $_SERVER['TRUSTED_HOST_PATTERN'] != NULL ? $_SERVER['TRUSTED_HOST_PATTERN'] : getenv('TRUSTED_HOST_PATTERN');
+
     foreach ($finder as $f) {
       $file = $f->getContents();
     }
@@ -46,7 +48,7 @@ class WeightCalcJsonController extends ControllerBase {
 
       $array_obj[preg_replace('/[^\p{L}\p{N}\s]/u', '', str_replace(' ', '-', $obj->name))] = [
         'displayName' => $obj->name,
-        'icon' => $obj->icon,
+        'icon' => $base_url . drupal_get_path('theme', 'move_mil') . '/assets/img/' . $obj->icon,
         'items' => $items,
       ];
     }

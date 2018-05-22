@@ -30,7 +30,7 @@ class CsvWriter implements WriterInterface {
    */
   public function write(array $rawdata, $truncate, DrupalStyle $io) {
     $table = ($this->file == 'zip3' ? 'parser_zip3s' : 'parser_zip5s');
-    if ($truncate) {
+    if ($truncate == 'yes') {
       $io->info("Truncating {$table} table.");
       $this->truncateTable($table);
     }
