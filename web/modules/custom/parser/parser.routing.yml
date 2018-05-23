@@ -26,3 +26,14 @@ parser.locations_controller_locations:
     _title: 'locations'
   requirements:
     _permission: 'access content'
+
+parser.files_and_tables_manager_form:
+  path: '/admin/config/parser/manager'
+  defaults:
+    _form: '\Drupal\parser\Form\FilesAndTablesManagerForm'
+    _title: 'FilesAndTablesManagerForm'
+  requirements:
+    _permission: 'access administration pages'
+  options:
+    _admin_route: TRUE
+

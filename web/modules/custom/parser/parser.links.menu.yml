@@ -1,0 +1,7 @@
+parser.files_and_tables_manager_form:
+  title: 'Parser admin (react tools data manager)'
+  route_name: parser.files_and_tables_manager_form
+  description: 'Upload files so their data can be used for the endpoints to be consumed by react tools'
+  parent: system.admin_config_system
+  weight: 99
+
