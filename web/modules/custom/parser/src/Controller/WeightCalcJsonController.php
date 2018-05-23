@@ -22,8 +22,6 @@ class WeightCalcJsonController extends ControllerBase {
     $finder->files()->in(DRUPAL_ROOT . '/../lib/data')->name('household_goods_weights.json');
     $file = NULL;
 
-    $base_url = getenv('TRUSTED_HOST_PATTERN');
-
     foreach ($finder as $f) {
       $file = $f->getContents();
     }
