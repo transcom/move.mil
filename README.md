@@ -16,6 +16,20 @@ As part of the Defense Digital Service's goal of bringing technology industry pr
 
 Works created by U.S. Federal employees as part of their jobs typically are not eligible for copyright in the United States. In places where the contributions of U.S. Federal employees are not eligible for copyright, this work is in the public domain. In places where it is eligible for copyright, such as some foreign jurisdictions, this work is licensed as described in [LICENSE.md][license].
 
+## Uploading discounts files
+
+To make a new discount file ready for uploading follow the following steps:
+
+1. Run the encryptscript.sc 'COMMAND: ./encryptscript.sc'
+2. Give the absolute path of the file.
+3. Give the effective date of the file.
+4. Add the encrypted file 'discounts-{effective_date.csv.enc}' to staging in 'lib/data/''.
+5. Push your changes.
+6. Make a pull request     
+
+
+
+
 [contributing]: https://github.com/Bixal/move.mil/blob/master/CONTRIBUTING.md
 [contributors]: https://github.com/Bixal/move.mil/blob/master/CONTRIBUTORS.md
 [license]: https://github.com/Bixal/move.mil/blob/master/LICENSE.md

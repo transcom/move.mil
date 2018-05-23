@@ -2,14 +2,14 @@ react-weight-estimator:
   version: 1.x
   css:
       theme:
-        css/cuddly-slider-theme.css: {}
+        tools/react-weight-estimator/build/static/css/main.min.css: {}
   js:
-    react-weight-estimator/build/main.js: {}
+    tools/react-weight-estimator/build/static/js/main.min.js: {}
 
 react-ppm-tool:
   version: 1.x
   css:
       theme:
-        css/cuddly-slider-theme.css: {}
+       tools/react-ppm-tool/build/static/css/main.min.css: {}
   js:
-    react-ppm-tool/build/main.js: {}
+    tools/react-ppm-tool/build/static/js/main.min.js: {}
