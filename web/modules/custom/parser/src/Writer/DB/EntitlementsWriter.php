@@ -16,14 +16,12 @@ class EntitlementsWriter implements WriterInterface {
   /**
    * Normalizes data then writes it into db tables.
    */
-  public function write(array $rawdata, $truncate, DrupalStyle $io) {
+  public function write(array $rawdata, $truncate) {
     $table = 'parser_entitlements';
     if ($truncate) {
-      $io->info("Truncating {$table} table.");
       $this->truncateTable($table);
     }
     $entitlements = $this->mapdata($rawdata);
-    $io->info("Writing new records on {$table} table.");
     $this->insertToTable($entitlements, $table);
   }
 

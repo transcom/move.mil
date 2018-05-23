@@ -11,6 +11,9 @@ use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
  */
 class ExcelReader implements ReaderInterface {
 
+  public function __construct($year) {
+    $this->year = $year;
+  }
   /**
    * Parses excel file with PhpOffice\PhpSpreadsheet.
    */
@@ -25,7 +28,7 @@ class ExcelReader implements ReaderInterface {
     ]);
     $spreadsheet = $reader->load($xlsxFile);
     // Get year from filename.
-    $xlsx['year'] = substr($xlsxFile, -15, 4);
+    $xlsx['year'] = $this->year;
     $xlsx['schedules'] = $this->schedules($spreadsheet);
     $xlsx['linehauls'] = $this->linehauls($spreadsheet, $this->conusparams());
     $additonalrates = $this->additionalrates($spreadsheet);

@@ -31,14 +31,12 @@ class DiscountWriter implements WriterInterface {
   /**
    * Normalizes data then writes zip5s table.
    */
-  public function write(array $rawdata, $truncate, DrupalStyle $io) {
+  public function write(array $rawdata, $truncate) {
     $table = 'parser_discounts';
     if ($truncate) {
-      $io->info("Truncating {$table} table.");
       $this->truncateTable($table);
     }
     $discounts = $this->mapdata($rawdata);
-    $io->info("Writing new records on {$table} table.");
     $this->insertToTable($discounts, $table);
   }
 

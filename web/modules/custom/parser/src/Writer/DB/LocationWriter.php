@@ -17,7 +17,7 @@ class LocationWriter implements WriterInterface {
   /**
    * Normalizes data then creates Location nodes.
    */
-  public function write(array $rawdata, $truncate, DrupalStyle $io) {
+  public function write(array $rawdata, $truncate) {
     $location_type = NULL;
     $error = '';
     foreach ($rawdata as $key => $file) {
@@ -124,7 +124,6 @@ class LocationWriter implements WriterInterface {
         ]);
         $node->save();
       }
-      $io->info("{$query_term} nodes were successfully created.");
     }
     if ($error) {
       throw new \RuntimeException($error);

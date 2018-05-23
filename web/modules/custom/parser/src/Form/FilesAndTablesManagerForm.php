@@ -4,6 +4,15 @@ namespace Drupal\parser\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\parser\Reader\CsvReader;
+use Drupal\parser\Reader\DecryptReader;
+use Drupal\parser\Reader\ExcelReader;
+use Drupal\parser\Reader\YamlReader;
+use Drupal\parser\Writer\DB\EntitlementsWriter;
+use Drupal\parser\Writer\DB\Rates400NGWriter;
+use Drupal\parser\Writer\DB\CsvWriter;
+use Drupal\parser\Writer\DB\DiscountWriter;
+use Drupal\parser\Writer\DB\ZipCodesWriter;
 
 /**
  * Class FilesAndTablesManagerForm.
@@ -43,7 +52,7 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
       '#description' => $this->t('Upload your zip5.csv file'),
       '#default_value' => $config->get('zip_5'),
     ];
-    $form['line_hauls_pack_unpack_short_hau'] = [
+    $form['400NG'] = [
       '#type' => 'file',
       '#title' => $this->t('Line hauls, pack/unpack, short hauls, service areas'),
       '#description' => $this->t('Upload your YYYY-400NG.xlsx file'),
@@ -64,12 +73,53 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     parent::submitForm($form, $form_state);
+    $all_files = $this->getRequest()->files->get('files', []);
 
-    $this->config('parser.filesandtablesmanager')
-      ->set('zip_3', $form_state->getValue('zip_3'))
-      ->set('zip_5', $form_state->getValue('zip_5'))
-      ->set('line_hauls_pack_unpack_short_hau', $form_state->getValue('line_hauls_pack_unpack_short_hau'))
-      ->save();
+    foreach ($all_files as $key => $file) {
+      if (!empty($file)) {
+        if ($file->isValid()) {
+
+          $filename = $file->getRealPath();
+
+          switch ($key) {
+            case (preg_match('/^zip_[\d]+/', $key) ? TRUE : FALSE):
+              $reader = new CsvReader();
+              $writer = new CsvWriter($key);
+              //$truncate = form['zip_3']['truncate'];
+              break;
+
+            case '400NG':
+              $reader = new ExcelReader(2017);//$file['year']);
+              $writer = new Rates400NGWriter();
+              //$truncate = form['zip_5']['truncate'];
+              break;
+
+            case 'entitlements':
+              $reader = new YamlReader();
+              $writer = new EntitlementsWriter();
+             // $truncate = form['entitlements']['truncate'];
+              break;
+
+            case 'discounts':
+              $date = form['discounts']['date'];
+              $reader = new DecryptReader();
+              $writer = new DiscountWriter($date->getValue());
+             // $truncate = form['discounts']['truncate'];
+              break;
+
+            case 'all_us_zipcodes':
+              $reader = new CsvReader();
+              $writer = new ZipCodesWriter($key);
+//              $truncate = form['all_us_zipcodes']['truncate'];
+              break;
+
+          }
+
+          $rawdata = $reader->parse($filename);
+          $writer->write($rawdata, TRUE); //$truncate->getValue());
+        }
+      }
+    }
   }
 
 }

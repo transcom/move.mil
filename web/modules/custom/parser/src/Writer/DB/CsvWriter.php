@@ -28,14 +28,12 @@ class CsvWriter implements WriterInterface {
   /**
    * Normalizes data then writes it into db tables.
    */
-  public function write(array $rawdata, $truncate, DrupalStyle $io) {
-    $table = ($this->file == 'zip3' ? 'parser_zip3s' : 'parser_zip5s');
+  public function write(array $rawdata, $truncate) {
+    $table = ($this->file == 'zip_3' ? 'parser_zip3s' : 'parser_zip5s');
     if ($truncate) {
-      $io->info("Truncating {$table} table.");
       $this->truncateTable($table);
     }
     $zips = $this->mapdata($rawdata);
-    $io->info("Writing new records on {$table} table.");
     $this->insertToTable($zips, $table);
   }
 
@@ -56,7 +54,7 @@ class CsvWriter implements WriterInterface {
    * Returns the corresponding headers of the chosen file.
    */
   private function zipHeaders() {
-    if ($this->file == 'zip3') {
+    if ($this->file == 'zip_3') {
       return [
         'zip3',
         'basepoint_city',

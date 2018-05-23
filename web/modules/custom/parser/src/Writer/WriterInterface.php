@@ -21,6 +21,6 @@ interface WriterInterface {
   /**
    * Writes json file.
    */
-  public function write(array $rawdata, $truncate, DrupalStyle $io);
+  public function write(array $rawdata, $truncate);
 
 }

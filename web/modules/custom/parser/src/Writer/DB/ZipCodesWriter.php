@@ -28,14 +28,12 @@ class ZipCodesWriter implements WriterInterface {
   /**
    * Normalizes data then writes zipcodes table.
    */
-  public function write(array $rawdata, $truncate, DrupalStyle $io) {
+  public function write(array $rawdata, $truncate) {
     $table = 'parser_zipcodes';
     if ($truncate) {
-      $io->info("Truncating {$table} table.");
       $this->truncateTable($table);
     }
     $codes = $this->mapdata($rawdata);
-    $io->info("Writing new records on {$table} table.");
     $this->insertToTable($codes, $table);
   }
 

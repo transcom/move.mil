@@ -16,7 +16,7 @@ class Rates400NGWriter implements WriterInterface {
   /**
    * Normalizes data then writes it into db tables.
    */
-  public function write(array $rawdata, $truncate, DrupalStyle $io) {
+  public function write(array $rawdata, $truncate) {
     // Write service_areas.
     $table = 'parser_service_areas';
     $service_areas = $this->data($rawdata, $table, 'schedules', $truncate, $io);
@@ -39,12 +39,10 @@ class Rates400NGWriter implements WriterInterface {
   /**
    * Prepare data.
    */
-  private function data(array $rawdata, $table, $dataname, $truncate, DrupalStyle $io) {
+  private function data(array $rawdata, $table, $dataname, $truncate) {
     if ($truncate) {
-      $io->info("Truncating {$table} table.");
       $this->truncateTable($table);
     }
-    $io->info("Writing new records on {$table} table.");
     $data = $this->addyear($rawdata[$dataname], $rawdata['year']);
     return $data;
   }
