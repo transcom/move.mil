@@ -18,6 +18,9 @@ $total-background: #d6d7d9;
         margin: 0;
         width: auto;
         height: auto;
+        -webkit-appearance: radio;
+        -moz-appearance: radio;
+        appearance: radio;
     }
 
     span.bold{
