@@ -222,7 +222,7 @@ class App extends Component {
             <div className="content">
                 <div className="title">How much, in pounds, do you expect to move without the government's help?</div>
                 <div className="sub-text">
-                  The government will only pay for the actual weight transported, up to your weight allowance. Don't forget - if you move some of your goods yourself (PPM) and have the government move the rest (HHG), the weights of both shipments count towards your allowance. <a href="/weight-estimator"> Need help estimating your total household weight?</a>
+                  The government will only pay for the actual weight transported, up to your weight allowance. Don't forget - if you move some of your goods yourself (PPM) and have the government move the rest (HHG), the weights of both shipments count towards your allowance. <a href="/resources/weight-estimator"> Need help estimating your total household weight?</a>
                 </div>
                 <Weights changeWeightFn={this.changeWeight} weightOptions={this.state.weightOptions} isDependencies={this.state.isDependencies} selectedEntitlmentOptions={this.state.selectedEntitlmentOptions} invalidFields={this.state.invalidFields}/>
             </div>

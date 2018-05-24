@@ -46,11 +46,12 @@ class Rooms extends Component {
     }
 
     roomsComponent = () => {
+        let tempBase = '/themes/custom/move_mil/images/';
         let elements = _.map(this.props.rooms, (room, key) => {
             return (
                 <div className="room-container flex-container" key={key}>
                     <div className="logo-container flex-item logo">
-                        <img className="logo" src={this.props.baseUrl + key.toLowerCase() + '.svg'} alt={key} />
+                        <img className="logo" src={tempBase + key.toLowerCase() + '.svg'} alt={key} />
                         {/* <img className="logo" src={room.icon} alt={key} /> */}
                         <div className="room-title">{room.displayName.replace('/', '/ ')}</div>
                     </div>

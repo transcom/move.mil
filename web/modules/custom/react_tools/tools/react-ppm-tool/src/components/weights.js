@@ -6,7 +6,8 @@ import Input from './input';
 class Weights extends Component {
     constructor(props) {
         super(props);
-        this.isRank = false;
+
+        this.warningMessage = "Please fill out this field.";
     }
 
 
@@ -23,10 +24,10 @@ class Weights extends Component {
     }
 
     weightComp = () =>{
-        this.isRank = Object.keys(this.props.selectedEntitlmentOptions).length > 0;
-        this.houseHoldMaxAllowance = this.props.isDependencies ? this.props.selectedEntitlmentOptions.total_weight_self_plus_dependents : this.props.selectedEntitlmentOptions.total_weight_self;
-        this.errClass = this.props.weightOptions.houseHold > this.houseHoldMaxAllowance ? 'input-error' : '';
-        this.warningMessage = "Please fill out this field.";
+        let isRank = Object.keys(this.props.selectedEntitlmentOptions).length > 0;
+        let houseHoldMaxAllowance = this.props.isDependencies ? this.props.selectedEntitlmentOptions.total_weight_self_plus_dependents : this.props.selectedEntitlmentOptions.total_weight_self;
+        this.errClass = parseFloat(this.props.weightOptions.houseHold) > parseFloat(houseHoldMaxAllowance) ? 'input-error' : '';
+
         return (
             <div>
                 <div className={"weight-item " + this.errClass}>
@@ -40,9 +41,9 @@ class Weights extends Component {
                                params={{key: 'houseHold'}} />
                         {this.validationDisplay(this.props.weightOptions.houseHold, this.warningMessage)}
                     </div>
-                    <div style={{display: this.isRank ? 'inline-block' : 'none' }}>
+                    <div style={{display: isRank ? 'inline-block' : 'none' }}>
                         <span>Your weight allowance is up to </span>
-                        <span className="bold">{this.houseHoldMaxAllowance} lbs.</span>   
+                        <span className="bold">{houseHoldMaxAllowance} lbs.</span>   
                     </div>
                 </div>
                 <div className="weight-item">
@@ -52,7 +53,7 @@ class Weights extends Component {
                                type="text" 
                                onChangeFn={this.handleChange} 
                                params={{key: 'proGear'}} />
-                    <div style={{display: this.isRank ? 'inline-block' : 'none' }}>
+                    <div style={{display: isRank ? 'inline-block' : 'none' }}>
                         <span>Your Pro-Gear allowance is up to </span>
                         <span className="bold" > {this.props.selectedEntitlmentOptions.pro_gear_weight} lbs.</span>
                     </div>
@@ -64,7 +65,7 @@ class Weights extends Component {
                                type="text" 
                                onChangeFn={this.handleChange} 
                                params={{key: 'dependent'}} />
-                    <div style={{display: this.isRank ? 'inline-block' : 'none' }}>
+                    <div style={{display: isRank ? 'inline-block' : 'none' }}>
                         <span>Your spouse's Pro-Gear allowance is up to </span>
                         <span className="bold"> {this.props.selectedEntitlmentOptions.pro_gear_weight_spouse} lbs.</span>
                     </div>
