@@ -31,7 +31,7 @@ parser.files_and_tables_manager_form:
   path: '/admin/config/parser/manager'
   defaults:
     _form: '\Drupal\parser\Form\FilesAndTablesManagerForm'
-    _title: 'FilesAndTablesManagerForm'
+    _title: 'Parser Manager'
   requirements:
     _permission: 'access administration pages'
   options:
