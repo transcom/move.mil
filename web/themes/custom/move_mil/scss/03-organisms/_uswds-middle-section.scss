@@ -5,3 +5,9 @@
     padding-top: 1.5rem;
   }
 }
+
+.path-frontpage .usa-section.uswds-middle-section {
+  @include media($medium-screen) {
+    padding-top: 1.5rem;
+  }
+}

@@ -5,6 +5,7 @@
   .region-sidebar-second {
     @include media($medium-screen) {
       float: right;
+      margin-top: 1rem;
     }
 
     &.usa-width-one-third {
@@ -111,6 +112,8 @@
 
   // our paragraphs in the main content section
   .field--name-field-paragraph {
+    padding-top: 0;
+
     > .field__item {
       border-bottom: 2px dotted $color-gray-cool-light;
 
