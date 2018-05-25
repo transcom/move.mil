@@ -1,0 +1,7 @@
+.field--name-field-paragraph {
+  padding-top: 2.5rem;
+
+  .field--name-field-page-intro-text + & {
+    padding-top: 2rem;
+  }
+}

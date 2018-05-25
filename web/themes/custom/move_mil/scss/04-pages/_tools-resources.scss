@@ -5,4 +5,8 @@
     background-color: $color-gray-cool-light;
     margin-top: 0;
   }
+
+  .field--name-field-paragraph > .field__item:first-child .paragraph--text-with-image {
+    margin-top: 0;
+  }
 }

@@ -1,0 +1,4 @@
+// WYSIWYG fields
+.field.text-formatted {
+  @include strip-paragraph-spacing();
+}
