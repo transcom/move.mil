@@ -1,6 +1,7 @@
 p.pro-tip {
   padding: $spacing-small $spacing-small $spacing-small 50px;
   border: solid 1px $color-cool-blue-lightest;
+  position: relative;
 
   &:before {
     content: url('/themes/custom/move_mil/assets/img/icon--pro-tip.svg');
