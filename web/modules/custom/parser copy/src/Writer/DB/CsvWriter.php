@@ -31,7 +31,7 @@ class CsvWriter implements WriterInterface {
   public function write(array $rawdata) {
     $table = ($this->file == 'zip_3' ? 'parser_zip3s' : 'parser_zip5s');
     $zips = $this->mapdata($rawdata);
-    $this->insertToTable($zips, $table);
+    return $this->insertToTable($zips, $table);
   }
 
   /**

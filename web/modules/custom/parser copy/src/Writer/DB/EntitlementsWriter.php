@@ -19,7 +19,7 @@ class EntitlementsWriter implements WriterInterface {
   public function write(array $rawdata) {
     $table = 'parser_entitlements';
     $entitlements = $this->mapdata($rawdata);
-    $this->insertToTable($entitlements, $table);
+    return $this->insertToTable($entitlements, $table);
   }
 
   /**

@@ -15,8 +15,7 @@ use Drupal\parser\Writer\DB\DiscountWriter;
 use Drupal\parser\Writer\DB\ZipCodesWriter;
 use Drupal\Core\Url;
 use Drupal\file\Entity\File;
-use Exception;
-use Drupal\Core\Database;
+
 /**
  * Class FilesAndTablesManagerForm.
  */
@@ -241,50 +240,46 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $groups = $form_state->getValues();
-    $messages = [];
+    $message = "";
     foreach ($groups as $key => $group) {
-      $message = "";
       $group_data = $groups[$key];
 
       switch ($key) {
         case 'zip_3':
-          $tables = 'parser_zip3s';
+          $table = 'parser_zip3s';
           $reader = new CsvReader();
           $writer = new CsvWriter($key);
           break;
 
         case 'zip_5':
-          $tables = 'parser_zip5s';
+          $table = 'parser_zip5s';
           $reader = new CsvReader();
           $writer = new CsvWriter($key);
           break;
 
         case '400NG':
-          $tables = [
-            'parser_service_areas',
-            'parser_linehauls',
-            'parser_shorthauls',
-            'parser_packunpacks',
+          $table = ['parser_service_areas', 'parser_linehauls',
+            'parser_shorthauls', 'parser_packunpacks',
           ];
           $reader = new ExcelReader($group_data['year']);
           $writer = new Rates400NGWriter();
           break;
 
         case 'entitlements':
-          $tables = 'parser_entitlements';
+          $table = 'parser_entitlements';
           $reader = new YamlReader();
           $writer = new EntitlementsWriter();
           break;
 
         case 'discounts':
           $date = $group_data['effective_date'];
-          $tables = 'parser_discounts';
+          $table = 'parser_discounts';
           $reader = new DiscountReader();
           $writer = new DiscountWriter($date);
           break;
 
         case 'zipcodes':
-          $tables = 'parser_zipcodes';
+          $table = 'parser_zipcodes';
           $reader = new CsvReader();
           $writer = new ZipCodesWriter($group);
           break;
@@ -297,50 +292,32 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
         continue;
       }
 
-      $fid = intval($group_data['file'][0]);
-
-
-      if ($fid != 0 || $group_data['truncate']) {
-        $message .= $key . ':';
-      }
+      $message .= $key . ':';
 
       if ($group_data['truncate']) {
-        $message .= "\t Table cleared, ";
-        if (is_array($tables)) {
-          foreach ($tables as $table) {
-            $this->database()->truncate($table)
+        $message .= "\ttruncated";
+        if (is_array($table)) {
+          foreach ($table as $sep) {
+            \Drupal::database()->truncate($sep)
               ->execute();
           }
         }
         else {
-          $this->database()->truncate($tables)
+          \Drupal::database()->truncate($table)
             ->execute();
         }
       }
 
-      if ($fid != 0) {
+      if (intval($group_data['file'][0]) != 0) {
         $message .= "\tparsed";
-        try {
-          $file = File::load($fid);
-          $rawdata = $reader->parse($file->getFileUri());
-          $writer->write($rawdata);
-          $this->messenger()->addMessage($message);
-        }
-        catch (\Exception $e) {
-          $this->messenger()->addError('Exception on file: ' . $key . ",  " . $e->getMessage());
-        }
-        catch (\TypeError $e) {
-          $this->messenger()->addError('Error on file: ' . $key . ",  " . $e->getMessage());
-        }
+        $file = File::load($group_data['file'][0]);
+        $filename = file_directory_temp() . '/' . $file->get('filename')->value;
+        $rawdata = $reader->parse($filename);
+        $writer_status = $writer->write($rawdata);
       }
-      array_push($messages, $message);
+      $message .= "\t, ";
     }
-
-    if (!$e) {
-      foreach ($messages as $message) {
-        $this->messenger()->addMessage($message);
-      }
-    }
+    drupal_set_message($this->t($message));
   }
 
 }

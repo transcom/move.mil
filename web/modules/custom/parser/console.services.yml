@@ -1,6 +1,0 @@
-services:
-  parser.parser:
-    class: Drupal\parser\Command\ParserCommand
-    arguments: []
-    tags:
-      - { name: drupal.command }

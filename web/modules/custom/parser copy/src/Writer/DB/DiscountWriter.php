@@ -34,7 +34,7 @@ class DiscountWriter implements WriterInterface {
   public function write(array $rawdata) {
     $table = 'parser_discounts';
     $discounts = $this->mapdata($rawdata);
-    $this->insertToTable($discounts, $table);
+    return $this->insertToTable($discounts, $table);
   }
 
   /**

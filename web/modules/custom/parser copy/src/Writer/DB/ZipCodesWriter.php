@@ -31,7 +31,7 @@ class ZipCodesWriter implements WriterInterface {
   public function write(array $rawdata) {
     $table = 'parser_zipcodes';
     $codes = $this->mapdata($rawdata);
-    $this->insertToTable($codes, $table);
+    return $this->insertToTable($codes, $table);
   }
 
   /**
@@ -48,20 +48,14 @@ class ZipCodesWriter implements WriterInterface {
         return $k != 3 && $k != 4;
       }, ARRAY_FILTER_USE_KEY);
       $code_with_headers = array_combine($headers, $code_filtered);
-      if ($code_with_headers != FALSE) {
-        if ($code_with_headers['lat'] == '') {
-          $code_with_headers['lat'] = 0;
-        }
-        if ($code_with_headers['lon'] == '') {
-          $code_with_headers['lon'] = 0;
-        }
-        $codes[] = $code_with_headers;
-        next($rawdata);
+      if ($code_with_headers['lat'] == '') {
+        $code_with_headers['lat'] = 0;
       }
-      else {
-        $codes[] = $code_with_headers;
-        next($rawdata);
+      if ($code_with_headers['lon'] == '') {
+        $code_with_headers['lon'] = 0;
       }
+      $codes[] = $code_with_headers;
+      next($rawdata);
     }
     return $codes;
   }
