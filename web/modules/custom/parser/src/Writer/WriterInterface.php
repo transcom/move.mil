@@ -2,7 +2,6 @@
 
 namespace Drupal\parser\Writer;
 
-use Drupal\Console\Core\Style\DrupalStyle;
 
 /**
  * Interface WriterInterface.

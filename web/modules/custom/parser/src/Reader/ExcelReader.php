@@ -11,9 +11,16 @@ use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
  */
 class ExcelReader implements ReaderInterface {
 
+  /**
+   * ExcelReader constructor.
+   *
+   * @param string $year
+   *   Year the file was uploaded.
+   */
   public function __construct($year) {
     $this->year = $year;
   }
+
   /**
    * Parses excel file with PhpOffice\PhpSpreadsheet.
    */

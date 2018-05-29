@@ -3,7 +3,6 @@
 namespace Drupal\parser\Writer\DB;
 
 use Drupal\parser\Writer\WriterInterface;
-use Drupal\Console\Core\Style\DrupalStyle;
 
 /**
  * Class ZipCodesWriter.

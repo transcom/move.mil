@@ -36,4 +36,3 @@ parser.files_and_tables_manager_form:
     _permission: 'access administration pages'
   options:
     _admin_route: TRUE
-

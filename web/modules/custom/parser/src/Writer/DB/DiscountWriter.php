@@ -18,11 +18,8 @@ class DiscountWriter implements WriterInterface {
   /**
    * DiscountWriter constructor.
    *
-   * Takes the filename, extracts the date from it and stres it as and
-   * attribute.
-   *
-   * @param string $file
-   *   String containing the filename.
+   * @param string $date
+   *   String containing the effective date.
    */
   public function __construct($date) {
     $this->date = $date;

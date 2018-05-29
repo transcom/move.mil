@@ -17,6 +17,7 @@ use Drupal\Core\Url;
 use Drupal\file\Entity\File;
 use Exception;
 use Drupal\Core\Database;
+
 /**
  * Class FilesAndTablesManagerForm.
  */
@@ -127,22 +128,23 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
         '2030' => $this->t('2030'),
       ],
     ];
-    $form['400NG']['truncate'] = array(
+    $form['400NG']['truncate'] = [
       '#type' => 'checkbox',
       '#title' => $this
         ->t('Clean table (removes all data previously stored)'),
-    );
+    ];
+
     $form['400NG']['link'] = [
       '#title' => $this->t('What data is in this table?'),
       '#type' => 'link',
       '#url' => Url::fromRoute('<front>'),
     ];
 
-    $form['entitlements'] = array(
+    $form['entitlements'] = [
       '#type' => 'details',
-      '#title' => $this
-        ->t('Entitlements'),
-    );
+      '#title' => $this->t('Entitlements'),
+    ];
+
     $form['entitlements']['file'] = [
       '#type' => 'managed_file',
       '#title' => $this->t('Entitlements'),
@@ -150,22 +152,22 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
         'file_validate_extensions' => ['yml'],
       ],
     ];
-    $form['entitlements']['truncate'] = array(
+    $form['entitlements']['truncate'] = [
       '#type' => 'checkbox',
-      '#title' => $this
-        ->t('Clean table (removes all data previously stored)'),
-    );
+      '#title' => $this->t('Clean table (removes all data previously stored)'),
+    ];
+
     $form['entitlements']['link'] = [
       '#title' => $this->t('What data is in this table?'),
       '#type' => 'link',
       '#url' => Url::fromRoute('<front>'),
     ];
 
-    $form['discounts'] = array(
+    $form['discounts'] = [
       '#type' => 'details',
-      '#title' => $this
-        ->t('Discounts'),
-    );
+      '#title' => $this->t('Discounts'),
+    ];
+
     $form['discounts']['file'] = [
       '#type' => 'managed_file',
       '#title' => $this->t('Discount'),
@@ -173,27 +175,27 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
         'file_validate_extensions' => ['xlsx'],
       ],
     ];
-    $form['discounts']['effective_date'] = array(
+    $form['discounts']['effective_date'] = [
       '#type' => 'date',
-      '#title' => $this
-        ->t('Please choose the effective date for this file'),
-    );
-    $form['discounts']['truncate'] = array(
+      '#title' => $this->t('Please choose the effective date for this file'),
+    ];
+
+    $form['discounts']['truncate'] = [
       '#type' => 'checkbox',
-      '#title' => $this
-        ->t('Clean table (removes all data previously stored)'),
-    );
+      '#title' => $this->t('Clean table (removes all data previously stored)'),
+    ];
+
     $form['discounts']['link'] = [
       '#title' => $this->t('What data is in this table?'),
       '#type' => 'link',
       '#url' => Url::fromRoute('<front>'),
     ];
 
-    $form['zipcodes'] = array(
+    $form['zipcodes'] = [
       '#type' => 'details',
-      '#title' => $this
-        ->t('Zip codes'),
-    );
+      '#title' => $this->t('Zip codes'),
+    ];
+
     $form['zipcodes']['file'] = [
       '#type' => 'managed_file',
       '#title' => $this->t('Zipcodes'),
@@ -201,11 +203,12 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
         'file_validate_extensions' => ['csv'],
       ],
     ];
-    $form['zipcodes']['truncate'] = array(
+
+    $form['zipcodes']['truncate'] = [
       '#type' => 'checkbox',
-      '#title' => $this
-        ->t('Clean table (removes all data previously stored)'),
-    );
+      '#title' => $this->t('Clean table (removes all data previously stored)'),
+    ];
+
     $form['zipcodes']['link'] = [
       '#title' => $this->t('What data is in this table?'),
       '#type' => 'link',
@@ -298,7 +301,6 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
       }
 
       $fid = intval($group_data['file'][0]);
-
 
       if ($fid != 0 || $group_data['truncate']) {
         $message .= $key . ':';
