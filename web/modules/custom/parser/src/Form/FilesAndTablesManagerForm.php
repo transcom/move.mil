@@ -47,11 +47,11 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
 
     $form['#tree'] = TRUE;
 
-    $form['zip_3'] = array(
+    $form['zip_3'] = [
       '#type' => 'details',
-      '#title' => $this
-        ->t('Zip 3'),
-    );
+      '#title' => $this->t('Zip 3'),
+    ];
+
     $form['zip_3']['file'] = [
       '#type' => 'managed_file',
       '#title' => $this->t('Zip_3'),
@@ -59,22 +59,22 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
         'file_validate_extensions' => ['csv'],
       ],
     ];
-    $form['zip_3']['truncate'] = array(
+
+    $form['zip_3']['truncate'] = [
       '#type' => 'checkbox',
-      '#title' => $this
-        ->t('Clean table (removes all data previously stored)'),
-    );
+      '#title' => $this->t('Clean table (removes all data previously stored)'),
+    ];
+
     $form['zip_3']['link'] = [
       '#title' => $this->t('What data is in this table?'),
       '#type' => 'link',
       '#url' => Url::fromRoute('<front>'),
     ];
 
-    $form['zip_5'] = array(
+    $form['zip_5'] = [
       '#type' => 'details',
-      '#title' => $this
-        ->t('Zip 5'),
-    );
+      '#title' => $this->t('Zip 5'),
+    ];
 
     $form['zip_5']['file'] = [
       '#type' => 'managed_file',
@@ -84,22 +84,22 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
       ],
     ];
 
-    $form['zip_5']['truncate'] = array(
+    $form['zip_5']['truncate'] = [
       '#type' => 'checkbox',
-      '#title' => $this
-        ->t('Clean table (removes all data previously stored)'),
-    );
+      '#title' => $this->t('Clean table (removes all data previously stored)'),
+    ];
+
     $form['zip_5']['link'] = [
       '#title' => $this->t('What data is in this table?'),
       '#type' => 'link',
       '#url' => Url::fromRoute('<front>'),
     ];
 
-    $form['400NG'] = array(
+    $form['400NG'] = [
       '#type' => 'details',
-      '#title' => $this
-        ->t('400NG'),
-    );
+      '#title' => $this->t('400NG'),
+    ];
+
     $form['400NG']['file'] = [
       '#type' => 'managed_file',
       '#title' => $this->t('400NG'),
@@ -107,6 +107,7 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
         'file_validate_extensions' => ['xlsx'],
       ],
     ];
+
     $form['400NG']['year'] = [
       '#type' => 'select',
       '#default_value' => NULL,
@@ -128,6 +129,7 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
         '2030' => $this->t('2030'),
       ],
     ];
+
     $form['400NG']['truncate'] = [
       '#type' => 'checkbox',
       '#title' => $this

@@ -2,7 +2,6 @@
 
 namespace Drupal\parser\Writer;
 
-
 /**
  * Interface WriterInterface.
  *
