@@ -15,9 +15,9 @@ use Drupal\parser\Writer\DB\CsvWriter;
 use Drupal\parser\Writer\DB\DiscountWriter;
 use Drupal\parser\Writer\DB\ZipCodesWriter;
 use Drupal\Core\Url;
-use Drupal\file\Entity\File;
 use Drupal\Core\Database\Connection;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\Core\Entity\EntityTypeManager;
 
 /**
  * Class FilesAndTablesManagerForm.
@@ -32,13 +32,21 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
   protected $db;
 
   /**
+   * Variable containing the entity type manager.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManager
+   */
+  protected $entity;
+
+  /**
    * FilesAndTablesManagerForm constructor.
    *
    * Needed for dependency injection.
    */
-  public function __construct(ConfigFactoryInterface $config_factory, Connection $db) {
+  public function __construct(ConfigFactoryInterface $config_factory, Connection $db, EntityTypeManager $entity) {
     parent::__construct($config_factory);
     $this->db = $db;
+    $this->entity = $entity;
   }
 
   /**
@@ -47,7 +55,8 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('config.factory'),
-      $container->get('database')
+      $container->get('database'),
+      $container->get('entity_type.manager')
     );
   }
 
@@ -352,7 +361,7 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
       if ($fid != 0) {
         $message .= "\tparsed";
         try {
-          $file = File::load($fid);
+          $file = $this->entity->getStorage('file')->load($fid);
           $rawdata = $reader->parse($file->getFileUri());
           $writer->write($rawdata);
           $this->messenger()->addMessage($message);

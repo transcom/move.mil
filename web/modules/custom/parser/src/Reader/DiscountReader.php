@@ -23,10 +23,10 @@ class DiscountReader implements ReaderInterface {
     $highestRow = $spreadsheet->getHighestRow();
     for ($row_nr = $lowestRow; $row_nr <= $highestRow; $row_nr++) {
       $row = [
-        $schedule['origin'] = $spreadsheet->getCellByColumnAndRow(1, $row_nr)->getValue(),
-        $schedule['destination'] = $spreadsheet->getCellByColumnAndRow(2, $row_nr)->getValue(),
-        $schedule['LH_RATE'] = $spreadsheet->getCellByColumnAndRow(3, $row_nr)->getValue(),
-        $schedule['SIT_RATE'] = $spreadsheet->getCellByColumnAndRow(4, $row_nr)->getValue(),
+        $spreadsheet->getCellByColumnAndRow(1, $row_nr)->getValue(),
+        $spreadsheet->getCellByColumnAndRow(2, $row_nr)->getValue(),
+        $spreadsheet->getCellByColumnAndRow(3, $row_nr)->getValue(),
+        $spreadsheet->getCellByColumnAndRow(4, $row_nr)->getValue(),
       ];
       array_push($xlsx, $row);
     }
