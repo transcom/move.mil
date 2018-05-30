@@ -25,10 +25,17 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class FilesAndTablesManagerForm extends ConfigFormBase {
 
   /**
-   * @var Drupal\Core\Database\Connection $db
+   * Variable containing the database connection.
+   *
+   * @var \Drupal\Core\Database\Connection
    */
   protected $db;
 
+  /**
+   * FilesAndTablesManagerForm constructor.
+   *
+   * Needed for dependency injection.
+   */
   public function __construct(ConfigFactoryInterface $config_factory, Connection $db) {
     parent::__construct($config_factory);
     $this->db = $db;
@@ -64,8 +71,6 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $config = $this->config('parser.filesandtablesmanager');
-
     $form['#tree'] = TRUE;
 
     $form['zip_3'] = [
