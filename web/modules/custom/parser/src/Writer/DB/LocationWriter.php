@@ -48,6 +48,7 @@ class LocationWriter implements WriterInterface {
         $error .= "{$query_term} file is already parsed. Remove all Location nodes and try again." . PHP_EOL;
         continue;
       }
+
       foreach (json_decode($file) as $obj) {
         $node_ref = (property_exists($obj, 'shipping_office_name')) &&
         ($obj->shipping_office_name != NULL) ?
@@ -121,6 +122,8 @@ class LocationWriter implements WriterInterface {
             'target_type' => "taxonomy_term",
           ],
         ]);
+        dump($node);
+
         $node->save();
       }
     }
