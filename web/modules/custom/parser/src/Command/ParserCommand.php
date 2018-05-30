@@ -9,7 +9,6 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use Drupal\parser\Reader\LocationReader;
 use Drupal\parser\Writer\DB\LocationWriter;
 
-
 /**
  * Class ParserCommand.
  *
