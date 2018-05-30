@@ -42,18 +42,4 @@ trait DBWriter {
         ->execute();
     }
   }
-
-  /**
-   * Truncates a database table.
-   *
-   * @param string $table
-   *   The table to truncate.
-   *
-   * @see db_truncate()
-   */
-  public function truncateTable($table) {
-    $this->getDatabaseConnection()->truncate($table)
-      ->execute();
-  }
-
 }

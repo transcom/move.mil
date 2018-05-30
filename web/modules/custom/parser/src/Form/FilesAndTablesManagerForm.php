@@ -2,6 +2,7 @@
 
 namespace Drupal\parser\Form;
 
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\parser\Reader\CsvReader;
@@ -15,13 +16,33 @@ use Drupal\parser\Writer\DB\DiscountWriter;
 use Drupal\parser\Writer\DB\ZipCodesWriter;
 use Drupal\Core\Url;
 use Drupal\file\Entity\File;
-use Exception;
-use Drupal\Core\Database;
+use Drupal\Core\Database\Connection;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Class FilesAndTablesManagerForm.
  */
 class FilesAndTablesManagerForm extends ConfigFormBase {
+
+  /**
+   * @var Drupal\Core\Database\Connection $db
+   */
+  protected $db;
+
+  public function __construct(ConfigFactoryInterface $config_factory, Connection $db) {
+    parent::__construct($config_factory);
+    $this->db = $db;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('config.factory'),
+      $container->get('database')
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -247,6 +268,7 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $groups = $form_state->getValues();
     $messages = [];
+
     foreach ($groups as $key => $group) {
       $message = "";
       $group_data = $groups[$key];
@@ -312,12 +334,12 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
         $message .= "\t Table cleared, ";
         if (is_array($tables)) {
           foreach ($tables as $table) {
-            $this->database()->truncate($table)
+            $this->db->truncate($table)
               ->execute();
           }
         }
         else {
-          $this->database()->truncate($tables)
+          $this->db->truncate($tables)
             ->execute();
         }
       }
