@@ -5,28 +5,6 @@
     border: solid 1px $color-cool-blue-lightest;
   }
 
-  &__align-right {
-    margin: $spacing-medium 0;
-
-    &.usa-width-one-third {
-      @include media($medium-screen) {
-        float: right;
-        margin: 0 0 0 $spacing-medium;
-      }
-    }
-  }
-
-  &__align-left {
-    margin: $spacing-medium 0;
-
-    &.usa-width-one-third {
-      @include media($medium-screen) {
-        float: left;
-        margin: 0 $spacing-medium 0 0;
-      }
-    }
-  }
-
   &__align-top {
     margin: $spacing-medium 0 0;
   }
