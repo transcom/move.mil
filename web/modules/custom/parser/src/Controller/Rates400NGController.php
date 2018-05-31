@@ -8,14 +8,14 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Database\Connection as Connection;
 
 /**
- * Class EntitlementsController.
+ * Class Rates400NGController.
  */
-class EntitlementsController extends ControllerBase {
+class Rates400NGController extends ControllerBase {
 
   private $databaseConnection;
 
   /**
-   * Constructs a EntitlementsController.
+   * Constructs a Rates400NGController.
    *
    * @param \Drupal\Core\Database\Connection $databaseConnection
    *   A Database Connection object.
@@ -34,56 +34,21 @@ class EntitlementsController extends ControllerBase {
   }
 
   /**
-   * Get all entitlements.
-   *
-   * @return \Symfony\Component\HttpFoundation\JsonResponse
-   *   Return entitlements as a Json object
+   * Get all service areas from the DB.
    */
-  public function index() {
-    $entries = $this->getAll();
-    $data = $this->mapdata($entries);
-    $response = JsonResponse::create($data, 200);
-    $response->setEncodingOptions(
-      $response->getEncodingOptions() |
-      JSON_PRETTY_PRINT |
-      JSON_FORCE_OBJECT
-    );
-    if (gettype($response) == 'object') {
-      return $response;
-    }
-    else {
-      return JsonResponse::create('Error while creating response.', 500);
-    }
-  }
-
-  /**
-   * Get all entitlements from the DB.
-   */
-  private function getAll() {
-    return $this->databaseConnection
-      ->select('parser_entitlements')
-      ->fields('parser_entitlements')
+  public function fetchServiceAreas() {
+    $sas = $this->databaseConnection
+      ->select('parser_service_areas')
+      ->fields('parser_service_areas')
       ->execute()
       ->fetchAll();
+    return (array) $sas;
   }
-
+  
   /**
-   * Normalizes data mapping entitlements code with the rest of the data.
+   * Get all sas in a Drupal 8 table.
    */
-  private function mapdata(array $entries) {
-    $entitlements = [];
-    foreach ($entries as $entry) {
-      $entitlement = (array) $entry;
-      $key = $entitlement['slug'];
-      $entitlements[$key] = $entitlement;
-    }
-    return $entitlements;
-  }
-
-  /**
-   * Get all entitlements in a Drupal 8 table.
-   */
-  public function table() {
+  public function saTable() {
     $entries = $this->getAll();
     $header = [
       'id' => t('id'),

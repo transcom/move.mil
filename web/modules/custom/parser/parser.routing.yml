@@ -12,6 +12,13 @@ parser.entitlements_controller_index:
     _title: 'index'
   requirements:
     _permission: 'access content'
+parser.entitlements_controller_table:
+  path: '/parser/entitlements/table'
+  defaults:
+    _controller: '\Drupal\parser\Controller\EntitlementsController::table'
+    _title: 'table'
+  requirements:
+    _permission: 'access content'
 parser.ppm_estimator_controller_estimate:
   path: '/parser/ppm_estimate'
   defaults:
@@ -24,5 +31,40 @@ parser.locations_controller_locations:
   defaults:
     _controller: '\Drupal\parser\Controller\LocationsController::locations'
     _title: 'locations'
+  requirements:
+    _permission: 'access content'
+parser.zip3_controller_table:
+  path: '/parser/zip3/table'
+  defaults:
+    _controller: '\Drupal\parser\Controller\Zip3Controller::table'
+    _title: 'table'
+  requirements:
+    _permission: 'access content'
+parser.zip5_controller_table:
+  path: '/parser/zip5/table'
+  defaults:
+    _controller: '\Drupal\parser\Controller\Zip5Controller::table'
+    _title: 'table'
+  requirements:
+    _permission: 'access content'
+parser.rates400NG_controller_sa_table:
+  path: '/parser/service-areas/table'
+  defaults:
+    _controller: '\Drupal\parser\Controller\Rates400NGController::saTable'
+    _title: 'table'
+  requirements:
+    _permission: 'access content'
+parser.discounts_controller_table:
+  path: '/parser/discounts/table'
+  defaults:
+    _controller: '\Drupal\parser\Controller\DiscountsController::table'
+    _title: 'table'
+  requirements:
+    _permission: 'access content'
+parser.zipcodes_controller_table:
+  path: '/parser/zipcodes/table'
+  defaults:
+    _controller: '\Drupal\parser\Controller\ZipcodesController::table'
+    _title: 'table'
   requirements:
     _permission: 'access content'
