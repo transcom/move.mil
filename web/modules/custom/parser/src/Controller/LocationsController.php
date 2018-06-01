@@ -68,8 +68,7 @@ class LocationsController extends ControllerBase {
     $geolocation = $this->geoLocation($params);
     if (empty($this->errors)) {
       $data['geolocation'] = $geolocation;
-      $locations = $this->loadLocations($geolocation);
-      $data['offices'] = $this->orderedLocations($locations);
+      $data['offices'] = $this->loadLocations($geolocation);
       return $this->response($data);
     }
     return $this->response();
@@ -188,54 +187,44 @@ class LocationsController extends ControllerBase {
       if (!$this->searchable($type)) {
         continue;
       }
-      $data[$entity->label()] = $this->parse($location, $type);
+      $data[$entity->id()] = $this->parse($location, $type);
       $shipping = $this->shippingOffice($location);
-      $data[$entity->label()]['shipping_office'] = $this->parse($shipping, 'Shipping Office');
-      $data[$entity->label()]['distance'] = $this->distance($origin, $data[$entity->label()]['location']);
+      $data[$entity->id()]['shipping_office'] = $this->parse($shipping, 'Shipping Office');
+      $distance_km = $this->distance($origin, $data[$entity->id()]['location']);
+      $data[$entity->id()]['distance_km'] = $distance_km;
+      $data[$entity->id()]['distance_mi'] = 0.621371 * $distance_km;
     }
     return $data;
   }
 
   /**
-   * Return closest locations first.
-   */
-  private function orderedLocations($locations) {
-    $locs = $locations;
-    uasort($locs, function ($a, $b) {
-      if ($a['distance'] == $b['distance']) {
-        return 0;
-      }
-      return ($a['distance'] < $b['distance']) ? -1 : 1;
-    });
-    return $locs;
-  }
-
-  /**
-   * Return miles from the origin to the given location.
+   * Return km from the origin to the given location.
    *
    * @param array $origin
    *   Geolocation of the origin or search.
    * @param array $location
-   *   Geolocation of the trasnportation office or weight scale.
+   *   Geolocation of the transportation office or weight scale.
    *
    * @return float
-   *   The distance in miles.
+   *   The distance in km.
    */
   private function distance(array $origin, array $location) {
     // Convert from degrees to radians.
-    $lat1 = deg2rad($origin['lat']);
-    $lon1 = deg2rad($origin['lon']);
-    $lat2 = deg2rad($location['lat']);
-    $lon2 = deg2rad($location['lon']);
-    $theta = deg2rad($lon1 - $lon2);
-    // Get distance.
-    $dist = rad2deg(
-      acos(
-        sin($lat1) * sin($lat2) + cos($lat1) * cos($lat2) * cos($theta)
-      )
-    );
-    $miles = $dist * 60.0 * 1.1515;
-    return $miles;
+    $latFrom = $origin['lat'];
+    $lonFrom = $origin['lon'];
+    $latTo = $location['lat'];
+    $lonTo = $location['lon'];
+    // Radius of the earth in KM.
+    $earthRadius = 6371.0;
+    $latDelta = deg2rad($latTo - $latFrom);
+    $lonDelta = deg2rad($lonTo - $lonFrom);
+    $a = sin($latDelta / 2) * sin($latDelta / 2) +
+      cos(deg2rad($latFrom)) * cos(deg2rad($latTo)) *
+      sin($lonDelta / 2) * sin($lonDelta / 2);
+    $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
+    // Distance in KM.
+    $distance = $earthRadius * $c;
+    return $distance;
   }
 
   /**
