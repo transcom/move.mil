@@ -24,6 +24,6 @@ settings:
 visibility:
   request_path:
     id: request_path
-    pages: "/service-specific-information/\r\n/service-specific-information/*"
+    pages: "/service-specific-information\r\n/service-specific-information/*"
     negate: false
     context_mapping: {  }
