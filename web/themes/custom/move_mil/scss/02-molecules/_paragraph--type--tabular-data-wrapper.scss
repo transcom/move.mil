@@ -24,6 +24,11 @@
 
     img {
       margin-right: $site-margins-mobile;
+      vertical-align: middle;
+
+      + abbr {
+        vertical-align: middle;
+      }
     }
 
     @include media($medium-screen) {
@@ -34,12 +39,12 @@
         &.tabular-data-left {
           vertical-align: top;
           text-align: center;
-        }
-      }
 
-      img {
-        display: block;
-        margin: 0 auto 1rem auto;
+          img {
+            display: block;
+            margin: 0 auto 1rem auto;
+          }
+        }
       }
     }
 
