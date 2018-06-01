@@ -9,7 +9,7 @@
         // var targetId = href.substring(1, href.length);
         var target = $("div[id*='" + targetId + "']");
         var offset = $(target).offset();
-        offset.top -= 200;
+        offset.top -= 100;
         $('html, body').animate({
           scrollTop: offset.top,
           scrollLeft: 0
@@ -20,7 +20,22 @@
     });
   };
 
+  var smoothBackToTop = function(){
+    var topLink = $('.back-to-top a');
+    topLink.click(function(e) {
+      e.preventDefault();
+      $('html, body').animate({
+        scrollTop: 0,
+        scrollLeft: 0
+      }, 1000);
+      window.location.hash = '';
+      return;
+    });
+
+  };
+
   $(window).on('load', function() {
     offsetJumpScroll();
+    smoothBackToTop();
   });
 })(jQuery);

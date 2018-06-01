@@ -14,6 +14,11 @@ $medium-large-screen: 951px !default;
   #{$element} {
     @include margin(0 null);
     line-height: normal;
+
+    + ul,
+    + ol {
+      margin-top: 1.6rem;
+    }
   }
 
   * + #{$element} {
