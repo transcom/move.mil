@@ -3,6 +3,7 @@
 namespace Drupal\parser\Handler;
 
 use Drupal\parser\Reader\CsvReader;
+use Drupal\parser\Reader\DecryptReader;
 use Drupal\parser\Reader\ExcelReader;
 use Drupal\parser\Reader\YamlReader;
 use Drupal\parser\Reader\LocationReader;
@@ -13,6 +14,7 @@ use Drupal\parser\Writer\DB\LocationWriter;
 use Drupal\parser\Writer\DB\DiscountWriter;
 use Drupal\parser\Writer\DB\ZipCodesWriter;
 use Drupal\Console\Core\Style\DrupalStyle;
+use Symfony\Component\Finder\Finder;
 
 /**
  * Class ParserController.
@@ -57,9 +59,9 @@ class ParserHandler {
    */
   public function execute() {
     $filename_to_string = is_array($this->filename) ? implode(",\n", $this->filename) : $this->filename;
-    $this->io->info("Parsing {$filename_to_string}...");
+    $this->io->info('Parsing file(s):' . PHP_EOL . $filename_to_string);
     $rawdata = $this->reader->parse($this->filename);
-    $this->io->info("File read and pre-processed [{$filename_to_string}].");
+    $this->io->info('File(s) read and pre-processed.');
     $this->writer->write($rawdata, $this->truncate, $this->io);
   }
 
@@ -69,6 +71,7 @@ class ParserHandler {
   private function filename($path, $input) {
     $reader = NULL;
     $writer = NULL;
+
     switch ($input) {
       case (preg_match('/^zip[\d]+/', $input) ? TRUE : FALSE):
         $filename = "${path}/${input}.csv";
@@ -88,10 +91,20 @@ class ParserHandler {
         $writer = new EntitlementsWriter();
         break;
 
-      case (preg_match('/discounts-[\d]+[\w]{3}[\d]{4}/', $input) ? TRUE : FALSE):
-        $filename = "${path}/${input}.csv";
-        $reader = new CsvReader();
-        $writer = new DiscountWriter($input);
+      case 'discounts':
+        $filename = [];
+        $files = [];
+        $finder = new Finder();
+        $finder->in(DRUPAL_ROOT . '/../lib/data');
+        $finder->files()->name('/discounts-[ADFJMNOS][aceopu][bcglnprtvy]-\d{2}-\d{4}.csv.enc/');
+        foreach ($finder as $file) {
+          array_push($filename, $file->getPathname());
+          array_push($files, $file->getFilename());
+
+        }
+
+        $reader = new DecryptReader();
+        $writer = new DiscountWriter($filename);
         break;
 
       case 'all_us_zipcodes':

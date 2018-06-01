@@ -30,7 +30,7 @@ main_menu.moving_guide:
   weight: 1
 
 main_menu.tutorials:
-  title: 'Tutorial'
+  title: 'Tutorials'
   url: 'internal:/tutorials'
   menu_name: main_menu
   weight: 2

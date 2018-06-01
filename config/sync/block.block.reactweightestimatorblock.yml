@@ -1,0 +1,26 @@
+uuid: d80339e2-00b0-444a-b1ad-dac6d392cf40
+langcode: en
+status: true
+dependencies:
+  module:
+    - react_tools
+    - system
+  theme:
+    - move_mil
+id: reactweightestimatorblock
+theme: move_mil
+region: content
+weight: 0
+provider: null
+plugin: react_weight_estimator_block
+settings:
+  id: react_weight_estimator_block
+  label: 'React weight estimator block'
+  provider: react_tools
+  label_display: '0'
+visibility:
+  request_path:
+    id: request_path
+    pages: /resources/weight-estimator
+    negate: false
+    context_mapping: {  }

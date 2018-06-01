@@ -10,13 +10,18 @@ $color-gray-cool-lightest: #f3f7fa;
 $sidenav-screen-width: 800px;
 $medium-large-screen: 951px !default;
 
-@mixin strip-paragraph-spacing() {
-  p {
+@mixin strip-paragraph-spacing($element: p) {
+  #{$element} {
     @include margin(0 null);
     line-height: normal;
 
-    + p {
+    + ul,
+    + ol {
       margin-top: 1.6rem;
     }
+  }
+
+  * + #{$element} {
+    margin-top: 1.6rem;
   }
 }

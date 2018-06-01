@@ -19,8 +19,7 @@ class CsvReader implements ReaderInterface {
     if (!is_readable($csvFile)) {
       throw new \RuntimeException(sprintf('File "%s" cannot be read.', $csvFile));
     }
-    $csv = array_map('str_getcsv', file($csvFile));
-    return $csv;
+    return array_map('str_getcsv', file($csvFile));
   }
 
 }

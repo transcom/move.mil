@@ -28,9 +28,9 @@
               <a href="{{ titleLink }}">{{ content.field_image }}</a>
             {% elseif content.field_image|field_value == false and content.field_plain_title|field_value == true %}
               {% if titleLink is not empty %}
-                <h3 class="field-title-plain--link"><a href="{{ titleLink }}">{{ content.field_plain_title }}</a></h3>
+                <h3 class="field-title-plain--link"><a href="{{ titleLink }}">{{ content.field_plain_title.0 }}</a></h3>
               {% else %}
-                <h3 class="field-title-plain">{{ content.field_plain_title }}</h3>
+                <h3 class="field-title-plain">{{ content.field_plain_title.0 }}</h3>
               {% endif %}
             {% endif %}
 
@@ -39,9 +39,9 @@
 
             {% if content.field_image|field_value == true and content.field_plain_title|field_value == true %}
               {% if titleLink is not empty %}
-                <h3><a href="{{ titleLink }}">{{ content.field_plain_title }}</a></h3>
+                <h3><a href="{{ titleLink }}">{{ content.field_plain_title.0 }}</a></h3>
               {% else %}
-                <h3>{{ content.field_plain_title }}</h3>
+                <h3>{{ content.field_plain_title.0 }}</h3>
               {% endif %}
             {% endif %}
             {{ content.field_body }}

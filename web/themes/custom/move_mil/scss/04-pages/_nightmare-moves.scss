@@ -1,4 +1,6 @@
 .nightmare-moves {
+  position: relative;
+
   .field--name-field-paragraph {
 
     @include media($medium-large-screen) {

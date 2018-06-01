@@ -46,7 +46,7 @@ class WeightCalcJsonController extends ControllerBase {
 
       $array_obj[preg_replace('/[^\p{L}\p{N}\s]/u', '', str_replace(' ', '-', $obj->name))] = [
         'displayName' => $obj->name,
-        'icon' => $obj->icon,
+        'icon' => drupal_get_path('theme', 'move_mil') . '/assets/img/' . $obj->icon,
         'items' => $items,
       ];
     }

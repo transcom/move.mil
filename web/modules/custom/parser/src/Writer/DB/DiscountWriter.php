@@ -46,20 +46,26 @@ class DiscountWriter implements WriterInterface {
    * Normalizes data mapping discounts with the rest of the data.
    */
   private function mapdata(array $rawdata) {
-    $discounts = [];
-    $phpDate = substr($this->file, 10);
     $headers = $this->discountHeaders();
-    array_shift($rawdata);
-    while ($discount = current($rawdata)) {
-      $discount[] = strtotime($phpDate);
-      $discounts[] = array_combine($headers, $discount);
-      next($rawdata);
+    $discounts = [];
+
+    foreach ($rawdata as $key => $data) {
+      preg_match('/[ADFJMNOS][aceopu][bcglnprtvy]-\d{2}-\d{4}/', $this->file[$key], $phpDate);
+      array_shift($data);
+
+      foreach ($data as $row) {
+        $row[] = strtotime($phpDate[0]);
+
+        if ($row[0] != NULL) {
+          array_push($discounts, array_combine($headers, $row));
+        }
+      }
     }
     return $discounts;
   }
 
   /**
-   * Returns an array containg the discounts headers.
+   * Returns an array containing the discounts headers.
    */
   private function discountHeaders() {
     return [
