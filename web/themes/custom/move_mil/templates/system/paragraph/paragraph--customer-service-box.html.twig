@@ -32,6 +32,15 @@
             {% endfor %}
           {% endif %}
 
+          {% if content.field_website|field_value == true %}
+            {% for key, item in content.field_website if key matches '/^\\d+$/' %}
+              <tr class="svc-spec-links--group">
+                <th class="svc-spec-links--title">{{ content.field_website['#title'] }}</th>
+                <td class="svc-spec-links--content"><a href="{{ item['#url'].uri }}">{{ item['#title'] }}</a></td>
+              </tr>
+            {% endfor %}
+          {% endif %}
+
           {% if content.field_dsn_phone|field_value == true %}
             {% for key, item in content.field_dsn_phone if key matches '/^\\d+$/' %}
               <tr class="svc-spec-links--group">
