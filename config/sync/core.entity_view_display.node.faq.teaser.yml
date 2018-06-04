@@ -9,7 +9,6 @@ dependencies:
     - field.field.node.faq.field_journey_step
     - node.type.faq
   module:
-    - svg_image
     - text
     - user
 id: node.faq.teaser

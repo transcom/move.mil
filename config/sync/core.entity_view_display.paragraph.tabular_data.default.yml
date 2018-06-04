@@ -10,7 +10,6 @@ dependencies:
     - field.field.paragraph.tabular_data.field_tabular_image
     - paragraphs.paragraphs_type.tabular_data
   module:
-    - svg_image
     - text
 id: paragraph.tabular_data.default
 targetEntityType: paragraph

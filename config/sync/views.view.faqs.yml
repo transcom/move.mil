@@ -19,7 +19,6 @@ dependencies:
     - 'taxonomy_term:steps:d417486c-74e7-4406-ac91-d9be2d75e7b1'
   module:
     - node
-    - svg_image
     - taxonomy
     - text
     - user
