@@ -1302,10 +1302,6 @@ display:
           settings:
             image_style: ''
             image_link: ''
-            svg_render_as_image: 1
-            svg_attributes:
-              width: ''
-              height: ''
           group_column: ''
           group_columns: {  }
           group_rows: true
@@ -1752,10 +1748,6 @@ display:
           settings:
             image_style: ''
             image_link: ''
-            svg_render_as_image: 1
-            svg_attributes:
-              width: ''
-              height: ''
           group_column: ''
           group_columns: {  }
           group_rows: true
@@ -2189,10 +2181,6 @@ display:
           settings:
             image_style: ''
             image_link: ''
-            svg_render_as_image: 1
-            svg_attributes:
-              width: ''
-              height: ''
           group_column: ''
           group_columns: {  }
           group_rows: true
