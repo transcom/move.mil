@@ -15,4 +15,14 @@ content:
   links:
     weight: 100
     region: content
-hidden: {  }
+hidden:
+  field_geolocation: true
+  field_location_address: true
+  field_location_email: true
+  field_location_hours: true
+  field_location_link: true
+  field_location_note: true
+  field_location_reference: true
+  field_location_services: true
+  field_location_telephone: true
+  field_location_type: true
