@@ -1,17 +1,198 @@
 import React from 'react';
+import * as _ from 'lodash';
+
+const Phones = (props) =>{
+  return _.map(props.phones, (phone, i)=>{
+    return (
+      <div key={i}>{phone}</div>
+    )
+  })
+}
+
+const Emails = (props) =>{
+  return _.map(props.emails, (email, i)=>{
+    return (
+      <div key={i}><a href={"mailto:" + email}>{email}</a></div>
+    )
+  })
+}
+
+const Websites = (props) =>{
+  return _.map(props.websites, (website, i)=>{
+    return (
+      <div key={i}><a href={website}>{website}</a></div>
+    )
+  })
+}
+
+const Services = (props) =>{
+  return _.map(props.services, (service, i)=>{
+    return (
+      <li key={i}>{service}</li>
+    )
+  })
+}
+
+this.showPhones = (phones) =>{
+  if(phones){
+    return (
+      <div>
+        <div>Phone:</div>
+        <Phones phones={phones} />
+      </div>
+    )
+  }
+}
+
+this.showEmails = (emails) =>{
+  if(emails){
+    return (
+      <div>
+        <div>Email:</div>
+        <Emails emails={emails} />
+      </div>
+    )
+  }
+}
+
+this.showWebsites = (websites) =>{
+  if(websites){
+    return (
+      <div>
+        <div>Websites:</div>
+        <Websites websites={websites} />
+      </div>
+    )
+  }
+}
+
+this.showServices = (services) =>{
+  if(services){
+    return (
+      <div>
+        <div>Services:</div>
+        <ul className="location-search-result-services">
+          <Services services={services} />
+        </ul>
+      </div>
+    )
+  }
+}
+
+this.showHours = (hours) =>{
+  if(hours){
+    return (
+      <div>
+        <div>Hours:</div>
+        <div>{hours}</div>
+      </div>
+    )
+  }
+}
+
+this.renderLocationItem = (location) =>{
+  if(location.address_line || 
+     location.address_line2 || 
+     location.locality || 
+     location.administrative_area || 
+     location.postal_code || 
+     location.country_code){
+     return (
+        <div>
+          <div>Location</div>
+          <div>
+            <LocationItem item={location.address_line} comma={true} />
+            <LocationItem item={location.address_line2} />
+          </div>
+          <div>
+            <LocationItem item={location.locality} comma={true}/>
+            <LocationItem item={location.administrative_area} />
+            <LocationItem item={location.postal_code}/>
+          </div>
+          <LocationItem item={location.country_code}/>
+        </div>
+      )
+  }else{
+    return null;
+  }
+}
+
+const LocationItem = (props) => {
+  if (!props.item){
+    return null;
+  }
+
+  if(props.comma){
+    return (
+      <div className="inline">{props.item}, </div>
+    )
+  }else{
+    return (
+      <div className="inline">{props.item}</div>
+    )
+  }
+}
+
+const ShippingOffice = (props) =>{
+  if(props.office){
+    return (
+        <div className="shipping-office" id="office-5">
+          <div className="shipping-office-header">
+            <div>Regional Processing Office</div>
+            <div>{props.office.title}</div>
+          </div>
+
+          <div className="shipping-office-body usa-grid-full">
+              <div className="usa-width-one-third">
+                {this.showPhones(props.office.phones)}
+              </div>
+
+              <div className="usa-width-one-third">
+                {this.showEmails(props.office.email_addresses)}
+              </div>
+              <div className="usa-width-one-third">
+                {this.showWebsites(props.office.websites)}
+              </div>
+          </div>
+        </div>
+    )
+  }else{
+    return null;
+  }
+}
 
 const ListItem = (props) => {
+  let officeTypeClass = props.item.type.replace(' ', '-').toLowerCase();
+  
   return (
     <li>
-        <div>{props.item.title}</div>
-        <div>{props.item.type}</div>
-        <div>{props.item.distance}</div>
-        <div>
-          <span>{props.item.location.address_line1}</span>
-          <span>{props.item.location.address_line2}</span>,
-          <span>{props.item.location.administrative_area}</span>
-          <span>{props.item.location.postal_code}</span>
-          <span>{props.item.location.country_code}</span>
+        <div className={`${"location-search-result " + officeTypeClass}`}
+          data-latitude={props.item.location.lat} 
+          data-longitude={props.item.location.lon} 
+          data-name={props.item.title} 
+          data-type={props.item.type} 
+          id={props.item.id}>
+
+          <div className="location-search-result-header">
+            <div>{props.item.title}</div>
+          </div>
+
+          <div className="location-search-result-body">
+            <div className="usa-grid-full">
+              <div className="usa-width-one-third">
+                  {this.renderLocationItem(props.item.location)}
+                  {this.showPhones(props.item.phones)}
+              </div>
+              <div className="usa-width-one-third">
+                  {this.showEmails(props.item.email_addresses)}
+              </div>
+              <div className="usa-width-one-third">
+                  {this.showHours(props.item.location.hours)}
+                  {this.showServices(props.item.services)}
+              </div>
+            </div>
+            <ShippingOffice office={props.item.shipping_office}/>
+          </div>
         </div>
     </li>
   );

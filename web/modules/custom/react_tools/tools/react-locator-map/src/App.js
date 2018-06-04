@@ -2,14 +2,17 @@ import React, { Component } from 'react';
 import * as axios from 'axios';
 import SearchForm from './components/searchForm';
 import Results from './components/results';
+import LoadingScreen from  './components/loadingScreen';
 import * as _ from 'lodash';
 
 class App extends Component {
   constructor(){
     super();
 
+    this.itemsPerPage = 10;
     this.baseUrl = process.env.NODE_ENV == 'development' ? 'http://move.mil.localhost:8000/' : '/';
     this.state = {
+      isLoading: false,
       geolocation: {
         disabled: true,
         coords: null
@@ -57,19 +60,51 @@ class App extends Component {
     if(!isLocationServices && !this.state.searchLocation) return;
 
     let url = `${this.baseUrl}parser/locator-maps`;
+    let options = isLocationServices ? this.state.geolocation.coords : { query: this.state.searchLocation };
 
-    let options = isLocationServices ? this.state.geolocation.coords : { query: '22314' /*this.state.searchLocation*/ };
-
+    this.setState({isLoading: true});
     axios.post(url, options)
       .then(res => {
         let results = res.data;
         results.selectedPage = 1;
-        results.offices = _.sortBy(results.offices, 'distance');
+
+        _.each(results.offices, (office, i)=>{
+          office.distanceKm = this.getDistanceFromLatLonInKm(results.geolocation.lat, results.geolocation.lon, office.location.lat, office.location.lon);
+          office.distanceMi = 0.621371 * office.distanceKm;
+        });
+
+        results.offices = _.sortBy(results.offices, 'distanceMi');
+
+        _.each(results.offices, (office, i)=>{
+            office.id = `office-${i}`;
+        });
 
         this.setState({
-          results: results
+          results: results,
+          isLoading: false
         });
       });
+  }
+
+
+  //TODO REMOVE 
+  // ******************** TEST **************************
+  getDistanceFromLatLonInKm = (lat1,lon1,lat2,lon2) => {
+    var R = 6371; // Radius of the earth in km
+    var dLat = this.deg2rad(lat2-lat1);  // deg2rad below
+    var dLon = this.deg2rad(lon2-lon1); 
+    var a = 
+      Math.sin(dLat/2) * Math.sin(dLat/2) +
+      Math.cos(this.deg2rad(lat1)) * Math.cos(this.deg2rad(lat2)) * 
+      Math.sin(dLon/2) * Math.sin(dLon/2)
+      ; 
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+    var d = R * c; // Distance in km
+    return d;
+  }
+  
+  deg2rad = (deg) => {
+    return deg * (Math.PI/180);
   }
 
   changePageNo = (pageNo, totalPages) => {
@@ -86,8 +121,8 @@ class App extends Component {
   displayResultComponent = () =>{
     if(this.state.results){
       return (
-        <Results initSearchLocation={this.state.searchLocation} 
-                 resultData={this.state.results}
+        <Results resultData={this.state.results}
+                 itemsPerPage={this.itemsPerPage}
                  changePageFn={this.changePageNo}/>
       )
     }
@@ -96,11 +131,14 @@ class App extends Component {
   render() {
     return (
       <div className="locator-map-container">
+        <LoadingScreen isLoading={this.state.isLoading}/>
         <SearchForm setSearchLocationFn={this.setSearchLocation} 
                     searchFn={this.onInitialSearchLocation} 
                     searchLocation={this.state.searchLocation}
                     geoLocationDisabled={this.state.geolocation.disabled}/>
         {this.displayResultComponent()}
+
+        {JSON.stringify(this.testObject)}
       </div>
     );
   }
