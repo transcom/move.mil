@@ -75,7 +75,7 @@ class DbWriter {
         foreach ($tables as $key => $table) {
           array_push($data, $this->prepare400NgData($rawdata, $table, $dataname[$key]));
           if ($table == 'packunpack') {
-            $data = $this->mapPackUnPackData($data);
+            $data = $this->mapPackUnpackData($data);
           }
         }
         break;
