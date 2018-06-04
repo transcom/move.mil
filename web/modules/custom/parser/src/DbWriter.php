@@ -4,14 +4,12 @@ namespace Drupal\parser;
 
 use Drupal\Core\Database\Connection;
 
-
 /**
  * Class DBWriter.
  *
  * Handles data insertion into custom tables for parser module.
  */
 class DbWriter {
-
 
   protected $db;
 
