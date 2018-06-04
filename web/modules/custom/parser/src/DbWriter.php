@@ -87,7 +87,6 @@ class DbWriter {
         break;
     }
 
-
     if (is_array($tables)) {
       foreach ($tables as $key => $table) {
         $this->insertToTable($data[$key], $table);
@@ -99,7 +98,7 @@ class DbWriter {
   }
 
   /**
-   * Normalizes data mapping for the zip3 and zip5 files with the rest of the data.
+   * Normalizes data mapping for zip3 and zip5 files with the rest of the data.
    */
   private function zipMapdata(array $rawdata, $headers) {
     while ($row = current($rawdata)) {
@@ -110,7 +109,7 @@ class DbWriter {
   }
 
   /**
-   * Normalizes data mapping for the entitlements file with the rest of the data.
+   * Normalizes datamapping for the entitlements file with the rest of the data.
    */
   private function entitlementsMapdata(array $rawdata) {
     $rows = [];

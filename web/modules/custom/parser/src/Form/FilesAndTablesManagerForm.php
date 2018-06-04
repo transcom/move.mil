@@ -28,12 +28,38 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
   protected $db;
 
   /**
-   * Variables for the injected services.
+   * Variables containing the entitytypemanager serivce.
+   *
+   * @var Drupal\Core\Entity\EntityTypeManager
    */
   protected $entity;
+
+  /**
+   * Variables containing the databaseWriter serivce.
+   *
+   * @var Drupal\parser\DbWriter
+   */
   protected $writer;
+
+  /**
+   * Variables containing the CsvReader serivce.
+   *
+   * @var Drupal\parser\CsvReader
+   */
   protected $csvReader;
+
+  /**
+   * Variables containing the YmlReader serivce.
+   *
+   * @var Drupal\parser\YmlReader
+   */
   protected $ymlReader;
+
+  /**
+   * Variables containing the XslReader serivce.
+   *
+   * @var Drupal\parser\ExcelReader
+   */
   protected $xslReader;
 
   /**
