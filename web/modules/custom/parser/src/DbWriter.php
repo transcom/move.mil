@@ -191,7 +191,7 @@ class DbWriter {
   /**
    * Normalizes data mapping packunpacks.
    */
-  private function mappackunpackdata(array $rawdata) {
+  private function mapPackUnpackData(array $rawdata) {
     $packunpacks = [];
     $unpack = 0;
     while ($packunpack = current($rawdata)) {
