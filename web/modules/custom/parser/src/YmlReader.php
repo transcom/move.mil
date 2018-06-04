@@ -1,15 +1,15 @@
 <?php
 
-namespace Drupal\parser\Reader;
+namespace Drupal\parser;
 
 use Symfony\Component\Yaml\Yaml;
 
 /**
- * Class YamlReader.
+ * Class YmlReader.
  *
  * Parses a given yaml file and returns an array.
  */
-class YamlReader implements ReaderInterface {
+class YmlReader {
 
   /**
    * Parses yaml file with Symfony Yaml library.

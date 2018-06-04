@@ -10,7 +10,7 @@ use Drupal\node\Entity\Node;
  *
  * Parse a given array and saves it in a custom table.
  */
-class LocationWriter implements WriterInterface {
+class LocationWriter {
   use DBWriter;
 
   /**
@@ -122,8 +122,6 @@ class LocationWriter implements WriterInterface {
             'target_type' => "taxonomy_term",
           ],
         ]);
-        dump($node);
-
         $node->save();
       }
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\parser\Reader;
+namespace Drupal\parser;
 
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
@@ -9,41 +9,54 @@ use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
  *
  * Parses a given xlsx file and returns an array.
  */
-class ExcelReader implements ReaderInterface {
-
-  /**
-   * ExcelReader constructor.
-   *
-   * @param string $year
-   *   Year the file was uploaded.
-   */
-  public function __construct($year) {
-    $this->year = $year;
-  }
+class ExcelReader {
 
   /**
    * Parses excel file with PhpOffice\PhpSpreadsheet.
    */
-  public function parse($xlsxFile) {
+  public function parse($read_info) {
+    $type = $read_info[0];
+    $date = $read_info[1];
+    $xlsxFile = $read_info[2];
     $xlsx = [];
     $reader = new Xlsx();
     $reader->setReadDataOnly(TRUE);
-    $reader->setLoadSheetsOnly([
-      'Geographical Schedule',
-      'Linehaul',
-      'Additional Rates',
-    ]);
-    $spreadsheet = $reader->load($xlsxFile);
 
-    // Get year from filename.
-    $xlsx['year'] = $this->year;
+    if ($type == "discounts") {
 
-    $xlsx['schedules'] = $this->schedules($spreadsheet);
+      $spreadsheet = $reader->load($xlsxFile)->getActiveSheet();
+      $lowestRow = 2;
+      $highestRow = $spreadsheet->getHighestRow();
+      for ($row_number = $lowestRow; $row_number <= $highestRow; $row_number++) {
+        $row = [
+          $spreadsheet->getCellByColumnAndRow(1, $row_number)->getValue(),
+          $spreadsheet->getCellByColumnAndRow(2, $row_number)->getValue(),
+          $spreadsheet->getCellByColumnAndRow(3, $row_number)->getValue(),
+          $spreadsheet->getCellByColumnAndRow(4, $row_number)->getValue(),
+          $date,
+        ];
+        $xlsx[] = $row;
 
-    $xlsx['linehauls'] = $this->linehauls($spreadsheet, $this->conusparams());
-    $additonalrates = $this->additionalrates($spreadsheet);
-    $xlsx['shorthauls'] = $additonalrates['shorthauls'];
-    $xlsx['packunpack'] = $additonalrates['packunpack'];
+      }
+    }
+    else {
+      $reader->setLoadSheetsOnly([
+        'Geographical Schedule',
+        'Linehaul',
+        'Additional Rates',
+      ]);
+      $spreadsheet = $reader->load($xlsxFile);
+
+      $xlsx['year'] = $date;
+      $xlsx['schedules'] = $this->schedules($spreadsheet);
+
+      $xlsx['linehauls'] = $this->linehauls($spreadsheet, $this->conusparams());
+
+      $additonalrates = $this->additionalrates($spreadsheet);
+      $xlsx['shorthauls'] = $additonalrates['shorthauls'];
+      $xlsx['packunpack'] = $additonalrates['packunpack'];
+    }
+
     return $xlsx;
   }
 
@@ -213,7 +226,7 @@ class ExcelReader implements ReaderInterface {
     $packunpack['schedule'] = $schedule;
     $packunpack['cwt'] = $cwt;
     $packunpack['pack'] = $rate;
-    $packunpack['unpack'] = $unpack;
+    $packunpack['unpack'] = $unpack == NULL ? 0 : $unpack;
     return $packunpack;
   }
 

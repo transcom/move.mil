@@ -5,19 +5,15 @@ namespace Drupal\parser\Form;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\parser\Reader\CsvReader;
-use Drupal\parser\Reader\DiscountReader;
-use Drupal\parser\Reader\ExcelReader;
-use Drupal\parser\Reader\YamlReader;
-use Drupal\parser\Writer\DB\EntitlementsWriter;
-use Drupal\parser\Writer\DB\Rates400NGWriter;
-use Drupal\parser\Writer\DB\CsvWriter;
-use Drupal\parser\Writer\DB\DiscountWriter;
-use Drupal\parser\Writer\DB\ZipCodesWriter;
 use Drupal\Core\Url;
 use Drupal\Core\Database\Connection;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Entity\EntityTypeManager;
+use Drupal\parser\CsvReader;
+use Drupal\parser\YmlReader;
+use Drupal\parser\ExcelReader;
+use Drupal\parser\DbWriter;
+use Drupal\Core\StreamWrapper\StreamWrapperManager;
 
 /**
  * Class FilesAndTablesManagerForm.
@@ -32,21 +28,36 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
   protected $db;
 
   /**
-   * Variable containing the entity type manager.
-   *
-   * @var \Drupal\Core\Entity\EntityTypeManager
+   * Variables for the injected services.
    */
   protected $entity;
+  protected $writer;
+  protected $csvReader;
+  protected $ymlReader;
+  protected $xslReader;
 
   /**
    * FilesAndTablesManagerForm constructor.
    *
    * Needed for dependency injection.
    */
-  public function __construct(ConfigFactoryInterface $config_factory, Connection $db, EntityTypeManager $entity) {
+  public function __construct(ConfigFactoryInterface $config_factory,
+                              Connection $db,
+                              EntityTypeManager $entity,
+                              YmlReader $ymlReader,
+                              CsvReader $csvReader,
+                              ExcelReader $xslReader,
+                              DbWriter $writer,
+                              StreamWrapperManager $swm) {
     parent::__construct($config_factory);
     $this->db = $db;
     $this->entity = $entity;
+    $this->writer = $writer;
+    $this->csvReader = $csvReader;
+    $this->ymlReader = $ymlReader;
+    $this->xslReader = $xslReader;
+    $this->swm = $swm;
+
   }
 
   /**
@@ -56,7 +67,12 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
     return new static(
       $container->get('config.factory'),
       $container->get('database'),
-      $container->get('entity_type.manager')
+      $container->get('entity_type.manager'),
+      $container->get('parser.yml_reader'),
+      $container->get('parser.csv_reader'),
+      $container->get('parser.xsl_reader'),
+      $container->get('parser.writer'),
+      $container->get('stream_wrapper_manager')
     );
   }
 
@@ -281,104 +297,113 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $groups = $form_state->getValues();
-    $messages = [];
 
     foreach ($groups as $key => $group) {
-      $message = "";
       $group_data = $groups[$key];
+      $read_info = '';
 
       switch ($key) {
         case 'zip_3':
-          $tables = 'parser_zip3s';
-          $reader = new CsvReader();
-          $writer = new CsvWriter($key);
+          $tables = "parser_zip3s";
+          $reader = $this->csvReader;
           break;
 
         case 'zip_5':
           $tables = 'parser_zip5s';
-          $reader = new CsvReader();
-          $writer = new CsvWriter($key);
+          $reader = $this->csvReader;
           break;
 
         case '400NG':
+          $date = $group_data['year'];
           $tables = [
             'parser_service_areas',
             'parser_linehauls',
             'parser_shorthauls',
             'parser_packunpacks',
           ];
-          $reader = new ExcelReader($group_data['year']);
-          $writer = new Rates400NGWriter();
+          $read_info = [$key, $date];
+          $reader = $this->xslReader;
           break;
 
         case 'entitlements':
           $tables = 'parser_entitlements';
-          $reader = new YamlReader();
-          $writer = new EntitlementsWriter();
+          $reader = $this->ymlReader;
           break;
 
         case 'discounts':
-          $date = $group_data['effective_date'];
+          $date = strtotime($group_data['effective_date']);
           $tables = 'parser_discounts';
-          $reader = new DiscountReader();
-          $writer = new DiscountWriter($date);
+          $read_info = [$key, $date];
+          $reader = $this->xslReader;
           break;
 
         case 'zipcodes':
           $tables = 'parser_zipcodes';
-          $reader = new CsvReader();
-          $writer = new ZipCodesWriter($group);
+          $reader = $this->csvReader;
           break;
 
         default:
           $continue = TRUE;
       }
 
-      if ($continue) {
+      if ($continue == TRUE) {
         continue;
       }
 
       $fid = intval($group_data['file'][0]);
+      $this->checkAndTruncate($group_data['truncate'], $tables, $key);
+      $this->readAndWrite($fid, $reader, $read_info, $key, $tables);
+    }
+  }
 
-      if ($fid != 0 || $group_data['truncate']) {
-        $message .= $key . ':';
-      }
-
-      if ($group_data['truncate']) {
-        $message .= "\t Table cleared, ";
-        if (is_array($tables)) {
-          foreach ($tables as $table) {
-            $this->db->truncate($table)
-              ->execute();
-          }
-        }
-        else {
-          $this->db->truncate($tables)
+  /**
+   * Checks and truncates the table(s).
+   */
+  protected function checkAndTruncate($truncate, $tables, $key) {
+    if ($truncate) {
+      if (is_array($tables)) {
+        foreach ($tables as $table) {
+          $this->db->truncate($table)
             ->execute();
         }
       }
-
-      if ($fid != 0) {
-        $message .= "\tparsed";
-        try {
-          $file = $this->entity->getStorage('file')->load($fid);
-          $rawdata = $reader->parse($file->getFileUri());
-          $writer->write($rawdata);
-          $this->messenger()->addMessage($message);
-        }
-        catch (\Exception $e) {
-          $this->messenger()->addError('Exception on file: ' . $key . ",  " . $e->getMessage());
-        }
-        catch (\TypeError $e) {
-          $this->messenger()->addError('Error on file: ' . $key . ",  " . $e->getMessage());
-        }
+      else {
+        $this->db->truncate($tables)
+          ->execute();
       }
-      array_push($messages, $message);
     }
+    $this->messenger()->addMessage($key . " truncated.");
+  }
 
-    if (!$e) {
-      foreach ($messages as $message) {
-        $this->messenger()->addMessage($message);
+  /**
+   * Checks FID, opens and reads the content, writes content to a custom table.
+   */
+  protected function readAndWrite($fid, $reader, $read_info, $key, $tables) {
+    if ($fid != 0) {
+      try {
+        $file = $this->entity->getStorage('file')->load($fid);
+        $uri = $file->getFileUri();
+        $stream_wrapper_manager = $this->swm->getViaUri($uri);
+        $file_path = $stream_wrapper_manager->realpath();
+
+        if (is_array($read_info)) {
+          $read_info[] = $file_path;
+        }
+        else {
+          $read_info = $file_path;
+        }
+        $rawdata = $reader->parse($read_info);
+        $this->writer->write($rawdata, $key, $tables);
+
+        $this->messenger()->addMessage($key . " parsed.");
+      }
+      catch (\Exception $e) {
+        $this->messenger()
+          ->addError('Exception on file: ' . $key . ",  " . $e->getMessage());
+      }
+      catch (\TypeError $e) {
+        $this->messenger()
+          ->addError('Error on file: ' . $key . ",  " . $e->getMessage());
       }
     }
   }

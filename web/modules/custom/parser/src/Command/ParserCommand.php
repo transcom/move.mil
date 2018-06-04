@@ -34,7 +34,6 @@ class ParserCommand extends Command {
   protected function execute(InputInterface $input, OutputInterface $output) {
     $io = new SymfonyStyle($input, $output);
     $path = DRUPAL_ROOT . '/../lib/data';
-    $this->getIo()->success($this->trans('commands.parser.messages.success'));
 
     $filename = [
       "{$path}/shipping_offices.json",
@@ -48,7 +47,7 @@ class ParserCommand extends Command {
     $rawdata = $reader->parse($filename);
     $io->text('Writing to database.');
     $writer->write($rawdata);
-    $io->succces('Done!');
+    $io->success('Done!');
   }
 
 }
