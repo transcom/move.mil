@@ -12,9 +12,11 @@ dependencies:
     - field.field.paragraph.customer_service_box.field_plain_title
     - field.field.paragraph.customer_service_box.field_service_address
     - field.field.paragraph.customer_service_box.field_service_description
+    - field.field.paragraph.customer_service_box.field_website
     - paragraphs.paragraphs_type.customer_service_box
   module:
     - address
+    - link
     - telephone
     - text
 id: paragraph.customer_service_box.default
@@ -23,28 +25,28 @@ bundle: customer_service_box
 mode: default
 content:
   field_comm_fax:
-    weight: 7
+    weight: 8
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: telephone_default
     region: content
   field_comm_phone:
-    weight: 6
+    weight: 7
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: telephone_default
     region: content
   field_dsn_fax:
-    weight: 5
+    weight: 6
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: telephone_default
     region: content
   field_dsn_phone:
-    weight: 4
+    weight: 5
     settings:
       placeholder: ''
     third_party_settings: {  }
@@ -59,7 +61,7 @@ content:
     type: email_default
     region: content
   field_other_details:
-    weight: 8
+    weight: 9
     settings:
       rows: 5
       placeholder: ''
@@ -88,6 +90,14 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
+    region: content
+  field_website:
+    weight: 4
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
     region: content
 hidden:
   created: true
