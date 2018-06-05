@@ -12,6 +12,13 @@ parser.entitlements_controller_index:
     _title: 'index'
   requirements:
     _permission: 'access content'
+parser.entitlements_controller_table:
+  path: '/parser/entitlements/table'
+  defaults:
+    _controller: '\Drupal\parser\Controller\EntitlementsController::table'
+    _title: 'Entitlements'
+  requirements:
+    _permission: 'administer site configuration'
 parser.ppm_estimator_controller_estimate:
   path: '/parser/ppm_estimate'
   defaults:
@@ -26,7 +33,69 @@ parser.locations_controller_locations:
     _title: 'locations'
   requirements:
     _permission: 'access content'
-
+parser.zip3_controller_table:
+  path: '/parser/zip3/table'
+  defaults:
+    _controller: '\Drupal\parser\Controller\Zip3Controller::table'
+    _title: 'Zip 3'
+  requirements:
+    _permission: 'administer site configuration'
+parser.zip5_controller_table:
+  path: '/parser/zip5/table'
+  defaults:
+    _controller: '\Drupal\parser\Controller\Zip5Controller::table'
+    _title: 'Zip 5'
+  requirements:
+    _permission: 'administer site configuration'
+parser.rates400NG_controller_links:
+  path: '/parser/rates400NG/table-links'
+  defaults:
+    _controller: '\Drupal\parser\Controller\Rates400NGController::tableLinks'
+    _title: '400NG Tables'
+  requirements:
+    _permission: 'administer site configuration'
+parser.rates400NG_controller_linehauls:
+  path: '/parser/rates400NG/line-hauls/table'
+  defaults:
+    _controller: '\Drupal\parser\Controller\Rates400NGController::linehaulsTable'
+    _title: 'Linehauls rates'
+  requirements:
+    _permission: 'administer site configuration'
+parser.rates400NG_controller_packunpack:
+  path: '/parser/rates400NG/pack-unpack/table'
+  defaults:
+    _controller: '\Drupal\parser\Controller\Rates400NGController::packunpacksTable'
+    _title: 'Pack and unpack rates'
+  requirements:
+    _permission: 'administer site configuration'
+parser.rates400NG_controller_service_areas:
+  path: '/parser/rates400NG/service-areas/table'
+  defaults:
+    _controller: '\Drupal\parser\Controller\Rates400NGController::serviceAreasTable'
+    _title: 'Service Areas'
+  requirements:
+    _permission: 'administer site configuration'
+parser.rates400NG_controller_shorthaulsTable:
+  path: '/parser/rates400NG/short-hauls/table'
+  defaults:
+    _controller: '\Drupal\parser\Controller\Rates400NGController::shorthaulsTable'
+    _title: 'Short hauls rates'
+  requirements:
+    _permission: 'administer site configuration'
+parser.discounts_controller_table:
+  path: '/parser/discounts/table'
+  defaults:
+    _controller: '\Drupal\parser\Controller\DiscountsController::table'
+    _title: 'Discounts'
+  requirements:
+    _permission: 'administer site configuration'
+parser.zipcodes_controller_table:
+  path: '/parser/zipcodes/table'
+  defaults:
+    _controller: '\Drupal\parser\Controller\ZipcodesController::table'
+    _title: 'Zipcodes'
+  requirements:
+    _permission: 'administer site configuration'
 parser.files_and_tables_manager_form:
   path: '/admin/config/parser/manager'
   defaults:
