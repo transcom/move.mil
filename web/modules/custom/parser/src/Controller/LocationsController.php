@@ -4,6 +4,7 @@ namespace Drupal\parser\Controller;
 
 use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\node\Entity\Node;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -180,22 +181,27 @@ class LocationsController extends ControllerBase {
     foreach ($taxonomy_terms as $term) {
       $taxonomies[$term->id()] = $term->label();
     }
-    $es = array_slice($entities, 0, 200);
     $data = [];
-    foreach ($es as $entity) {
-      $location = $entity->toArray();
-//      $type = $this->locationType($location, $taxonomies);
-//      if (!$this->searchable($type)) {
-//        continue;
-//      }
-//      $data[$entity->id()] = $this->parse($location, $type);
-////      $data[$entity->id()] = $location;
-//      $shipping = $this->shippingOffice($location);
-//      $data[$entity->id()]['shipping_office'] = $this->parse($shipping, 'Shipping Office');
-////      $data[$entity->id()]['shipping_office'] = $shipping;
-//      $distance_km = $this->distance($origin, $data[$entity->id()]['location']);
-//      $data[$entity->id()]['distance_km'] = $distance_km;
-//      $data[$entity->id()]['distance_mi'] = 0.621371 * $distance_km;
+    foreach ($entities as $entity) {
+      $type_id = $entity
+        ->get('field_location_type')
+        ->getValue()[0]['target_id'];
+      $type = $taxonomies[$type_id];
+      // Shipping offices are not included in the search results.
+      if ($type == 'Shipping Office') {
+        continue;
+      }
+      $data[$entity->id()] = $this->parse($entity, $type);
+      $shipping = $this->shippingOffice($entity);
+      if ($shipping) {
+        $data[$entity->id()]['shipping_office'] = $this->parse($shipping, 'Shipping Office');
+      }
+      else {
+        $data[$entity->id()]['shipping_office'] = NULL;
+      }
+      $distance_km = $this->distance($origin, $data[$entity->id()]['location']);
+      $data[$entity->id()]['distance_km'] = $distance_km;
+      $data[$entity->id()]['distance_mi'] = 0.621371 * $distance_km;
     }
     return $data;
   }
@@ -206,7 +212,7 @@ class LocationsController extends ControllerBase {
    * @param array $origin
    *   Geolocation of the origin or search.
    * @param array $location
-   *   Geolocation of the transportation office or weight scale.
+   *   Location of the transportation office or weight scale.
    *
    * @return float
    *   The distance in km.
@@ -215,8 +221,8 @@ class LocationsController extends ControllerBase {
     // Convert from degrees to radians.
     $latFrom = $origin['lat'];
     $lonFrom = $origin['lon'];
-    $latTo = $location['lat'];
-    $lonTo = $location['lon'];
+    $latTo = $location['geolocation']['lat'];
+    $lonTo = $location['geolocation']['lng'];
     // Radius of the earth in KM.
     $earthRadius = 6371.0;
     $latDelta = deg2rad($latTo - $latFrom);
@@ -231,135 +237,75 @@ class LocationsController extends ControllerBase {
   }
 
   /**
-   * Get location type (taxonomy term).
-   *
-   * @param array $location
-   *   Array of the location entity.
-   * @param array $taxonomies
-   *   Array of taxonomy terms found of type 'location_type'.
-   *
-   * @return string
-   *   Term value.
-   */
-  private function locationType(array $location, array $taxonomies) {
-    $type_id = $location['field_location_type'][0]['target_id'];
-    return $taxonomies[$type_id];
-  }
-
-  /**
-   * Evaluate if should be include in the closest locations search.
-   *
-   * @param string $type
-   *   Location type.
-   *
-   * @return bool
-   *   Whether a entity should be included.
-   */
-  private function searchable($type) {
-    return $type == 'Transportation Office' ||
-      $type == 'Weight Scale';
-  }
-
-  /**
-   * Get values from Drupal fields array.
-   *
-   * @param array $fields
-   *   Array of fields to strip the value from.
-   *
-   * @return array
-   *   Array of fields values.
-   */
-  private function values(array $fields) {
-    $values = [];
-    foreach ($fields as $field) {
-      $values[] = $field['value'];
-    }
-    return $values;
-  }
-
-  /**
-   * Get uri from Drupal links array.
-   *
-   * @param array $links
-   *   Array of Drupal links to strip the uri from.
-   *
-   * @return array
-   *   Array of fields uris.
-   */
-  private function uris(array $links) {
-    $uris = [];
-    foreach ($links as $link) {
-      $uris[] = $link['uri'];
-    }
-    return $uris;
-  }
-
-  /**
    * Parse a drupal entity data to more human readable data.
    *
-   * @param array $location
-   *   Drupal entity array with a lot of nested arrays.
+   * @param \Drupal\node\Entity\Node $entity
+   *   Drupal Location entity.
    * @param string $type
    *   Location type.
    *
    * @return array
    *   Flattened and filtered array.
    */
-  private function parse(array $location = NULL, $type) {
-    if ($location == NULL || !count($location)) {
+  private function parse(Node $entity = NULL, $type) {
+    if ($entity == NULL) {
       return NULL;
     }
     $data = [];
     $data['type'] = $type;
-    $data['title'] = $location['title'][0]['value'];
-    $data['location'] = $location['field_location_address'][0];
-    $data['location']['lat'] = $location['field_geolocation'][0]['lat'];
-    $data['location']['lon'] = $location['field_geolocation'][0]['lng'];
-    $data['email_addresses'] = $this->values($location['field_location_email']);
-    $data['hours'] = $location['field_location_hours'][0]['value'];
-    $data['websites'] = $this->uris($location['field_location_link']);
-    $data['notes'] = $location['field_location_note'][0]['value'];
-    $data['services'] = $this->values($location['field_location_services']);
-    $data['phones'] = $this->values($location['field_location_telephone']);
+    $data['title'] = $entity->getTitle();
+    $data['location'] = $entity
+      ->get('field_location_address')
+      ->getValue()[0];
+    $data['location']['geolocation'] = $entity
+      ->get('field_geolocation')
+      ->getValue()[0];
+    $data['email_addresses'] = $entity
+      ->get('field_location_email')
+      ->getValue();
+    $data['hours'] = $entity
+      ->get('field_location_hours')
+      ->getValue();
+    $data['websites'] = $entity
+      ->get('field_location_link')
+      ->getValue();
+    $data['notes'] = $entity
+      ->get('field_location_note')
+      ->getValue();
+    $data['services'] = $entity
+      ->get('field_location_services')
+      ->getValue();
+    $data['phones'] = $entity
+      ->get('field_location_telephone')
+      ->getValue();
     return $data;
-  }
-
-  /**
-   * Evaluate if a transportation office has a shipping office.
-   *
-   * @param array $location
-   *   Drupal entity array with a lot of nested arrays.
-   *
-   * @return bool
-   *   Whether location has a shipping office.
-   */
-  private function hasShippingOffice(array $location) {
-    return array_key_exists('field_location_reference', $location) &&
-      count($location['field_location_reference']);
   }
 
   /**
    * Look for a location entity, of type shipping office, by id.
    *
-   * @param array $location
-   *   Drupal entity array with a lot of nested arrays.
+   * @param \Drupal\node\Entity\Node $entity
+   *   Drupal Location entity.
    *
-   * @return mixed[]|\Symfony\Component\HttpFoundation\JsonResponse
-   *   Drupal entity array with a lot of nested arrays.
+   * @return \Drupal\Core\Entity\EntityInterface
+   *   Drupal entity for the shipping office or NULL.
    */
-  private function shippingOffice(array $location) {
-    if (!$this->hasShippingOffice($location)) {
+  private function shippingOffice(Node $entity) {
+    $reference = $entity
+      ->get('field_location_reference')
+      ->getValue();
+    if (empty($reference)) {
       // Not all PPPOs or scales have a shipping office, or data is missing.
       return NULL;
     }
-    $id = $location['field_location_reference'][0]['target_id'];
+    $id = $reference[0]['target_id'];
     try {
       $entity = $this->entityTypeManager->getStorage('node')->load($id);
     }
     catch (InvalidPluginDefinitionException $ipde) {
       return NULL;
     }
-    return $entity->toArray();
+    return $entity;
   }
 
   /**
