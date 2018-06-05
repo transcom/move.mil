@@ -180,19 +180,22 @@ class LocationsController extends ControllerBase {
     foreach ($taxonomy_terms as $term) {
       $taxonomies[$term->id()] = $term->label();
     }
+    $es = array_slice($entities, 0, 200);
     $data = [];
-    foreach ($entities as $entity) {
+    foreach ($es as $entity) {
       $location = $entity->toArray();
-      $type = $this->locationType($location, $taxonomies);
-      if (!$this->searchable($type)) {
-        continue;
-      }
-      $data[$entity->id()] = $this->parse($location, $type);
-      $shipping = $this->shippingOffice($location);
-      $data[$entity->id()]['shipping_office'] = $this->parse($shipping, 'Shipping Office');
-      $distance_km = $this->distance($origin, $data[$entity->id()]['location']);
-      $data[$entity->id()]['distance_km'] = $distance_km;
-      $data[$entity->id()]['distance_mi'] = 0.621371 * $distance_km;
+//      $type = $this->locationType($location, $taxonomies);
+//      if (!$this->searchable($type)) {
+//        continue;
+//      }
+//      $data[$entity->id()] = $this->parse($location, $type);
+////      $data[$entity->id()] = $location;
+//      $shipping = $this->shippingOffice($location);
+//      $data[$entity->id()]['shipping_office'] = $this->parse($shipping, 'Shipping Office');
+////      $data[$entity->id()]['shipping_office'] = $shipping;
+//      $distance_km = $this->distance($origin, $data[$entity->id()]['location']);
+//      $data[$entity->id()]['distance_km'] = $distance_km;
+//      $data[$entity->id()]['distance_mi'] = 0.621371 * $distance_km;
     }
     return $data;
   }
