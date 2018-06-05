@@ -397,8 +397,8 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
         $this->db->truncate($tables)
           ->execute();
       }
+      $this->messenger()->addMessage($key . " truncated.");
     }
-    $this->messenger()->addMessage($key . " truncated.");
   }
 
   /**
