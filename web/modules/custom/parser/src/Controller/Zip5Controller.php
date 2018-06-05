@@ -3,7 +3,6 @@
 namespace Drupal\parser\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Database\Connection as Connection;
 
@@ -40,6 +39,7 @@ class Zip5Controller extends ControllerBase {
     $zip3 = $this->databaseConnection
       ->select('parser_zip5s')
       ->fields('parser_zip5s')
+      ->extend('Drupal\Core\Database\Query\PagerSelectExtender')->limit(10)
       ->execute()
       ->fetchAll();
     return (array) $zip3;
@@ -52,8 +52,8 @@ class Zip5Controller extends ControllerBase {
     $entries = $this->getAll();
     $header = [
       'id' => t('id'),
-      'rank' => t('rank'),
-      'total_weight_self' => t('total_weight_self'),
+      'zip5' => t('zip5'),
+      'service_area' => t('service_area'),
     ];
     // Initialize an empty array.
     $output = [];
@@ -62,18 +62,18 @@ class Zip5Controller extends ControllerBase {
       if ($entry->id != 0) {
         $output[$entry->id] = [
           'id' => $entry->id,
-          'rank' => $entry->rank,
-          'total_weight_self' => $entry->total_weight_self,
+          'zip5' => $entry->zip5,
+          'service_area' => $entry->service_area,
         ];
       }
     }
-    $form['table'] = [
+    $table['table'] = [
       '#type' => 'table',
       '#header' => $header,
-      '#options' => $output,
-      '#empty' => t('No users found'),
+      '#rows' => $output,
+      '#empty' => t('Nothing here'),
     ];
-    return $form;
+    $table['pager'] = ['#type' => 'pager'];
+    return $table;
   }
-
 }

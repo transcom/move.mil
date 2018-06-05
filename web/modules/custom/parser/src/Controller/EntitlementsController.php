@@ -63,6 +63,7 @@ class EntitlementsController extends ControllerBase {
     return $this->databaseConnection
       ->select('parser_entitlements')
       ->fields('parser_entitlements')
+      ->extend('Drupal\Core\Database\Query\PagerSelectExtender')->limit(10)
       ->execute()
       ->fetchAll();
   }
@@ -89,6 +90,10 @@ class EntitlementsController extends ControllerBase {
       'id' => t('id'),
       'rank' => t('rank'),
       'total_weight_self' => t('total_weight_self'),
+      'total_weight_self_plus_dependents' => t('total_weight_self_plus_dependents'),
+      'pro_gear_weight' => t('pro_gear_weight'),
+      'pro_gear_weight_spouse' => t('pro_gear_weight_spouse'),
+      'slug' => t('slug'),
     ];
     // Initialize an empty array.
     $output = [];
@@ -99,16 +104,21 @@ class EntitlementsController extends ControllerBase {
           'id' => $entry->id,
           'rank' => $entry->rank,
           'total_weight_self' => $entry->total_weight_self,
+          'total_weight_self_plus_dependents' => $entry->total_weight_self_plus_dependents,
+          'pro_gear_weight' => $entry->pro_gear_weight,
+          'pro_gear_weight_spouse' => $entry->pro_gear_weight_spouse,
+          'slug' => $entry->slug,
         ];
       }
     }
-    $form['table'] = [
+    $table['table'] = [
       '#type' => 'table',
       '#header' => $header,
-      '#options' => $output,
-      '#empty' => t('No users found'),
+      '#rows' => $output,
+      '#empty' => t('Nothing here'),
     ];
-    return $form;
+    $table['pager'] = ['#type' => 'pager'];
+    return $table;
   }
 
 }

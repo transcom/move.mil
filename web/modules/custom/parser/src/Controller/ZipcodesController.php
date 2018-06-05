@@ -37,12 +37,13 @@ class ZipcodesController extends ControllerBase {
    * Get all zipcodes from the DB.
    */
   public function fetchZipcodes() {
-    $sas = $this->databaseConnection
+    $zipcodes = $this->databaseConnection
       ->select('parser_zipcodes')
       ->fields('parser_zipcodes')
+      ->extend('Drupal\Core\Database\Query\PagerSelectExtender')->limit(10)
       ->execute()
       ->fetchAll();
-    return (array) $sas;
+    return (array) $zipcodes;
   }
   
   /**
@@ -52,8 +53,12 @@ class ZipcodesController extends ControllerBase {
     $entries = $this->fetchZipcodes();
     $header = [
       'id' => t('id'),
-      'rank' => t('rank'),
-      'total_weight_self' => t('total_weight_self'),
+      'code' => t('code'),
+      'city' => t('city'),
+      'state' => t('state'),
+      'lat' => t('lat'),
+      'lon' => t('lon'),
+
     ];
     // Initialize an empty array.
     $output = [];
@@ -62,18 +67,23 @@ class ZipcodesController extends ControllerBase {
       if ($entry->id != 0) {
         $output[$entry->id] = [
           'id' => $entry->id,
-          'rank' => $entry->rank,
-          'total_weight_self' => $entry->total_weight_self,
+          'code' => $entry->code,
+          'city' => $entry->city,
+          'state' => $entry->state,
+          'lat' => $entry->lat,
+          'lon' => $entry->lon,
+
         ];
       }
     }
-    $form['table'] = [
+    $table['table'] = [
       '#type' => 'table',
       '#header' => $header,
-      '#options' => $output,
-      '#empty' => t('No users found'),
+      '#rows' => $output,
+      '#empty' => t('Nothing here'),
     ];
-    return $form;
+    $table['pager'] = ['#type' => 'pager'];
+    return $table;
   }
 
 }

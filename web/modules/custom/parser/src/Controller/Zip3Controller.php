@@ -3,7 +3,6 @@
 namespace Drupal\parser\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Database\Connection as Connection;
 
@@ -40,11 +39,12 @@ class Zip3Controller extends ControllerBase {
     $zip3 = $this->databaseConnection
       ->select('parser_zip3s')
       ->fields('parser_zip3s')
+      ->extend('Drupal\Core\Database\Query\PagerSelectExtender')->limit(10)
       ->execute()
       ->fetchAll();
     return (array) $zip3;
   }
-  
+
   /**
    * Get all zip3s in a Drupal 8 table.
    */
@@ -52,8 +52,13 @@ class Zip3Controller extends ControllerBase {
     $entries = $this->getAll();
     $header = [
       'id' => t('id'),
-      'rank' => t('rank'),
-      'total_weight_self' => t('total_weight_self'),
+      'zip3' => t('zip3'),
+      'basepoint_city' => t('basepoint_city'),
+      'state' => t('state'),
+      'service_area' => t('service_area'),
+      'rate_area' => t('rate_area'),
+      'region' => t('region'),
+
     ];
     // Initialize an empty array.
     $output = [];
@@ -62,18 +67,23 @@ class Zip3Controller extends ControllerBase {
       if ($entry->id != 0) {
         $output[$entry->id] = [
           'id' => $entry->id,
-          'rank' => $entry->rank,
-          'total_weight_self' => $entry->total_weight_self,
+          'zip3' => $entry->zip3,
+          'basepoint_city' => $entry->basepoint_city,
+          'state' => $entry->state,
+          'service_area' => $entry->service_area,
+          'rate_area' => $entry->rate_area,
+          'region' => $entry->region,
         ];
       }
     }
-    $form['table'] = [
+    $table['table'] = [
       '#type' => 'table',
       '#header' => $header,
-      '#options' => $output,
-      '#empty' => t('No users found'),
+      '#rows' => $output,
+      '#empty' => t('Nothing here'),
     ];
-    return $form;
+    $table['pager'] = ['#type' => 'pager'];
+    return $table;
   }
 
 }

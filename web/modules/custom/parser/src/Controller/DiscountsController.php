@@ -37,12 +37,13 @@ class DiscountsController extends ControllerBase {
    * Get all discounts from the DB.
    */
   public function fetchDiscounts() {
-    $sas = $this->databaseConnection
+    $discounts = $this->databaseConnection
       ->select('parser_discounts')
       ->fields('parser_discounts')
+      ->extend('Drupal\Core\Database\Query\PagerSelectExtender')->limit(10)
       ->execute()
       ->fetchAll();
-    return (array) $sas;
+    return (array) $discounts;
   }
   
   /**
@@ -52,8 +53,11 @@ class DiscountsController extends ControllerBase {
     $entries = $this->fetchDiscounts();
     $header = [
       'id' => t('id'),
-      'rank' => t('rank'),
-      'total_weight_self' => t('total_weight_self'),
+      'origin' => t('origin'),
+      'destination' => t('destination'),
+      'discounts' => t('discounts'),
+      'site_rate' => t('site_rate'),
+      'tdl' => t('tdl'),
     ];
     // Initialize an empty array.
     $output = [];
@@ -62,18 +66,22 @@ class DiscountsController extends ControllerBase {
       if ($entry->id != 0) {
         $output[$entry->id] = [
           'id' => $entry->id,
-          'rank' => $entry->rank,
-          'total_weight_self' => $entry->total_weight_self,
+          'origin' => $entry->origin,
+          'destination' => $entry->destination,
+          'discounts' => $entry->discounts,
+          'site_rate' => $entry->site_rate,
+          'tdl' => $entry->tdl,
         ];
       }
     }
-    $form['table'] = [
+    $table['table'] = [
       '#type' => 'table',
       '#header' => $header,
-      '#options' => $output,
-      '#empty' => t('No users found'),
+      '#rows' => $output,
+      '#empty' => t('Nothing here'),
     ];
-    return $form;
+    $table['pager'] = ['#type' => 'pager'];
+    return $table;
   }
 
 }
