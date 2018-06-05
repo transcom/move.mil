@@ -111,7 +111,7 @@ class Rates400NGController extends ControllerBase {
       '#type' => 'table',
       '#header' => $header,
       '#rows' => $output,
-      '#empty' => t('Nothing here'),
+      '#empty' => $this->t('Nothing here'),
     ];
     $table['pager'] = ['#type' => 'pager'];
     return $table;
