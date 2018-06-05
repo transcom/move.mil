@@ -40,14 +40,14 @@ class Rates400NGController extends ControllerBase {
 
     $build['linehauls_link'] = [
       '#title' => $this
-        ->t('Linehauls'),
+        ->t('Linehauls rates'),
       '#type' => 'link',
       '#url' => Url::fromRoute('parser.rates400NG_controller_linehauls'),
     ];
     $build['linehauls_nl']['#markup'] = '<br>';
     $build['packunpacks_link'] = [
       '#title' => $this
-        ->t('Pack Unpacks'),
+        ->t('Pack and Unpack rates'),
       '#type' => 'link',
       '#url' => Url::fromRoute('parser.rates400NG_controller_packunpack'),
     ];
@@ -61,7 +61,7 @@ class Rates400NGController extends ControllerBase {
     $build['service_areas_nl']['#markup'] = '<br>';
     $build['shorthauls_link'] = [
       '#title' => $this
-        ->t('Shorthauls'),
+        ->t('Shorthauls rates'),
       '#type' => 'link',
       '#url' => Url::fromRoute('parser.rates400NG_controller_shorthaulsTable'),
     ];

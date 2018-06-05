@@ -221,12 +221,12 @@ class ExcelReader {
     // Get unpack charge for this schedule.
     $rawunpack = $worksheet->getCellByColumnAndRow(6, $row->getRowIndex())->getValue();
     preg_match("/Unpack is (?<unpack>[\d\.]+) /", $rawunpack, $groups);
-    $unpack = $groups['unpack'];
+    $unpack = array_key_exists('unpack', $groups) ? $groups['unpack'] : 0;
     // Add parsed values to pack and unpack array.
     $packunpack['schedule'] = $schedule;
     $packunpack['cwt'] = $cwt;
     $packunpack['pack'] = $rate;
-    $packunpack['unpack'] = $unpack == NULL ? 0 : $unpack;
+    $packunpack['unpack'] = $unpack;
     return $packunpack;
   }
 

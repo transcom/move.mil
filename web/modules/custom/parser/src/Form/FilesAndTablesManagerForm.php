@@ -145,7 +145,7 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
     $form['zip_3']['link'] = [
       '#title' => $this->t('What data is in this table?'),
       '#type' => 'link',
-      '#url' => Url::fromRoute('<front>'),
+      '#url' => Url::fromRoute('parser.zip3_controller_table'),
     ];
 
     $form['zip_5'] = [
@@ -169,7 +169,7 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
     $form['zip_5']['link'] = [
       '#title' => $this->t('What data is in this table?'),
       '#type' => 'link',
-      '#url' => Url::fromRoute('<front>'),
+      '#url' => Url::fromRoute('parser.zip5_controller_table'),
     ];
 
     $form['400NG'] = [
@@ -216,7 +216,7 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
     $form['400NG']['link'] = [
       '#title' => $this->t('What data is in this table?'),
       '#type' => 'link',
-      '#url' => Url::fromRoute('<front>'),
+      '#url' => Url::fromRoute('parser.rates400NG_controller_links'),
     ];
 
     $form['entitlements'] = [
@@ -239,7 +239,7 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
     $form['entitlements']['link'] = [
       '#title' => $this->t('What data is in this table?'),
       '#type' => 'link',
-      '#url' => Url::fromRoute('<front>'),
+      '#url' => Url::fromRoute('parser.entitlements_controller_table'),
     ];
 
     $form['discounts'] = [
@@ -267,7 +267,7 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
     $form['discounts']['link'] = [
       '#title' => $this->t('What data is in this table?'),
       '#type' => 'link',
-      '#url' => Url::fromRoute('<front>'),
+      '#url' => Url::fromRoute('parser.discounts_controller_table'),
     ];
 
     $form['zipcodes'] = [
@@ -291,7 +291,7 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
     $form['zipcodes']['link'] = [
       '#title' => $this->t('What data is in this table?'),
       '#type' => 'link',
-      '#url' => Url::fromRoute('<front>'),
+      '#url' => Url::fromRoute('parser.zipcodes_controller_table'),
     ];
 
     unset($form['400NG']['year']['#options']['_none']);
@@ -323,8 +323,11 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $groups = $form_state->getValues();
+    $reader = NULL;
+    $tables = NULL;
 
     foreach ($groups as $key => $group) {
+      $continue = FALSE;
       $group_data = $groups[$key];
       $read_info = '';
 
@@ -375,8 +378,7 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
       if ($continue == TRUE) {
         continue;
       }
-
-      $fid = intval($group_data['file'][0]);
+      $fid = array_key_exists(0, $group_data['file']) ? intval($group_data['file'][0]) : 0;
       $this->checkAndTruncate($group_data['truncate'], $tables, $key);
       $this->readAndWrite($fid, $reader, $read_info, $key, $tables);
     }

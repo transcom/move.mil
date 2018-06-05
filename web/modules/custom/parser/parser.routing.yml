@@ -58,14 +58,14 @@ parser.rates400NG_controller_linehauls:
   path: '/parser/rates400NG/line-hauls/table'
   defaults:
     _controller: '\Drupal\parser\Controller\Rates400NGController::linehaulsTable'
-    _title: 'Line Hauls'
+    _title: 'Linehauls rates'
   requirements:
     _permission: 'administer site configuration'
 parser.rates400NG_controller_packunpack:
   path: '/parser/rates400NG/pack-unpack/table'
   defaults:
     _controller: '\Drupal\parser\Controller\Rates400NGController::packunpacksTable'
-    _title: 'Pack Unpack'
+    _title: 'Pack and unpack rates'
   requirements:
     _permission: 'administer site configuration'
 parser.rates400NG_controller_service_areas:
@@ -79,7 +79,7 @@ parser.rates400NG_controller_shorthaulsTable:
   path: '/parser/rates400NG/short-hauls/table'
   defaults:
     _controller: '\Drupal\parser\Controller\Rates400NGController::shorthaulsTable'
-    _title: 'Short Hauls'
+    _title: 'Short hauls rates'
   requirements:
     _permission: 'administer site configuration'
 parser.discounts_controller_table:
