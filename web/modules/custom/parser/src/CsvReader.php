@@ -1,13 +1,13 @@
 <?php
 
-namespace Drupal\parser\Reader;
+namespace Drupal\parser;
 
 /**
  * Class CsvReader.
  *
  * Parses a given csv file and returns an array.
  */
-class CsvReader implements ReaderInterface {
+class CsvReader {
 
   /**
    * Parses csv file with php function str_getcsv.

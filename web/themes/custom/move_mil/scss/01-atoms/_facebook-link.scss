@@ -1,0 +1,18 @@
+a.facebook-link {
+  display: block;
+  text-decoration: none;
+  padding-top: .5rem;
+
+  // &:hover, &:focus {
+  //   text-decoration: underline;
+  // }
+
+  span, img {
+    vertical-align: middle;
+  }
+
+  img {
+    height: 1.9rem;
+    padding-left: .5rem;
+  }
+}

@@ -1,0 +1,10 @@
+services:
+  parser.xsl_reader:
+    class: Drupal\parser\ExcelReader
+  parser.csv_reader:
+    class: Drupal\parser\CsvReader
+  parser.yml_reader:
+    class: Drupal\parser\YmlReader
+  parser.writer:
+    class: Drupal\parser\DbWriter
+    arguments: ['@database']

@@ -1,0 +1,42 @@
+.moving-military-overview {
+
+  .paragraph--text-with-image {
+    // overwriting our grid here to a 1/6 + 5/6 fix grid
+    .usa-width-one-third {
+      width: calc(100% / 6 * 1);
+    }
+
+    .usa-width-two-thirds {
+      width: calc(100% / 6 * 5);
+    }
+
+    .paragraph--text-with-image__align-right,
+    .paragraph--text-with-image__align-left {
+      flex-direction: row;
+      flex-wrap: nowrap;
+
+      h3 {
+        margin-top: 0;
+      }
+
+      .usa-media_block-body {
+        margin: 0 0 0 2rem;
+      }
+
+      .usa-media_block-img {
+        margin: 0;
+
+        @include media($medium-screen) {
+          margin: 0 2rem 0 0;
+        }
+
+        img {
+          margin: 0;
+          max-width: 10rem;
+          width: 100%;
+          min-width: 0;
+        }
+      }
+    }
+  }
+}

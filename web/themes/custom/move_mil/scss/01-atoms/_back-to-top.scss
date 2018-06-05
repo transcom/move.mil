@@ -1,11 +1,11 @@
 .usa-section > .back-to-top {
   //positioning & alignment
   float: right;
-  position: -webkit-sticky;
-  position: sticky;
-  top: 1rem;
+  position: relative;
+  // position: -webkit-sticky;
+  // position: sticky;
   margin-top: 1rem;
-  z-index: 1000;
+  z-index: 499;
 
   @include media($nav-width) {
     margin-top: -2.7rem;
@@ -25,21 +25,32 @@
     font-size: $small-font-size;
     font-weight: $font-bold;
     text-decoration: none;
+    top: 1rem;
+    right: 0;
 
     &:hover,
     &:focus {
       text-decoration: underline;
     }
   }
+
+  // new sticky position workaround
+  &.sticky {
+    height: 3.3rem;
+
+    a {
+      position: fixed;
+    }
+  }
 }
 
 // account for admin toolbar
 .user-logged-in.toolbar-fixed {
-  .back-to-top {
+  .back-to-top a {
     top: 4.9rem;
   }
 
-  &.toolbar-horizontal.toolbar-tray-open .back-to-top {
+  &.toolbar-horizontal.toolbar-tray-open .back-to-top a {
     top: 8.9rem;
   }
 }

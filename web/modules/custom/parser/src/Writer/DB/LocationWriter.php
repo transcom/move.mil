@@ -2,8 +2,6 @@
 
 namespace Drupal\parser\Writer\DB;
 
-use Drupal\parser\Writer\WriterInterface;
-use Drupal\Console\Core\Style\DrupalStyle;
 use Drupal\node\Entity\Node;
 
 /**
@@ -11,13 +9,13 @@ use Drupal\node\Entity\Node;
  *
  * Parse a given array and saves it in a custom table.
  */
-class LocationWriter implements WriterInterface {
+class LocationWriter {
   use DBWriter;
 
   /**
    * Normalizes data then creates Location nodes.
    */
-  public function write(array $rawdata, $truncate, DrupalStyle $io) {
+  public function write(array $rawdata) {
     $location_type = NULL;
     $error = '';
     foreach ($rawdata as $key => $file) {
@@ -49,6 +47,7 @@ class LocationWriter implements WriterInterface {
         $error .= "{$query_term} file is already parsed. Remove all Location nodes and try again." . PHP_EOL;
         continue;
       }
+
       foreach (json_decode($file) as $obj) {
         $node_ref = (property_exists($obj, 'shipping_office_name')) &&
         ($obj->shipping_office_name != NULL) ?
@@ -124,7 +123,6 @@ class LocationWriter implements WriterInterface {
         ]);
         $node->save();
       }
-      $io->info("{$query_term} nodes were successfully created.");
     }
     if ($error) {
       throw new \RuntimeException($error);

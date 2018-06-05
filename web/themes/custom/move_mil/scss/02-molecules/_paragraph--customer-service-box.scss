@@ -12,6 +12,7 @@
 
   a {
     word-break: break-all;
+    display: inline-block;
   }
 
   h3.svc-title {
@@ -55,7 +56,7 @@
     // our address
     .svc-spec-links--address-group {
       margin-top: $spacing-small;
-      
+
       dt.svc-spec-links--title {
         padding: 0 $spacing-small 0 0;
         word-break: keep-all;
