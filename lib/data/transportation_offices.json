@@ -527,12 +527,12 @@
     "name": "PPPO Fort Leavenworth",
     "shipping_office_name": "Joint Personal Property Shipping Office Northwest",
     "location": {
-      "street_address": "450 Pope Ave",
-      "extended_address": "Bldg 168",
+      "street_address": "549 Kearny Ave",
+      "extended_address": "Building 248",
       "locality": "Fort Leavenworth",
       "region": "Kansas",
       "region_code": "KS",
-      "postal_code": "66027",
+      "postal_code": "66048",
       "country_name": "United States",
       "country_code": "US",
       "latitude": 39.35276,
@@ -546,12 +546,12 @@
     ],
     "phone_numbers": [
       {
-        "phone_number": "(913)684-5656, 5651,5655,5643",
+        "phone_number": "(913) 684-5656",
         "phone_type": "voice",
         "dsn": false
       },
       {
-        "phone_number": "552-5656,5651,5655,5643",
+        "phone_number": "552-5656",
         "phone_type": "voice",
         "dsn": true
       }
@@ -1346,51 +1346,6 @@
       "QA Inspections"
     ],
     "note": "Mass briefings conducted every 1st & 3rd Wednesday at 1530 during MPF OP brief"
-  },
-  {
-    "name": "Personal Property Processing Office Fort Leavenworth",
-    "shipping_office_name": "Joint Personal Property Shipping Office Northwest",
-    "location": {
-      "street_address": "450 Pope Ave",
-      "extended_address": null,
-      "locality": "Fort Leavenworth",
-      "region": "Kansas",
-      "region_code": "KS",
-      "postal_code": "66027",
-      "country_name": "United States",
-      "country_code": "US",
-      "latitude": 39.352917,
-      "longitude": -94.924572
-    },
-    "email_addresses": [
-      {
-        "email_address": "usarmy.leavenworth.imcom-central.mbx.ppso@mail.mil",
-        "note": "Customer Service"
-      }
-    ],
-    "phone_numbers": [
-      {
-        "phone_number": "(913)684-5656",
-        "phone_type": "voice",
-        "dsn": false
-      },
-      {
-        "phone_number": "552-5656",
-        "phone_type": "voice",
-        "dsn": true
-      }
-    ],
-    "hours": "Mon, Tue, Thur, Fri 0730-1600 / Wed 1230-1600 Sat/Sun/Federal Holidays closed  (Walk-Ins are welcomed during open hours)",
-    "services": [
-      "Walk-In Help",
-      "Call Center",
-      "Briefings",
-      "Computer Lab",
-      "Appointments",
-      "QA Inspections",
-      "See below"
-    ],
-    "note": "Group counseling of 10 or more personnel upon request. Individual counseling appointments for blue bark, VIPs during open hours."
   },
   {
     "name": "McConnell AFB",
@@ -3343,9 +3298,7 @@
       "latitude": 36.260194,
       "longitude": -119.905519
     },
-    "email_addresses": [
-
-    ],
+    "email_addresses": [],
     "phone_numbers": [
       {
         "phone_number": "559-998-3876",
@@ -3383,9 +3336,7 @@
       "latitude": 36.260194,
       "longitude": -119.905519
     },
-    "email_addresses": [
-
-    ],
+    "email_addresses": [],
     "phone_numbers": [
       {
         "phone_number": "559-998-3881",
@@ -4570,8 +4521,8 @@
     "name": "Ft Carson",
     "shipping_office_name": "JPPSO-NC / JPPSO-COS",
     "location": {
-      "street_address": "1661 O'Connell",
-      "extended_address": "Bldg 1012",
+      "street_address": "6351 Wetzel Ave, Building 1525",
+      "extended_address": null,
       "locality": "Fort Carson",
       "region": "Colorado",
       "region_code": "CO",
@@ -4599,7 +4550,7 @@
         "dsn": true
       }
     ],
-    "hours": "Monday - Thursday 0730 - 1600.\nFriday 0900 - 1600\nClosed all holidays ACC Family Days.",
+    "hours": "Monday - Friday, 8:00 a.m. - 3:00 p.m.\nClosed all holidays ACC Family Days.",
     "services": [
       "Walk-In Help",
       "Briefings",
@@ -6432,13 +6383,13 @@
     },
     "email_addresses": [
       {
-        "email_address": "d07-smb-basemiamibeach-ppso@uscg.mil",
+        "email_address": "PPSOMIAMI@uscg.mil",
         "note": "Customer Service"
       }
     ],
     "phone_numbers": [
       {
-        "phone_number": "(305) 278-6800",
+        "phone_number": "(305) 216-8037",
         "phone_type": "voice",
         "dsn": false
       }
@@ -7838,7 +7789,7 @@
       "country_name": "Bahamas",
       "country_code": "BS",
       "latitude": 24.705953,
-      "longitude": -77.7690
+      "longitude": -77.769
     }
   },
   {
@@ -9294,7 +9245,7 @@
       "country_name": "England",
       "country_code": "GB",
       "latitude": 52.353994,
-      "longitude": 0.48330
+      "longitude": 0.4833
     }
   },
   {
@@ -9405,7 +9356,6 @@
         "note": "Customer Service"
       }
     ],
-
     "phone_numbers": [
       {
         "phone_number": "1-800-637-5401",
