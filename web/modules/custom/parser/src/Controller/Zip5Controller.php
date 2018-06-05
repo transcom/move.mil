@@ -44,7 +44,7 @@ class Zip5Controller extends ControllerBase {
       ->fetchAll();
     return (array) $zip3;
   }
-  
+
   /**
    * Get all zip5s in a Drupal 8 table.
    */
@@ -76,4 +76,5 @@ class Zip5Controller extends ControllerBase {
     $table['pager'] = ['#type' => 'pager'];
     return $table;
   }
+
 }

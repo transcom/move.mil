@@ -3,7 +3,6 @@
 namespace Drupal\parser\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Database\Connection as Connection;
 
@@ -45,7 +44,7 @@ class DiscountsController extends ControllerBase {
       ->fetchAll();
     return (array) $discounts;
   }
-  
+
   /**
    * Get all discounts in a Drupal 8 table.
    */

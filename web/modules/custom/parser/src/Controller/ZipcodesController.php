@@ -3,7 +3,6 @@
 namespace Drupal\parser\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Database\Connection as Connection;
 
@@ -45,7 +44,7 @@ class ZipcodesController extends ControllerBase {
       ->fetchAll();
     return (array) $zipcodes;
   }
-  
+
   /**
    * Get all zipcodes in a Drupal 8 table.
    */

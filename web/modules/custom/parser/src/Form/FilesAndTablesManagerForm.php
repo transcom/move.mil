@@ -124,6 +124,10 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
     $form['#tree'] = TRUE;
 
+    $form['description'] = [
+      '#markup' => '<p>' . t('Manage the data used by the PPM tool uploading files and/or clearing databases.') . '</p>',
+    ];
+
     $form['zip_3'] = [
       '#type' => 'details',
       '#title' => $this->t('Zip 3'),
