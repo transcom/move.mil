@@ -51,13 +51,13 @@ class Zip3Controller extends ControllerBase {
   public function table() {
     $entries = $this->getAll();
     $header = [
-      'id' => t('id'),
-      'zip3' => t('zip3'),
-      'basepoint_city' => t('basepoint_city'),
-      'state' => t('state'),
-      'service_area' => t('service_area'),
-      'rate_area' => t('rate_area'),
-      'region' => t('region'),
+      'id' => $this->t('id'),
+      'zip3' => $this->t('zip3'),
+      'basepoint_city' => $this->t('basepoint_city'),
+      'state' => $this->t('state'),
+      'service_area' => $this->t('service_area'),
+      'rate_area' => $this->t('rate_area'),
+      'region' => $this->t('region'),
 
     ];
     // Initialize an empty array.
@@ -80,7 +80,7 @@ class Zip3Controller extends ControllerBase {
       '#type' => 'table',
       '#header' => $header,
       '#rows' => $output,
-      '#empty' => t('Nothing here'),
+      '#empty' => $this->t('Nothing here'),
     ];
     $table['pager'] = ['#type' => 'pager'];
     return $table;

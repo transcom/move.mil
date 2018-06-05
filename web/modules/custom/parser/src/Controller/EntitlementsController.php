@@ -87,13 +87,13 @@ class EntitlementsController extends ControllerBase {
   public function table() {
     $entries = $this->getAll();
     $header = [
-      'id' => t('id'),
-      'rank' => t('rank'),
-      'total_weight_self' => t('total_weight_self'),
-      'total_weight_self_plus_dependents' => t('total_weight_self_plus_dependents'),
-      'pro_gear_weight' => t('pro_gear_weight'),
-      'pro_gear_weight_spouse' => t('pro_gear_weight_spouse'),
-      'slug' => t('slug'),
+      'id' => $this->t('id'),
+      'rank' => $this->t('rank'),
+      'total_weight_self' => $this->t('total_weight_self'),
+      'total_weight_self_plus_dependents' => $this->t('total_weight_self_plus_dependents'),
+      'pro_gear_weight' => $this->t('pro_gear_weight'),
+      'pro_gear_weight_spouse' => $this->t('pro_gear_weight_spouse'),
+      'slug' => $this->t('slug'),
     ];
     // Initialize an empty array.
     $output = [];
@@ -115,7 +115,7 @@ class EntitlementsController extends ControllerBase {
       '#type' => 'table',
       '#header' => $header,
       '#rows' => $output,
-      '#empty' => t('Nothing here'),
+      '#empty' => $this->t('Nothing here'),
     ];
     $table['pager'] = ['#type' => 'pager'];
     return $table;

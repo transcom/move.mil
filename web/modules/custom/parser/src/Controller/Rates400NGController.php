@@ -86,11 +86,11 @@ class Rates400NGController extends ControllerBase {
   public function linehaulsTable() {
     $entries = $this->getAll('parser_linehauls');
     $header = [
-      'id' => t('id'),
-      'miles' => t('miles'),
-      'weight' => t('weight'),
-      'rate' => t('rate'),
-      'year' => t('year'),
+      'id' => $this->t('id'),
+      'miles' => $this->t('miles'),
+      'weight' => $this->t('weight'),
+      'rate' => $this->t('rate'),
+      'year' => $this->t('year'),
 
     ];
     // Initialize an empty array.
@@ -123,12 +123,12 @@ class Rates400NGController extends ControllerBase {
   public function packunpacksTable() {
     $entries = $this->getAll('parser_packunpacks');
     $header = [
-      'id' => t('id'),
-      'schedule' => t('schedule'),
-      'cwt' => t('cwt'),
-      'pack' => t('pack'),
-      'unpack' => t('unpack'),
-      'year' => t('year'),
+      'id' => $this->t('id'),
+      'schedule' => $this->t('schedule'),
+      'cwt' => $this->t('cwt'),
+      'pack' => $this->t('pack'),
+      'unpack' => $this->t('unpack'),
+      'year' => $this->t('year'),
     ];
     // Initialize an empty array.
     $output = [];
@@ -149,7 +149,7 @@ class Rates400NGController extends ControllerBase {
       '#type' => 'table',
       '#header' => $header,
       '#rows' => $output,
-      '#empty' => t('Nothing here'),
+      '#empty' => $this->t('Nothing here'),
     ];
     $table['pager'] = ['#type' => 'pager'];
     return $table;
@@ -161,12 +161,12 @@ class Rates400NGController extends ControllerBase {
   public function serviceAreasTable() {
     $entries = $this->getAll('parser_service_areas');
     $header = [
-      'id' => t('id'),
-      'service_area' => t('service_area'),
-      'services_schedule' => t('services_schedule'),
-      'linehaul_factor' => t('linehaul_factor'),
-      'orig_dest_service_charge' => t('orig_dest_service_charge'),
-      'year' => t('year'),
+      'id' => $this->t('id'),
+      'service_area' => $this->t('service_area'),
+      'services_schedule' => $this->t('services_schedule'),
+      'linehaul_factor' => $this->t('linehaul_factor'),
+      'orig_dest_service_charge' => $this->t('orig_dest_service_charge'),
+      'year' => $this->t('year'),
     ];
     // Initialize an empty array.
     $output = [];
@@ -187,7 +187,7 @@ class Rates400NGController extends ControllerBase {
       '#type' => 'table',
       '#header' => $header,
       '#rows' => $output,
-      '#empty' => t('Nothing here'),
+      '#empty' => $this->t('Nothing here'),
     ];
     $table['pager'] = ['#type' => 'pager'];
     return $table;
@@ -199,10 +199,10 @@ class Rates400NGController extends ControllerBase {
   public function shorthaulsTable() {
     $entries = $this->getAll('parser_shorthauls');
     $header = [
-      'id' => t('id'),
-      'cwt_miles' => t('cwt_miles'),
-      'rate' => t('rate'),
-      'year' => t('year'),
+      'id' => $this->t('id'),
+      'cwt_miles' => $this->t('cwt_miles'),
+      'rate' => $this->t('rate'),
+      'year' => $this->t('year'),
     ];
     // Initialize an empty array.
     $output = [];
@@ -221,7 +221,7 @@ class Rates400NGController extends ControllerBase {
       '#type' => 'table',
       '#header' => $header,
       '#rows' => $output,
-      '#empty' => t('Nothing here'),
+      '#empty' => $this->t('Nothing here'),
     ];
     $table['pager'] = ['#type' => 'pager'];
     return $table;

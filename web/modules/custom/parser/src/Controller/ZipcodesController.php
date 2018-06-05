@@ -51,12 +51,12 @@ class ZipcodesController extends ControllerBase {
   public function table() {
     $entries = $this->fetchZipcodes();
     $header = [
-      'id' => t('id'),
-      'code' => t('code'),
-      'city' => t('city'),
-      'state' => t('state'),
-      'lat' => t('lat'),
-      'lon' => t('lon'),
+      'id' => $this->t('id'),
+      'code' => $this->t('code'),
+      'city' => $this->t('city'),
+      'state' => $this->t('state'),
+      'lat' => $this->t('lat'),
+      'lon' => $this->t('lon'),
 
     ];
     // Initialize an empty array.
@@ -79,7 +79,7 @@ class ZipcodesController extends ControllerBase {
       '#type' => 'table',
       '#header' => $header,
       '#rows' => $output,
-      '#empty' => t('Nothing here'),
+      '#empty' => $this->t('Nothing here'),
     ];
     $table['pager'] = ['#type' => 'pager'];
     return $table;

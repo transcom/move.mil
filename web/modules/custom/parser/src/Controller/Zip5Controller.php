@@ -51,9 +51,9 @@ class Zip5Controller extends ControllerBase {
   public function table() {
     $entries = $this->getAll();
     $header = [
-      'id' => t('id'),
-      'zip5' => t('zip5'),
-      'service_area' => t('service_area'),
+      'id' => $this->t('id'),
+      'zip5' => $this->t('zip5'),
+      'service_area' => $this->t('service_area'),
     ];
     // Initialize an empty array.
     $output = [];
@@ -71,7 +71,7 @@ class Zip5Controller extends ControllerBase {
       '#type' => 'table',
       '#header' => $header,
       '#rows' => $output,
-      '#empty' => t('Nothing here'),
+      '#empty' => $this->t('Nothing here'),
     ];
     $table['pager'] = ['#type' => 'pager'];
     return $table;

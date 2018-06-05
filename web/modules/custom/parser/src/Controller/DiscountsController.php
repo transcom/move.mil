@@ -51,12 +51,12 @@ class DiscountsController extends ControllerBase {
   public function table() {
     $entries = $this->fetchDiscounts();
     $header = [
-      'id' => t('id'),
-      'origin' => t('origin'),
-      'destination' => t('destination'),
-      'discounts' => t('discounts'),
-      'site_rate' => t('site_rate'),
-      'tdl' => t('tdl'),
+      'id' => $this->t('id'),
+      'origin' => $this->t('origin'),
+      'destination' => $this->t('destination'),
+      'discounts' => $this->t('discounts'),
+      'site_rate' => $this->t('site_rate'),
+      'tdl' => $this->t('tdl'),
     ];
     // Initialize an empty array.
     $output = [];
@@ -77,7 +77,7 @@ class DiscountsController extends ControllerBase {
       '#type' => 'table',
       '#header' => $header,
       '#rows' => $output,
-      '#empty' => t('Nothing here'),
+      '#empty' => $this->t('Nothing here'),
     ];
     $table['pager'] = ['#type' => 'pager'];
     return $table;
