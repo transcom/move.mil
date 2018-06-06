@@ -5,8 +5,8 @@ namespace Drupal\parser\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use Drupal\parser\LocationReader;
-use Drupal\parser\LocationWriter;
+use Drupal\parser\Service\LocationReader;
+use Drupal\parser\Service\LocationWriter;
 use Drupal\Console\Core\Command\ContainerAwareCommand;
 
 /**
@@ -42,6 +42,7 @@ class ParserCommand extends ContainerAwareCommand {
     $this->writer = $writer;
     parent::__construct();
   }
+
   /**
    * {@inheritdoc}
    */
@@ -51,7 +52,6 @@ class ParserCommand extends ContainerAwareCommand {
       $container->get('parser.location_writer')
     );
   }
-
 
   /**
    * {@inheritdoc}

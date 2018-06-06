@@ -9,10 +9,10 @@ use Drupal\Core\Url;
 use Drupal\Core\Database\Connection;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Entity\EntityTypeManager;
-use Drupal\parser\CsvReader;
-use Drupal\parser\YmlReader;
-use Drupal\parser\ExcelReader;
-use Drupal\parser\DbWriter;
+use Drupal\parser\Service\CsvReader;
+use Drupal\parser\Service\YmlReader;
+use Drupal\parser\Service\ExcelReader;
+use Drupal\parser\Service\DbWriter;
 use Drupal\Core\StreamWrapper\StreamWrapperManager;
 
 /**
@@ -30,35 +30,35 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
   /**
    * Variables containing the entitytypemanager serivce.
    *
-   * @var Drupal\Core\Entity\EntityTypeManager
+   * @var \Drupal\Core\Entity\EntityTypeManager
    */
   protected $entity;
 
   /**
    * Variables containing the databaseWriter serivce.
    *
-   * @var Drupal\parser\DbWriter
+   * @var \Drupal\parser\DbWriter
    */
   protected $writer;
 
   /**
    * Variables containing the CsvReader serivce.
    *
-   * @var Drupal\parser\CsvReader
+   * @var \Drupal\parser\CsvReader
    */
   protected $csvReader;
 
   /**
    * Variables containing the YmlReader serivce.
    *
-   * @var Drupal\parser\YmlReader
+   * @var \Drupal\parser\YmlReader
    */
   protected $ymlReader;
 
   /**
    * Variables containing the XslReader serivce.
    *
-   * @var Drupal\parser\ExcelReader
+   * @var \Drupal\parser\ExcelReader
    */
   protected $xslReader;
 
