@@ -2,12 +2,8 @@
 import React, { Component }  from 'react';
 import { Map, TileLayer, Marker, Polyline } from 'react-leaflet'
 import * as _ from 'lodash';
-// import L from 'leaflet';
 
 class ResultMap extends Component {
-    constructor(props) {
-        super(props);
-    }
 
     markerComponent = () =>{
       return (

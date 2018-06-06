@@ -1,10 +1,6 @@
 import React, { Component }  from 'react';
 
 class InputValidation extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     validationComponent = () =>{
         return (
             <div className="validation-container">

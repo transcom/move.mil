@@ -17,7 +17,7 @@ class DropDown extends Component {
     }
 
     validationDisplay = (value, message) =>{
-        if(this.props.invalidFields && (!value || value == '-1')){
+        if(this.props.invalidFields && (!value || value === '-1')){
             return (
                <InputValidation type="warning" message={message} />
             )

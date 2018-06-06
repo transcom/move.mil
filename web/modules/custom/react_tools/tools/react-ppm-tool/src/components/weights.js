@@ -1,5 +1,4 @@
 import React, { Component }  from 'react';
-import * as _ from 'lodash';
 import InputValidation from './inputValidation';
 import Input from './input';
 

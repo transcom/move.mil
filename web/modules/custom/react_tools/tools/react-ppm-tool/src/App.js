@@ -13,7 +13,7 @@ class App extends Component {
   constructor(){
     super();
 
-    this.baseUrl = process.env.NODE_ENV == 'development' ? 'http://move.mil.localhost:8000/' : '/';
+    this.baseUrl = process.env.NODE_ENV === 'development' ? 'http://move.mil.localhost:8000/' : '/';
 
     this.locations = {
       origin: '',
@@ -163,7 +163,7 @@ class App extends Component {
   isValid = (valid, data, excludedProps) =>{
     _.each(data, (item, key)=>{
       if(excludedProps.indexOf(key) === -1 && valid && item !== false){
-        valid = (item != null && item != undefined && item != '');
+        valid = (item != null && item !== undefined && item !== '');
         if(_.isObject(item)){
           valid = this.isValid(valid, item, excludedProps);
         }else{

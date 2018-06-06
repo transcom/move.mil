@@ -1,13 +1,8 @@
 import React, { Component }  from 'react';
-import * as _ from 'lodash';
 import InputValidation from './inputValidation';
 import Input from './input';
 
 class Locations extends Component {
-    constructor(props) {
-        super(props);
-        this.selectedRadio;
-    }
 
     handleChange = (params, value) => {
         this.props.setLocationFn(params.key, value);

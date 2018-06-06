@@ -5,10 +5,6 @@ import NewItem from './newItem';
 import TotalBar from './totalBar';
 
 class Rooms extends Component {
-    constructor(props) {
-        super(props);  
-    }
-
     renderItemsHeaderBlock = (headerText) => {
         return (
             <div className="flex-container header">

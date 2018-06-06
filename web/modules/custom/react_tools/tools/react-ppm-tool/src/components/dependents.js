@@ -1,11 +1,6 @@
 import React, { Component }  from 'react';
-import * as _ from 'lodash';
 
 class Dependents extends Component {
-    constructor(props) {
-        super(props);
-        this.selectedRadio;
-    }
 
     handleChange = (isDependent) => {
         if(isDependent !== this.props.isDependencies){

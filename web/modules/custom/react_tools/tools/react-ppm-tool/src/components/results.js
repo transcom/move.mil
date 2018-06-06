@@ -3,10 +3,6 @@ import ResultMap from './resultMap'
 import moment from 'moment';
 
 class Results extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     spouseTotal = () =>{
         if(this.props.isDependencies){
             return (
