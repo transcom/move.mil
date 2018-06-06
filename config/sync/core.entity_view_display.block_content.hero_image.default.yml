@@ -5,8 +5,6 @@ dependencies:
   config:
     - block_content.type.hero_image
     - field.field.block_content.hero_image.field_hero_image
-  module:
-    - svg_image
 id: block_content.hero_image.default
 targetEntityType: block_content
 bundle: hero_image
@@ -16,10 +14,6 @@ content:
     weight: 0
     label: hidden
     settings:
-      svg_attributes:
-        width: ''
-        height: ''
-      svg_render_as_image: true
       image_style: ''
       image_link: ''
     third_party_settings: {  }

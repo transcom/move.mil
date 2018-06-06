@@ -6,8 +6,6 @@ dependencies:
     - block_content.type.hero_image
     - field.field.block_content.hero_image.field_hero_image
     - image.style.thumbnail
-  module:
-    - svg_image
 id: block_content.hero_image.default
 targetEntityType: block_content
 bundle: hero_image

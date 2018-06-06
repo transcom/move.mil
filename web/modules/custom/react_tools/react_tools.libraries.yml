@@ -13,3 +13,12 @@ react-ppm-tool:
        tools/react-ppm-tool/build/static/css/main.min.css: {}
   js:
     tools/react-ppm-tool/build/static/js/main.min.js: {}
+
+
+react-locator-map:
+  version: 1.x
+  css:
+      theme:
+       tools/react-locator-map/build/static/css/main.min.css: {}
+  js:
+    tools/react-locator-map/build/static/js/main.min.js: {}
