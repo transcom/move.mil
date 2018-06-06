@@ -4,10 +4,6 @@ import ListContainer from './listContainer';
 import * as _ from 'lodash';
 
 class Results extends Component {
-  constructor(){
-    super();
-
-  }
 
   mapLegend = () => {
     return (

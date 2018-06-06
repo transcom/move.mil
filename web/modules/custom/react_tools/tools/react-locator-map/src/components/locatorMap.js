@@ -1,12 +1,9 @@
 import React, { Component }  from 'react';
-import { Map, TileLayer, Marker, Popup, L } from 'react-leaflet';
+import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
 import { divIcon } from 'leaflet';
 import * as _ from 'lodash';
 
 class LocatorMap extends Component {
-    constructor(props) {
-        super(props);
-    }
 
     isType = (type, value) =>{
       return type.toLowerCase().indexOf(value) !== -1;
@@ -26,6 +23,8 @@ class LocatorMap extends Component {
             break;
             case this.isType(office.type, 'transportation'):
               icon = divIcon({className: 'map-marker processing-office'});
+            break;
+            default: 
             break;
           }
 

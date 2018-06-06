@@ -10,7 +10,7 @@ class App extends Component {
     super();
 
     this.itemsPerPage = 10;
-    this.baseUrl = process.env.NODE_ENV == 'development' ? 'http://move.mil.localhost:8000/' : '/';
+    this.baseUrl = process.env.NODE_ENV === 'development' ? 'http://move.mil.localhost:8000/' : '/';
     this.state = {
       isLoading: false,
       geolocation: {

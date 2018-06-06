@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 
 class SearchForm extends Component {
-  constructor(){
-    super();
-  }
 
   handleChange = (event) =>{
     this.props.setSearchLocationFn(event.target.value);

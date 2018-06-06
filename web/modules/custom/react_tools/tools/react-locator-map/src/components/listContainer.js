@@ -4,10 +4,6 @@ import PageTab from './pageTab';
 import * as _ from 'lodash';
 
 class ListContainer extends Component {
-  constructor(){
-    super();
-
-  }
 
   pageTabs = () =>{
     let pageTabsArray = this.getPageTabsArray();
@@ -40,7 +36,7 @@ class ListContainer extends Component {
     }
 
     switch(true){
-      case selectedPage == 1:
+      case selectedPage === 1:
         array.push('1');
         break;
       case selectedPage === totalPages:

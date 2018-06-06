@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 
 class PageTab extends Component {
-  constructor(){
-    super();
-
-  }
 
   handlePageChange = (pageNo) =>{
     this.props.changePageFn(pageNo, this.props.totalPages); 
