@@ -34,10 +34,10 @@ const Services = (props) =>{
 }
 
 this.showPhones = (phones) =>{
-  if(phones){
+  if(phones && phones.length > 0){
     return (
       <div>
-        <div>Phone:</div>
+        <div className="bold-header">Phone:</div>
         <Phones phones={phones} />
       </div>
     )
@@ -45,10 +45,10 @@ this.showPhones = (phones) =>{
 }
 
 this.showEmails = (emails) =>{
-  if(emails){
+  if(emails && emails.length > 0){
     return (
       <div>
-        <div>Email:</div>
+        <div className="bold-header">Email:</div>
         <Emails emails={emails} />
       </div>
     )
@@ -56,10 +56,10 @@ this.showEmails = (emails) =>{
 }
 
 this.showWebsites = (websites) =>{
-  if(websites){
+  if(websites && websites.length > 0){
     return (
       <div>
-        <div>Websites:</div>
+        <div className="bold-header">Websites:</div>
         <Websites websites={websites} />
       </div>
     )
@@ -67,10 +67,10 @@ this.showWebsites = (websites) =>{
 }
 
 this.showServices = (services) =>{
-  if(services){
+  if(services && services.length > 0){
     return (
       <div>
-        <div>Services:</div>
+        <div className="bold-header">Services:</div>
         <ul className="location-search-result-services">
           <Services services={services} />
         </ul>
@@ -80,10 +80,10 @@ this.showServices = (services) =>{
 }
 
 this.showHours = (hours) =>{
-  if(hours){
+  if(hours && hours.length > 0){
     return (
       <div>
-        <div>Hours:</div>
+        <div className="bold-header">Hours:</div>
         <div>{hours}</div>
       </div>
     )
@@ -99,7 +99,7 @@ this.renderLocationItem = (location) =>{
      location.country_code){
      return (
         <div>
-          <div>Location</div>
+          <div className="bold-header">Location</div>
           <div>
             <LocationItem item={location.address_line} comma={true} />
             <LocationItem item={location.address_line2} />
@@ -124,11 +124,11 @@ const LocationItem = (props) => {
 
   if(props.comma){
     return (
-      <div className="inline">{props.item}, </div>
+      <span className="inline">{props.item}, </span>
     )
   }else{
     return (
-      <div className="inline">{props.item}</div>
+      <span className="inline">{props.item} </span>
     )
   }
 }
@@ -150,6 +150,7 @@ const ShippingOffice = (props) =>{
               <div className="usa-width-one-third">
                 {this.showEmails(props.office.email_addresses)}
               </div>
+              
               <div className="usa-width-one-third">
                 {this.showWebsites(props.office.websites)}
               </div>

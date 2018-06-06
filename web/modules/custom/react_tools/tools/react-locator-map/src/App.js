@@ -14,7 +14,7 @@ class App extends Component {
     this.state = {
       isLoading: false,
       geolocation: {
-        disabled: true,
+        disabled: false,
         coords: null
       },
       searchLocation: '',
@@ -22,13 +22,6 @@ class App extends Component {
     };
   }
 
-  componentDidMount = () => {
-    this.getGeolocation((res)=>{
-      this.setState({
-        geolocation: res
-      });
-    });
-  }
 
   getGeolocation = (nextFn) =>{
     let response = {
@@ -37,16 +30,18 @@ class App extends Component {
     };
 
     if("geolocation" in navigator){
-      navigator.geolocation.getCurrentPosition(function(position) {
+      navigator.geolocation.getCurrentPosition((position) => {
         response.disabled = false;
         response.coords = {
           latitude: position.coords.latitude,
           longitude: position.coords.longitude
         }
-        nextFn(response);
+        nextFn(null, response);
+      }, (err)=>{
+        nextFn(err.message);
       });
     }else{
-      nextFn(response);
+      nextFn("Navigator doesn't support geolocation");
     }
   }
 
@@ -59,36 +54,63 @@ class App extends Component {
   onInitialSearchLocation = (isLocationServices) =>{
     if(!isLocationServices && !this.state.searchLocation) return;
 
-    let url = `${this.baseUrl}parser/locator-maps`;
-    let options = isLocationServices ? this.state.geolocation.coords : { query: this.state.searchLocation };
-
     this.setState({isLoading: true});
-    axios.post(url, options)
-      .then(res => {
-        let results = res.data;
-        results.selectedPage = 1;
-
-        _.each(results.offices, (office, i)=>{
-          office.distanceKm = this.getDistanceFromLatLonInKm(results.geolocation.lat, results.geolocation.lon, office.location.lat, office.location.lon);
-          office.distanceMi = 0.621371 * office.distanceKm;
-        });
-
-        results.offices = _.sortBy(results.offices, 'distanceMi');
-
-        _.each(results.offices, (office, i)=>{
-            office.id = `office-${i}`;
-        });
-
-        this.setState({
-          results: results,
-          isLoading: false
-        });
+    if(isLocationServices){
+      this.getGeolocation((navigatorErr, navigatorRes)=>{
+        if(navigatorErr){
+          this.handleError(navigatorErr);
+        }else{
+          this.requestData(navigatorRes.coords);
+        }
       });
+    }else{
+      this.requestData({ query: this.state.searchLocation });
+    }   
+  }
+
+  handleError = (errMessage) => {
+    this.setState({
+      isLoading: false,
+      errMessage: errMessage,
+      geolocation: {...this.state.geolocation, disabled: true}
+    });
+  }
+
+  requestData = (options) =>{
+      let url = `${this.baseUrl}parser/locator-maps`;
+      let coords = options.query ? options : {};
+
+      axios.post(url, options)
+        .then(res => {
+          let results = res.data;
+          coords = {
+            latitude: results.geolocation.lat,
+            longitude: results.geolocation.lon
+          }
+          results.selectedPage = 1;
+
+          _.each(results.offices, (office, i)=>{
+            office.distanceKm = this.getDistanceFromLatLonInKm(results.geolocation.lat, results.geolocation.lon, office.location.lat, office.location.lon);
+            office.distanceMi = 0.621371 * office.distanceKm;
+          });
+
+          results.offices = _.sortBy(results.offices, 'distanceMi');
+
+          _.each(results.offices, (office, i)=>{
+              office.id = `office-${i}`;
+          });
+
+          this.setState({
+            geolocation: {...this.state.geolocation, coords: coords},
+            results: results,
+            isLoading: false
+          });
+        });
   }
 
 
   //TODO REMOVE 
-  // ******************** TEST **************************
+  // ******************** TODO REMOVE **************************
   getDistanceFromLatLonInKm = (lat1,lon1,lat2,lon2) => {
     var R = 6371; // Radius of the earth in km
     var dLat = this.deg2rad(lat2-lat1);  // deg2rad below
@@ -106,6 +128,7 @@ class App extends Component {
   deg2rad = (deg) => {
     return deg * (Math.PI/180);
   }
+  // ******************** END TODO REMOVE **************************
 
   changePageNo = (pageNo, totalPages) => {
     pageNo = pageNo === '1' ? this.state.results.selectedPage + 1 : pageNo;
@@ -128,6 +151,14 @@ class App extends Component {
     }
   }
 
+  showErrorMessage = () =>{
+    if(this.state.errMessage){
+      return (
+        <div className="errorMessage">{this.state.errMessage}</div>
+      )
+    }
+  }
+
   render() {
     return (
       <div className="locator-map-container">
@@ -136,9 +167,9 @@ class App extends Component {
                     searchFn={this.onInitialSearchLocation} 
                     searchLocation={this.state.searchLocation}
                     geoLocationDisabled={this.state.geolocation.disabled}/>
+                    
+        {this.showErrorMessage()}
         {this.displayResultComponent()}
-
-        {JSON.stringify(this.testObject)}
       </div>
     );
   }
