@@ -4,7 +4,6 @@ status: true
 dependencies:
   config:
     - core.entity_view_display.comment.comment.default
-    - field.field.node.article.body
     - field.field.node.article.comment
     - field.field.node.article.field_image
     - field.field.node.article.field_tags
@@ -12,8 +11,7 @@ dependencies:
     - node.type.article
   module:
     - comment
-    - image
-    - text
+    - svg_image
     - user
 _core:
   default_config_hash: ChmU3AVqDKU32A_fyChG0W9dTRKmVBR58B6OClCLvZI
@@ -22,13 +20,6 @@ targetEntityType: node
 bundle: article
 mode: default
 content:
-  body:
-    type: text_default
-    weight: 0
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-    label: hidden
   comment:
     type: comment_default
     weight: 110
