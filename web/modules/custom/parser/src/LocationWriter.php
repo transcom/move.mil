@@ -1,8 +1,11 @@
 <?php
 
-namespace Drupal\parser\Writer\DB;
+namespace Drupal\parser;
 
 use Drupal\node\Entity\Node;
+use Drupal\paragraphs\Entity\Paragraph;
+use Drupal\Core\Database\Connection;
+
 
 /**
  * Class LocationWriter.
@@ -10,7 +13,27 @@ use Drupal\node\Entity\Node;
  * Parse a given array and saves it in a custom table.
  */
 class LocationWriter {
-  use DBWriter;
+
+  protected $entity;
+  protected $db;
+
+  /**
+   * LocationWriter constructor.
+   *
+   * Needed for the Paragraph dependency injection.
+   */
+  public function __construct(Connection $db) {
+    $this->db = $db;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('database')
+    );
+  }
 
   /**
    * Normalizes data then creates Location nodes.
@@ -36,7 +59,7 @@ class LocationWriter {
           throw new \RuntimeException(sprintf('Unknown file key ["%s"].', $key));
       }
 
-      $location_type = $this->getDatabaseConnection()
+      $location_type = $this->db
         ->select('taxonomy_term_field_data', 't')
         ->fields('t', ['tid'])
         ->condition('name', $query_term, '=')
@@ -51,7 +74,7 @@ class LocationWriter {
       foreach (json_decode($file) as $obj) {
         $node_ref = (property_exists($obj, 'shipping_office_name')) &&
         ($obj->shipping_office_name != NULL) ?
-          $this->getDatabaseConnection()
+          $this->db
             ->select('node_field_data', 'n')
             ->fields('n', ['nid'])
             ->condition('title', $obj->shipping_office_name, '=')
@@ -79,11 +102,21 @@ class LocationWriter {
         if (property_exists($obj, 'phone_numbers')) {
           if (is_array($obj->phone_numbers)) {
             $phone_numbers = array_map(function ($phone) {
-                return $phone->phone_number;
+                return Paragraph::create([
+                  'type' => 'location_telephone',
+                  'field_dsn' => $phone->dsn,
+                  'field_phonenumber' => $phone->phone_number,
+                  'field_type' => $phone->phone_type,
+                ]);
             }, $obj->phone_numbers);
           }
           else {
-            $phone_numbers = $obj->phone_numbers->phone_number;
+            $phone_numbers = Paragraph::create([
+              'type' => 'location_telephone',
+              'field_dsn' => $obj->phone_numbers->dsn,
+              'field_phonenumber' => $obj->phone_numbers->phone_number,
+              'field_type' => $obj->phone_numbers->phone_type,
+            ]);
           }
         }
 
@@ -133,7 +166,7 @@ class LocationWriter {
    * {@inheritdoc}
    */
   protected function isEmpty($location_type) {
-    $db_objs = $this->getDatabaseConnection()
+    $db_objs = $this->db
       ->select('node__field_location_type', 'n')
       ->fields('n')
       ->condition('n.bundle', 'location', '=')

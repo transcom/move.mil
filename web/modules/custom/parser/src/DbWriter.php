@@ -74,7 +74,7 @@ class DbWriter {
         $data = [];
         foreach ($tables as $key => $table) {
           array_push($data, $this->prepare400NgData($rawdata, $table, $dataname[$key]));
-          if ($table == 'packunpack') {
+          if ($table == 'parser_packunpack') {
             $data = $this->mapPackUnpackData($data);
           }
         }
@@ -194,6 +194,7 @@ class DbWriter {
   private function mapPackUnpackData(array $rawdata) {
     $packunpacks = [];
     $unpack = 0;
+
     while ($packunpack = current($rawdata)) {
       if ($packunpack['unpack'] != NULL) {
         $unpack = $packunpack['unpack'];
@@ -204,6 +205,7 @@ class DbWriter {
       $packunpacks[] = $packunpack;
       next($rawdata);
     }
+    die;
     return $packunpacks;
   }
 

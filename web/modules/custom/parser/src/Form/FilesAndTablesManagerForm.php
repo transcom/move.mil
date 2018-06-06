@@ -83,7 +83,6 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
     $this->ymlReader = $ymlReader;
     $this->xslReader = $xslReader;
     $this->swm = $swm;
-
   }
 
   /**

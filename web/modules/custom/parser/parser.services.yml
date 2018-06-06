@@ -8,3 +8,8 @@ services:
   parser.writer:
     class: Drupal\parser\DbWriter
     arguments: ['@database']
+  parser.location_reader:
+    class: Drupal\parser\LocationReader
+  parser.location_writer:
+      class: Drupal\parser\LocationWriter
+      arguments: ['@database']

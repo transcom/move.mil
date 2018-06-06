@@ -30,7 +30,7 @@
         "dsn": false
       },
       {
-        "phone_number": "(254) 287-2200",
+        "phone)number": "(254) 287-2200",
         "phone_type": "voice",
         "dsn": false
       },
@@ -221,12 +221,12 @@
     ],
     "phone_numbers": [
       {
-        "phone_number": "717-245-4000",
+        "phone_number": "717-245-4968",
         "phone_type": "voice",
         "dsn": false
       },
       {
-        "phone_number": "242-4000",
+        "phone_number": "242-4968",
         "phone_type": "voice",
         "dsn": true
       }
@@ -255,7 +255,7 @@
     },
     "email_addresses": [
       {
-        "email_address": "Marilyn.r.reed@uscg.mil",
+        "email_address": "D11-DG-M-TCPET-Transportation@uscg.mil",
         "note": "Customer Service"
       }
     ],
@@ -535,8 +535,8 @@
       "postal_code": "66048",
       "country_name": "United States",
       "country_code": "US",
-      "latitude": 39.35276,
-      "longitude": -94.922007
+      "latitude": 39.353094,
+      "longitude": 94.921186
     },
     "email_addresses": [
       {
@@ -556,19 +556,22 @@
         "dsn": true
       }
     ],
-    "hours": "Mon-Tues-Thurs-Fri (0730 -1600) Wed (1230-1600)",
+    "hours": "Mon-Tues-Thurs-Fri (0730-1600) Wed (1230-1600)",
     "services": [
       "Walk-In Help",
+      "Call Center",
+      "Briefings",
       "Computer Lab",
       "Appointments",
       "QA Inspections"
-    ]
+    ],
+    "note": "Group counseling of 10 or more personnel upon request. Individual counseling appointments for blue bark, VIPs during open hours."
   },
   {
     "name": "Fort Leonard Wood, Personal Property Processing Office",
     "shipping_office_name": "Joint Personal Property Shipping Office Northwest",
     "location": {
-      "street_address": "13486 Replacement Ave",
+      "street_address": "140 Replacement Ave",
       "extended_address": "Building 470, Suite 1222",
       "locality": "Fort Leonard Wood",
       "region": "Missouri",
@@ -646,7 +649,7 @@
     ]
   },
   {
-    "name": "CG BASE KETCHIKAN",
+    "name": "Coast Guard Base Ketchikan",
     "shipping_office_name": null,
     "location": {
       "street_address": "1300 Stedman St",
@@ -673,13 +676,19 @@
         "dsn": false
       }
     ],
-    "hours": "0730-1530",
+    "urls": [
+      {
+        "url": "http://alaska.coastguard.dodlive.mil/tag/base-ketchikan/"
+      }
+    ],
+    "hours": "Monday - Friday 0730-1600\nClosed Sat/Sun/Holidays",
     "services": [
       "Walk-In Help",
       "Briefings",
       "Appointments",
       "QA Inspections"
-    ]
+    ],
+    "note": "Department Meetings occur @1000-1100 every Tuesday"
   },
   {
     "name": "CG BSU, KODIAK, AK",
@@ -957,7 +966,7 @@
     ],
     "phone_numbers": [
       {
-        "phone_number": " (843) 794-7577  /  (843) 794-7575",
+        "phone_number": "(843) 794-7577 / (843) 794-7575",
         "phone_type": "voice",
         "dsn": false
       },
@@ -976,45 +985,7 @@
     "note": "Naval Power Training Unit Wed @1130 and Naval Nuclear Power Training Command (varies depending on graduation)"
   },
   {
-    "name": "PPPO, Fort Benning, GA",
-    "shipping_office_name": "Joint Personal Property Shipping Office South East (JPPSO-SE), Jacksonville, FL",
-    "location": {
-      "street_address": "6650 Meloy Dr",
-      "extended_address": "Building 6 Room 105",
-      "locality": "Fort Benning",
-      "region": "Georgia",
-      "region_code": "GA",
-      "postal_code": "31905",
-      "country_name": "United States",
-      "country_code": "US",
-      "latitude": 32.353212,
-      "longitude": -84.969571
-    },
-    "email_addresses": [
-      {
-        "email_address": "Curtis.austin3.ctr@mail.mil",
-        "note": "Customer Service"
-      }
-    ],
-    "phone_numbers": [
-      {
-        "phone_number": "706-545-5912",
-        "phone_type": "voice",
-        "dsn": false
-      }
-    ],
-    "hours": "0800 hours - 1630 hours",
-    "services": [
-      "Walk-In Help",
-      "Briefings",
-      "Computer Lab",
-      "Appointments",
-      "QA Inspections"
-    ],
-    "note": "ETS/Retirement: 0830 hrs Monday; All other: 0830 hrs TTF"
-  },
-  {
-    "name": "Seymour Johnson AFB, NC",
+    "name": "Seymour Johnson AFB",
     "shipping_office_name": "JPPSO-NE (DET 2)",
     "location": {
       "street_address": "1280 Humphreys St",
@@ -1036,7 +1007,7 @@
     ],
     "phone_numbers": [
       {
-        "phone_number": "(919) 722-1074 / (919) 722-545",
+        "phone_number": "(919) 722-1074 / (919) 722-5458",
         "phone_type": "voice",
         "dsn": false
       },
@@ -1046,14 +1017,14 @@
         "dsn": true
       }
     ],
-    "hours": "Monday - Friday  0800 -1600",
+    "hours": "Monday-Friday 0800-1600",
     "services": [
       "Walk-In Help",
       "Briefings",
       "Appointments",
       "QA Inspections"
     ],
-    "note": "HHG Briefings Tuesday/Thursday @1000\nPPM Briefings  Tuesday/Thursday @1400"
+    "note": "HHG Briefings Tuesday/Thursday @1000\nPPM Briefings Tuesday/Thursday @1400"
   },
   {
     "name": "Beale AFB",
@@ -1067,8 +1038,8 @@
       "postal_code": "95903",
       "country_name": "United States",
       "country_code": "US",
-      "latitude": 34.392738,
-      "longitude": -103.323707
+      "latitude": 39.113949,
+      "longitude": -121.397285
     },
     "email_addresses": [
       {
@@ -1098,48 +1069,6 @@
     "note": "Pre Sep Briefings @ AFRC each Wed at 0900.\n Inprocessing Briefings @ MPF mon, Wed, Fri at 0925.\nRetirement briefings monthly @ AFRC.\nSmooth Move Briefings @ AFRC, monthly."
   },
   {
-    "name": "Cannon AFB",
-    "shipping_office_name": "JPPSO-NC / JPPSO-COS",
-    "location": {
-      "street_address": "125 E. Cochran Ave",
-      "extended_address": null,
-      "locality": "Cannon Air Force Base",
-      "region": "New Mexico",
-      "region_code": "NM",
-      "postal_code": "88103",
-      "country_name": "United States",
-      "country_code": "US",
-      "latitude": 34.392738,
-      "longitude": -103.323707
-    },
-    "email_addresses": [
-      {
-        "email_address": "27solrs.lgrtp@afsoc.af.mil",
-        "note": "Customer Service"
-      }
-    ],
-    "phone_numbers": [
-      {
-        "phone_number": "(575) 784-2302",
-        "phone_type": "voice",
-        "dsn": false
-      },
-      {
-        "phone_number": "DSN 681-2301",
-        "phone_type": "voice",
-        "dsn": true
-      }
-    ],
-    "hours": "Mon, Tue, Thur, Fri 0800-1530\nWed 0800-1300\nThur by appointment only 1530-1800",
-    "services": [
-      "Walk-In Help",
-      "Briefings",
-      "Appointments",
-      "QA Inspections"
-    ],
-    "note": "Smooth Move - Monthly"
-  },
-  {
     "name": "Fort Gordon Transportation Office",
     "shipping_office_name": null,
     "location": {
@@ -1151,8 +1080,8 @@
       "postal_code": "30905",
       "country_name": "United States",
       "country_code": "US",
-      "latitude": 33.425376,
-      "longitude": -82.145028
+      "latitude": 33.4242151,
+      "longitude": -82.1382597
     },
     "email_addresses": [
       {
@@ -1176,50 +1105,9 @@
     "services": [
       "Walk-In Help",
       "Computer Lab",
-      "QA Inspections",
-      "Customers are seen within 15 minutes of walk in"
-    ]
-  },
-  {
-    "name": "Davis Monthan AFB",
-    "shipping_office_name": "JPPSO-NC / JPPSO-COS",
-    "location": {
-      "street_address": "3515 S Fifth St",
-      "extended_address": null,
-      "locality": "Davis-Monthan AFB",
-      "region": "Arizona",
-      "region_code": "AZ",
-      "postal_code": "85707",
-      "country_name": "United States",
-      "country_code": "US",
-      "latitude": 32.18136,
-      "longitude": -110.880004
-    },
-    "email_addresses": [
-      {
-        "email_address": "tmo.hhgs@us.af.mil",
-        "note": "Customer Service"
-      }
-    ],
-    "phone_numbers": [
-      {
-        "phone_number": " (520) 228-4818                                 \"",
-        "phone_type": "voice",
-        "dsn": false
-      },
-      {
-        "phone_number": "228-4818",
-        "phone_type": "voice",
-        "dsn": true
-      }
-    ],
-    "hours": "Customer Hours: 9:00a-3:00p Mon-Fri",
-    "services": [
-      "Walk-In Help",
-      "Briefings",
-      "Appointments",
       "QA Inspections"
-    ]
+    ],
+    "note": "Customers are seen within 15 minutes of walk in"
   },
   {
     "name": "Fairchild AFB",
@@ -1227,7 +1115,7 @@
     "location": {
       "street_address": "400 South Gate 35",
       "extended_address": "Bldg 2045, Rm 133",
-      "locality": "nFairchild AFB",
+      "locality": "Fairchild AFB",
       "region": "Washington",
       "region_code": "WA",
       "postal_code": "99011",
@@ -1267,7 +1155,7 @@
     "name": "Personal Property Shipping Office Fort Sill",
     "shipping_office_name": "Joint Personal Property Shipping Office Northwest",
     "location": {
-      "street_address": "4700 Mow Way Rd",
+      "street_address": "4700 Mow-Way Rd",
       "extended_address": "Room 110",
       "locality": "Fort Sill",
       "region": "Oklahoma",
@@ -1286,7 +1174,7 @@
     ],
     "phone_numbers": [
       {
-        "phone_number": "(580)442-3107)",
+        "phone_number": "(580) 442-3107",
         "phone_type": "voice",
         "dsn": false
       },
@@ -1300,10 +1188,9 @@
     "services": [
       "Walk-In Help",
       "Appointments",
-      "QA Inspections",
-      "Appointments 06 and above"
+      "QA Inspections"
     ],
-    "note": "Walk-In hours 0830-1530  and Special appointments for 06 and above"
+    "note": "Retirement briefings first Tues of each month @0900\nOCONUS Briefings Thurs @0900\nCONUS Briefings Thurs @1300"
   },
   {
     "name": "Grand Forks",
@@ -1389,90 +1276,7 @@
     ]
   },
   {
-    "name": "Personal Property Processing Office Fort Leonard Wood",
-    "shipping_office_name": "Joint Personal Property Shipping Office Northwest",
-    "location": {
-      "street_address": "140 Replacement Ave",
-      "extended_address": "STE 1222",
-      "locality": "Fort Leonard Wood",
-      "region": "Missouri",
-      "region_code": "MO",
-      "postal_code": "65473",
-      "country_name": "United States",
-      "country_code": "US",
-      "latitude": 37.761398,
-      "longitude": -92.11958
-    },
-    "email_addresses": [
-      {
-        "email_address": "USARMY.LEONARDWOOD.USAG.MBX.DOLHHG@MAIL.MIL",
-        "note": "Customer Service"
-      }
-    ],
-    "phone_numbers": [
-      {
-        "phone_number": "(573)596-0617",
-        "phone_type": "voice",
-        "dsn": false
-      },
-      {
-        "phone_number": "581-0617",
-        "phone_type": "voice",
-        "dsn": true
-      }
-    ],
-    "hours": "Mon-Fri 1100-1530 (includes walk-in customers)",
-    "services": [
-      "Briefings",
-      "Computer Lab",
-      "QA Inspections"
-    ],
-    "note": "Group briefs are held once a week and once every quarter for retirees 1100-1530"
-  },
-  {
-    "name": "Base Ketchikan",
-    "shipping_office_name": null,
-    "location": {
-      "street_address": "1300 Stedman",
-      "extended_address": null,
-      "locality": "Ketchikan",
-      "region": "Alaska",
-      "region_code": "AK",
-      "postal_code": "99901",
-      "country_name": "United States",
-      "country_code": "US",
-      "latitude": 55.332775,
-      "longitude": -131.624268
-    },
-    "email_addresses": [
-      {
-        "email_address": "D17-SMB-TRANS@USCG.MIL",
-        "note": "Customer Service"
-      }
-    ],
-    "phone_numbers": [
-      {
-        "phone_number": "907-228-6433",
-        "phone_type": "voice",
-        "dsn": false
-      }
-    ],
-    "urls": [
-      {
-        "url": "http://alaska.coastguard.dodlive.mil/tag/base-ketchikan/"
-      }
-    ],
-    "hours": "Monday - Friday 0730-1600\nClosed Sat/Sun/Holidays",
-    "services": [
-      "Walk-In Help",
-      "Briefings",
-      "Appointments",
-      "QA Inspections"
-    ],
-    "note": "Department Meetings occur @1000-1100 every Tuesday"
-  },
-  {
-    "name": "Personal Property Processing Office McChord Field, WA",
+    "name": "Traffic Management Office - McChord",
     "shipping_office_name": "Joint Personal Property Shipping Office Northwest",
     "location": {
       "street_address": "100 Col Joe Jackson Blvd",
@@ -1504,12 +1308,7 @@
         "dsn": true
       }
     ],
-    "urls": [
-      {
-        "url": "http://www.pcsing.com/base/fort-lewis/info/base-dmo-tmo#"
-      }
-    ],
-    "hours": "Mon & Wed (0900-1500) Tue & Thur (1000-1500) Fri (1000-1300) Sat/Sun closed",
+    "hours": "Monday - Friday 0730-1530",
     "services": [
       "Walk-In Help",
       "Briefings",
@@ -1521,7 +1320,7 @@
     "note": "Ret/Sep Briefing occurs M @ 0900; PPM Briefing occurs MW @ 1000; OCONUS Briefing occurs T @ 1000; CONUS W @ 0900; Walk-Ins M-F @ 11"
   },
   {
-    "name": "Personal Property Processing Office Lewis-Main",
+    "name": "Personal Property Processing Office Lewis",
     "shipping_office_name": "Joint Personal Property Shipping Office Northwest",
     "location": {
       "street_address": "2150 Liggett Ave",
@@ -1548,59 +1347,19 @@
         "dsn": false
       },
       {
-        "phone_number": "312-5446",
+        "phone_number": "357-5446",
         "phone_type": "voice",
         "dsn": true
       }
     ],
     "hours": "Mon-Fri 0730-1500; Sat/Sun/Federal Holidays Closed",
     "services": [
+      "Appointments",
       "Walk-In Help",
       "Briefings",
       "Computer Lab"
     ],
     "note": "Retiree brief as scheduled Thursday @ 1420 (Waller Hall Building)"
-  },
-  {
-    "name": "Fort Gordon Transportation Office",
-    "shipping_office_name": null,
-    "location": {
-      "street_address": "307 Chamberlain Ave",
-      "extended_address": "Building 33720, Room 111A",
-      "locality": "Fort Gordon",
-      "region": "Georgia",
-      "region_code": "GA",
-      "postal_code": "30905",
-      "country_name": "United States",
-      "country_code": "US",
-      "latitude": 33.425376,
-      "longitude": -82.145028
-    },
-    "email_addresses": [
-      {
-        "email_address": "usarmy.gordon.imcom.mbx.akima-transportation@mail.mil",
-        "note": "Customer Service"
-      }
-    ],
-    "phone_numbers": [
-      {
-        "phone_number": "706-791-4184",
-        "phone_type": "voice",
-        "dsn": false
-      },
-      {
-        "phone_number": "780-4184",
-        "phone_type": "voice",
-        "dsn": true
-      }
-    ],
-    "hours": "Monday-Friday 0730-1600; Closed for lunch 1230-1300",
-    "services": [
-      "Walk-In Help",
-      "Computer Lab",
-      "QA Inspections",
-      "Customers are seen within 15 minutes of walk in time."
-    ]
   },
   {
     "name": "Personal Property Processing Office Fort Wainwright, AK",
@@ -1643,46 +1402,6 @@
       "QA Inspections"
     ],
     "note": "Group briefings MTTHF @ 0900; W @ 1000"
-  },
-  {
-    "name": "Transportation Personal Property",
-    "shipping_office_name": "Joint Personal Property Shipping Office Northwest",
-    "location": {
-      "street_address": "110 Mo-way Road",
-      "extended_address": "Building 4700 Room",
-      "locality": "Fort Sill",
-      "region": "Oklahoma",
-      "region_code": "OK",
-      "postal_code": "73503",
-      "country_name": "United States",
-      "country_code": "US",
-      "latitude": 34.647991,
-      "longitude": -98.412426
-    },
-    "email_addresses": [
-      {
-        "email_address": "usarmy.jblm.usamc.mbx.jppsonw-cs@mail.mil",
-        "note": "Customer Service"
-      }
-    ],
-    "phone_numbers": [
-      {
-        "phone_number": "580-442-3903",
-        "phone_type": "voice",
-        "dsn": false
-      },
-      {
-        "phone_number": "580-639-3903",
-        "phone_type": "voice",
-        "dsn": true
-      }
-    ],
-    "hours": "Monday- Friday 0830- 1530   Sat/Sun Closed",
-    "services": [
-      "Walk-In Help",
-      "Briefings"
-    ],
-    "note": "Retirement briefings First Tuesday of each month @0900  Oconus Briefings each Thursday morning @0900  Conus Briefings each Thursday at 1300"
   },
   {
     "name": "USCG",
@@ -1760,7 +1479,7 @@
     ]
   },
   {
-    "name": "PPPO FORT BENNING, GA",
+    "name": "PPPO Fort Benning, GA",
     "shipping_office_name": "Joint Personal Property Shipping Office South East (JPPSO-SE), Jacksonville, FL",
     "location": {
       "street_address": "6650 Meloy Hall",
@@ -1885,46 +1604,6 @@
       "QA Inspections"
     ],
     "note": "By Appointment Only: PPM Initial @ 1400 on Tues & Thurs, PPM Turn-In @ 0900 on Mon & Wed, CONUS Brief @ 1300 on Wed, OCONUS Brief @ 0900 on Thurs.  Retirement/Separation HHG Briefing @ 1300 on Mon.  Individual Appointments can be scheduled, as necessary."
-  },
-  {
-    "name": "CPPSO - Carlilse Barracks, PA",
-    "shipping_office_name": null,
-    "location": {
-      "street_address": "46 Ashburn Dr",
-      "extended_address": "2nd Floor",
-      "locality": "Carlisle",
-      "region": "Pennsylvania",
-      "region_code": "PA",
-      "postal_code": "17013",
-      "country_name": "United States",
-      "country_code": "US",
-      "latitude": 40.12,
-      "longitude": -77.1
-    },
-    "email_addresses": [
-      {
-        "email_address": "usarmy.carlisle.imcom-atlantic.mbx.imne-clb-pwt@mail.mil",
-        "note": "Customer Service"
-      }
-    ],
-    "phone_numbers": [
-      {
-        "phone_number": "717-245-4968",
-        "phone_type": "voice",
-        "dsn": false
-      },
-      {
-        "phone_number": "242-4968",
-        "phone_type": "voice",
-        "dsn": true
-      }
-    ],
-    "hours": "Monday - Friday 0730-1600; Sat/Sun/Holidays Closed",
-    "services": [
-      "Walk-In Help",
-      "Appointments",
-      "QA Inspections"
-    ]
   },
   {
     "name": "PPO Seal Beach NWS, CA",
@@ -2056,47 +1735,6 @@
     ]
   },
   {
-    "name": "Joint Base Charleston (Naval Weapon Station)",
-    "shipping_office_name": "JPPSO-NE (DET 2)",
-    "location": {
-      "street_address": "1000 Quality Cir",
-      "extended_address": "Bldg 36",
-      "locality": "Goose Creek",
-      "region": "South Carolina",
-      "region_code": "SC",
-      "postal_code": "29445",
-      "country_name": "United States",
-      "country_code": "US",
-      "latitude": 32.953477,
-      "longitude": -79.9378
-    },
-    "email_addresses": [
-      {
-        "email_address": "437aps.trot.nwspersonalpropert@us.af.mil",
-        "note": "Customer Service"
-      }
-    ],
-    "phone_numbers": [
-      {
-        "phone_number": "TMO: COMM (843) 794-7577\nTMO: COMM (843) 794-7575",
-        "phone_type": "voice",
-        "dsn": false
-      },
-      {
-        "phone_number": "794-7577 / 794-7575",
-        "phone_type": "voice",
-        "dsn": true
-      }
-    ],
-    "hours": "0730-1630 Mon-Fri",
-    "services": [
-      "Walk-In Help",
-      "Briefings",
-      "Appointments"
-    ],
-    "note": "Naval Power Training Unit Wed @1130\nNaval Nuclear Power Training Command (varies depending on graduation)"
-  },
-  {
     "name": "Scott AFB",
     "shipping_office_name": "JPPSO-NE (DET 2)",
     "location": {
@@ -2173,16 +1811,16 @@
     "name": "Cannon AFB",
     "shipping_office_name": "JPPSO-NC / JPPSO-COS",
     "location": {
-      "street_address": "125 E. Cochran Ave",
-      "extended_address": null,
+      "street_address": "110 E. Alison Ave.",
+      "extended_address": "Bldg 600, Room 1153",
       "locality": "Cannon AFB",
       "region": "New Mexico",
       "region_code": "NM",
       "postal_code": "88103",
       "country_name": "United States",
       "country_code": "US",
-      "latitude": 34.392738,
-      "longitude": -103.323707
+      "latitude": 34.391197,
+      "longitude": -103.325245
     },
     "email_addresses": [
       {
@@ -2202,7 +1840,7 @@
         "dsn": true
       }
     ],
-    "hours": "Mon, Tue, Thur, Fri 0800-1530\nWen 0800-1300\nThur by appointment only 1530-1800",
+    "hours": "Mon, Tue, Thur, Fri 0800-1530\nWed 0800-1300\nThur by appointment only 1530-1800",
     "services": [
       "Walk-In Help",
       "Briefings",
@@ -2285,13 +1923,14 @@
         "dsn": true
       }
     ],
-    "hours": "M-F 0730-1500",
+    "hours": "Monday - Friday 0730-1500",
     "services": [
       "Walk-In Help",
       "Briefings",
+      "Appointments",
       "QA Inspections"
     ],
-    "note": "M, T, TH, 0900 & 1300,\nF, 0900,"
+    "note": "M, T, TH  0900 & 1300,\nF, W 0900 Walk in"
   },
   {
     "name": "Kirkland AFB",
@@ -2334,42 +1973,6 @@
       "QA Inspections"
     ],
     "note": "Plan My Move Briefing w/ A&FRC - Once a month"
-  },
-  {
-    "name": "PPSO Puget Sound Household Goods",
-    "shipping_office_name": null,
-    "location": {
-      "street_address": "2720 Ohio St",
-      "extended_address": "Bangor Plaza Housing Office",
-      "locality": "Silverdale",
-      "region": "Washington",
-      "region_code": "WA",
-      "postal_code": "98315",
-      "country_name": "United States",
-      "country_code": "US",
-      "latitude": 47.689794,
-      "longitude": -122.70968
-    },
-    "email_addresses": [
-      {
-        "email_address": "hhg_ps_counseling@navy.mil",
-        "note": "Customer Service"
-      }
-    ],
-    "phone_numbers": [
-      {
-        "phone_number": "360-396-4366",
-        "phone_type": "voice",
-        "dsn": false
-      }
-    ],
-    "hours": "Monday, Tuesday, Thursdays, Friday: 0730-1600; Wednesday 0900-1600",
-    "services": [
-      "Walk-In Help",
-      "Call Center",
-      "Computer Lab",
-      "Appointments"
-    ]
   },
   {
     "name": "PPSO Key West",
@@ -2583,47 +2186,6 @@
       "QA Inspections",
       "T-GPS Seminars"
     ]
-  },
-  {
-    "name": "NSA Mid-South Personal Property Office",
-    "shipping_office_name": "Joint Personal Property Shipping Office South East (JPPSO-SE), Jacksonville, FL",
-    "location": {
-      "street_address": "766 Intrepid St",
-      "extended_address": "Community Services Bldg. 456, 1st Floor Left Wing",
-      "locality": "nMillington",
-      "region": "Tennessee",
-      "region_code": "TN",
-      "postal_code": "38054",
-      "country_name": "United States",
-      "country_code": "US",
-      "latitude": 35.335582,
-      "longitude": -89.869946
-    },
-    "email_addresses": [
-      {
-        "email_address": "hhg_millington@navy.mil",
-        "note": "Customer Service"
-      }
-    ],
-    "phone_numbers": [
-      {
-        "phone_number": "901-874-7771 or  7775",
-        "phone_type": "voice",
-        "dsn": false
-      },
-      {
-        "phone_number": "882-7771 or  7775",
-        "phone_type": "voice",
-        "dsn": true
-      }
-    ],
-    "hours": "M - T - TH - F 0730 - 1530 / Wed - 0900 - 1530, closed Sat/Sun",
-    "services": [
-      "Walk-In Help",
-      "Computer Lab",
-      "QA Inspections"
-    ],
-    "note": "This office services Western TN. Fort Campbell for Northern Middle TN, Redstone Arsenal for Southern Middle TN, Fort Stewart for Eastern TN."
   },
   {
     "name": "NCBC GULFPORT",
@@ -3129,8 +2691,8 @@
       "postal_code": "93555",
       "country_name": "United States",
       "country_code": "US",
-      "latitude": 35.689,
-      "longitude": -117.6833
+      "latitude": 35.655345,
+      "longitude": -117.657222
     },
     "email_addresses": [
       {
@@ -3140,12 +2702,12 @@
     ],
     "phone_numbers": [
       {
-        "phone_number": "7609393875",
+        "phone_number": "(760) 939-3875",
         "phone_type": "voice",
         "dsn": false
       },
       {
-        "phone_number": "4373875",
+        "phone_number": "437-3875",
         "phone_type": "voice",
         "dsn": true
       }
@@ -3154,7 +2716,8 @@
     "services": [
       "Walk-In Help",
       "Appointments"
-    ]
+    ],
+    "note": "PPM Briefing appointment only\nGroup Counseling:  TAP Classes when requested by Government\nQuality of Life meetings - Every 2nd or 3rd Monday\nKIOSK - None available\nOne Person managing office"
   },
   {
     "name": "PPSO Ft. Huachuca",
@@ -3284,44 +2847,6 @@
     ]
   },
   {
-    "name": "Personal Property Office",
-    "shipping_office_name": "JPPSO SW",
-    "location": {
-      "street_address": "730 Enterprise Ave",
-      "extended_address": "Wing 2, Room 5",
-      "locality": "NAS Lemoore",
-      "region": "California",
-      "region_code": "CA",
-      "postal_code": "93246",
-      "country_name": "United States",
-      "country_code": "US",
-      "latitude": 36.260194,
-      "longitude": -119.905519
-    },
-    "email_addresses": [],
-    "phone_numbers": [
-      {
-        "phone_number": "559-998-3876",
-        "phone_type": "voice",
-        "dsn": false
-      },
-      {
-        "phone_number": "949-3876",
-        "phone_type": "voice",
-        "dsn": true
-      }
-    ],
-    "hours": "M, T, THUR 0700-1530 - WED 0900-1530 - FRI 0730 - NOON",
-    "services": [
-      "Walk-In Help",
-      "Call Center",
-      "Computer Lab",
-      "Appointments",
-      "QA Inspections"
-    ],
-    "note": "WALK-IN BASIS"
-  },
-  {
     "name": "PERSONAL PROPERTY OFFICE",
     "shipping_office_name": "JPPSO SW",
     "location": {
@@ -3344,12 +2869,12 @@
         "dsn": false
       },
       {
-        "phone_number": "949 3881",
+        "phone_number": "949-3881",
         "phone_type": "voice",
         "dsn": true
       }
     ],
-    "hours": "M,T,TH 0700-1530 W 0900-1530 F 0730-1200",
+    "hours": "M, T, THUR 0700-1530 - WED 0900-1530 - FRI 0730 - 1200",
     "services": [
       "Walk-In Help",
       "Call Center",
@@ -3357,7 +2882,7 @@
       "Appointments",
       "QA Inspections"
     ],
-    "note": "WALK IN BASIS"
+    "note": "WALK-IN BASIS"
   },
   {
     "name": "Fort McCoy PPPO",
@@ -3491,45 +3016,6 @@
     ]
   },
   {
-    "name": "LRC, Dugway Proving Ground, Transportation Div",
-    "shipping_office_name": "JPPSO-NC / JPPSO-COS",
-    "location": {
-      "street_address": "Doolitte Ave",
-      "extended_address": "Bldg. 5464",
-      "locality": "Dugway",
-      "region": "Utah",
-      "region_code": "UT",
-      "postal_code": "84022",
-      "country_name": "United States",
-      "country_code": "US",
-      "latitude": 40.218554,
-      "longitude": -112.749625
-    },
-    "email_addresses": [
-      {
-        "email_address": "Deanna.i.olson.civ@mail.mil",
-        "note": "Customer Service"
-      }
-    ],
-    "phone_numbers": [
-      {
-        "phone_number": "435-831-2753",
-        "phone_type": "voice",
-        "dsn": false
-      },
-      {
-        "phone_number": "789-2753",
-        "phone_type": "voice",
-        "dsn": true
-      }
-    ],
-    "hours": "Monday thru Thursday 7:00am to 4:30pm MST",
-    "services": [
-      "Briefings",
-      "Appointments"
-    ]
-  },
-  {
     "name": "NAVSUP FLC PS PPPO EVERETT",
     "shipping_office_name": null,
     "location": {
@@ -3589,7 +3075,7 @@
     },
     "email_addresses": [
       {
-        "email_address": "HHG_PS_COUNSELING@NAVY.MIL",
+        "email_address": "hhg_ps_counseling@navy.mil",
         "note": "Customer Service"
       }
     ],
@@ -3605,11 +3091,13 @@
         "dsn": true
       }
     ],
-    "hours": "0730-1600; Mon/Tues/Thursday/Friday and 0900-1600; Wednesday",
+    "hours": "Monday, Tuesday, Thursdays, Friday: 0730-1600; Wednesday 0900-1600",
     "services": [
       "Walk-In Help",
       "Call Center",
-      "Briefings"
+      "Briefings",
+      "Computer Lab",
+      "Appointments"
     ]
   },
   {
@@ -3695,47 +3183,7 @@
     ]
   },
   {
-    "name": "PPSO NAVSUP FLC CHINA LAKE",
-    "shipping_office_name": "JPPSO SW",
-    "location": {
-      "street_address": "1 Administration Cir",
-      "extended_address": "Bldg 1023",
-      "locality": "China Lake",
-      "region": "California",
-      "region_code": "CA",
-      "postal_code": "93555",
-      "country_name": "United States",
-      "country_code": "US",
-      "latitude": 35.6508,
-      "longitude": -117.6617
-    },
-    "email_addresses": [
-      {
-        "email_address": "jppso_sw_counseling@navy.mil",
-        "note": "Customer Service"
-      }
-    ],
-    "phone_numbers": [
-      {
-        "phone_number": "7609393875",
-        "phone_type": "voice",
-        "dsn": false
-      },
-      {
-        "phone_number": "4373875",
-        "phone_type": "voice",
-        "dsn": true
-      }
-    ],
-    "hours": "Non Compressed Working Hours: Monday-Friday 0730-1400 hrs\nCompressed Working Hours: Monday-Thursday 0730-1400 hrs\nClosed Lunch: 1130-1230 hrs\nSat/Sun Closed\nHolidays Closed",
-    "services": [
-      "Walk-In Help",
-      "Appointments"
-    ],
-    "note": "PPM Briefing appointment only\nGroup Counseling:  TAP Classes when requested by Government\nQuality of Life meetings - Every 2nd or 3rd Monday\nKIOSK - None available\nOne Person managing office"
-  },
-  {
-    "name": "NSA MidSouth Personal Property Office",
+    "name": "NSA Mid-South Personal Property Office",
     "shipping_office_name": "Joint Personal Property Shipping Office South East (JPPSO-SE), Jacksonville, FL",
     "location": {
       "street_address": "766 Intrepid St",
@@ -3779,16 +3227,16 @@
     "name": "Dugway Proving Ground",
     "shipping_office_name": "JPPSO-NC / JPPSO-COS",
     "location": {
-      "street_address": "Bldg 5464",
-      "extended_address": null,
+      "street_address": "5300 Valdez Cir.",
+      "extended_address": "Bldg H",
       "locality": "Dugway",
       "region": "Utah",
       "region_code": "UT",
       "postal_code": "84022",
       "country_name": "United States",
       "country_code": "US",
-      "latitude": 40.213585,
-      "longitude": -112.75678
+      "latitude": 40.220593,
+      "longitude": -112.749965
     },
     "email_addresses": [
       {
@@ -3798,61 +3246,23 @@
     ],
     "phone_numbers": [
       {
-        "phone_number": "(435) 831-2753 / 2131",
+        "phone_number": "(435) 831-2753 / (435) 831-2131",
         "phone_type": "voice",
         "dsn": false
+      },
+      {
+        "phone_number": "789-2753 / 789-2131",
+        "phone_type": "voice",
+        "dsn": true
       }
     ],
-    "hours": "Monday thru Thursday 7:00am to 4:30pm",
+    "hours": "Monday - Thursday 07:00 - 1630",
     "services": [
       "Walk-In Help",
       "Briefings",
       "Appointments",
       "QA Inspections"
-    ],
-    "note": "Outbound moves counseling and briefing\nMonday thru Thursday 7:00am to 4:30pm"
-  },
-  {
-    "name": "Charleston Naval Weapon Station",
-    "shipping_office_name": "JPPSO-NE (DET 2)",
-    "location": {
-      "street_address": "1000 Quality Cir",
-      "extended_address": "Bldg 36",
-      "locality": "Goose Creek",
-      "region": "South Carolina",
-      "region_code": "SC",
-      "postal_code": "29445",
-      "country_name": "United States",
-      "country_code": "US",
-      "latitude": 32.953477,
-      "longitude": -79.9378
-    },
-    "email_addresses": [
-      {
-        "email_address": "437aps.trot.nwspersonalpropert@us.af.mil",
-        "note": "Customer Service"
-      }
-    ],
-    "phone_numbers": [
-      {
-        "phone_number": "(843) 794-7577  / (843) 794-7575",
-        "phone_type": "voice",
-        "dsn": false
-      },
-      {
-        "phone_number": "794-7577 / 794-7575",
-        "phone_type": "voice",
-        "dsn": true
-      }
-    ],
-    "hours": "Monday - Friday 0730-1630",
-    "services": [
-      "Call Center",
-      "Briefings",
-      "Appointments",
-      "QA Inspections"
-    ],
-    "note": "PCS preparation briefing at Airman Family & Readiness Center on Tuesdays @ 1400"
+    ]
   },
   {
     "name": "Ft. Eustis",
@@ -3919,7 +3329,7 @@
     ],
     "phone_numbers": [
       {
-        "phone_number": "(757) 764-4171 (757) 764-7503",
+        "phone_number": "(757) 764-4171 / (757) 764-7503",
         "phone_type": "voice",
         "dsn": false
       },
@@ -4435,48 +3845,6 @@
     "note": "Weight scales by appointment Monday - Friday 1000 and 1500, except Thursday’s only 1000 appointments call (252) 466-2345"
   },
   {
-    "name": "Ellsworth AFB",
-    "shipping_office_name": "JPPSO-NC / JPPSO-COS",
-    "location": {
-      "street_address": "1924 Lemay Blvd",
-      "extended_address": null,
-      "locality": "Ellsworth AFB",
-      "region": "South Dakota",
-      "region_code": "SD",
-      "postal_code": "57706",
-      "country_name": "United States",
-      "country_code": "US",
-      "latitude": 44.148476,
-      "longitude": -103.092295
-    },
-    "email_addresses": [
-      {
-        "email_address": "28LRS.TMOPersonalPro@us.af.mil",
-        "note": "Customer Service"
-      }
-    ],
-    "phone_numbers": [
-      {
-        "phone_number": "(605) 385-6597",
-        "phone_type": "voice",
-        "dsn": false
-      },
-      {
-        "phone_number": "675-6597",
-        "phone_type": "voice",
-        "dsn": true
-      }
-    ],
-    "hours": "Monday - Friday 0730-1500",
-    "services": [
-      "Walk-In Help",
-      "Briefings",
-      "Appointments",
-      "QA Inspections"
-    ],
-    "note": "M, T, TH  0900 & 1300,\nF, W 0900 Walk in"
-  },
-  {
     "name": "F.E. Warren AFB",
     "shipping_office_name": "JPPSO-NC / JPPSO-COS",
     "location": {
@@ -4592,7 +3960,7 @@
         "dsn": true
       }
     ],
-    "hours": "Monday - Friday 0730 - 1600\nExcept federal holidays",
+    "hours": "Monday - Friday 0800 - 1600\nExcept federal holidays",
     "services": [
       "Walk-In Help",
       "Briefings",
@@ -4649,7 +4017,7 @@
     "location": {
       "street_address": "7383 N Litchfield Rd",
       "extended_address": "Rm 1122",
-      "locality": "nLuke AFB",
+      "locality": "Luke AFB",
       "region": "Arizona",
       "region_code": "AZ",
       "postal_code": "85309",
@@ -4694,12 +4062,12 @@
     "name": "Malmstrom AFB",
     "shipping_office_name": "JPPSO-NC / JPPSO-COS",
     "location": {
-      "street_address": "7383 N Litchfield Rd",
-      "extended_address": "Rm 1122",
-      "locality": "Luke AFB",
-      "region": "Arizona",
-      "region_code": "AZ",
-      "postal_code": "85309",
+      "street_address": "5 80th St N.",
+      "extended_address": "Bldg 400, Rm 217",
+      "locality": "Malmstrom AFB",
+      "region": "Montana",
+      "region_code": "MT",
+      "postal_code": "59402",
       "country_name": "United States",
       "country_code": "US",
       "latitude": 47.519099,
@@ -4707,7 +4075,7 @@
     },
     "email_addresses": [
       {
-        "email_address": "341lrs.lgrt@us.af.mil",
+        "email_address": "deandrea.singleton@us.af.mil",
         "note": "Customer Service"
       }
     ],
@@ -4930,52 +4298,11 @@
         "dsn": true
       }
     ],
-    "hours": "Monday - Friday  0800 - 1600\nClosed all holidays ACC Family Days.",
+    "hours": "Monday - Friday 0800 - 1500\nClosed all holidays ACC Family Days.",
     "services": [
       "Walk-In Help",
       "Computer Lab",
       "Appointments"
-    ],
-    "note": "Appts daily (0800-1000)/(1300-1500)"
-  },
-  {
-    "name": "Peterson AFB",
-    "shipping_office_name": "JPPSO-NC / JPPSO-COS",
-    "location": {
-      "street_address": "135 Dover St",
-      "extended_address": "Bldg 350",
-      "locality": "Peterson AFB",
-      "region": "Colorado",
-      "region_code": "CO",
-      "postal_code": "80914",
-      "country_name": "United States",
-      "country_code": "US",
-      "latitude": 38.82066,
-      "longitude": -104.705125
-    },
-    "email_addresses": [
-      {
-        "email_address": "JPPSO-NC.pppo-peterson@us.af.mil",
-        "note": "Customer Service"
-      }
-    ],
-    "phone_numbers": [
-      {
-        "phone_number": "(719) 556-4196",
-        "phone_type": "voice",
-        "dsn": false
-      },
-      {
-        "phone_number": "834-4196",
-        "phone_type": "voice",
-        "dsn": true
-      }
-    ],
-    "hours": "Monday - Friday  0800 - 1600\nClosed all holidays ACC Family Days.",
-    "services": [
-      "Walk-In Help",
-      "Briefings",
-      "Computer Lab"
     ],
     "note": "Appts daily (0800-1000)/(1300-1500)"
   },
@@ -5287,23 +4614,23 @@
     },
     "email_addresses": [
       {
-        "email_address": "7lrslgrt@dyess.af.mil",
+        "email_address": "7lrs.hhg@us.af.mil",
         "note": "Customer Service"
       }
     ],
     "phone_numbers": [
       {
-        "phone_number": "(325) 696-1020  /  (325) 696-2045",
+        "phone_number": "(325) 696-1020 / (325) 696-2029",
         "phone_type": "voice",
         "dsn": false
       },
       {
-        "phone_number": "461-1020 / 461-2045",
+        "phone_number": "461-1020 / 461-2029",
         "phone_type": "voice",
         "dsn": true
       }
     ],
-    "hours": "Mon-Wed-Thurs 0900-1500\nTues 0800-1500\nFri 0900-1300",
+    "hours": "Mon-Wed 0900-1500\nTues-Thurs 0800-1500\nFri 0900-1300",
     "services": [
       "Walk-In Help",
       "Briefings",
@@ -5317,7 +4644,7 @@
     "shipping_office_name": "Joint Personal Property Shipping Office South Central, San Antonio TX - JPPSO-SC (DET 3)",
     "location": {
       "street_address": "310 Van Matre Blvd",
-      "extended_address": "Bldg 210",
+      "extended_address": "Bldg 210, Room 169",
       "locality": "Eglin Air Force Base",
       "region": "Florida",
       "region_code": "FL",
@@ -5801,12 +5128,12 @@
         "dsn": false
       },
       {
-        "phone_number": "487-1848 / 487-1848",
+        "phone_number": "487-1848 / 487-1849",
         "phone_type": "voice",
         "dsn": true
       }
     ],
-    "hours": "Mon-Tues-Thurs-Fri 0730-1530\nClosed Wed 1400 for AETC mandatory training and Weekends, Holidays, & AETC Family Days",
+    "hours": "Mon-Fri 0800-1530",
     "services": [
       "Walk-In Help",
       "Briefings",
@@ -5864,8 +5191,8 @@
     "name": "Sheppard AFB",
     "shipping_office_name": "Joint Personal Property Shipping Office South Central, San Antonio TX - JPPSO-SC (DET 3)",
     "location": {
-      "street_address": "426 5th Ave",
-      "extended_address": "Ste 10",
+      "street_address": "426 5th Ave, Ste 10",
+      "extended_address": "Bldg 402, Rm 110",
       "locality": "Sheppard Air Force Base",
       "region": "Texas",
       "region_code": "TX",
@@ -5893,7 +5220,7 @@
         "dsn": true
       }
     ],
-    "hours": "Mon thru Wed Fri 0800-1630\nThurs 1000-1630",
+    "hours": "Mon thru Wed Fri 0800-1600\nThurs 1000-1600",
     "services": [
       "Walk-In Help",
       "Briefings",
@@ -6030,48 +5357,6 @@
       "QA Inspections"
     ],
     "note": "2nd Mon of Each Month/1030..Installation Newcomer's Brief/ Semi-Annual Mass Spouse Briefings"
-  },
-  {
-    "name": "McChord AFB",
-    "shipping_office_name": "Joint Personal Property Shipping Office South Central, San Antonio TX - JPPSO-SC (DET 3)",
-    "location": {
-      "street_address": "100 Colonel Joe Jackson Blvd",
-      "extended_address": null,
-      "locality": "Joint Base Lewis-McChord",
-      "region": "Washington",
-      "region_code": "WA",
-      "postal_code": "98438",
-      "country_name": "United States",
-      "country_code": "US",
-      "latitude": 47.133562,
-      "longitude": -122.485584
-    },
-    "email_addresses": [
-      {
-        "email_address": "627LRS.TMO@us.af.mil",
-        "note": "Customer Service"
-      }
-    ],
-    "phone_numbers": [
-      {
-        "phone_number": "(253) 982-2585",
-        "phone_type": "voice",
-        "dsn": false
-      },
-      {
-        "phone_number": "312-2585",
-        "phone_type": "voice",
-        "dsn": true
-      }
-    ],
-    "hours": "Monday - Friday 0730-1530",
-    "services": [
-      "Walk-In Help",
-      "Briefings",
-      "Appointments",
-      "QA Inspections"
-    ],
-    "note": "Monday:   0900--Retirement/Separation 1000--PPM Only Retirement/Separation\nTuesday:  1000--Oconus (HHG/UB/NTS)\nWednesday:  0900--PCS/Conus (HHG/NTS/PPM)"
   },
   {
     "name": "JBER Travel Center-Elmendorf",
@@ -6234,46 +5519,6 @@
       "Walk-In Help",
       "Briefings",
       "Computer Lab",
-      "Appointments"
-    ]
-  },
-  {
-    "name": "Dugway Proving Ground",
-    "shipping_office_name": "JPPSO-NC / JPPSO-COS",
-    "location": {
-      "street_address": "Bldg 5464",
-      "extended_address": null,
-      "locality": "Dugway",
-      "region": "Utah",
-      "region_code": "UT",
-      "postal_code": "84022",
-      "country_name": "United States",
-      "country_code": "US",
-      "latitude": 40.216501,
-      "longitude": -112.753042
-    },
-    "email_addresses": [
-      {
-        "email_address": "deanna.i.olson.civ@mail.mil",
-        "note": "Customer Service"
-      }
-    ],
-    "phone_numbers": [
-      {
-        "phone_number": "(435) 831-2753 / (435) 831-2131",
-        "phone_type": "voice",
-        "dsn": false
-      },
-      {
-        "phone_number": "789-2753 / 789-2131",
-        "phone_type": "voice",
-        "dsn": true
-      }
-    ],
-    "hours": "Monday - Thursday 07:00 - 1630",
-    "services": [
-      "Walk-In Help",
-      "Briefings",
       "Appointments"
     ]
   },
@@ -6592,7 +5837,7 @@
     "location": {
       "street_address": "10020 Kabrich Cir",
       "extended_address": "Bldg. 11-080",
-      "locality": "nPine Bluff",
+      "locality": "Pine Bluff",
       "region": "Arkansas",
       "region_code": "AR",
       "postal_code": "71602",
@@ -6971,10 +6216,6 @@
       "longitude": -76.138442
     },
     "email_addresses": [
-      {
-        "email_address": "none available",
-        "note": "Customer Service"
-      }
     ],
     "phone_numbers": [
       {
@@ -6995,47 +6236,6 @@
       "QA Inspections"
     ],
     "note": "Counseling briefings occurs on Tues @ 1400 and Thurs @1300"
-  },
-  {
-    "name": "PPPO COUNSELING OFFICE ABERDEEN PROVING GROUND",
-    "shipping_office_name": "JPPSO-MA: Customer Service Management Division",
-    "location": {
-      "street_address": "4305 Susquehanna Ave",
-      "extended_address": null,
-      "locality": "Aberdeen Proving Ground",
-      "region": "Maryland",
-      "region_code": "MD",
-      "postal_code": "21005",
-      "country_name": "United States",
-      "country_code": "US",
-      "latitude": 39.482125,
-      "longitude": -76.138442
-    },
-    "email_addresses": [
-      {
-        "email_address": "none availalbe",
-        "note": "Customer Service"
-      }
-    ],
-    "phone_numbers": [
-      {
-        "phone_number": "410-306-2056 or 2057",
-        "phone_type": "voice",
-        "dsn": false
-      },
-      {
-        "phone_number": "458-2056 or 2057",
-        "phone_type": "voice",
-        "dsn": true
-      }
-    ],
-    "hours": "Monday- Friday 0730-1500 Closed weekends and Fed Holidays",
-    "services": [
-      "Walk-In Help",
-      "Briefings",
-      "QA Inspections"
-    ],
-    "note": "Counseling Briefings occur every Tues @1400 and Thurs @1300"
   },
   {
     "name": "JBAB PPPO",
@@ -7885,10 +7085,10 @@
     ]
   },
   {
-    "name": "NAVSUP FLC Yokosuka Site Marianas (Anderson), Personal Property Processing Office (PPPO)",
+    "name": "NAVSUP FLC Yokosuka Site Marianas (Andersen), Personal Property Processing Office (PPPO)",
     "shipping_office_name": null,
     "location": {
-      "street_address": "ARC LIGHT BLVD BLDG 180002, ANDERSON AIR FORCE BASE 96929",
+      "street_address": "ARC LIGHT BLVD BLDG 180002, ANDERSEN AIR FORCE BASE 96929",
       "extended_address": null,
       "locality": null,
       "region_code": null,
@@ -7909,6 +7109,11 @@
         "phone_number": "671-366-4846",
         "phone_type": "voice",
         "dsn": false
+      },
+      {
+        "phone_number": null,
+        "phone_type": "voice",
+        "dsn": true
       }
     ]
   },
@@ -7937,6 +7142,11 @@
         "phone_number": "805-355-2180",
         "phone_type": "voice",
         "dsn": false
+      },
+      {
+        "phone_number": null,
+        "phone_type": "voice",
+        "dsn": true
       }
     ]
   },
@@ -7968,39 +7178,6 @@
       },
       {
         "phone_number": "315-226-3525",
-        "phone_type": "voice",
-        "dsn": true
-      }
-    ]
-  },
-  {
-    "name": "Yokosuka Naval Base, Japan, Personal Property Shipping Office (PPSO)",
-    "shipping_office_name": null,
-    "location": {
-      "street_address": null,
-      "extended_address": null,
-      "locality": null,
-      "region_code": null,
-      "postal_code": null,
-      "country_name": "Japan",
-      "country_code": "JP",
-      "latitude": 35.292227,
-      "longitude": 139.672829
-    },
-    "email_addresses": [
-      {
-        "email_address": "M-YO-FISC-Personal-Property-Yokosuka@fe.navy.mil",
-        "note": "Customer Service"
-      }
-    ],
-    "phone_numbers": [
-      {
-        "phone_number": "011-81-46-816-6311",
-        "phone_type": "voice",
-        "dsn": false
-      },
-      {
-        "phone_number": "315-243-6311",
         "phone_type": "voice",
         "dsn": true
       }
@@ -9369,5 +8546,46 @@
       }
     ],
     "hours": "0730-1630 Mon-Fri"
+  },
+  {
+    "name": "Joint Base McGuire-Dix-Lakehurst Household Goods/Transportation Office",
+    "shipping_office_name": "JPPSO-NE (DET 2)",
+    "location": {
+      "street_address": "1706 Vandenberg Ave",
+      "extended_address": null,
+      "locality": "McGuire AFB",
+      "region": "New Jersey",
+      "region_code": "NJ",
+      "postal_code": "08641",
+      "country_name": "United States",
+      "country_code": "US",
+      "latitude": 40.026449,
+      "longitude": -74.585968
+    },
+    "email_addresses": [
+      {
+        "email_address": "305aps.hhg@us.af.mil",
+        "note": "Customer Service"
+      }
+    ],
+
+    "phone_numbers": [
+      {
+        "phone_number": "(609) 754-6911",
+        "phone_type": "voice",
+        "dsn": false
+      },
+      {
+        "phone_number": "650-6911",
+        "phone_type": "voice",
+        "dsn": true
+      }
+    ],
+    "hours": "Mon-Fri 0800-1600",
+    "services": [
+      "Appointments",
+      "Walk-In Help",
+      "Briefings"
+    ]
   }
 ]

@@ -1,6 +1,6 @@
 services:
   parser.parser:
     class: Drupal\parser\Command\ParserCommand
-    arguments: []
+    arguments: ['@parser.location_reader','@parser.location_writer']
     tags:
       - { name: drupal.command }
