@@ -12,12 +12,6 @@ type: list_string
 settings:
   allowed_values:
     -
-      value: 'float left'
-      label: left
-    -
-      value: 'float right'
-      label: right
-    -
       value: 'span top (100%)'
       label: top
     -
