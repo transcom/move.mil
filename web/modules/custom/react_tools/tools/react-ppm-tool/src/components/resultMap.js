@@ -31,7 +31,6 @@ class ResultMap extends Component {
        let lineColor = 'blue';
        let zoom = 13;
         return (
-          // <div id="map-container"></div>
           <Map center={this.props.map.center} zoom={zoom} id="map-container" bounds={bounds}>
             <TileLayer
               attribution="&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
