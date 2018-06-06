@@ -1,12 +1,7 @@
 import React, { Component }  from 'react';
-import * as _ from 'lodash';
 import Input from './input';
 
 class NewItem extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     handleChange = (params, val, event) => {
         this.props.createUpdateTempItem(this.props.roomKey, params.objectKey, val);
     }

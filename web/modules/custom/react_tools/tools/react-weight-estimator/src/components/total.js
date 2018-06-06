@@ -1,11 +1,6 @@
 import React, { Component }  from 'react';
-import * as _ from 'lodash';
 
 class Total extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     handleScroll = (event) => {
         this.props.fixedFn();
     }

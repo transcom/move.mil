@@ -5,10 +5,6 @@ import NewItem from './newItem';
 import TotalBar from './totalBar';
 
 class Rooms extends Component {
-    constructor(props) {
-        super(props);  
-    }
-
     renderItemsHeaderBlock = (headerText) => {
         return (
             <div className="flex-container header">
@@ -50,8 +46,7 @@ class Rooms extends Component {
             return (
                 <div className="room-container flex-container" key={key}>
                     <div className="logo-container flex-item logo">
-                        <img className="logo" src={this.props.baseUrl + key.toLowerCase() + '.svg'} alt={key} />
-                        {/* <img className="logo" src={room.icon} alt={key} /> */}
+                        <img className="logo" src={this.props.baseUrl + room.icon} alt={key} />
                         <div className="room-title">{room.displayName.replace('/', '/ ')}</div>
                     </div>
                     <div className="room-content flex-item"> 

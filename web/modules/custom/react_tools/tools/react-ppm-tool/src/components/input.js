@@ -36,22 +36,15 @@ class Input extends Component {
         if(isValid && changeFn){
             this.props.onChangeFn(this.props.params, val, event);
         }else{
-            event.target.value = this.props.value;
-        }
-    }
-
-    handleOnBlur = (e) =>{
-        if(this.props.tryAddNewItem){
-            this.props.tryAddNewItem();
+            event.target.value = this.props.value || '';
         }
     }
 
     inputComponent = () =>{
         return (
             <input type={this.props.type} 
-                   className={this.props.className}
                    placeholder={this.props.placeholder} 
-                   value={this.props.value} onBlur={(e) => this.handleOnBlur(e)} 
+                   value={this.props.value}
                    onChange={(e) => {this.handleChange(e)}}/> 
         )
     }
