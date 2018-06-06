@@ -16,6 +16,7 @@ dependencies:
     - node.type.location
   module:
     - address
+    - entity_reference_revisions
     - geolocation
     - link
     - text
@@ -90,11 +91,13 @@ content:
     type: string
     region: content
   field_location_telephone:
-    weight: 105
+    type: entity_reference_revisions_entity_view
+    weight: 111
     label: above
-    settings: {  }
+    settings:
+      view_mode: default
+      link: ''
     third_party_settings: {  }
-    type: basic_string
     region: content
   field_location_type:
     weight: 101

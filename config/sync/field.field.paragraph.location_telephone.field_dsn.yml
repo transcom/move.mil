@@ -1,0 +1,21 @@
+uuid: 798616fa-54e6-4601-944a-e60b2452e586
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_dsn
+    - paragraphs.paragraphs_type.location_telephone
+id: paragraph.location_telephone.field_dsn
+field_name: field_dsn
+entity_type: paragraph
+bundle: location_telephone
+label: DSN
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean
