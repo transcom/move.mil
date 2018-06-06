@@ -54,8 +54,8 @@ class LocatorMap extends Component {
       };
 
       _.each(this.props.offices, (office, i)=>{
-        if(office.location.lat && office.location.lon){
-          office.coords = [parseFloat(office.location.lat), parseFloat(office.location.lon)];
+        if(office.location.geolocation.lat && office.location.geolocation.lng){
+          office.coords = [parseFloat(office.location.geolocation.lat), parseFloat(office.location.geolocation.lng)];
           markersObject.markers.push(office);
           markersObject.bounds.push(office.coords);
         }
@@ -69,7 +69,9 @@ class LocatorMap extends Component {
 
       return (
         // center={this.props.centerCoords} 
-        <Map zoom={zoom} id="map-container" bounds={markersObject.bounds} scrollWheelZoom={false}>
+        <Map zoom={zoom} id="map-container" 
+          bounds={markersObject.bounds} 
+          scrollWheelZoom={false}>
           <TileLayer
             attribution="&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

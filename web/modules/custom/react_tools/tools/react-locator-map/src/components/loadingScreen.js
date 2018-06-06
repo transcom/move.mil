@@ -6,7 +6,7 @@ const LoadingScreen = (props) => {
                 <div className="loading-container">
                     <div className="bg"></div>
                     <div className="loading-content">
-                        <div className="message">Loading, please wait...</div>
+                        <div className="message">Finding nearby locations...</div>
                     </div>
                 </div>
         )

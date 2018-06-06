@@ -4,7 +4,7 @@ import * as _ from 'lodash';
 const Phones = (props) =>{
   return _.map(props.phones, (phone, i)=>{
     return (
-      <div key={i}>{phone}</div>
+      <div key={i}>{phone.value}</div>
     )
   })
 }
@@ -12,7 +12,7 @@ const Phones = (props) =>{
 const Emails = (props) =>{
   return _.map(props.emails, (email, i)=>{
     return (
-      <div key={i}><a href={"mailto:" + email}>{email}</a></div>
+      <div key={i}><a href={"mailto:" + email.value}>{email.value}</a></div>
     )
   })
 }
@@ -20,7 +20,15 @@ const Emails = (props) =>{
 const Websites = (props) =>{
   return _.map(props.websites, (website, i)=>{
     return (
-      <div key={i}><a href={website}>{website}</a></div>
+      <div key={i}><a href={website.value}>{website.value}</a></div>
+    )
+  })
+}
+
+const Notes = (props) =>{
+  return _.map(props.notes, (note, i)=>{
+    return (
+      <div key={i}>{note.value}</div>
     )
   })
 }
@@ -28,7 +36,7 @@ const Websites = (props) =>{
 const Services = (props) =>{
   return _.map(props.services, (service, i)=>{
     return (
-      <li key={i}>{service}</li>
+      <li key={i}>{service.value}</li>
     )
   })
 }
@@ -61,6 +69,17 @@ this.showWebsites = (websites) =>{
       <div>
         <div className="bold-header">Websites:</div>
         <Websites websites={websites} />
+      </div>
+    )
+  }
+}
+
+this.showNotes = (notes) =>{
+  if(notes && notes.length > 0){
+    return (
+      <div>
+        <div className="bold-header">Notes:</div>
+        <Notes notes={notes} />
       </div>
     )
   }
@@ -168,8 +187,8 @@ const ListItem = (props) => {
   return (
     <li>
         <div className={`${"location-search-result " + officeTypeClass}`}
-          data-latitude={props.item.location.lat} 
-          data-longitude={props.item.location.lon} 
+          data-latitude={props.item.location.geolocation.lat}
+          data-longitude={props.item.location.geolocation.lng} 
           data-name={props.item.title} 
           data-type={props.item.type} 
           id={props.item.id}>
@@ -189,6 +208,7 @@ const ListItem = (props) => {
               </div>
               <div className="usa-width-one-third">
                   {this.showHours(props.item.location.hours)}
+                  {this.showNotes(props.item.notes)}
                   {this.showServices(props.item.services)}
               </div>
             </div>

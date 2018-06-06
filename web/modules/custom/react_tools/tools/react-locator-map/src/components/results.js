@@ -36,7 +36,7 @@ class Results extends Component {
     return (
       <div className="locator-results-container">
         {this.mapLegend()}
-        <LocatorMap centerCoords={this.props.resultData.geolocation} offices={viewablelistItems} firstViewableIndex={startIndex} lastViewableIndex={endIndex}/>
+        <LocatorMap centerCoords={this.props.resultData.geolocation}  offices={viewablelistItems} firstViewableIndex={startIndex} lastViewableIndex={endIndex}/>
         <div className="display-results">Displaying results near <span className="bold">{this.props.resultData.geolocation.lat}, {this.props.resultData.geolocation.lon}</span> (page {selectedPage} of {totalPages}).</div>
         <ListContainer viewablelistItems={viewablelistItems} totalPages={totalPages} selectedPage={selectedPage} changePageFn={this.props.changePageFn} />
       </div>
