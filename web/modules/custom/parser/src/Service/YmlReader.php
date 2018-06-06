@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\parser;
+namespace Drupal\parser\Service;
 
 use Symfony\Component\Yaml\Yaml;
 

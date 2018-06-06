@@ -1,21 +1,58 @@
-uuid: 2ad2dbcb-1146-4c64-98d0-227031d3f207
+uuid: 7a428ac2-b5a3-4e3d-a33c-51b26ea5d546
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.node.field_location_telephone
     - node.type.location
+    - paragraphs.paragraphs_type.location_telephone
   module:
-    - telephone
+    - entity_reference_revisions
 id: node.location.field_location_telephone
 field_name: field_location_telephone
 entity_type: node
 bundle: location
-label: 'Location telephone'
+label: 'Location Telephone'
 description: ''
 required: false
 translatable: false
 default_value: {  }
 default_value_callback: ''
-settings: {  }
-field_type: telephone
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      location_telephone: location_telephone
+    target_bundles_drag_drop:
+      basic_text:
+        weight: 11
+        enabled: false
+      callout_accordion:
+        weight: 12
+        enabled: false
+      customer_service_box:
+        weight: 13
+        enabled: false
+      location_telephone:
+        enabled: true
+        weight: 14
+      pro_tip:
+        weight: 15
+        enabled: false
+      tabular_data:
+        weight: 16
+        enabled: false
+      tabular_data_wrapper:
+        weight: 17
+        enabled: false
+      text_with_image:
+        weight: 18
+        enabled: false
+      tutorial_slideshow_image:
+        weight: 19
+        enabled: false
+      warning_callout_box:
+        weight: 20
+        enabled: false
+field_type: entity_reference_revisions
