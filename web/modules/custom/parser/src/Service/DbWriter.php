@@ -205,7 +205,6 @@ class DbWriter {
       $packunpacks[] = $packunpack;
       next($rawdata);
     }
-    die;
     return $packunpacks;
   }
 

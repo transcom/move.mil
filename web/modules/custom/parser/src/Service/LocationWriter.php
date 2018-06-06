@@ -6,7 +6,6 @@ use Drupal\node\Entity\Node;
 use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\Core\Database\Connection;
 
-
 /**
  * Class LocationWriter.
  *
