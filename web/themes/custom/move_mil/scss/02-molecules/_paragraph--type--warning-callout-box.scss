@@ -1,9 +1,7 @@
 .paragraph--type--warning-callout-box {
+  margin-bottom: $spacing-medium;
+
   .field--name-field-plain-title {
     @include h3();
-  }
-
-  .field--name-field-body {
-    @include strip-paragraph-spacing();
   }
 }

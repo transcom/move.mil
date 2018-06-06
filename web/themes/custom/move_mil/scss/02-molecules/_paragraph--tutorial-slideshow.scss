@@ -11,6 +11,10 @@
       font-family: $font-sans;
       text-transform: uppercase;
     }
+
+    + .field--name-field-pro-tip {
+      margin-top: $spacing-medium;
+    }
   }
 
   .field--name-field-slideshow-description {
