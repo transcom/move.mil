@@ -18,7 +18,6 @@
     }
 
     .usa-media_block-img { // this is a class associated with an image or a title that gets aligned
-      margin: 0 0 $spacing-medium 0;
 
       &__align-right {
         order: 1;
@@ -54,7 +53,6 @@
     }
 
     .usa-media_block-body {
-      margin: 0 0 $spacing-medium 0;
 
       &.usa-width-two-thirds {
         max-width: 50rem;
