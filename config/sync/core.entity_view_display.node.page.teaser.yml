@@ -28,4 +28,5 @@ content:
     weight: 101
     region: content
 hidden:
+  field_page_intro_text: true
   field_paragraph: true
