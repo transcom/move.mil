@@ -2,6 +2,7 @@
 
 namespace Drupal\parser\Command;
 
+use Drupal\Driver\Exception\Exception;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Drupal\Core\Database\Driver\mysql\Connection;
@@ -54,16 +55,21 @@ class TruncateCommand extends ContainerAwareCommand {
    * {@inheritdoc}
    */
   protected function execute(InputInterface $input, OutputInterface $output) {
+    $io = new SymfonyStyle($input, $output);
+    $io->text("Deleting all locations");
     $db_objs = $this->database
       ->select('node', 'n')
       ->fields('n', ['nid'])
       ->condition('n.type', 'location', '=')
       ->execute()
       ->fetchCol();
+    $io->text("Found : " . count($db_objs) . " locations");
 
     $storageHandler = $this->etm->getStorage("node");
     $nodeEntities = $storageHandler->loadMultiple($db_objs);
     $storageHandler->delete($nodeEntities);
+
+    $io->success("Deletion successful");
   }
 
 }
