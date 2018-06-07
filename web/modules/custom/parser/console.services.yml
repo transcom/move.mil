@@ -4,3 +4,8 @@ services:
     arguments: ['@parser.location_reader','@parser.location_writer']
     tags:
       - { name: drupal.command }
+  parser.truncate:
+    class: Drupal\parser\Command\TruncateCommand
+    arguments: ['@database', '@entity_type.manager']
+    tags:
+      - { name: drupal.command }
