@@ -2,7 +2,6 @@
 
 namespace Drupal\parser\Command;
 
-use Drupal\Driver\Exception\Exception;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Drupal\Core\Database\Driver\mysql\Connection;
@@ -73,4 +72,3 @@ class TruncateCommand extends ContainerAwareCommand {
   }
 
 }
-
