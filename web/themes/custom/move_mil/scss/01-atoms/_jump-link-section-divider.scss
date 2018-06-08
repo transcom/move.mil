@@ -10,3 +10,21 @@
     }
   }
 }
+
+// one-off cases targeted by page
+.retirees-separatees,
+.tools-resources {
+  .field--name-field-paragraph {
+    .field__item:not(:first-child) {
+      > .paragraph--text-with-image {
+        padding-top: 3rem;
+        margin-top: 0;
+        border-top: 1px solid $color-cool-blue-lightest;
+
+        > .paragraph--text-with-image {
+          margin: 0;
+        }
+      }
+    }
+  }
+}

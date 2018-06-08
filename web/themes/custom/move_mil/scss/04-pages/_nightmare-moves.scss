@@ -4,10 +4,8 @@
   .field--name-field-paragraph {
     @include clearfix;
 
-    .paragraph--pro-tip .usa-width-one-third {
-      float: none;
-      margin: 0;
-      width: 100%;
+    .paragraph--pro-tip {
+      margin: $spacing-medium 0;
     }
 
     @include media($medium-large-screen) {
@@ -25,6 +23,10 @@
         &:nth-child(2n) {
           float: right;
           width: 35%;
+
+          .paragraph--pro-tip {
+            margin: 0;
+          }
         }
 
         &:nth-child(n+3) {

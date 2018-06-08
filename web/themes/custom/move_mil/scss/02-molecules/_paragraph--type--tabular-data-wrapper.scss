@@ -94,6 +94,12 @@
         margin-bottom: $site-margins-mobile;
         padding-bottom: $site-margins-mobile;
       }
+
+      .field--name-field-body {
+        > ul:last-child {
+          margin-bottom: 1em;
+        }
+      }
     }
   }
 }

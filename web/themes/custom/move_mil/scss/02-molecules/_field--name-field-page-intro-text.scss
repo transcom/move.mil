@@ -5,7 +5,6 @@
 
   @include margin(2rem 0-$site-margins-mobile);
   @include padding($site-margins-mobile);
-  @include strip-paragraph-spacing();
 
   @include media($medium-screen) {
     @include margin(2rem 0);
