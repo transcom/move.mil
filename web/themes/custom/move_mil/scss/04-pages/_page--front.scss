@@ -130,10 +130,11 @@
     .paragraph--text-with-image__align-left {
       flex-direction: row;
 
-      .field--name-field-plain-title {
+      h3 {
         color: #205493;
         font-size: 2.5rem;
         font-weight: $font-normal;
+        margin: 0 0 $spacing-medium;
 
         @include media($medium-screen) {
           font-size: 3.5rem;
@@ -154,11 +155,11 @@
           min-width: 0;
           width: 4rem;
           position: relative;
-          top: 2rem;
+          // top: 2rem;
 
           @include media($medium-screen) {
             width: 100%;
-            top: 0;
+            // top: 0;
           }
         }
       }
@@ -173,7 +174,7 @@
         }
 
         > h3 {
-          margin-left: 4.5rem;
+          margin-left: 5rem;
 
           @include media($medium-screen) {
             margin-left: 0;

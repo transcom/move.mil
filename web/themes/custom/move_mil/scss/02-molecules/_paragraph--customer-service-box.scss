@@ -10,11 +10,6 @@
     margin: 0;
   }
 
-  a {
-    word-break: break-all;
-    display: inline-block;
-  }
-
   h3.svc-title {
     font-size: 1.4rem;
   }
@@ -49,6 +44,20 @@
           padding: 0;
           border: 0;
           background-color: transparent;
+
+          &-adddress,
+          &-comm-fax,
+          &-comm-phone,
+          &-dsn-fax,
+          &-dsn-phone,
+          &-website,
+          &-email {
+
+            a {
+              word-break: break-all;
+              display: inline-block;
+            }
+          }
         }
       }
     }

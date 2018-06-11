@@ -1,0 +1,15 @@
+.retirees-separatees {
+
+  // one-off to remove divider above top text with image paragraph just below a section title
+  .field--name-field-paragraph {
+    .field__item:first-child {
+      h3 {
+        margin: 0;
+      }
+    }
+
+    .field__item:nth-child(2) > .paragraph--text-with-image {
+      border-top: 0;
+    }
+  }
+}
