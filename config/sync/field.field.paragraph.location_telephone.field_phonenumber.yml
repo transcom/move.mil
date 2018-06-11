@@ -11,7 +11,7 @@ id: paragraph.location_telephone.field_phonenumber
 field_name: field_phonenumber
 entity_type: paragraph
 bundle: location_telephone
-label: Phonenumber
+label: 'Phone number'
 description: ''
 required: false
 translatable: false
