@@ -37,28 +37,28 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
   /**
    * Variables containing the databaseWriter serivce.
    *
-   * @var \Drupal\parser\DbWriter
+   * @var \Drupal\parser\Service\DbWriter
    */
   protected $writer;
 
   /**
    * Variables containing the CsvReader serivce.
    *
-   * @var \Drupal\parser\CsvReader
+   * @var \Drupal\parser\Service\CsvReader
    */
   protected $csvReader;
 
   /**
    * Variables containing the YmlReader serivce.
    *
-   * @var \Drupal\parser\YmlReader
+   * @var \Drupal\parser\Service\YmlReader
    */
   protected $ymlReader;
 
   /**
    * Variables containing the XslReader serivce.
    *
-   * @var \Drupal\parser\ExcelReader
+   * @var \Drupal\parser\Service\ExcelReader
    */
   protected $xslReader;
 

@@ -4,6 +4,7 @@ namespace Drupal\parser\Command;
 
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Drupal\Console\Core\Style\DrupalStyle;
 use Drupal\Core\Database\Driver\mysql\Connection;
 use Drupal\Console\Core\Command\ContainerAwareCommand;
 use Drupal\Core\Entity\EntityTypeManager;
@@ -54,7 +55,7 @@ class TruncateCommand extends ContainerAwareCommand {
    * {@inheritdoc}
    */
   protected function execute(InputInterface $input, OutputInterface $output) {
-    $io = new SymfonyStyle($input, $output);
+    $io = new DrupalStyle($input, $output);
     $io->text("Deleting all locations");
     $db_objs = $this->database
       ->select('node', 'n')

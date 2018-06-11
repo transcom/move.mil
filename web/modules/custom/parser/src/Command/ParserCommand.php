@@ -2,9 +2,9 @@
 
 namespace Drupal\parser\Command;
 
+use Drupal\Console\Core\Style\DrupalStyle;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Style\SymfonyStyle;
 use Drupal\parser\Service\LocationReader;
 use Drupal\parser\Service\LocationWriter;
 use Drupal\Console\Core\Command\ContainerAwareCommand;
@@ -57,7 +57,7 @@ class ParserCommand extends ContainerAwareCommand {
    * {@inheritdoc}
    */
   protected function execute(InputInterface $input, OutputInterface $output) {
-    $io = new SymfonyStyle($input, $output);
+    $io = new DrupalStyle($input, $output);
     $path = DRUPAL_ROOT . '/../lib/data';
 
     $filename = [
