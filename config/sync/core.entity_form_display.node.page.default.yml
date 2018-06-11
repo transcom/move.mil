@@ -98,4 +98,3 @@ content:
     third_party_settings: {  }
 hidden:
   body: true
-  field_page_intro_text: true
