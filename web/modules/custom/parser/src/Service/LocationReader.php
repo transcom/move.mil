@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\parser\Reader;
+namespace Drupal\parser\Service;
 
 /**
  * Class LocationReader.
