@@ -22,3 +22,11 @@ function parser_help($route_name, RouteMatchInterface $route_match) {
     default:
   }
 }
+
+function parser_page_attachments(array &$attachments) {
+  $theme = \Drupal::theme()->getActiveTheme()->getName();
+  if ($theme == 'seven') {
+    $attachments['#attached']['library'][] = 'parser/parser';
+  }
+}
+

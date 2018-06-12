@@ -143,6 +143,7 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
 
     $form['zip_3']['truncate'] = [
       '#type' => 'checkbox',
+      '#attributes' => array('id' => array('zip3')),
       '#title' => $this->t('Clean table (removes all data previously stored)'),
     ];
 
@@ -167,6 +168,7 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
 
     $form['zip_5']['truncate'] = [
       '#type' => 'checkbox',
+      '#attributes' => array('id' => array('zip5')),
       '#title' => $this->t('Clean table (removes all data previously stored)'),
     ];
 
@@ -213,6 +215,7 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
 
     $form['400NG']['truncate'] = [
       '#type' => 'checkbox',
+      '#attributes' => array('id' => array('400NG')),
       '#title' => $this
         ->t('Clean table (removes all data previously stored)'),
     ];
@@ -237,6 +240,7 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
     ];
     $form['entitlements']['truncate'] = [
       '#type' => 'checkbox',
+      '#attributes' => array('id' => array('entitlements')),
       '#title' => $this->t('Clean table (removes all data previously stored)'),
     ];
 
@@ -265,6 +269,7 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
 
     $form['discounts']['truncate'] = [
       '#type' => 'checkbox',
+      '#attributes' => array('id' => array('discounts')),
       '#title' => $this->t('Clean table (removes all data previously stored)'),
     ];
 
@@ -289,6 +294,7 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
 
     $form['zipcodes']['truncate'] = [
       '#type' => 'checkbox',
+      '#attributes' => array('id' => array('zipcodes')),
       '#title' => $this->t('Clean table (removes all data previously stored)'),
     ];
 
@@ -326,6 +332,9 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
+//    $route = \Drupal::service('theme.manager')->getActiveTheme()->getName();
+//    dump($route); die;
+
     $groups = $form_state->getValues();
     $reader = NULL;
     $tables = NULL;
