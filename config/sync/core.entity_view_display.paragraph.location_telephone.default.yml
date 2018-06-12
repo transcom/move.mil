@@ -1,0 +1,40 @@
+uuid: bae7b30d-9711-48de-9629-252048740d89
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.location_telephone.field_dsn
+    - field.field.paragraph.location_telephone.field_phonenumber
+    - field.field.paragraph.location_telephone.field_type
+    - paragraphs.paragraphs_type.location_telephone
+id: paragraph.location_telephone.default
+targetEntityType: paragraph
+bundle: location_telephone
+mode: default
+content:
+  field_dsn:
+    weight: 0
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+    region: content
+  field_phonenumber:
+    weight: 1
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+  field_type:
+    weight: 2
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+hidden: {  }

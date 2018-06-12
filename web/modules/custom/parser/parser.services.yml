@@ -1,10 +1,15 @@
 services:
   parser.xsl_reader:
-    class: Drupal\parser\ExcelReader
+    class: Drupal\parser\Service\ExcelReader
   parser.csv_reader:
-    class: Drupal\parser\CsvReader
+    class: Drupal\parser\Service\CsvReader
   parser.yml_reader:
-    class: Drupal\parser\YmlReader
+    class: Drupal\parser\Service\YmlReader
   parser.writer:
-    class: Drupal\parser\DbWriter
+    class: Drupal\parser\Service\DbWriter
     arguments: ['@database']
+  parser.location_reader:
+    class: Drupal\parser\Service\LocationReader
+  parser.location_writer:
+      class: Drupal\parser\Service\LocationWriter
+      arguments: ['@database']
