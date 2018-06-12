@@ -27,9 +27,8 @@ function parser_help($route_name, RouteMatchInterface $route_match) {
  * Implements hook_help().
  */
 function parser_page_attachments(array &$attachments) {
- $route_name = \Drupal::routeMatch()->getRouteName();
+  $route_name = \Drupal::routeMatch()->getRouteName();
   if ($route_name == 'parser.files_and_tables_manager_form') {
     $attachments['#attached']['library'][] = 'parser/parser';
   }
 }
-
