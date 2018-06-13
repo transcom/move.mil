@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './App.css';
 import DropDown from './components/dropdown';
 import Dependents from './components/dependents';
 import Conus from './components/conus';
