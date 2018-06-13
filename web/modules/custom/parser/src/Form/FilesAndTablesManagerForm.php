@@ -142,7 +142,8 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
 
     $form['zip_3']['truncate'] = [
       '#type' => 'checkbox',
-      '#title' => $this->t('Clean table (removes all data previously stored)'),
+      '#attributes' => ['id' => ['zip_3']],
+      '#title' => $this->t('Clear table (removes all data previously stored)'),
     ];
 
     $form['zip_3']['link'] = [
@@ -166,7 +167,8 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
 
     $form['zip_5']['truncate'] = [
       '#type' => 'checkbox',
-      '#title' => $this->t('Clean table (removes all data previously stored)'),
+      '#attributes' => ['id' => ['zip_5']],
+      '#title' => $this->t('Clear table (removes all data previously stored)'),
     ];
 
     $form['zip_5']['link'] = [
@@ -212,8 +214,9 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
 
     $form['400NG']['truncate'] = [
       '#type' => 'checkbox',
+      '#attributes' => ['id' => ['400NG']],
       '#title' => $this
-        ->t('Clean table (removes all data previously stored)'),
+        ->t('Clear table (removes all data previously stored)'),
     ];
 
     $form['400NG']['link'] = [
@@ -236,7 +239,8 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
     ];
     $form['entitlements']['truncate'] = [
       '#type' => 'checkbox',
-      '#title' => $this->t('Clean table (removes all data previously stored)'),
+      '#attributes' => ['id' => ['entitlements']],
+      '#title' => $this->t('Clear table (removes all data previously stored)'),
     ];
 
     $form['entitlements']['link'] = [
@@ -264,7 +268,8 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
 
     $form['discounts']['truncate'] = [
       '#type' => 'checkbox',
-      '#title' => $this->t('Clean table (removes all data previously stored)'),
+      '#attributes' => ['id' => ['discounts']],
+      '#title' => $this->t('Clear table (removes all data previously stored)'),
     ];
 
     $form['discounts']['link'] = [
@@ -288,7 +293,8 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
 
     $form['zipcodes']['truncate'] = [
       '#type' => 'checkbox',
-      '#title' => $this->t('Clean table (removes all data previously stored)'),
+      '#attributes' => ['id' => ['zipcodes']],
+      '#title' => $this->t('Clear table (removes all data previously stored)'),
     ];
 
     $form['zipcodes']['link'] = [
@@ -325,6 +331,7 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
+
     $groups = $form_state->getValues();
     $reader = NULL;
     $tables = NULL;

@@ -1,0 +1,6 @@
+parser:
+  version: 1.x
+  js:
+    js/parser.js: {}
+  dependencies:
+    - core/jquery
