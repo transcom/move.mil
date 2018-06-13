@@ -21,6 +21,7 @@ class LocationsController extends ControllerBase {
   private $databaseConnection;
   private $googleApi;
   protected $entityTypeManager;
+  private $nodeStorage;
   protected $errors;
 
   /**
@@ -30,16 +31,21 @@ class LocationsController extends ControllerBase {
    *   A Database Connection object.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager interface.
+   *
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    */
   public function __construct(Connection $databaseConnection, EntityTypeManagerInterface $entity_type_manager) {
     $this->databaseConnection = $databaseConnection;
     $this->entityTypeManager = $entity_type_manager;
+    $this->nodeStorage = $this->entityTypeManager->getStorage('node');
     $this->googleApi = $_SERVER['GOOGLE_MAPS_API_KEY'];
     $this->errors = [];
   }
 
   /**
    * {@inheritdoc}
+   *
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    */
   public static function create(ContainerInterface $container) {
     return new static(
@@ -168,10 +174,16 @@ class LocationsController extends ControllerBase {
    */
   private function loadLocations($origin) {
     try {
+      // Get location terms.
       $taxonomy_terms = $this->entityTypeManager
         ->getStorage('taxonomy_term')
         ->loadByProperties(['vid' => 'location_type']);
-      $entities = $this->entityTypeManager->getStorage('node')->loadByProperties(['type' => 'location']);
+      // Get all location entity nodes.
+      $entities = $this->nodeStorage->loadByProperties(['type' => 'location']);
+      // Get all location telephone paragraphs.
+      $phone_paragraphs = $this->entityTypeManager
+        ->getStorage('paragraph')
+        ->loadByProperties(['type' => 'location_telephone']);
     }
     catch (InvalidPluginDefinitionException $ipde) {
       $this->errors[] = "Error while creating response: {$ipde->getMessage()}.";
@@ -180,6 +192,10 @@ class LocationsController extends ControllerBase {
     $taxonomies = [];
     foreach ($taxonomy_terms as $term) {
       $taxonomies[$term->id()] = $term->label();
+    }
+    $phones = [];
+    foreach ($phone_paragraphs as $phone) {
+      $phones[$phone->id()] = $phone;
     }
     $data = [];
     foreach ($entities as $entity) {
@@ -191,10 +207,10 @@ class LocationsController extends ControllerBase {
       if ($type == 'Shipping Office') {
         continue;
       }
-      $data[$entity->id()] = $this->parse($entity, $type);
+      $data[$entity->id()] = $this->parse($entity, $type, $phones);
       $shipping = $this->shippingOffice($entity);
       if ($shipping) {
-        $data[$entity->id()]['shipping_office'] = $this->parse($shipping, 'Shipping Office');
+        $data[$entity->id()]['shipping_office'] = $this->parse($shipping, 'Shipping Office', $phones);
       }
       else {
         $data[$entity->id()]['shipping_office'] = NULL;
@@ -243,11 +259,13 @@ class LocationsController extends ControllerBase {
    *   Drupal Location entity.
    * @param string $type
    *   Location type.
+   * @param array $phones
+   *   All location telephone entities.
    *
    * @return array
    *   Flattened and filtered array.
    */
-  private function parse(Node $entity = NULL, $type) {
+  private function parse(Node $entity = NULL, $type, array $phones) {
     if ($entity == NULL) {
       return NULL;
     }
@@ -275,9 +293,23 @@ class LocationsController extends ControllerBase {
     $data['services'] = $entity
       ->get('field_location_services')
       ->getValue();
-    $data['phones'] = $entity
+    $phone_references = $entity
       ->get('field_location_telephone')
       ->getValue();
+
+    foreach ($phone_references as $ref) {
+      $id = $ref['target_id'];
+      $phone = $phones[$id];
+      $data['phones'][$id]['field_phonenumber'] = $phone
+        ->get('field_phonenumber')
+        ->getValue();
+      $data['phones'][$id]['field_dsn'] = $phone
+        ->get('field_dsn')
+        ->getValue();
+      $data['phones'][$id]['field_type'] = $phone
+        ->get('field_type')
+        ->getValue();
+    }
     return $data;
   }
 
@@ -299,12 +331,7 @@ class LocationsController extends ControllerBase {
       return NULL;
     }
     $id = $reference[0]['target_id'];
-    try {
-      $entity = $this->entityTypeManager->getStorage('node')->load($id);
-    }
-    catch (InvalidPluginDefinitionException $ipde) {
-      return NULL;
-    }
+    $entity = $this->nodeStorage->load($id);
     return $entity;
   }
 

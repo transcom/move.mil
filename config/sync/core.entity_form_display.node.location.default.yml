@@ -18,8 +18,8 @@ dependencies:
     - address
     - geolocation
     - link
+    - paragraphs
     - path
-    - telephone
     - text
 id: node.location.default
 targetEntityType: node
@@ -95,11 +95,16 @@ content:
     type: string_textfield
     region: content
   field_location_telephone:
-    weight: 125
+    type: entity_reference_paragraphs
+    weight: 131
     settings:
-      placeholder: ''
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
     third_party_settings: {  }
-    type: telephone_default
     region: content
   field_location_type:
     weight: 121

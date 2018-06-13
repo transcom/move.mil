@@ -9,10 +9,10 @@ use Drupal\Core\Url;
 use Drupal\Core\Database\Connection;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Entity\EntityTypeManager;
-use Drupal\parser\CsvReader;
-use Drupal\parser\YmlReader;
-use Drupal\parser\ExcelReader;
-use Drupal\parser\DbWriter;
+use Drupal\parser\Service\CsvReader;
+use Drupal\parser\Service\YmlReader;
+use Drupal\parser\Service\ExcelReader;
+use Drupal\parser\Service\DbWriter;
 use Drupal\Core\StreamWrapper\StreamWrapperManager;
 
 /**
@@ -30,35 +30,35 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
   /**
    * Variables containing the entitytypemanager serivce.
    *
-   * @var Drupal\Core\Entity\EntityTypeManager
+   * @var \Drupal\Core\Entity\EntityTypeManager
    */
   protected $entity;
 
   /**
    * Variables containing the databaseWriter serivce.
    *
-   * @var Drupal\parser\DbWriter
+   * @var \Drupal\parser\Service\DbWriter
    */
   protected $writer;
 
   /**
    * Variables containing the CsvReader serivce.
    *
-   * @var Drupal\parser\CsvReader
+   * @var \Drupal\parser\Service\CsvReader
    */
   protected $csvReader;
 
   /**
    * Variables containing the YmlReader serivce.
    *
-   * @var Drupal\parser\YmlReader
+   * @var \Drupal\parser\Service\YmlReader
    */
   protected $ymlReader;
 
   /**
    * Variables containing the XslReader serivce.
    *
-   * @var Drupal\parser\ExcelReader
+   * @var \Drupal\parser\Service\ExcelReader
    */
   protected $xslReader;
 
@@ -83,7 +83,6 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
     $this->ymlReader = $ymlReader;
     $this->xslReader = $xslReader;
     $this->swm = $swm;
-
   }
 
   /**
@@ -143,7 +142,8 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
 
     $form['zip_3']['truncate'] = [
       '#type' => 'checkbox',
-      '#title' => $this->t('Clean table (removes all data previously stored)'),
+      '#attributes' => ['id' => ['zip_3']],
+      '#title' => $this->t('Clear table (removes all data previously stored)'),
     ];
 
     $form['zip_3']['link'] = [
@@ -167,7 +167,8 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
 
     $form['zip_5']['truncate'] = [
       '#type' => 'checkbox',
-      '#title' => $this->t('Clean table (removes all data previously stored)'),
+      '#attributes' => ['id' => ['zip_5']],
+      '#title' => $this->t('Clear table (removes all data previously stored)'),
     ];
 
     $form['zip_5']['link'] = [
@@ -213,8 +214,9 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
 
     $form['400NG']['truncate'] = [
       '#type' => 'checkbox',
+      '#attributes' => ['id' => ['400NG']],
       '#title' => $this
-        ->t('Clean table (removes all data previously stored)'),
+        ->t('Clear table (removes all data previously stored)'),
     ];
 
     $form['400NG']['link'] = [
@@ -237,7 +239,8 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
     ];
     $form['entitlements']['truncate'] = [
       '#type' => 'checkbox',
-      '#title' => $this->t('Clean table (removes all data previously stored)'),
+      '#attributes' => ['id' => ['entitlements']],
+      '#title' => $this->t('Clear table (removes all data previously stored)'),
     ];
 
     $form['entitlements']['link'] = [
@@ -265,7 +268,8 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
 
     $form['discounts']['truncate'] = [
       '#type' => 'checkbox',
-      '#title' => $this->t('Clean table (removes all data previously stored)'),
+      '#attributes' => ['id' => ['discounts']],
+      '#title' => $this->t('Clear table (removes all data previously stored)'),
     ];
 
     $form['discounts']['link'] = [
@@ -289,7 +293,8 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
 
     $form['zipcodes']['truncate'] = [
       '#type' => 'checkbox',
-      '#title' => $this->t('Clean table (removes all data previously stored)'),
+      '#attributes' => ['id' => ['zipcodes']],
+      '#title' => $this->t('Clear table (removes all data previously stored)'),
     ];
 
     $form['zipcodes']['link'] = [
@@ -326,6 +331,7 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
+
     $groups = $form_state->getValues();
     $reader = NULL;
     $tables = NULL;

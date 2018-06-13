@@ -1,0 +1,9 @@
+uuid: 69f55f84-0505-4e53-a801-43508b7abec8
+langcode: en
+status: true
+dependencies: {  }
+id: location_telephone
+label: 'Location Telephone'
+icon_uuid: null
+description: ''
+behavior_plugins: {  }
