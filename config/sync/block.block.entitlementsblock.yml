@@ -1,4 +1,4 @@
-uuid: d80339e2-00b0-444a-b1ad-dac6d392cf40
+uuid: 0803e5a8-ec87-4db6-bb6c-5bf5ae660ec6
 langcode: en
 status: true
 dependencies:
@@ -7,20 +7,20 @@ dependencies:
     - system
   theme:
     - move_mil
-id: reactweightestimatorblock
+id: entitlementsblock
 theme: move_mil
 region: content
-weight: -3
+weight: -12
 provider: null
-plugin: react_weight_estimator_block
+plugin: entitlements_block
 settings:
-  id: react_weight_estimator_block
-  label: 'React weight estimator block'
+  id: entitlements_block
+  label: 'Entitlements block'
   provider: react_tools
   label_display: '0'
 visibility:
   request_path:
     id: request_path
-    pages: /resources/weight-estimator
+    pages: /entitlements
     negate: false
     context_mapping: {  }

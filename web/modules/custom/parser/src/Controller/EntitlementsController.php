@@ -63,6 +63,17 @@ class EntitlementsController extends ControllerBase {
     return $this->databaseConnection
       ->select('parser_entitlements')
       ->fields('parser_entitlements')
+      ->execute()
+      ->fetchAll();
+  }
+
+  /**
+   * Get all entitlements from the DB. Paginated.
+   */
+  private function getAllPaginated() {
+    return $this->databaseConnection
+      ->select('parser_entitlements')
+      ->fields('parser_entitlements')
       ->extend('Drupal\Core\Database\Query\PagerSelectExtender')->limit(10)
       ->execute()
       ->fetchAll();
@@ -85,7 +96,7 @@ class EntitlementsController extends ControllerBase {
    * Get all entitlements in a Drupal 8 table.
    */
   public function table() {
-    $entries = $this->getAll();
+    $entries = $this->getAllPaginated();
     $header = [
       'id' => $this->t('id'),
       'rank' => $this->t('rank'),
