@@ -1,4 +1,4 @@
-uuid: d80339e2-00b0-444a-b1ad-dac6d392cf40
+uuid: 2ece5111-4e23-45f8-8172-b1832ff7562a
 langcode: en
 status: true
 dependencies:
@@ -7,20 +7,20 @@ dependencies:
     - system
   theme:
     - move_mil
-id: reactweightestimatorblock
+id: reactppmtoolblock
 theme: move_mil
 region: content
-weight: -3
+weight: -1
 provider: null
-plugin: react_weight_estimator_block
+plugin: react_ppm_tool_block
 settings:
-  id: react_weight_estimator_block
-  label: 'React weight estimator block'
+  id: react_ppm_tool_block
+  label: 'React PPM Tool Block'
   provider: react_tools
   label_display: '0'
 visibility:
   request_path:
     id: request_path
-    pages: /resources/weight-estimator
+    pages: /resources/ppm-estimator
     negate: false
     context_mapping: {  }

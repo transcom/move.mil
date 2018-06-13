@@ -1,4 +1,4 @@
-uuid: d80339e2-00b0-444a-b1ad-dac6d392cf40
+uuid: e589c40a-9fd6-4421-af39-e4ce7ef21310
 langcode: en
 status: true
 dependencies:
@@ -7,20 +7,20 @@ dependencies:
     - system
   theme:
     - move_mil
-id: reactweightestimatorblock
+id: locatormapblock
 theme: move_mil
 region: content
-weight: -3
+weight: -2
 provider: null
-plugin: react_weight_estimator_block
+plugin: locator_map_block
 settings:
-  id: react_weight_estimator_block
-  label: 'React weight estimator block'
+  id: locator_map_block
+  label: 'Locator map block'
   provider: react_tools
   label_display: '0'
 visibility:
   request_path:
     id: request_path
-    pages: /resources/weight-estimator
+    pages: /resources/locator-maps
     negate: false
     context_mapping: {  }
