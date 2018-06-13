@@ -71,8 +71,8 @@ logsf:
 	docker-compose logs -f
 
 parser:
-	@echo "Parsing all files for move.mil tools"
-	docker-compose run php drupal parser --file=all --truncate=auto
+	@echo "Parsing move.mil office locations data to Drupal content."
+	docker-compose run php drupal parser
 
 dbclient:
 	@echo "Opening Move.mil DB client"
