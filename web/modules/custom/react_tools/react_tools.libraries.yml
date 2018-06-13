@@ -22,3 +22,11 @@ react-locator-map:
        tools/react-locator-map/build/static/css/main.min.css: {}
   js:
     tools/react-locator-map/build/static/js/main.min.js: {}
+
+entitlements:
+  version: 1.x
+  css:
+      theme:
+       tools/react-entitlements-page/build/static/css/main.min.css: {}
+  js:
+    tools/react-entitlements-page/build/static/js/main.min.js: {}
