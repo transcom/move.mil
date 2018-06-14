@@ -3,6 +3,7 @@ import * as axios from 'axios';
 import SearchForm from './components/searchForm';
 import Results from './components/results';
 import LoadingScreen from  './components/loadingScreen';
+import ErrorMessage from './components/errorMessage';
 import * as _ from 'lodash';
 
 class App extends Component {
@@ -18,7 +19,8 @@ class App extends Component {
         coords: null
       },
       searchLocation: '',
-      results: null
+      results: null,
+      errorMessage: null
     };
   }
 
@@ -68,10 +70,16 @@ class App extends Component {
     }   
   }
 
+  setValidationFlag = (val) =>{
+    this.setState({
+      validationError: val
+    });
+  }
+
   handleError = (errMessage) => {
     this.setState({
       isLoading: false,
-      errMessage: errMessage,
+      errorMessage: errMessage,
       geolocation: {...this.state.geolocation, disabled: true}
     });
   }
@@ -83,6 +91,12 @@ class App extends Component {
       axios.post(url, options)
         .then(res => {
           let results = res.data;
+
+          if(!results.offices){
+            this.handleError("no results.");
+            return;
+          }
+
           coords = {
             latitude: results.geolocation.lat,
             longitude: results.geolocation.lon
@@ -99,7 +113,9 @@ class App extends Component {
             results: results,
             isLoading: false
           });
-        });
+        }).catch(error => {
+          this.handleError(error);
+        });;
   }
 
   changePageNo = (pageNo, totalPages) => {
@@ -123,14 +139,6 @@ class App extends Component {
     }
   }
 
-  showErrorMessage = () =>{
-    if(this.state.errMessage){
-      return (
-        <div className="errorMessage">{this.state.errMessage}</div>
-      )
-    }
-  }
-
   render() {
     return (
       <div className="locator-map-container">
@@ -138,9 +146,12 @@ class App extends Component {
         <SearchForm setSearchLocationFn={this.setSearchLocation} 
                     searchFn={this.onInitialSearchLocation} 
                     searchLocation={this.state.searchLocation}
-                    geoLocationDisabled={this.state.geolocation.disabled}/>
+                    geoLocationDisabled={this.state.geolocation.disabled}
+                    isInvalidFields={this.state.validationError}
+                    setValidationFlagFn={this.setValidationFlag}/>
+
+        <ErrorMessage error={this.state.errorMessage}/>
                     
-        {this.showErrorMessage()}
         {this.displayResultComponent()}
       </div>
     );
