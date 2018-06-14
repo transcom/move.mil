@@ -4,7 +4,11 @@ import * as _ from 'lodash';
 const Phones = (props) =>{
   return _.map(props.phones, (phone, i)=>{
     return (
-      <div key={i}>{phone.value}</div>
+      <div key={i}>
+        <span>{phone.field_phonenumber[0].value}</span>
+        <span style={{display: phone.field_type.length > 0 ? 'inline-block:' : 'none'}}> ({phone.field_type[0].value})</span>
+        <span style={{display: phone.field_dsn.length && phone.field_dsn[0] === '1' ? 'inline-block:' : 'none'}}> (DSN)</span>
+      </div>
     )
   })
 }
@@ -42,7 +46,7 @@ const Services = (props) =>{
 }
 
 this.showPhones = (phones) =>{
-  if(phones && phones.length > 0){
+  if(phones){
     return (
       <div>
         <div className="bold-header">Phone:</div>
