@@ -3,7 +3,6 @@ import * as _ from 'lodash';
 
 const Phones = (props) =>{
   return _.map(props.phones, (phone, i)=>{
-    console.log(phone)
     return (
       <div key={i}>
         <span>{phone.field_phonenumber[0].value}</span>
