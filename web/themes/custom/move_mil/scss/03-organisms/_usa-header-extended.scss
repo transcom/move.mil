@@ -46,6 +46,11 @@
         width: 18.5rem;
         z-index: 501;
       }
+
+      // harcoding logo size for IE because IE is stupid
+      img {
+        height: 18.5rem;
+      }
     }
 
     .usa-logo-text-area {
