@@ -6,6 +6,10 @@
 
   .usa-footer-logo-img {
     float: none;
+
+    &.usa-footer-big-logo-img {
+      height: 10rem;
+    }
   }
 
   .footer-agency--content {
