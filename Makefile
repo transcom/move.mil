@@ -23,7 +23,7 @@ ps:
 	@docker ps --filter name="$(PROJECT_NAME)*"
 
 shell:
-	docker exec -ti "$(shell docker ps --filter name="$(PROJECT_NAME)_php" --format "{{ .ID }}") sh"
+	docker exec -ti $(shell docker ps --filter name='$(PROJECT_NAME)_php' --format "{{ .ID }}") sh
 
 dbdump:
 	@echo "Creating Database Dump for $(PROJECT_NAME)..."
