@@ -1,0 +1,38 @@
+uuid: 830fef7e-2b65-45df-910e-d3b8a2676d97
+langcode: en
+status: true
+dependencies: {  }
+id: content_editor
+label: 'Content Editor'
+weight: 3
+is_admin: null
+permissions:
+  - 'access content overview'
+  - 'access contextual links'
+  - 'access in-place editing'
+  - 'access shortcuts'
+  - 'access taxonomy overview'
+  - 'access toolbar'
+  - 'access tour'
+  - 'change own username'
+  - 'create faq content'
+  - 'create location content'
+  - 'create page content'
+  - 'create tutorial content'
+  - 'edit any article content'
+  - 'edit any faq content'
+  - 'edit any location content'
+  - 'edit any page content'
+  - 'edit any tutorial content'
+  - 'edit own article content'
+  - 'edit own faq content'
+  - 'edit own location content'
+  - 'edit own page content'
+  - 'edit own tutorial content'
+  - 'switch shortcut sets'
+  - 'use advanced search'
+  - 'use text format basic_html'
+  - 'view advanced help index'
+  - 'view advanced help popup'
+  - 'view advanced help topic'
+  - 'view own unpublished content'
