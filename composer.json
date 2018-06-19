@@ -35,6 +35,7 @@
         "drupal-composer/drupal-scaffold": "^2.2",
         "drupal/address": "~1.0",
         "drupal/admin_toolbar": "^1.24",
+        "drupal/advanced_help": "^1.0@alpha",
         "drupal/console": "^1.0.2",
         "drupal/core": "~8.5",
         "drupal/extlink": "^1.0",
