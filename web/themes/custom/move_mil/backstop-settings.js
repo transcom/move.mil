@@ -20,19 +20,19 @@
  */
 var arguments = require('minimist')(process.argv.slice(2)); // grabs the process arguments
 var defaultPaths = ['/']; // By default is just checks the homepage
-var scenarios = []; // The array that'll have the pages to test
+var scenarios = [ ]; // The array that'll have the pages to test
 
 /*
   Work out the environments that are being compared
  */
 // The host to reference
 if (!arguments.refhost) {
-    arguments.refhost  = "http://move-mil-stage.us-east-1.elasticbeanstalk.com/"; // Default refhost host
+    arguments.refhost  = "http://move-mil-stage.us-east-1.elasticbeanstalk.com"; // Default refhost host
 }
 
 // The host to test
 if (!arguments.testhost) {
-    arguments.testhost  = "http://move.mil.localhost:8000/"; // Default test host
+    arguments.testhost  = "http://move.mil.localhost:8000"; // Default test host
 }
 
 /*
@@ -53,13 +53,9 @@ for (var i = 0; i < paths.length; i++) {
         "label": paths[i],
         "url": arguments.testhost+paths[i],
         "referenceUrl": arguments.refhost+paths[i],
-        "selectors": [
-          "document"
-        ],
-        "selectorExpansion": true,
-        "delay": 1000,
+        "onReadyScript": 'onReady.js',
+        "postInteractionWait": 100,
         "misMatchThreshold" : 0.1,
-        "removeSelectors": []
     });
 }
 
@@ -105,11 +101,10 @@ module.exports =
         "paths": {
             "bitmaps_reference": "backstop_data/bitmaps_reference",
             "bitmaps_test":      "backstop_data/bitmaps_test",
-            "casper_scripts":    "backstop_data/casper_scripts",
+            "engine_scripts":    "backstop_data/engine_scripts",
             "html_report":       "backstop_data/html_report",
-            "ci_report":         "backstop_data/ci_report"
+            "ci_report":         "backstop_data/ci_report",
         },
-        "casperFlags": [],
         "engine": [
           "chromy"
         ],
