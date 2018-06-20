@@ -11,7 +11,7 @@ window.onload = function() {
     })
 
     if (message != "") {
-      if (!confirm("Clearing the tables of:" + message + "\nAre you sure?")) {
+      if (!confirm(message + " table(s) will be permanently deleted \nAre you sure you want to perform this operation?")) {
         event.preventDefault();
       }
     }
