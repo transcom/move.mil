@@ -92,22 +92,22 @@ $total-background: #d6d7d9;
         .flex-item{
             position: relative;
             width: 100%;
-            padding: 2px; 
+            padding: 2px;
 
             &.right-align{
                 text-align: right;
             }
 
-            &.no-overflow{  
+            &.no-overflow{
                 overflow: hidden;
-                text-overflow: ellipsis; 
+                text-overflow: ellipsis;
             }
 
             &.options {
                 flex: 1;
                 flex-grow: 1;
                 flex-shrink: 1;
-                flex-basis: auto; 
+                flex-basis: auto;
             }
 
             &.small {
@@ -156,7 +156,7 @@ $total-background: #d6d7d9;
             position: absolute;
             pointer-events: none;
         }
-        
+
         &:after {
             border-color: rgba(255, 255, 255, 0);
             border-bottom-color: #fff;
@@ -221,9 +221,12 @@ $total-background: #d6d7d9;
     .validation-icon.warning{
         &:before{
             content: url('/themes/custom/move_mil/assets/img/icons/warning-icon.svg');
+            display: inline-block;
+            vertical-align: middle;
+            padding-right: 3px;
         }
     }
-    
+
     #map-container{
         height: 300px;
     }
