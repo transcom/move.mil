@@ -11,7 +11,7 @@
         {% set alignment = content.field_protip_alignment[0]['#markup'] %}
 
         {% if uswds_grid_class %}
-          <div class="{{ uswds_grid_class }} paragraph--pro-tip__align-{{ alignment }} {% if alignment == 'right' or alignment == 'left' %}usa-width-one-third{% endif %}">
+          <div class="{{ uswds_grid_class }} paragraph--pro-tip__align-{{ alignment }}">
           {% endif %}
 
           <img class="usa-media_block-img" src="/themes/custom/move_mil/assets/img/icon--pro-tip.svg" alt="light bulb icon"></img>

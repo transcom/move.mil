@@ -10,7 +10,15 @@
 {% for item in breadcrumb %}
   <li class="usa-nav-secondary-links">
     {% if item.url %}
-      <a href="{{ item.url }}">{{ item.text }}</a>
+      {% if item.url == "/moving-guide" %}
+        <a href="{{ item.url }}">Moving Guide</a>
+      {% elseif item.url == "/service-specific-information" %}
+        <a href="{{ item.url }}">Service-Specific Information</a>
+      {% elseif item.url == "/tutorials" %}
+        <a href="{{ item.url }}">Tutorials</a>
+      {% else %}
+        <a href="{{ item.url }}">{{ item.text }}</a>
+      {% endif %}
     {% else %}
       {{ item.text }}
     {% endif %}

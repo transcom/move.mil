@@ -3,9 +3,6 @@ import * as _ from 'lodash';
 import Input from './input';
 
 class Items extends Component {
-    constructor(props) {
-        super(props);
-    }
 
     handleInputChange = (params, val) => {
         let updatedItem = {
@@ -20,7 +17,7 @@ class Items extends Component {
 
     itemComponent = () =>{    
        let elements = _.map(this.props.items,(item, key) => {
-           if(this.props.itemType == 'items'){
+           if(this.props.itemType === 'items'){
             return (
                 <div className="flex-container item" key={key}>
                     <div className="flex-item">

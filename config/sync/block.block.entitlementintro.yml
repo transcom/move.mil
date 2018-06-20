@@ -1,0 +1,31 @@
+uuid: c6859c68-88d2-4ce3-8d67-9643e83d321f
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:8c34298c-1536-4dc5-a91b-ec99a513b97b'
+  module:
+    - block_content
+    - system
+  theme:
+    - move_mil
+id: entitlementintro
+theme: move_mil
+region: content
+weight: -13
+provider: null
+plugin: 'block_content:8c34298c-1536-4dc5-a91b-ec99a513b97b'
+settings:
+  id: 'block_content:8c34298c-1536-4dc5-a91b-ec99a513b97b'
+  label: 'Entitlement Intro'
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    pages: /entitlements
+    negate: false
+    context_mapping: {  }

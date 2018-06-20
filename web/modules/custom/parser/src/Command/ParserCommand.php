@@ -2,11 +2,12 @@
 
 namespace Drupal\parser\Command;
 
+use Drupal\Console\Core\Style\DrupalStyle;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Drupal\Console\Core\Command\Command;
-use Drupal\parser\Handler\ParserHandler;
+use Drupal\parser\Service\LocationReader;
+use Drupal\parser\Service\LocationWriter;
+use Drupal\Console\Core\Command\ContainerAwareCommand;
 
 /**
  * Class ParserCommand.
@@ -16,7 +17,11 @@ use Drupal\parser\Handler\ParserHandler;
  *     extensionType="module"
  * )
  */
-class ParserCommand extends Command {
+class ParserCommand extends ContainerAwareCommand {
+
+  protected $paragraph;
+  protected $reader;
+  protected $writer;
 
   /**
    * {@inheritdoc}
@@ -24,105 +29,48 @@ class ParserCommand extends Command {
   protected function configure() {
     $this
       ->setName('parser')
-      ->setDescription($this->trans('commands.parser.description'))
-      ->addOption(
-        'file',
-        NULL,
-        InputOption::VALUE_REQUIRED,
-        $this->trans('commands.parser.options.file')
-        )
-      ->addOption(
-        'truncate',
-        NULL,
-        InputOption::VALUE_OPTIONAL,
-        $this->trans('commands.parser.options.truncate')
-        );
+      ->setDescription($this->trans('commands.parser.description'));
+  }
+
+  /**
+   * LocationWriter constructor.
+   *
+   * Needed for the Paragraph dependency injection.
+   */
+  public function __construct(LocationReader $reader, LocationWriter $writer) {
+    $this->reader = $reader;
+    $this->writer = $writer;
+    parent::__construct();
   }
 
   /**
    * {@inheritdoc}
    */
-  protected function interact(InputInterface $input, OutputInterface $output) {
-    $all = FALSE;
-    $file_options = $this->files();
-
-    // array_push to add options to the autocomplete that wont be used in the
-    // parseAll()
-    array_push($file_options, 'locations', 'all');
-    if (!$input->getOption('file')) {
-      $file = $this->getIo()->choiceNoList(
-        $this->trans('commands.parser.questions.file'),
-        $file_options
-      );
-      $input->setOption('file', $file);
-      if ($file == 'all') {
-        $all = TRUE;
-      }
-    }
-    if (!$all && !$input->getOption('truncate')) {
-      $truncate = $this->getIo()->confirm(
-        $this->trans('commands.parser.questions.truncate'),
-        FALSE
-      );
-      $input->setOption('truncate', $truncate);
-    }
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('parser.location_reader'),
+      $container->get('parser.location_writer')
+    );
   }
 
   /**
    * {@inheritdoc}
    */
   protected function execute(InputInterface $input, OutputInterface $output) {
-    $file = $input->getOption('file');
+    $io = new DrupalStyle($input, $output);
     $path = DRUPAL_ROOT . '/../lib/data';
-    if ($file == 'all') {
-      $this->parseAll($path);
-    }
-    else {
-      $parser = new ParserHandler($path, $file, $input->getOption('truncate'), $this->getIo());
-      $parser->execute();
-    }
-    $this->getIo()->success($this->trans('commands.parser.messages.success'));
-  }
 
-  /**
-   * Returns supported files to be parsed.
-   */
-  private function files() {
-    return [
-      'zip3',
-      'zip5',
-      '2017-400NG',
-      '2018-400NG',
-      'entitlements',
-      'discounts',
-      'all_us_zipcodes',
+    $filename = [
+      "{$path}/shipping_offices.json",
+      "{$path}/transportation_offices.json",
+      "{$path}/weight_scales.json",
     ];
-  }
 
-  /**
-   * Execute all parsers.
-   */
-  protected function parseAll($path) {
-    $all_files = $this->files();
-    foreach ($all_files as $file) {
-      $parser = new ParserHandler($path, $file, $this->truncate($file), $this->getIo());
-      $parser->execute();
-    }
-  }
-
-  /**
-   * Evaluate if the table should truncate or not.
-   */
-  protected function truncate($file) {
-    $appendRecords = [
-      '2018-400NG',
-      'discounts-1Jan2018',
-    ];
-    if (in_array($file, $appendRecords)) {
-      // Append these file records instead of truncate table.
-      return FALSE;
-    }
-    return TRUE;
+    $io->text('Reading files.');
+    $rawdata = $this->reader->parse($filename);
+    $io->text('Writing to database.');
+    $this->writer->write($rawdata);
+    $io->success('Done!');
   }
 
 }

@@ -8,7 +8,7 @@ class App extends Component {
   constructor(){
     super();
 
-    this.baseUrl = process.env.NODE_ENV == 'development' ? 'http://move.mil.localhost:8000/' : '/';
+    this.baseUrl = process.env.NODE_ENV === 'development' ? 'http://move.mil.localhost:8000/' : '/';
     this.state = {
       rooms: null,
       totalEstimate: 0,
@@ -95,7 +95,7 @@ class App extends Component {
     id = isUnique(idString);
 
     function isUnique(_id){
-      if(_id != "" && !newState[roomKey].customItems[_id]){
+      if(_id !== "" && !newState[roomKey].customItems[_id]){
         return _id;
       }
       else{
@@ -137,15 +137,15 @@ class App extends Component {
     let totalQty = 0;
     _.each(this.state.rooms[roomKey].items, (item)=>{
       if(item.qty){
-        totalweight += (parseInt(item.qty) * item.weight);
-        totalQty += parseInt(item.qty);
+        totalweight += (parseInt(item.qty, 10) * item.weight);
+        totalQty += parseInt(item.qty, 10);
       }
     });
 
     _.each(this.state.rooms[roomKey].customItems, (item)=>{
       if(item.qty){
-        totalweight += (parseInt(item.qty) * item.weight);
-        totalQty += parseInt(item.qty);
+        totalweight += (parseInt(item.qty, 10) * item.weight);
+        totalQty += parseInt(item.qty, 10);
       }
     });
 

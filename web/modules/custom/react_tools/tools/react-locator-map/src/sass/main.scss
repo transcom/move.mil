@@ -1,0 +1,292 @@
+
+$transportation-office: #dce4ef;
+$weight-scale: #fff1d2;
+$service-tag: #fdb81e;
+
+#locator-map{
+    .bold{
+        font-weight: bold;
+    }
+
+    .display-results{
+        margin-top:3rem;
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        &.page-tabs{
+            text-align: center;
+        }
+        
+        li{
+            padding: 5px;
+            margin: 5px;
+
+            &.pages{
+                display: inline-block;
+                padding: 0px;
+                margin: 10px;
+
+                .selected{
+                    color: #ff6f15;
+                }
+            }
+        }
+    }
+
+    .validation-container{
+        position: absolute;
+        background: #fff;
+        padding: 10px;
+        border-radius: 3px;
+        box-shadow: 3px 3px 2px 1px #d8d5d5;
+        border: 1px solid #333;
+        margin-top: 10px;
+        z-index:100;
+
+        &:after, &:before {
+            bottom: 100%;
+            left: 20%;
+            border: solid transparent;
+            content: " ";
+            height: 0;
+            width: 0;
+            position: absolute;
+            pointer-events: none;
+        }
+        
+        &:after {
+            border-color: rgba(255, 255, 255, 0);
+            border-bottom-color: #fff;
+            border-width: 10px;
+            margin-left: -10px;
+        }
+
+        &:before {
+            border-color: rgba(51, 51, 51, 0);
+            border-bottom-color: #333;
+            border-width: 11px;
+            margin-left: -11px;
+        }
+    }
+
+    .validation-icon, .validation-content{
+        display: inline-block;
+        vertical-align: text-top;
+
+        img{
+            display: inline-block;
+            max-width: 25px;
+        }
+    }
+
+    .validation-icon.warning{
+        &:before{
+            content: url('/themes/custom/move_mil/assets/img/icons/validation-icon.svg');    
+        }
+    }
+
+    div.inline{
+        display: inline-block;
+    }
+    
+    .loading-container{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height:100%;
+        z-index: 9999;
+    
+        .bg{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            opacity: .5;
+        }
+    
+        .loading-content{
+            margin: 0 auto;
+            display: block;
+            text-align: center;
+            background: #fff;
+            border-radius: 3px;
+            box-shadow: 0px 0px 10px 1px #b9aeae;
+            font-size: 1.2em;
+            padding: 25px 50px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            overflow: hidden;
+
+            .content-padding{
+                padding: 20px 0 20px 0;
+                overflow: hidden;
+                position: relative;
+            }
+    
+            .message{
+                color: #000;
+                display: block;
+            }
+
+            .spinner div {
+                width: 10px;
+                height: 10px;
+                position: absolute;
+                left: 0px;
+                top: 50px;
+                background-color: #333;
+                border-radius: 50%;
+                animation: move 4s infinite cubic-bezier(.2,.64,.81,.23);
+              }
+              .spinner div:nth-child(2) {
+                animation-delay: 150ms;
+              }
+              .spinner div:nth-child(3) {
+                animation-delay: 300ms;
+              }
+              .spinner div:nth-child(4) {
+                animation-delay: 450ms;
+              }
+              @keyframes move {
+                0% {left: 0%;}
+                75% {left:100%;}
+                100% {left:100%;}
+              }
+        }
+    }
+
+    #map-container{
+        height: 400px;
+
+        @keyframes map-marker-pulse {
+            to {
+                opacity: 0;
+                transform: scale(2.5)
+            }
+        }
+        
+        .map-marker-pulse {
+            border: 2px solid #046b99;
+            position: relative
+        }
+        
+        .map-marker-pulse,
+        .map-marker-pulse:after {
+            background-color: #02bfe7;
+            border-radius: 50%;
+            height: 12px;
+            width: 12px;
+        }
+        
+        .map-marker-pulse:after {
+            animation: 2s map-marker-pulse infinite;
+            content: "";
+            position: absolute
+        }
+
+        .map-marker {
+            &.weight-scale:before, &.processing-office:before{
+                position: absolute;
+                bottom: 0;
+                right: -11px;
+            }
+
+            &.weight-scale:before{
+                content: url('/themes/custom/move_mil/assets/img/icons/marker-weight-scale.svg');
+            }
+            &.processing-office:before{
+                content: url('/themes/custom/move_mil/assets/img/icons/marker-transportation-office.svg');
+            }
+        }
+
+        .map-popup{
+            text-align: center;
+            div{
+                &:first-child{
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+
+    .location-search-types{
+        margin-top: 3rem;
+        margin-bottom: 3rem;
+        border: solid #aeb0b5;
+        border-width: 1px 0;
+
+        .icon{
+            &.weight-scale:before{
+                position: absolute;
+                content: url('/themes/custom/move_mil/assets/img/icons/legend-weight-scale.svg');
+            }
+
+            &.transportation-office:before{
+                position: absolute;
+                content: url('/themes/custom/move_mil/assets/img/icons/legend-transportation-office.svg');
+            }
+        }
+
+        .usa-media_block-body{
+            margin-top: 3rem;
+            margin-bottom: 3rem;
+            margin-left: 50px;
+        }
+    }
+
+    .result-page{
+        ul,li{
+            margin: 0;
+            padding: 0
+        }
+        
+        div.bold-header{
+            font-weight: bold;
+        }
+            
+        .location-search-result{
+            border: 1px solid #aeb0b5;
+            box-shadow: 0 0.25rem 0.25rem 0 rgba(91,97,107,0.25);
+            margin-top: 3rem;
+
+            .location-search-result-header, .location-search-result-body, .shipping-office{
+                padding: 1.5rem;
+            }
+
+            .shipping-office{
+                margin-top: 2.5rem;
+            }
+
+            .location-search-result-header{
+                font-weight: bold;
+            }
+
+            &.transportation-office {
+                .location-search-result-header, .shipping-office{
+                    background: $transportation-office;
+                }
+            }
+
+            &.weight-scale{
+                .location-search-result-header{
+                    background: $weight-scale;
+                }
+            }
+
+            .location-search-result-services li{
+                background-color: $service-tag;
+                border-radius: 3px;
+                display: inline-block;
+                margin: 0.5rem 0.25rem 0 0;
+                padding: 0.5rem 0.75rem;
+            }
+        }
+    }
+}

@@ -1,0 +1,26 @@
+uuid: e589c40a-9fd6-4421-af39-e4ce7ef21310
+langcode: en
+status: true
+dependencies:
+  module:
+    - react_tools
+    - system
+  theme:
+    - move_mil
+id: locatormapblock
+theme: move_mil
+region: content
+weight: -2
+provider: null
+plugin: locator_map_block
+settings:
+  id: locator_map_block
+  label: 'Locator map block'
+  provider: react_tools
+  label_display: '0'
+visibility:
+  request_path:
+    id: request_path
+    pages: /resources/locator-maps
+    negate: false
+    context_mapping: {  }

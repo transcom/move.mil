@@ -10,10 +10,6 @@
     margin: 0;
   }
 
-  a {
-    word-break: break-all;
-  }
-
   h3.svc-title {
     font-size: 1.4rem;
   }
@@ -48,6 +44,20 @@
           padding: 0;
           border: 0;
           background-color: transparent;
+
+          &-adddress,
+          &-comm-fax,
+          &-comm-phone,
+          &-dsn-fax,
+          &-dsn-phone,
+          &-website,
+          &-email {
+
+            a {
+              word-break: break-all;
+              display: inline-block;
+            }
+          }
         }
       }
     }
@@ -55,7 +65,7 @@
     // our address
     .svc-spec-links--address-group {
       margin-top: $spacing-small;
-      
+
       dt.svc-spec-links--title {
         padding: 0 $spacing-small 0 0;
         word-break: keep-all;

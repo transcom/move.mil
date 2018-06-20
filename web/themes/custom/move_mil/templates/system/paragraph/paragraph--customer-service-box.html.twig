@@ -27,7 +27,16 @@
             {% for key, item in content.field_email if key matches '/^\\d+$/' %}
               <tr class="svc-spec-links--group">
                 <th class="svc-spec-links--title">{{ content.field_email['#title'] }}</th>
-                <td class="svc-spec-links--content"><a mailto="{{ item['#context'].value }}">{{ item['#context'].value }}</a></td>
+                <td class="svc-spec-links--content svc-spec-links--content-email"><a mailto="{{ item['#context'].value }}">{{ item['#context'].value }}</a></td>
+              </tr>
+            {% endfor %}
+          {% endif %}
+
+          {% if content.field_website|field_value == true %}
+            {% for key, item in content.field_website if key matches '/^\\d+$/' %}
+              <tr class="svc-spec-links--group">
+                <th class="svc-spec-links--title">{{ content.field_website['#title'] }}</th>
+                <td class="svc-spec-links--content svc-spec-links--content-website"><a href="{{ item['#url'].uri }}">{{ item['#title'] }}</a></td>
               </tr>
             {% endfor %}
           {% endif %}
@@ -36,7 +45,7 @@
             {% for key, item in content.field_dsn_phone if key matches '/^\\d+$/' %}
               <tr class="svc-spec-links--group">
                 <th class="svc-spec-links--title">{{ content.field_dsn_phone['#title'] }}</th>
-                <td class="svc-spec-links--content"><a href="{{ item['#url'].uri }}">{{ item['#title'] }}</a></td>
+                <td class="svc-spec-links--content svc-spec-links--content-dsn-phone"><a href="{{ item['#url'].uri }}">{{ item['#title'] }}</a></td>
               </tr>
             {% endfor %}
           {% endif %}
@@ -45,7 +54,7 @@
             {% for key, item in content.field_dsn_fax if key matches '/^\\d+$/' %}
               <tr class="svc-spec-links--group">
                 <th class="svc-spec-links--title">{{ content.field_dsn_fax['#title'] }}</th>
-                <td class="svc-spec-links--content"><a href="{{ item['#url'].uri }}">{{ item['#title'] }}</a></td>
+                <td class="svc-spec-links--content svc-spec-links--content-dsn-fax"><a href="{{ item['#url'].uri }}">{{ item['#title'] }}</a></td>
               </tr>
             {% endfor %}
           {% endif %}
@@ -54,7 +63,7 @@
             {% for key, item in content.field_comm_phone if key matches '/^\\d+$/' %}
               <tr class="svc-spec-links--group">
                 <th class="svc-spec-links--title">{{ content.field_comm_phone['#title'] }}</th>
-                <td class="svc-spec-links--content"><a href="{{ item['#url'].uri }}">{{ item['#title'] }}</a></td>
+                <td class="svc-spec-links--content svc-spec-links--content-comm-phone"><a href="{{ item['#url'].uri }}">{{ item['#title'] }}</a></td>
               </tr>
             {% endfor %}
           {% endif %}
@@ -63,7 +72,7 @@
             {% for key, item in content.field_comm_fax if key matches '/^\\d+$/' %}
               <tr class="svc-spec-links--group">
                 <th class="svc-spec-links--title">{{ content.field_comm_fax['#title'] }}</th>
-                <td class="svc-spec-links--content"><a href="{{ item['#url'].uri }}">{{ item['#title'] }}</a></td>
+                <td class="svc-spec-links--content svc-spec-links--content-comm-fax"><a href="{{ item['#url'].uri }}">{{ item['#title'] }}</a></td>
               </tr>
             {% endfor %}
           {% endif %}
@@ -72,7 +81,7 @@
         {% if content.field_service_address|field_value == true %}
             <div class="svc-spec-links--address-group">
               <dt class="svc-spec-links--title">{{ content.field_service_address['#title'] }}</dt>
-              <dd class="svc-spec-links--content">
+              <dd class="svc-spec-links--content svc-spec-links--content-adddress">
                 <address>{{ content.field_service_address[0] }}</address>
               </dd>
             </div>

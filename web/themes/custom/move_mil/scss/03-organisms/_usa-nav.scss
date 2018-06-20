@@ -2,7 +2,8 @@
 
   .usa-nav {
     @include media($medium-large-screen) {
-      display: flex;
+      // display: flex;
+      text-align: center;
       background: $color-white-transparent;
       border-bottom: 1px solid $color-gray-lighter;
     }
@@ -10,6 +11,10 @@
     .usa-nav-inner {
       @include media($medium-large-screen) {
         padding: 0 0 0 2.5rem;
+
+        ul.usa-nav-primary ul.usa-nav-submenu {
+          text-align: left;
+        }
       }
 
       .usa-nav-link {

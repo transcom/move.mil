@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.page.body
     - field.field.node.page.field_page_intro_text
     - field.field.node.page.field_paragraph
     - node.type.page
@@ -18,13 +17,6 @@ targetEntityType: node
 bundle: page
 mode: default
 content:
-  body:
-    label: hidden
-    type: text_default
-    weight: 1
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   field_page_intro_text:
     weight: 0
     label: hidden

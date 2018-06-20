@@ -1,10 +1,15 @@
 .paragraph--type--tabular-data-wrapper {
-  display: table;
   border-collapse: collapse;
   margin: 3rem 0;
 
+  @include media($medium-screen) {
+    display: table;
+  }
+
   .paragraph--type--tabular-data {
-    display: table-row;
+    @include media($medium-screen) {
+      display: table-row;
+    }
 
     > div {
       display: block;
@@ -15,6 +20,19 @@
       &.tabular-data-left {
         align-items: center;
         display: flex;
+        width: 100%;
+
+        @include media($medium-screen) {
+          width: auto;
+        }
+
+        .field-image-title-subtitle {
+          max-width: calc(100% / 3 * 2);
+
+          @include media($medium-screen) {
+            max-width: 100%;
+          }
+        }
       }
     }
 
@@ -24,22 +42,35 @@
 
     img {
       margin-right: $site-margins-mobile;
+      vertical-align: middle;
+      max-width: calc(100% / 3 * 1);
+
+      @include media($medium-screen) {
+        max-width: 100%;
+      }
+
+      + abbr {
+        vertical-align: middle;
+      }
     }
 
     @include media($medium-screen) {
       > div.tabular-data-left, div.tabular-data-right {
-        display: table-cell;
         border-top: 1px solid $color-gray;
+
+        @include media($medium-screen) {
+          display: table-cell;
+        }
 
         &.tabular-data-left {
           vertical-align: top;
           text-align: center;
-        }
-      }
 
-      img {
-        display: block;
-        margin: 0 auto 1rem auto;
+          img {
+            display: block;
+            margin: 0 auto 1rem auto;
+          }
+        }
       }
     }
 
@@ -62,6 +93,12 @@
         border-bottom: 0.125rem solid $color-gray-light;
         margin-bottom: $site-margins-mobile;
         padding-bottom: $site-margins-mobile;
+      }
+
+      .field--name-field-body {
+        > ul:last-child {
+          margin-bottom: 1em;
+        }
       }
     }
   }

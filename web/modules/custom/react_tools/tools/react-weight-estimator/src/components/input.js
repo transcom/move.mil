@@ -1,10 +1,6 @@
 import React, { Component }  from 'react';
-import * as _ from 'lodash';
 
 class Input extends Component {
-    constructor(props) {
-        super(props);
-    }
 
     handleChange = (event) => {
         let val = event.target.value;
@@ -15,26 +11,26 @@ class Input extends Component {
         switch(this.props.validationType){
             case 'number':
                 reg = /^\d+$/;
-                isValid = reg.test(val) || val == "" || val == undefined || val == null;
+                isValid = reg.test(val) || val === "" || val === undefined || val === null;
                 break;
             case 'positiveNumbers':
                 reg = /^\d*[0-9]\d*$/;
-                isValid = reg.test(val) || val == "" || val == undefined || val == null;
+                isValid = reg.test(val) || val === "" || val === undefined || val === null;
                 break;
             case 'alphaNumeric':
                 reg = /^[a-z0-9]+$/i;
-                isValid = reg.test(val) || val == "" || val == undefined || val == null;
+                isValid = reg.test(val) || val === "" || val === undefined || val === null;
                 break;
             case 'nonEmpty':
-                isValid = val != "" && val != undefined && val != null;
+                isValid = val !== "" && val !== undefined && val !== null;
                 break;
             default:
                 isValid = true;
                 break;
         }
 
-        if(this.props.type == 'number'){
-            val = parseInt(val);
+        if(this.props.type === 'number'){
+            val = parseInt(val, 10);
         }
 
         if(isValid && changeFn){

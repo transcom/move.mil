@@ -1,10 +1,6 @@
 import React, { Component }  from 'react';
-import * as _ from 'lodash';
 
 class TotalBar extends Component {
-    constructor(props) {
-        super(props);
-    }
 
     render() {
         return (

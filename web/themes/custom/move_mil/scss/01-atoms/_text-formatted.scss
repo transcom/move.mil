@@ -1,0 +1,12 @@
+// WYSIWYG fields
+.field.text-formatted {
+  @include strip-paragraph-spacing();
+  @include strip-paragraph-spacing(ul);
+  @include strip-paragraph-spacing(ol);
+
+  ul, ol {
+    ul, ol {
+      @include margin(1em null);
+    }
+  }
+}

@@ -5,4 +5,24 @@
     background-color: $color-gray-cool-light;
     margin-top: 0;
   }
+
+  .field--name-field-paragraph {
+    > .field__item {
+      .paragraph--text-with-image {
+        .usa-media_block-body {
+          > h3 {
+            margin-top: 2rem;
+
+            @include media($medium-screen) {
+              margin-top: 0;
+            }
+          }
+        }
+      }
+
+      &:first-child .paragraph--text-with-image {
+        margin-top: 0;
+      }
+    }
+  }
 }
