@@ -52,17 +52,17 @@ class Results extends Component {
                 <ResultMap map={mapOptions}/>
                 <div className="details">
                     <div className="flex-container">
-                        <div className="flex-item">Your Details:</div>
-                        <div className="flex-item right-align">
+                        <div className="flex-item ie-2-col">Your Details:</div>
+                        <div className="flex-item ie-2-col right-align">
                             {this.rank_dependents}
                         </div>
                     </div>
                     <div className="flex-container table">
-                        <div className="flex-item">
+                        <div className="flex-item ie-2-col">
                             <div>Moving Date:</div>
                             <div>{dateFormatted}</div>
                         </div>
-                        <div className="flex-item totals">
+                        <div className="flex-item ie-2-col totals">
                             <div className="flex-container">
                                 <div className="flex-item">
                                     Anticipated Weight:
@@ -103,14 +103,14 @@ class Results extends Component {
                         </div>
                     </div>
                     <div className="flex-container incentive">
-                        <div className="flex-item">Your PPM Incentive:</div>
-                        <div className="flex-item right-align">
+                        <div className="flex-item ie-2-col">Your PPM Incentive:</div>
+                        <div className="flex-item ie-2-col right-align">
                             ${Math.round(this.props.results.incentive.min)}-${Math.round(this.props.results.incentive.max)}
                         </div>
                     </div>
                     <div className="flex-container advance">
-                        <div className="flex-item">Max. Advance Payment:</div>
-                        <div className="flex-item right-align">
+                        <div className="flex-item ie-2-col">Max. Advance Payment:</div>
+                        <div className="flex-item ie-2-col right-align">
                             ${Math.round(this.props.results.advancePayment.min)}-${Math.round(this.props.results.advancePayment.max)} ({this.props.results.advancePayment.percentage}%)
                            
                         </div>

@@ -121,6 +121,10 @@ $total-background: #d6d7d9;
             &.button-container{
                 text-align: right;
             }
+
+            &.ie-2-col {
+                width: 50%;
+            }
         }
     }
 
