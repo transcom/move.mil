@@ -9,14 +9,14 @@ $total-background: #d6d7d9;
     *{
         position: relative;
     }
-    
+
     input[type=number]{
         text-align: right;
     }
 
     div{
         display: block;
-    
+
         &.inline{
             display: inline-block;
         }
@@ -36,6 +36,7 @@ $total-background: #d6d7d9;
             img{
                 &.logo{
                     max-width:50px;
+                    max-height: 50px;
                 }
             }
         }
@@ -60,6 +61,19 @@ $total-background: #d6d7d9;
             background: $total-background;
             font-weight: bold;
         }
+
+        .items-container, .rooms-total {
+            .flex-container.header, .flex-container.item, &.flex-container {
+                > .flex-item {
+                    width: auto;
+                    flex-basis: 50%;
+
+                    &.small {
+                        flex-basis: 25%;
+                    }
+                }
+            }
+        }
     }
 
     .total-container{
@@ -75,7 +89,7 @@ $total-background: #d6d7d9;
             box-shadow: 0px 0px 1px 0px #000;
             z-index: 1000;
             width: 100%;
-           
+
             .total{
                 margin: 0 auto;
                 max-width: 980px;
@@ -89,8 +103,20 @@ $total-background: #d6d7d9;
                 }
             }
         }
+
+        .flex-container.total-item {
+            > .flex-item {
+                width: auto;
+                flex-basis: 50%;
+
+                &.small {
+                    flex-basis: 25%;
+                }
+            }
+        }
+
     }
-    
+
     .flex-container{
         position: relative;
         display: flex;
@@ -119,7 +145,7 @@ $total-background: #d6d7d9;
         .flex-item{
             position: relative;
             width: 100%;
-            padding: 2px; 
+            padding: 2px;
 
             .flex-item-content{
                 &.right-align{
@@ -131,20 +157,20 @@ $total-background: #d6d7d9;
                 span, input{
                     &.highlighted{
                         background: #ffaa00;
-                    } 
+                    }
                 }
             }
 
-            &.no-overflow{  
+            &.no-overflow{
                 overflow: hidden;
-                text-overflow: ellipsis; 
+                text-overflow: ellipsis;
             }
 
             &.options {
                 flex: 1;
                 flex-grow: 1;
                 flex-shrink: 1;
-                flex-basis: auto; 
+                flex-basis: auto;
             }
 
             &.small {

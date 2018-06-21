@@ -20,7 +20,7 @@ class Locations extends Component {
         this.warningMessage = "Please fill out this field.";
         return (
             <div className="flex-container wrapper">
-                <div className="flex-item">
+                <div className="flex-item ie-2-col">
                     <div>Origin ZIP Code</div>
                     <div>
                         <Input validationType="number" 
@@ -32,7 +32,7 @@ class Locations extends Component {
                         {this.validationDisplay(this.props.locations.origin, this.warningMessage)}
                     </div>
                 </div>
-                <div className="flex-item">
+                <div className="flex-item ie-2-col">
                     <div>Destination ZIP Code</div>
                     <div>
                         <Input validationType="number" 

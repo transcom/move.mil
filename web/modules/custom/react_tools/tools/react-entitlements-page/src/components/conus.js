@@ -11,7 +11,7 @@ class Conus extends Component {
     radioComp = () =>{
         return (
             <div className="flex-container  wrapper">
-                <div className="flex-item">
+                <div className="flex-item ie-2-col">
                     <div className="flex-container">
                         <div className="flex-item small">
                             <input type="radio" name="conus" onChange={(e) => this.handleChange(true)} checked={this.props.isConus} />
@@ -21,11 +21,11 @@ class Conus extends Component {
                         </div>
                     </div>
                 </div>
-                <div className="flex-item">
+                <div className="flex-item ie-2-col">
                     <div className="flex-container">
                         <div className="flex-item small">
                             <input type="radio" name="oconus" onChange={(e) => this.handleChange(false)}  checked={!this.props.isConus}/>
-                        </div>  
+                        </div>
                         <div className="flex-item">
                             <div>OCONUS</div>
                         </div>
