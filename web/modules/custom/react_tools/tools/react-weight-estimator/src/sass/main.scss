@@ -74,6 +74,10 @@ $total-background: #d6d7d9;
                 }
             }
         }
+
+        .room-content {
+            flex-basis: 90%;
+        }
     }
 
     .total-container{
@@ -90,9 +94,10 @@ $total-background: #d6d7d9;
             z-index: 1000;
             width: 100%;
 
-            .total{
-                margin: 0 auto;
-                max-width: 980px;
+            .total {
+                .flex-item.logo + .flex-item {
+                    flex-basis: 90%;
+                }
             }
 
             .flex-container{
