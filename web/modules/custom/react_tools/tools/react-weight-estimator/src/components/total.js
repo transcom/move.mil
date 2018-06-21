@@ -16,7 +16,7 @@ class Total extends Component {
     render() {
         return (
             <div className={"total-container "  + (this.props.isFixed ? 'fixed' : '')}>
-                <div className="total">
+                <div className="total usa-grid">
                     <div className="flex-container no-pad">
                         <div className="flex-item logo" />
                         <div className="flex-item">
