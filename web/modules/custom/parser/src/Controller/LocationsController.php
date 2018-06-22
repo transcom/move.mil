@@ -93,14 +93,14 @@ class LocationsController extends ControllerBase {
   private function validate(array $params) {
     $lat_regex = "/^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)$/";
     $lon_regex = "/^[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$/";
-    $loc = $params['latitude'] && $params['longitude'];
+    $loc = array_key_exists('latitude', $params) && array_key_exists('longitude', $params);
     $valid = $loc && preg_match($lat_regex, $params['latitude']);
     $valid = $valid && $loc && preg_match($lon_regex, $params['longitude']);
     if ($loc && !$valid) {
       $this->errors[] = 'Invalid parameters format: latitude/longitude.';
       return $valid;
     }
-    $valid = $valid || $params['query'];
+    $valid = $valid || array_key_exists('query', $params);
     if (!$valid) {
       $this->errors[] = "Missing parameters: 'query', OR 'latitude and longitude'.";
     }
@@ -117,13 +117,13 @@ class LocationsController extends ControllerBase {
    *   Array with the geolocation of the search.
    */
   private function geoLocation(array $params) {
-    if ($params['latitude'] && $params['longitude']) {
+    if (array_key_exists('latitude', $params) && array_key_exists('longitude', $params)) {
       return [
         'lat' => $params['latitude'],
         'lon' => $params['longitude'],
       ];
     }
-    elseif ($params['query'] && preg_match("/^\d{5}$/", $params['query'])) {
+    elseif (array_key_exists('query', $params) && preg_match("/^\d{5}$/", $params['query'])) {
       $uszipcode = $this->uszipcode($params['query']);
       if ($uszipcode) {
         return [
