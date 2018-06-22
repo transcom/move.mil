@@ -5,7 +5,6 @@ import ReactDOM from 'react-dom';
 import './localcss/main.css';
 import 'leaflet/dist/leaflet.css';
 import App from './App';
-import registerServiceWorker from './registerServiceWorker';
 import L from 'leaflet';
 delete L.Icon.Default.prototype._getIconUrl;
 
@@ -16,4 +15,3 @@ L.Icon.Default.mergeOptions({
 });
 
 ReactDOM.render(<App />, document.getElementById('locator-map'));
-registerServiceWorker();
