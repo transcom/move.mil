@@ -12,6 +12,7 @@ services:
     class: Drupal\parser\Service\LocationReader
   parser.xml.reader:
     class: Drupal\parser\Service\XMLReader
+    arguments: ['@entity_type.manager']
   parser.location_writer:
       class: Drupal\parser\Service\LocationWriter
       arguments: ['@database']
