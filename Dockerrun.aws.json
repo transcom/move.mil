@@ -1,11 +1,7 @@
 {
   "AWSEBDockerrunVersion": "1",
-  "Authentication": {
-    "Bucket": "movemil-docker-cred",
-    "Key": "328180890751.dkr.ecr.us-east-1.amazonaws.com/config.json"
-  },
   "Image": {
-    "Name": "328180890751.dkr.ecr.us-east-1.amazonaws.com/movemil/movemil",
+    "Name": "328180890751.dkr.ecr.us-east-1.amazonaws.com/movemil/movemil:latest",
     "Update": "true"
   },
   "Ports": [
