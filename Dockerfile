@@ -52,3 +52,5 @@ RUN npm install && npm run build
 WORKDIR /var/www/html/web/modules/custom/react_tools/tools/react-entitlements-page/src/sass
 RUN sass main.scss ../localcss/main.css
 RUN npm install && npm run build
+
+EXPOSE 80
