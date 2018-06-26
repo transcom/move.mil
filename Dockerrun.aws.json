@@ -11,8 +11,8 @@
   ],
   "Volumes": [
     {
-      "HostDirectory": "/var/app/current",
-      "ContainerDirectory": "/var/www/html"
+      "HostDirectory": "/drupalfiles",
+      "ContainerDirectory": "/var/www/html/web/sites/default/files"
     }
   ],
   "Logging": "/var/log/apache"
