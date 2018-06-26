@@ -15,5 +15,5 @@
       "ContainerDirectory": "/var/www/html/web/sites/default/files"
     }
   ],
-  "Logging": "/var/log/apache"
+  "Logging": "/var/log/apache2"
 }
