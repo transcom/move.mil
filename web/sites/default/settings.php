@@ -788,15 +788,15 @@ try {
   $settings['trusted_host_patterns'] = [getenv('TRUSTED_HOST_PATTERNS')];
   $settings['hash_salt'] = getenv('HASH_SALT');
 
-  if (!empty($_SERVER['RDS_DB_NAME'])) {
+  if (!empty(getenv('RDS_DB_NAME'))) {
     $databases = [];
     $databases['default']['default'] = array (
-      'database' => $_SERVER['RDS_DB_NAME'],
-      'username' => $_SERVER['RDS_USERNAME'],
-      'password' => $_SERVER['RDS_PASSWORD'],
+      'database' => getenv('RDS_DB_NAME'),
+      'username' => getenv('RDS_USERNAME'),
+      'password' => getenv('RDS_PASSWORD'),
       'prefix' => '',
-      'host' => $_SERVER['RDS_HOSTNAME'],
-      'port' => $_SERVER['RDS_PORT'],
+      'host' => getenv('RDS_HOSTNAME'),
+      'port' => getenv('RDS_PORT'),
       'namespace' => 'Drupal\\Core\\Database\\Driver\\mysql',
       'driver' => 'mysql',
 );

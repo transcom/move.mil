@@ -12,6 +12,7 @@ RUN apt-get update && apt-get install -y \
         git \
         nodejs \
     && docker-php-ext-install gd \
+    && docker-php-ext-install opcache \
     && docker-php-ext-install pdo \
     && docker-php-ext-install pdo_mysql \
     && docker-php-ext-install zip
@@ -32,29 +33,43 @@ ENV APACHE_DOCUMENT_ROOT /var/www/html/web
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
 RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
 
-COPY . /var/www/html
+# The following section is all in the name of container caching. We copy over the code base AFTER building deps.
+# https://www.sentinelstand.com/article/composer-install-in-dockerfile-without-breaking-cache
+# http://bitjudo.com/blog/2014/03/13/building-efficient-dockerfiles-node-dot-js/
 
 WORKDIR /var/www/html
-RUN composer install
+COPY composer.json /var/www/html/
+COPY composer.lock /var/www/html/
+RUN composer install --no-scripts --no-autoloader
+
+COPY web/themes/custom/move_mil/ /var/www/html/web/themes/custom/move_mil/
+
+
+COPY web/modules/custom/react_tools/ /var/www/html/web/modules/custom/react_tools/
 
 WORKDIR /var/www/html/web/themes/custom/move_mil/
 RUN npm install && npm run build
 
-WORKDIR /var/www/html/web/modules/custom/react_tools/tools/react-weight-estimator/src/sass
-RUN sass main.scss ../localcss/main.css
+WORKDIR /var/www/html/web/modules/custom/react_tools/tools/react-weight-estimator
+RUN sass src/sass/main.scss src/localcss/main.css
 RUN npm install && npm run build
 
-WORKDIR /var/www/html/web/modules/custom/react_tools/tools/react-locator-map/src/sass
-RUN sass main.scss ../localcss/main.css
+WORKDIR /var/www/html/web/modules/custom/react_tools/tools/react-locator-map
+RUN sass src/sass/main.scss src/localcss/main.css
 RUN npm install && npm run build
 
-WORKDIR /var/www/html/web/modules/custom/react_tools/tools/react-ppm-tool/src/sass
-RUN sass main.scss ../localcss/main.css
+WORKDIR /var/www/html/web/modules/custom/react_tools/tools/react-ppm-tool
+RUN sass src/sass/main.scss src/localcss/main.css
 RUN npm install && npm run build
 
-WORKDIR /var/www/html/web/modules/custom/react_tools/tools/react-entitlements-page/src/sass
-RUN sass main.scss ../localcss/main.css
+WORKDIR /var/www/html/web/modules/custom/react_tools/tools/react-entitlements-page/
+RUN sass src/sass/main.scss src/localcss/main.css
 RUN npm install && npm run build
 
+COPY . /var/www/html
 WORKDIR /var/www/html
+
+RUN composer dump-autoload --optimize && \
+        composer run-script post-install-cmd
+
 EXPOSE 80
