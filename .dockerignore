@@ -2,3 +2,4 @@
 **/vendor
 .env
 **/settings.local.php
+web/sites/default/files
