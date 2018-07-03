@@ -3,3 +3,4 @@
 .env
 **/settings.local.php
 web/sites/default/files
+**/mariadb-init
