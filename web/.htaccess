@@ -76,9 +76,15 @@ AddEncoding gzip svgz
   RewriteCond %{HTTPS} on
   RewriteRule ^ - [E=protossl:s]
 
+
   # Make sure Authorization HTTP header is available to PHP
   # even when running as CGI or FastCGI.
   RewriteRule ^ - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+  # Forward to https
+  RewriteEngine On
+  RewriteCond %{HTTP:X-Forwarded-Proto} =http
+  RewriteRule .* https://%{HTTP:Host}%{REQUEST_URI} [L,R=permanent]
 
   # Block access to "hidden" directories whose names begin with a period. This
   # includes directories used by version control systems such as Subversion or
