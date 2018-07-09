@@ -89,9 +89,11 @@ class XMLReader {
         if (empty($cnslField)) {
           continue;
         }
+        // Loop until the CNSL id is found.
         if ($xmlId != $cnslField[0]['value']) {
           continue;
         }
+        // If the CNSL id is found, update the node and go to the next XML id.
         try {
           $this->updateLocationPhones($location, $xml_office, $phones);
           $this->updateLocationAddress($location, $xml_office);
