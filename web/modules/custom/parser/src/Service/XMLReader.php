@@ -208,13 +208,13 @@ class XMLReader {
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
   private function updateLocationEmails(Node $location, SimpleXMLElement $element) {
-    // Get XML file phone elements.
+    // Get XML file email elements.
     $xmlEmails = $element
       ->LIST_G_CNSL_EMAIL_ORG_ID
       ->G_CNSL_EMAIL_ORG_ID
       ->LIST_G_CNSL_EMAIL
       ->G_CNSL_EMAIL;
-    // Parse XML file phone elements.
+    // Parse and set the XML email elements.
     $xml_emails = [];
     foreach ($xmlEmails as $email) {
       $xml_emails[] = $email->EMAIL_ADDRESS;
