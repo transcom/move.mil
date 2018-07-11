@@ -4,6 +4,7 @@ namespace Drupal\parser\Service;
 
 use Drupal\Core\Entity\EntityStorageException;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Logger\LoggerChannelFactory;
 use Drupal\node\Entity\Node;
 use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -18,6 +19,7 @@ class XMLReader {
 
   protected $entityTypeManager;
   protected $paragraphStorage;
+  protected $loggerFactory;
 
   /**
    * XMLReader constructor.
@@ -26,10 +28,12 @@ class XMLReader {
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
    *   The entity type manager interface.
+   * @param \Drupal\Core\Logger\LoggerChannelFactory $loggerFactory
+   *   The logger channel factory.
    *
    * @throws \Exception
    */
-  public function __construct(EntityTypeManagerInterface $entityTypeManager) {
+  public function __construct(EntityTypeManagerInterface $entityTypeManager, LoggerChannelFactory $loggerFactory) {
     $this->entityTypeManager = $entityTypeManager;
     try {
       $this->paragraphStorage = $this->entityTypeManager->getStorage('paragraph');
@@ -37,6 +41,7 @@ class XMLReader {
     catch (InvalidPluginDefinitionException $ipde) {
       throw new \Exception('Exception on location_telephone paragraph,  ' . $ipde->getMessage());
     }
+    $this->loggerFactory = $loggerFactory;
   }
 
   /**
@@ -46,7 +51,8 @@ class XMLReader {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('entity_type.manager')
+      $container->get('entity_type.manager'),
+      $container->get('logger.factory')
     );
   }
 
@@ -62,6 +68,8 @@ class XMLReader {
     if (!is_readable($xmlFile)) {
       throw new \RuntimeException(sprintf('File "%s" cannot be read.', $xmlFile));
     }
+    // Report locations parsed and updated.
+    $locationsParsed = [];
     // Get all telephone paragraphs.
     $phone_paragraphs = $this->paragraphStorage
       ->loadByProperties(['type' => 'location_telephone']);
@@ -69,31 +77,25 @@ class XMLReader {
     foreach ($phone_paragraphs as $phone) {
       $phones[$phone->id()] = $phone;
     }
-    // Get all locations entities.
-    try {
-      $locations = $this->entityTypeManager
-        ->getStorage('node')
-        ->loadByProperties(['type' => 'location']);
-    }
-    catch (InvalidPluginDefinitionException $ipde) {
-      throw new \Exception('Exception on location node, ' . $ipde->getMessage());
-    }
     // Get XML offices to update on Drupal.
     $xml_offices = simplexml_load_file($xmlFile)->LIST_G_CNSL_ORG_ID->G_CNSL_ORG_ID;
     // Update each XML offices that is found in Drupal content.
     foreach ($xml_offices as $xml_office) {
       $xmlId = (string) $xml_office->CNSL_ORG_ID1;
-      foreach ($locations as $location) {
-        // Search by CNSL org id.
-        $cnslField = $location->get('field_location_cnsl_id')->getValue();
-        if (empty($cnslField)) {
-          continue;
-        }
-        // Loop until the CNSL id is found.
-        if ($xmlId != $cnslField[0]['value']) {
-          continue;
-        }
-        // If the CNSL id is found, update the node and go to the next XML id.
+      // Get all location entity.
+      try {
+        $locations = $this->entityTypeManager
+          ->getStorage('node')
+          ->loadByProperties([
+            'type' => 'location',
+            'field_location_cnsl_id' => $xmlId,
+          ]);
+      }
+      catch (InvalidPluginDefinitionException $ipde) {
+        throw new \Exception('Exception on location node, ' . $ipde->getMessage());
+      }
+      $location = current($locations);
+      if (!empty($location)) {
         try {
           $this->updateLocationPhones($location, $xml_office, $phones);
           $this->updateLocationAddress($location, $xml_office);
@@ -104,9 +106,12 @@ class XMLReader {
             'An error occurred while trying to update the location entity, ' . $e->getMessage()
           );
         }
-        break;
+        $locationsParsed[] = $location->toUrl()->setAbsolute()->toString();
       }
     }
+    $this->loggerFactory
+      ->get('parser')
+      ->notice(count($locationsParsed) . ' locations parsed and updated: ' . implode(', ', $locationsParsed));
   }
 
   /**
