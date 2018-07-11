@@ -7,6 +7,7 @@ use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
 use Drupal\Core\Database\Connection;
+use Drupal\parser\Service\XMLReader;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\parser\Service\CsvReader;
@@ -28,39 +29,46 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
   protected $db;
 
   /**
-   * Variables containing the entitytypemanager serivce.
+   * Variables containing the entitytypemanager service.
    *
    * @var \Drupal\Core\Entity\EntityTypeManager
    */
   protected $entity;
 
   /**
-   * Variables containing the databaseWriter serivce.
+   * Variables containing the databaseWriter service.
    *
    * @var \Drupal\parser\Service\DbWriter
    */
   protected $writer;
 
   /**
-   * Variables containing the CsvReader serivce.
+   * Variables containing the CsvReader service.
    *
    * @var \Drupal\parser\Service\CsvReader
    */
   protected $csvReader;
 
   /**
-   * Variables containing the YmlReader serivce.
+   * Variables containing the YmlReader service.
    *
    * @var \Drupal\parser\Service\YmlReader
    */
   protected $ymlReader;
 
   /**
-   * Variables containing the XslReader serivce.
+   * Variables containing the XslReader service.
    *
    * @var \Drupal\parser\Service\ExcelReader
    */
   protected $xslReader;
+
+  /**
+   * Variables containing the XmlReader service.
+   *
+   * @var \Drupal\parser\Service\XMLReader
+   */
+  protected $xmlReader;
 
   /**
    * FilesAndTablesManagerForm constructor.
@@ -74,6 +82,7 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
                               CsvReader $csvReader,
                               ExcelReader $xslReader,
                               DbWriter $writer,
+                              XMLReader $xmlReader,
                               StreamWrapperManager $swm) {
     parent::__construct($config_factory);
     $this->db = $db;
@@ -83,6 +92,7 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
     $this->ymlReader = $ymlReader;
     $this->xslReader = $xslReader;
     $this->swm = $swm;
+    $this->xmlReader = $xmlReader;
   }
 
   /**
@@ -97,6 +107,7 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
       $container->get('parser.csv_reader'),
       $container->get('parser.xsl_reader'),
       $container->get('parser.writer'),
+      $container->get('parser.xml.reader'),
       $container->get('stream_wrapper_manager')
     );
   }
@@ -124,7 +135,7 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
     $form['#tree'] = TRUE;
 
     $form['description'] = [
-      '#markup' => '<p>' . $this->t('Manage the data used by the PPM tool uploading files and/or clearing databases.') . '</p>',
+      '#markup' => '<p>' . $this->t('Manage the data used by the PPM tool and Locator Map uploading files and/or clearing databases.') . '</p>',
     ];
 
     $form['zip_3'] = [
@@ -303,6 +314,25 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
       '#url' => Url::fromRoute('parser.zipcodes_controller_table'),
     ];
 
+    $form['locations'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Locations'),
+    ];
+
+    $form['locations']['file'] = [
+      '#type' => 'managed_file',
+      '#title' => $this->t('Locations'),
+      '#upload_validators' => [
+        'file_validate_extensions' => ['txt'],
+      ],
+    ];
+
+    $form['locations']['link'] = [
+      '#title' => $this->t('What location entities do we have?'),
+      '#type' => 'link',
+      '#url' => Url::fromRoute('view.content.page_1'),
+    ];
+
     unset($form['400NG']['year']['#options']['_none']);
     $form['400NG']['year']['#options'] = ['' => 'Select'] + $form['400NG']['year']['#options'];
 
@@ -381,6 +411,11 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
           $reader = $this->csvReader;
           break;
 
+        case 'locations':
+          $tables = '';
+          $reader = $this->xmlReader;
+          break;
+
         default:
           $continue = TRUE;
       }
@@ -389,7 +424,9 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
         continue;
       }
       $fid = array_key_exists(0, $group_data['file']) ? intval($group_data['file'][0]) : 0;
-      $this->checkAndTruncate($group_data['truncate'], $tables, $key);
+      if (array_key_exists('truncate', $group_data) && $group_data['truncate'] == 1) {
+        $this->checkAndTruncate($group_data['truncate'], $tables, $key);
+      }
       $this->readAndWrite($fid, $reader, $read_info, $key, $tables);
     }
   }
