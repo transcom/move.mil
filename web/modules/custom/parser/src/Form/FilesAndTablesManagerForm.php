@@ -299,6 +299,7 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
       '#title' => $this->t('Zipcodes'),
       '#upload_validators' => [
         'file_validate_extensions' => ['csv'],
+        'file_validate_size' => [20000000],
       ],
     ];
 
@@ -324,6 +325,7 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
       '#title' => $this->t('Locations'),
       '#upload_validators' => [
         'file_validate_extensions' => ['txt'],
+        'file_validate_size' => [20000000],
       ],
     ];
 
