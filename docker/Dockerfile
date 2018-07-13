@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         mysql-client \
         git \
         nodejs \
-    && docker-php-ext-install gd \wel
+    && docker-php-ext-install gd \
     && docker-php-ext-install opcache \
     && docker-php-ext-install pdo \
     && docker-php-ext-install pdo_mysql \
