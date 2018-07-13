@@ -16,7 +16,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && docker-php-ext-install pdo \
     && docker-php-ext-install pdo_mysql \
     && docker-php-ext-install zip
+
 RUN rm -rf /var/lib/apt/lists/*
+
+COPY docker/php.ini /usr/local/etc/php
 RUN a2enmod rewrite
 
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
