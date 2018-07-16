@@ -18,10 +18,10 @@ provider: null
 plugin: 'views_block:faqs-block_7'
 settings:
   id: 'views_block:faqs-block_7'
-  label: 'During the Move (Packing & Unloading)'
+  label: ''
   provider: views
   label_display: visible
-  views_label: 'During the Move (Packing & Unloading)'
+  views_label: ''
   items_per_page: none
 visibility:
   node_type:
