@@ -1,18 +1,10 @@
 {
   "entitlements.css": "static/css/entitlements.min.css",
-  "entitlements.css.map": "static/css/entitlements.min.css.map",
   "entitlements.js": "static/js/entitlements.min.js",
-  "entitlements.js.map": "static/js/entitlements.min.js.map",
   "locator.css": "static/css/locator.min.css",
-  "locator.css.map": "static/css/locator.min.css.map",
   "locator.js": "static/js/locator.min.js",
-  "locator.js.map": "static/js/locator.min.js.map",
   "ppm.css": "static/css/ppm.min.css",
-  "ppm.css.map": "static/css/ppm.min.css.map",
   "ppm.js": "static/js/ppm.min.js",
-  "ppm.js.map": "static/js/ppm.min.js.map",
   "weight.css": "static/css/weight.min.css",
-  "weight.css.map": "static/css/weight.min.css.map",
-  "weight.js": "static/js/weight.min.js",
-  "weight.js.map": "static/js/weight.min.js.map"
+  "weight.js": "static/js/weight.min.js"
 }
