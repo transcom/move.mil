@@ -138,7 +138,6 @@ build_image: &build_image
       aws_auth:
         aws_access_key_id: $AWS_ACCESS_KEY_ID
         aws_secret_access_key: $AWS_SECRET_ACCESS_KEY
-        aws_default_region: $AWS_DEFAULT_REGION
   steps:
     - checkout
     - setup_remote_docker:
@@ -166,7 +165,7 @@ build_image: &build_image
           ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
     - run:
         name: "Log in to AWS ECR"
-        command: eval $(aws ecr get-login --region us-east-1)
+        command: eval $(aws ecr get-login)
     - run:
         name: "Build & Push Docker Image"
         command: |
