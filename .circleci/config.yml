@@ -133,24 +133,41 @@ code_coverage: &code_coverage
     - save_cache: *save_cache
 
 build_image: &build_image
-  <<: *defaults
+  docker:
+    - image: python:3.7.0
   steps:
     - checkout
+    - setup_remote_docker:
+        docker_layer_caching: true
     - restore_cache: *restore_cache
+    - run:
+        name: Install dependencies
+        command: |
+          apt-get update \
+            && apt-get install -y \
+              unzip
+    - run:
+        name: Install Docker client
+        command: |
+          set -x
+          VER="18.03.1-ce"
+          curl -L -o /tmp/docker-$VER.tgz https://download.docker.com/linux/static/stable/x86_64/docker-$VER.tgz
+          tar -xz -C /tmp -f /tmp/docker-$VER.tgz
+          mv /tmp/docker/* /usr/bin
     - run:
         name: install aws
         command: |
           curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
           unzip awscli-bundle.zip
-          sudo ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
+          ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
     - run:
         name: "Log in to AWS ECR"
         command: eval $(aws ecr get-login)
     - run:
         name: "Build & Push Docker Image"
         command: |
-          docker build -t $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/move-mil:latest -t $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/movemil:$CIRCLE_SHA1 -f dockerfile/Dockerfile .
-          docker push $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/move-mil:$CIRCLE_SHA1
+          docker build -t $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/movemil:stage -f docker/Dockerfile .
+          docker push $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/movemil:stage
 
 
 # Declare all of the jobs we should run.
@@ -165,7 +182,7 @@ jobs:
   code-coverage:
      <<: *code_coverage
   build-image:
-     <<: build_image
+     <<: *build_image
 
 # Declare a workflow that runs all of our jobs in parallel.
 workflows:
@@ -176,6 +193,6 @@ workflows:
       - behat
       - code-sniffer
       - code-coverage
-  build-image:
+  build_image:
     jobs:
       - build-image
