@@ -163,7 +163,12 @@ build_stage_image: &build_stage_image
     - run:
         name: Install AWS EB CLI
         command: |
-          pip install awsebcli --upgrade --user && export PATH=~/.local/bin:$PATH
+          pip install awsebcli --upgrade --user
+    - run:
+        name: Python PATH
+        command: |
+            echo 'export PATH=$HOME/.local/bin:$PATH' >> $BASH_ENV
+            source ~/.bashrc
     - run:
         name: "Log in to AWS ECR"
         command: eval $(aws ecr get-login --region us-east-1 --no-include-email)
