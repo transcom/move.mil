@@ -162,7 +162,8 @@ build_image: &build_image
           ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
     - run:
         name: "Log in to AWS ECR"
-        command: eval "aws ecr get-login"
+        command: eval $(aws ecr get-login --region us-east-1 --no-include-email)
+
     - run:
         name: "Build & Push Docker Image"
         command: |
