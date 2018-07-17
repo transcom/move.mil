@@ -135,7 +135,7 @@ code_coverage: &code_coverage
 build_image: &build_image
   docker:
     - image: python:3.7.0
-    - aws_auth:
+      aws_auth:
         aws_access_key_id: $AWS_ACCESS_KEY_ID
         aws_secret_access_key: $AWS_SECRET_ACCESS_KEY
   steps:
