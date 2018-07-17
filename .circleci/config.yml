@@ -134,7 +134,7 @@ code_coverage: &code_coverage
 
 build_stage_image: &build_stage_image
   docker:
-    - image: python:3.7.0
+    - image: python:3.6.6
   steps:
     - checkout
     - setup_remote_docker:
@@ -155,11 +155,15 @@ build_stage_image: &build_stage_image
           tar -xz -C /tmp -f /tmp/docker-$VER.tgz
           mv /tmp/docker/* /usr/bin
     - run:
-        name: install aws
+        name: Install AWSCLI
         command: |
           curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
           unzip awscli-bundle.zip
           ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
+    - run:
+        name: Install AWS EB CLI
+        command: |
+          pip install awsebcli --upgrade --user && export PATH=~/.local/bin:$PATH
     - run:
         name: "Log in to AWS ECR"
         command: eval $(aws ecr get-login --region us-east-1 --no-include-email)
@@ -169,6 +173,10 @@ build_stage_image: &build_stage_image
         command: |
           docker build -t $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/movemil:stage -f docker/Dockerfile .
           docker push $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/movemil:stage
+    - run:
+        name: "Deploy to Staging Environment"
+        command: |
+          eb deploy $STAGE_NAME
 
 
 # Declare all of the jobs we should run.
