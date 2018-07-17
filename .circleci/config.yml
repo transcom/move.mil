@@ -196,6 +196,6 @@ workflows:
   build_stage_image:
     jobs:
       - build-stage-image:
-          filters:
-            branches:
-              only: 1.x-dev
+        filters:
+          branches:
+            only: 1.x-dev
