@@ -170,6 +170,15 @@ build_stage_image: &build_stage_image
             echo 'export PATH=$HOME/.local/bin:$PATH' >> $BASH_ENV
             source ~/.bashrc
     - run:
+        name: Create AWS credentials manually
+        command: |
+          mkdir ~/.aws
+          touch ~/.aws/config
+          chmod 600 ~/.aws/config
+          echo "[profile eb-cli]" > ~/.aws/config
+          echo "aws_access_key_id=$AWS_ACCESS_KEY_ID" >> ~/.aws/config
+          echo "aws_secret_access_key=$AWS_SECRET_ACCESS_KEY" >> ~/.aws/config
+    - run:
         name: "Log in to AWS ECR"
         command: eval $(aws ecr get-login --region us-east-1 --no-include-email)
 
@@ -181,7 +190,8 @@ build_stage_image: &build_stage_image
     - run:
         name: "Deploy to Staging Environment"
         command: |
-          eb deploy $STAGE_NAME
+          eb use Move.mil --profile eb-cli
+          eb deploy $STAGE_NAME --profile eb-cli
 
 
 # Declare all of the jobs we should run.
