@@ -1,5 +1,4 @@
 const _ = require('lodash');
-const appsDirectories = './apps';
 const appRoots = {
   entitlements: './apps/react-entitlements-page',
   locator: './apps/react-locator-map',
@@ -16,30 +15,16 @@ function getEntryPoints(){
   return entryPoints;
 }
 
-function createHtmlWebPackConfigs(){
-  let htmlPaths = [];
+function getRequiredFiles(){
+  let requiredFiles = [];
   _.each(appRoots, (val, key)=>{
-    htmlPaths.push({
-      inject: false,
-      chunks: key,
-      filename: `${val}/public/index.html`,
-      minify: {
-        removeComments: true,
-        collapseWhitespace: true,
-        removeRedundantAttributes: true,
-        useShortDoctype: true,
-        removeEmptyAttributes: true,
-        removeStyleLinkTypeAttributes: true,
-        keepClosingSlash: true,
-        minifyJS: true,
-        minifyCSS: true,
-        minifyURLs: true,
-      },
-    });
+    requiredFiles.push(`${val}/public/index.html`);
+    requiredFiles.push(`${val}/src/index.js`);
   });
+  return requiredFiles;
 }
 
 module.exports = {
   entryPoints: getEntryPoints(),
-  htmlPaths: createHtmlWebPackConfigs()
+  requiredFiles: getRequiredFiles()
 };

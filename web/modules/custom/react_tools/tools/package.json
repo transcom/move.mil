@@ -54,10 +54,7 @@
     "whatwg-fetch": "2.0.3"
   },
   "scripts": {
-    "start": "node scripts/start.js",
-    "build": "node scripts/build.js",
-    "test": "node scripts/test.js --env=jsdom",
-    "multi": "NODE_ENV=production npx webpack --config config/webpack.config.prod.test.clean.js"
+    "build": "node scripts/build.js"
   },
   "jest": {
     "collectCoverageFrom": [
