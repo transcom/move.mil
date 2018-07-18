@@ -200,16 +200,16 @@
         },
         {
             "name": "commerceguys/addressing",
-            "version": "v1.0.0-beta5",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/commerceguys/addressing.git",
-                "reference": "f257d08341a64a429b37e65f1194b243a66fc753"
+                "reference": "ef34ba9f6e5378e56cceb9f45798b464878db031"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/commerceguys/addressing/zipball/f257d08341a64a429b37e65f1194b243a66fc753",
-                "reference": "f257d08341a64a429b37e65f1194b243a66fc753",
+                "url": "https://api.github.com/repos/commerceguys/addressing/zipball/ef34ba9f6e5378e56cceb9f45798b464878db031",
+                "reference": "ef34ba9f6e5378e56cceb9f45798b464878db031",
                 "shasum": ""
             },
             "require": {
@@ -220,12 +220,9 @@
                 "mikey179/vfsstream": "1.*",
                 "phpunit/phpunit": "~4.0",
                 "squizlabs/php_codesniffer": "2.*",
-                "symfony/intl": ">=3.2",
                 "symfony/validator": ">=3.2"
             },
             "suggest": {
-                "commerceguys/intl": "to use it as the source of country data",
-                "symfony/intl": "to use it as the source of country data",
                 "symfony/validator": "to validate addresses"
             },
             "type": "library",
@@ -251,58 +248,14 @@
                     "name": "Damien Tournoud"
                 }
             ],
-            "description": "Addressing library powered by Google's address data.",
+            "description": "Addressing library powered by CLDR and Google's address data.",
             "keywords": [
                 "address",
                 "internationalization",
                 "localization",
                 "postal"
             ],
-            "time": "2018-02-16T01:16:24+00:00"
-        },
-        {
-            "name": "commerceguys/intl",
-            "version": "v0.7.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/commerceguys/intl.git",
-                "reference": "de1435502068393fae4061818e194e4ea61b98d6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/commerceguys/intl/zipball/de1435502068393fae4061818e194e4ea61b98d6",
-                "reference": "de1435502068393fae4061818e194e4ea61b98d6",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.4.0"
-            },
-            "require-dev": {
-                "mikey179/vfsstream": "1.*",
-                "phpunit/phpunit": "~4.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "CommerceGuys\\Intl\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Bojan Zivanovic"
-                }
-            ],
-            "description": "Internationalization library powered by CLDR data.",
-            "time": "2017-12-29T00:13:05+00:00"
+            "time": "2018-05-23T13:00:47+00:00"
         },
         {
             "name": "composer/installers",
@@ -1738,22 +1691,24 @@
         },
         {
             "name": "drupal/address",
-            "version": "1.3.0",
+            "version": "1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/address",
-                "reference": "8.x-1.3"
+                "reference": "8.x-1.4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/address-8.x-1.3.zip",
-                "reference": "8.x-1.3",
-                "shasum": "170551d6ecf4a08bac178f31b9869a626279d9eb"
+                "url": "https://ftp.drupal.org/files/projects/address-8.x-1.4.zip",
+                "reference": "8.x-1.4",
+                "shasum": "143e426be73418c719c6bddd5fb81c610604e860"
             },
             "require": {
-                "commerceguys/addressing": "~1.0",
-                "commerceguys/intl": "~0.7",
+                "commerceguys/addressing": "^1.0.0",
                 "drupal/core": "*"
+            },
+            "require-dev": {
+                "drupal/token": "*"
             },
             "type": "drupal-module",
             "extra": {
@@ -1761,7 +1716,7 @@
                     "dev-1.x": "1.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-1.3",
+                    "version": "8.x-1.4",
                     "datestamp": "1527081784",
                     "security-coverage": {
                         "status": "covered",
@@ -2489,17 +2444,17 @@
         },
         {
             "name": "drupal/entity_reference_revisions",
-            "version": "1.4.0",
+            "version": "1.5.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/entity_reference_revisions",
-                "reference": "8.x-1.4"
+                "reference": "8.x-1.5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/entity_reference_revisions-8.x-1.4.zip",
-                "reference": "8.x-1.4",
-                "shasum": "0d5e159ab52fe8e5aa7c27e7ccfc0299e1af4d72"
+                "url": "https://ftp.drupal.org/files/projects/entity_reference_revisions-8.x-1.5.zip",
+                "reference": "8.x-1.5",
+                "shasum": "417250a105afe8febef508c7f981d02cb138752d"
             },
             "require": {
                 "drupal/core": "~8.0"
@@ -2513,7 +2468,7 @@
                     "dev-1.x": "1.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-1.4",
+                    "version": "8.x-1.5",
                     "datestamp": "1527241084",
                     "security-coverage": {
                         "status": "covered",
@@ -2775,17 +2730,17 @@
         },
         {
             "name": "drupal/paragraphs",
-            "version": "1.2.0",
+            "version": "1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/paragraphs",
-                "reference": "8.x-1.2"
+                "reference": "8.x-1.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/paragraphs-8.x-1.2.zip",
-                "reference": "8.x-1.2",
-                "shasum": "6efc9d4351d4b21a55e7a6428c78495aaca662ef"
+                "url": "https://ftp.drupal.org/files/projects/paragraphs-8.x-1.3.zip",
+                "reference": "8.x-1.3",
+                "shasum": "24c6d2153127f9d783a03c05baf3b9beb219113f"
             },
             "require": {
                 "drupal/core": "~8",
@@ -2793,12 +2748,19 @@
             },
             "require-dev": {
                 "drupal/block_field": "~1.0",
+                "drupal/ctools": "3.x-dev",
                 "drupal/diff": "~1.0",
+                "drupal/entity_browser": "1.x-dev",
+                "drupal/entity_usage": "2.x-dev",
                 "drupal/field_group": "~1.0",
                 "drupal/inline_entity_form": "~1.0",
+                "drupal/paragraphs-paragraphs_library": "*",
                 "drupal/replicate": "~1.0",
-                "drupal/search_api": "*",
+                "drupal/search_api": "~1.0",
                 "drupal/search_api_db": "*"
+            },
+            "suggest": {
+                "drupal/entity_browser": "Recommended for an improved user experience when using the Paragraphs library module"
             },
             "type": "drupal-module",
             "extra": {
@@ -2806,7 +2768,7 @@
                     "dev-1.x": "1.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-1.2",
+                    "version": "8.x-1.3",
                     "datestamp": "1527502684",
                     "security-coverage": {
                         "status": "covered",
