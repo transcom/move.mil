@@ -9,3 +9,5 @@ web/sites/default/files
 **/.github
 **/artifacts
 **/backstop_data
+**/.vscode
+**/.idea
