@@ -97,8 +97,8 @@ code_sniffer: &code_sniffer
           robo install:dependencies
           vendor/bin/phpcs --config-set installed_paths vendor/drupal/coder/coder_sniffer
           mkdir -p artifacts/phpcs
-          vendor/bin/phpcs --standard=Drupal --report=junit --report-junit=artifacts/phpcs/phpcs.xml web/modules/custom
-          vendor/bin/phpcs --standard=DrupalPractice --report=junit --report-junit=artifacts/phpcs/phpcs.xml web/modules/custom
+          vendor/bin/phpcs --standard=Drupal --report=junit --report-junit=artifacts/phpcs/phpcs.xml web/modules/custom --ignore=*.min.js
+          vendor/bin/phpcs --standard=DrupalPractice --report=junit --report-junit=artifacts/phpcs/phpcs.xml web/modules/custom --ignore=*.min.js
     - store_test_results:
         path: /var/www/html/artifacts/phpcs
     - store_artifacts:
