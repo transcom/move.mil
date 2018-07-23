@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.location.field_geolocation
     - field.field.node.location.field_location_address
+    - field.field.node.location.field_location_cnsl_id
     - field.field.node.location.field_location_email
     - field.field.node.location.field_location_hours
     - field.field.node.location.field_location_link
@@ -27,28 +28,37 @@ bundle: location
 mode: default
 content:
   field_geolocation:
-    weight: 103
+    weight: 4
     label: above
     settings: {  }
     third_party_settings: {  }
     type: geolocation_latlng
     region: content
   field_location_address:
-    weight: 102
+    weight: 3
     label: above
     settings: {  }
     third_party_settings: {  }
     type: address_default
     region: content
+  field_location_cnsl_id:
+    weight: 0
+    label: hidden
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_integer
+    region: content
   field_location_email:
-    weight: 104
+    weight: 5
     label: above
     settings: {  }
     third_party_settings: {  }
     type: basic_string
     region: content
   field_location_hours:
-    weight: 108
+    weight: 8
     label: above
     settings:
       link_to_entity: false
@@ -56,7 +66,7 @@ content:
     type: string
     region: content
   field_location_link:
-    weight: 106
+    weight: 6
     label: above
     settings:
       trim_length: 80
@@ -68,14 +78,14 @@ content:
     type: link
     region: content
   field_location_note:
-    weight: 109
+    weight: 9
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
     region: content
   field_location_reference:
-    weight: 110
+    weight: 10
     label: above
     settings:
       link: true
@@ -83,7 +93,7 @@ content:
     type: entity_reference_label
     region: content
   field_location_services:
-    weight: 107
+    weight: 7
     label: above
     settings:
       link_to_entity: false
@@ -92,7 +102,7 @@ content:
     region: content
   field_location_telephone:
     type: entity_reference_revisions_entity_view
-    weight: 111
+    weight: 11
     label: above
     settings:
       view_mode: default
@@ -100,7 +110,7 @@ content:
     third_party_settings: {  }
     region: content
   field_location_type:
-    weight: 101
+    weight: 2
     label: above
     settings:
       link: true
@@ -108,6 +118,8 @@ content:
     type: entity_reference_label
     region: content
   links:
-    weight: 100
+    weight: 1
     region: content
+    settings: {  }
+    third_party_settings: {  }
 hidden: {  }
