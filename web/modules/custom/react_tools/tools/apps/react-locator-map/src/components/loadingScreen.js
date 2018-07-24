@@ -1,7 +1,7 @@
 import React from 'react';
 
 const LoadingScreen = (props) => {
-    let loadingText = 'Searching for nearby locations';
+    let loadingText = 'Searching for nearby locations!';
 
     if(props.isLoading){
         return (
