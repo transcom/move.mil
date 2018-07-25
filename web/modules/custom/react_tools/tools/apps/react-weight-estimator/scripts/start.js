@@ -11,6 +11,15 @@ process.on('unhandledRejection', err => {
   throw err;
 });
 
+
+process.argv.forEach(function (val, index, array) {
+  console.log(index + ': ' + val);
+});
+
+return;
+
+
+
 // Ensure environment variables are read.
 require('../config/env');
 
