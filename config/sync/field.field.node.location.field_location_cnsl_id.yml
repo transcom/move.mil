@@ -1,0 +1,25 @@
+uuid: d2195401-6de1-4308-98e0-3d95e7ec5ba0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_location_cnsl_id
+    - node.type.location
+id: node.location.field_location_cnsl_id
+field_name: field_location_cnsl_id
+entity_type: node
+bundle: location
+label: 'CNSL organization id'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  min: 0
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

@@ -1,0 +1,13 @@
+**/node_modules
+**/vendor
+.env
+**/settings.local.php
+web/sites/default/files
+**/mariadb-init
+**/.ebextensions
+**/.elasticbeanstalk
+**/.github
+**/artifacts
+**/backstop_data
+**/.vscode
+**/.idea

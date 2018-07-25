@@ -83,6 +83,9 @@ class DbWriter {
       case 'entitlements':
         $data = $this->entitlementsMapdata($rawdata);
         break;
+
+      default:
+        $data = [];
     }
 
     if (is_array($tables)) {
