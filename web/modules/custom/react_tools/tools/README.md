@@ -6,8 +6,10 @@
     - All micro apps go under the /apps dir
     - You can do an npx create-react-app from that /apps root directory to start a new app.
     - The folder directly under /apps will be the Root dir OF THIS SPECIFIC APP
-    - You can create a .vscode (if you are using vscode) launch configuration inside of each Apps root for debugging purposes.
-    - All apps must have a localcss dir under apps/<app-name>/src/main.css where the sass will compile to. (* note the sass must be compiled before running a build).
+    - You can create a .vscode (if you are using vscode) launch configuration inside of each Apps root for debugging 
+    purposes.
+    - All apps must have a localcss dir under apps/<app-name>/src/main.css where the sass will compile to. (* note the 
+    sass must be compiled before running a build).
 
 # Run Specific App Locally Outside of Drupal (debug mode)
 
