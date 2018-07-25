@@ -1,3 +1,6 @@
+# Initial Steps
+    - $ npm install
+
 # React App Tools Developer Rules:
 
     - All micro apps go under the /apps dir
