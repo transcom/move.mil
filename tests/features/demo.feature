@@ -6,4 +6,4 @@ Feature: Demo feature
 
   Scenario: Visit the homepage
     Given I visit "/"
-    Then I should see "Welcome"
+    Then I should see "An official website of the United States government"
