@@ -2,31 +2,31 @@ react-weight-estimator:
   version: 1.x
   css:
       theme:
-        tools/react-weight-estimator/build/static/css/main.min.css: {}
+        tools/build/static/css/weight.min.css: {}
   js:
-    tools/react-weight-estimator/build/static/js/main.min.js: {}
+    tools/build/static/js/weight.min.js: {}
 
 react-ppm-tool:
   version: 1.x
   css:
       theme:
-       tools/react-ppm-tool/build/static/css/main.min.css: {}
+       tools/build/static/css/ppm.min.css: {}
   js:
-    tools/react-ppm-tool/build/static/js/main.min.js: {}
+    tools/build/static/js/ppm.min.js: {}
 
 
 react-locator-map:
   version: 1.x
   css:
       theme:
-       tools/react-locator-map/build/static/css/main.min.css: {}
+       tools/build/static/css/locator.min.css: {}
   js:
-    tools/react-locator-map/build/static/js/main.min.js: {}
+    tools/build/static/js/locator.min.js: {}
 
 entitlements:
   version: 1.x
   css:
       theme:
-       tools/react-entitlements-page/build/static/css/main.min.css: {}
+       tools/build/static/css/entitlement.min.css: {}
   js:
-    tools/react-entitlements-page/build/static/js/main.min.js: {}
+    tools/build/static/js/entitlement.min.js: {}

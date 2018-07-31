@@ -57,21 +57,13 @@ COPY web/modules/custom/react_tools/ /var/www/html/web/modules/custom/react_tool
 WORKDIR /var/www/html/web/themes/custom/move_mil/
 RUN npm install && npm run build
 
-WORKDIR /var/www/html/web/modules/custom/react_tools/tools/react-weight-estimator
-RUN sass src/sass/main.scss src/localcss/main.css
-RUN npm install && npm run build
-
-WORKDIR /var/www/html/web/modules/custom/react_tools/tools/react-locator-map
-RUN sass src/sass/main.scss src/localcss/main.css
-RUN npm install && npm run build
-
-WORKDIR /var/www/html/web/modules/custom/react_tools/tools/react-ppm-tool
-RUN sass src/sass/main.scss src/localcss/main.css
-RUN npm install && npm run build
-
-WORKDIR /var/www/html/web/modules/custom/react_tools/tools/react-entitlements-page/
-RUN sass src/sass/main.scss src/localcss/main.css
-RUN npm install && npm run build
+WORKDIR /var/www/html/web/modules/custom/react_tools/tools
+RUN npm install
+RUN sass apps/react-entitlements-page/src/sass/main.scss apps/react-entitlements-page/src/localcss/main.css
+RUN sass apps/react-locator-map/src/sass/main.scss apps/react-locator-map/src/localcss/main.css
+RUN sass apps/react-ppm-tool/src/sass/main.scss apps/react-ppm-tool/src/localcss/main.css
+RUN sass apps/react-weight-estimator/src/sass/main.scss apps/react-weight-estimator/src/localcss/main.css
+RUN npm run build
 
 COPY . /var/www/html
 WORKDIR /var/www/html

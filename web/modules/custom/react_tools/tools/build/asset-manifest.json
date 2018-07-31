@@ -1,0 +1,10 @@
+{
+  "react-entitlements-page.css": "static/css/react-entitlements-page.min.css",
+  "react-entitlements-page.js": "static/js/react-entitlements-page.min.js",
+  "react-locator-map.css": "static/css/react-locator-map.min.css",
+  "react-locator-map.js": "static/js/react-locator-map.min.js",
+  "react-ppm-tool.css": "static/css/react-ppm-tool.min.css",
+  "react-ppm-tool.js": "static/js/react-ppm-tool.min.js",
+  "react-weight-estimator.css": "static/css/react-weight-estimator.min.css",
+  "react-weight-estimator.js": "static/js/react-weight-estimator.min.js"
+}
