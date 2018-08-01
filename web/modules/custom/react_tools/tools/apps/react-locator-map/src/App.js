@@ -114,8 +114,8 @@ class App extends Component {
             isLoading: false
           });
         }).catch(error => {
-          this.handleError(error);
-        });;
+          this.handleError("An error occurred.");
+        });
   }
 
   changePageNo = (pageNo, totalPages) => {

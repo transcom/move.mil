@@ -26,6 +26,8 @@ const formatWebpackMessages = require('react-dev-utils/formatWebpackMessages');
 const printHostingInstructions = require('react-dev-utils/printHostingInstructions');
 const FileSizeReporter = require('react-dev-utils/FileSizeReporter');
 const printBuildError = require('react-dev-utils/printBuildError');
+const inquirer = require('inquirer');
+const _ = require('lodash');
 
 const measureFileSizesBeforeBuild =
   FileSizeReporter.measureFileSizesBeforeBuild;
@@ -44,11 +46,32 @@ if (!checkRequiredFiles(apps.requiredFiles)) {
 // The config is async as we need to read each dir under /apps to get each entry point for all the apps
 apps.getDirectories()
   .then(appsDirList => {
-    return getConfig(appsDirList);
+    let reactAppsList = apps.reactAppNames(appsDirList);
+    let list = _.cloneDeep(reactAppsList);
+    list.unshift('All');
+
+    inquirer.prompt({
+        name: 'compApp',
+        type: 'list',
+        message: 'Select Application to compile',
+        choices: list
+    }).then(answers => {
+        console.log(`Setting up production env for ${chalk.green(answers.compApp)}`);
+        console.log(answers)
+        appsDirList = answers.compApp === 'All' ? appsDirList : [`/Users/jsarnik-a/dev/move.mil/web/modules/custom/react_tools/tools/apps/${answers.compApp}`];
+        return getConfig(appsDirList);
+    })
+    .then(confRes => {
+      compile(confRes);
+    })
+    .catch(inquirerErr => {
+        console.log(`Error: ${chalk.red(inquirerErr)}`);
+    })
   }).catch(getDirErr => {
     console.log(chalk.red(getDirErr));
-  })
-  .then(confRes => {
+  });
+
+  function compile(confRes){
     let config = confRes.config;
     let appsRoots = confRes.appsDirList;
 
@@ -112,51 +135,49 @@ apps.getDirectories()
         }
       );
 
-    // Create the production build and print the deployment instructions.
-    function build(previousFileSizes) {
-      console.log('Creating an optimized production build...');
+      // Create the production build and print the deployment instructions.
+      function build(previousFileSizes) {
+        console.log('Creating an optimized production build...');
 
-      let compiler = webpack(config);
-      return new Promise((resolve, reject) => {
-        compiler.run((err, stats) => {
-          if (err) {
-            return reject(err);
-          }
-          const messages = formatWebpackMessages(stats.toJson({}, true));
-          if (messages.errors.length) {
-            // Only keep the first error. Others are often indicative
-            // of the same problem, but confuse the reader with noise.
-            if (messages.errors.length > 1) {
-              messages.errors.length = 1;
+        let compiler = webpack(config);
+        return new Promise((resolve, reject) => {
+          compiler.run((err, stats) => {
+            if (err) {
+              return reject(err);
             }
-            return reject(new Error(messages.errors.join('\n\n')));
-          }
-          if (
-            process.env.CI &&
-            (typeof process.env.CI !== 'string' ||
-              process.env.CI.toLowerCase() !== 'false') &&
-            messages.warnings.length
-          ) {
-            console.log(
-              chalk.yellow(
-                '\nTreating warnings as errors because process.env.CI = true.\n' +
-                  'Most CI servers set it automatically.\n'
-              )
-            );
-            return reject(new Error(messages.warnings.join('\n\n')));
-          }
-          return resolve({
-            stats,
-            previousFileSizes,
-            warnings: messages.warnings,
+            const messages = formatWebpackMessages(stats.toJson({}, true));
+            if (messages.errors.length) {
+              // Only keep the first error. Others are often indicative
+              // of the same problem, but confuse the reader with noise.
+              if (messages.errors.length > 1) {
+                messages.errors.length = 1;
+              }
+              return reject(new Error(messages.errors.join('\n\n')));
+            }
+            if (
+              process.env.CI &&
+              (typeof process.env.CI !== 'string' ||
+                process.env.CI.toLowerCase() !== 'false') &&
+              messages.warnings.length
+            ) {
+              console.log(
+                chalk.yellow(
+                  '\nTreating warnings as errors because process.env.CI = true.\n' +
+                    'Most CI servers set it automatically.\n'
+                )
+              );
+              return reject(new Error(messages.warnings.join('\n\n')));
+            }
+            return resolve({
+              stats,
+              previousFileSizes,
+              warnings: messages.warnings,
+            });
           });
         });
-      });
-    }
-  }).catch(sassErr =>{
-    console.log(chalk.red(sassErr.message));
-    console.log(chalk.gray(sassErr.error));
-  });
-}).catch(getConfErr =>{
-  console.log(chalk.red(getConfErr));
-});
+      }
+    }).catch(sassErr =>{
+      console.log(chalk.red(sassErr.message));
+      console.log(chalk.gray(sassErr.error));
+    });
+  }
