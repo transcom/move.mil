@@ -49,3 +49,5 @@ backstop_data/bitmaps_test/*
 !backstop_data/bitmaps_test/.gitkeep
 backstop_data/html_report/*
 !backstop_data/html_report/.gitkeep
+
+web/modules/custom/react_tools/tools/build/static/*
