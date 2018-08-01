@@ -22,9 +22,12 @@ function getDirectories(){
 
 function getEntryPoints(dirList){
   let entryPoints = {};
-  
+  // //let polyfills = require.resolve('./polyfills');  // THIS IS IMPERATIVE AS IT FIXES ISSUES WITH IE
+  // let polyfills = require("babel-polyfill");  // THIS IS IMPERATIVE AS IT FIXES ISSUES WITH IE
+  // console.log(chalk.yellow(polyfills));
+
   _.each(dirList, (val)=>{
-    entryPoints[getAppName(val)] = `${val}/src/index.js`;
+    entryPoints[getAppName(val)] = ["babel-polyfill", `${val}/src/index.js`];
   });
 
   return entryPoints;
