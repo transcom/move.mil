@@ -24,7 +24,8 @@ function getEntryPoints(dirList){
   let entryPoints = {};
   
   _.each(dirList, (val)=>{
-    entryPoints[getAppName(val)] = `${val}/src/index.js`;
+    // require.resolve('./polyfills') - THIS IS IMPERATIVE AS IT FIXES ISSUES WITH IE
+    entryPoints[getAppName(val)] = [require.resolve('./polyfills'), `${val}/src/index.js`];
   });
 
   return entryPoints;
