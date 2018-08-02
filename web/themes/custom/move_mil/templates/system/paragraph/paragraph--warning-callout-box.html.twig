@@ -16,8 +16,13 @@
       <div class="usa-alert usa-alert-{{paragraph.field_callout_box_type[0].value}}">
 
         <div class="usa-alert-body">
+          {% if content.field_plain_title.0 %}
+          <h3 class="usa-alert-heading">
+            {{ content.field_plain_title.0 }}
+          </h3>
+          {% endif %}
           <div class="usa-alert-text">
-            {{ content|without('field_callout_box_type') }}
+            {{ content.field_body }}
           </div>
         </div>
       </div>
