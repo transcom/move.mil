@@ -1,5 +1,5 @@
 # Initial Steps
-    - Must be running node v8.11.3 or greater
+    - Must be running node v8.11.3
     - $ npm install
 
 # React App Tools Developer Rules:
