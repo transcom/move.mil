@@ -5,3 +5,11 @@
     @include h3();
   }
 }
+
+.usa-alert {
+  background-position: 2rem 50%;
+
+  &.usa-alert-slim {
+    background-position: 2rem 1rem;
+  }
+}
