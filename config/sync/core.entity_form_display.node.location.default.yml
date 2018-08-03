@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.location.field_location_hours
     - field.field.node.location.field_location_link
     - field.field.node.location.field_location_note
+    - field.field.node.location.field_location_notes
     - field.field.node.location.field_location_reference
     - field.field.node.location.field_location_services
     - field.field.node.location.field_location_telephone
@@ -21,7 +22,6 @@ dependencies:
     - link
     - paragraphs
     - path
-    - text
 id: node.location.default
 targetEntityType: node
 bundle: location
@@ -77,13 +77,13 @@ content:
     third_party_settings: {  }
     type: link_default
     region: content
-  field_location_note:
+  field_location_notes:
     weight: 16
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-    type: text_textarea
+    type: string_textarea
     region: content
   field_location_reference:
     weight: 17
@@ -175,4 +175,5 @@ content:
       placeholder: ''
     region: content
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  field_location_note: true
