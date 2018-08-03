@@ -9,3 +9,8 @@ services:
     arguments: ['@database', '@entity_type.manager']
     tags:
       - { name: drupal.command }
+  parser.notes:
+    class: Drupal\parser\Command\NotesCommand
+    arguments: ['@database', '@entity_type.manager']
+    tags:
+      - { name: drupal.command }
