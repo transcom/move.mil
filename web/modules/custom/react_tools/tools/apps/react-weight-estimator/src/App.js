@@ -34,7 +34,15 @@ class App extends Component {
         this.setState({ rooms: res.data});
         this.appDivOffsetTop = this.appDiv.offsetTop;
         this.appDivHeight = this.appDiv.clientHeight;
-    })
+    }).catch(error => {
+      this.handleError("An error occurred.");
+    });
+  }
+
+  handleError = (errMessage) => {
+    this.setState({
+      errorMessage: errMessage
+    });
   }
 
   setFixedState = () => { 

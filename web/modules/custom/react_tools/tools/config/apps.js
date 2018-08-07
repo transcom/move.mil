@@ -22,10 +22,8 @@ function getDirectories(){
 
 function getEntryPoints(dirList){
   let entryPoints = {};
-  // //let polyfills = require.resolve('./polyfills');  // THIS IS IMPERATIVE AS IT FIXES ISSUES WITH IE
-  // let polyfills = require("babel-polyfill");  // THIS IS IMPERATIVE AS IT FIXES ISSUES WITH IE
-  // console.log(chalk.yellow(polyfills));
-
+  
+  // babel-polyfill module is implemented in the webpack config. This entry point is imperative for IE11.
   _.each(dirList, (val)=>{
     entryPoints[getAppName(val)] = ["babel-polyfill", `${val}/src/index.js`];
   });

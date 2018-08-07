@@ -54,7 +54,15 @@ class App extends Component {
           entitlements: data, 
           dropdowns: {...this.state.dropdowns, entitlement: this.getEntitlementDropDownData(data)}
         });
+      }).catch(error => {
+        this.handleError("An error occurred.");
       });
+  }
+
+  handleError = (errMessage) => {
+    this.setState({
+      errorMessage: errMessage
+    });
   }
 
   getEntitlementDropDownData = (data) =>{
@@ -157,6 +165,8 @@ class App extends Component {
         this.setState({
           results: results
         });
+      }).catch(error => {
+        this.handleError("An error occurred.");
       });
   }
   
