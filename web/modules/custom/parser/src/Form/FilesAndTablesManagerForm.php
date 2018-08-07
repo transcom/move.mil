@@ -145,6 +145,7 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
 
     $form['zip_3']['file'] = [
       '#type' => 'managed_file',
+      '#upload_location' => 'public://',
       '#title' => $this->t('Zip_3'),
       '#upload_validators' => [
         'file_validate_extensions' => ['csv'],
@@ -170,6 +171,7 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
 
     $form['zip_5']['file'] = [
       '#type' => 'managed_file',
+      '#upload_location' => 'public://',
       '#title' => $this->t('Zip_5'),
       '#upload_validators' => [
         'file_validate_extensions' => ['csv'],
@@ -195,6 +197,7 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
 
     $form['400NG']['file'] = [
       '#type' => 'managed_file',
+      '#upload_location' => 'public://',
       '#title' => $this->t('400NG'),
       '#upload_validators' => [
         'file_validate_extensions' => ['xlsx'],
@@ -243,6 +246,7 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
 
     $form['entitlements']['file'] = [
       '#type' => 'managed_file',
+      '#upload_location' => 'public://',
       '#title' => $this->t('Entitlements'),
       '#upload_validators' => [
         'file_validate_extensions' => ['yml'],
@@ -267,6 +271,7 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
 
     $form['discounts']['file'] = [
       '#type' => 'managed_file',
+      '#upload_location' => 'public://',
       '#title' => $this->t('Discount'),
       '#upload_validators' => [
         'file_validate_extensions' => ['xlsx'],
@@ -296,6 +301,7 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
 
     $form['zipcodes']['file'] = [
       '#type' => 'managed_file',
+      '#upload_location' => 'public://',
       '#title' => $this->t('Zipcodes'),
       '#upload_validators' => [
         'file_validate_extensions' => ['csv'],
@@ -322,6 +328,7 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
 
     $form['locations']['file'] = [
       '#type' => 'managed_file',
+      '#upload_location' => 'public://',
       '#title' => $this->t('Locations'),
       '#upload_validators' => [
         'file_validate_extensions' => ['txt'],
