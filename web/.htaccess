@@ -98,7 +98,7 @@ AddEncoding gzip svgz
   # Forward to https
   RewriteEngine On
   RewriteCond %{HTTP:X-Forwarded-Proto} =http
-  RewriteRule .* https://%{HTTP:Host}%{REQUEST_URI} [L,R=permanen
+  RewriteRule .* https://%{HTTP:Host}%{REQUEST_URI} [L,R=permanent]
 
   # If your site can be accessed both with and without the 'www.' prefix, you
   # can use one of the following settings to redirect users to your preferred
@@ -110,7 +110,7 @@ AddEncoding gzip svgz
   RewriteCond %{HTTP_HOST} .
   RewriteCond %{HTTP_HOST} !^www\. [NC]
   RewriteRule ^ http%{ENV:protossl}://www.%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
-  
+
   # To redirect all users to access the site WITHOUT the 'www.' prefix,
   # (http://www.example.com/foo will be redirected to http://example.com/foo)
   # uncomment the following:
