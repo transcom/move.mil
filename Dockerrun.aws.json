@@ -1,7 +1,7 @@
 {
   "AWSEBDockerrunVersion": "1",
   "Image": {
-    "Name": "328180890751.dkr.ecr.us-east-1.amazonaws.com/movemil:production",
+    "Name": "328180890751.dkr.ecr.us-east-1.amazonaws.com/movemil:test",
     "Update": "true"
   },
   "Ports": [
