@@ -5,5 +5,5 @@ Feature: Entitlements
   I need to be able to use the entitlements tool
 
   Scenario: Visit the entitlements page
-    Given visit "/entitlements"
+    Given I visit "/entitlements"
     Then I should see "What is your rank?"
