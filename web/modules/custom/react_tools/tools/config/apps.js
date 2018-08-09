@@ -22,7 +22,7 @@ function getDirectories(){
 
 function getEntryPoints(dirList){
   let entryPoints = {};
-  
+
   // babel-polyfill module is implemented in the webpack config. This entry point is imperative for IE11.
   _.each(dirList, (val)=>{
     entryPoints[getAppName(val)] = ["babel-polyfill", `${val}/src/index.js`];
