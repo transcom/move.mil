@@ -7,6 +7,9 @@
 /web/profiles/contrib/
 /web/libraries/
 
+# Ignore vscode directories
+.vscode/
+
 # Ignore localcss directory 
 localcss/
 
