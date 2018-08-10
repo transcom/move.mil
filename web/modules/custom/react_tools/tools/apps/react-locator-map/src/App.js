@@ -40,10 +40,10 @@ class App extends Component {
         }
         nextFn(null, response);
       }, (err)=>{
-        nextFn(err.message);
+        nextFn({title: "We can’t get your location", message: "Your browser is set to block your physical location. To search by location, please allow access."});
       });
     }else{
-      nextFn("Navigator doesn't support geolocation");
+      nextFn({title: "We can’t get your location", message: "Either your browser or the Windows operating system is set to block your physical location. To search by location, you need to allow this."});
     }
   }
 
@@ -93,7 +93,7 @@ class App extends Component {
           let results = res.data;
 
           if(!results.offices){
-            this.handleError("no results.");
+            this.handleError({title: "We can’t find that location", message: "There was a problem. Please double check the location and try again."});
             return;
           }
 
@@ -114,7 +114,7 @@ class App extends Component {
             isLoading: false
           });
         }).catch(error => {
-          this.handleError(error);
+          this.handleError({title: "Connection problem", message: "There was a problem connecting to the map service. Please refresh and try again."});
         });;
   }
 
