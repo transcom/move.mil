@@ -74,6 +74,18 @@ behat_tests: &behat_tests
           cd ..
     - save_cache: *save_cache
     - run:
+        name: Install ReactJS tools
+        command: |
+          apt-get update && apt-get install -y gnupg
+          curl -sL https://deb.nodesource.com/setup_8.x | bash -
+          apt-get update && apt-get install -y --no-install-recommends nodejs
+          cd /var/www/html/web/modules/custom/react_tools/tools
+          npm install
+          npm rebuild node-sass
+          CI=false npm run build
+          npm test
+          cd /var/www/html
+    - run:
         name: Set up and run Behat tests
         command: |
           apache2-foreground&
