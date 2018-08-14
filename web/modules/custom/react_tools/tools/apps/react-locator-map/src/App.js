@@ -24,7 +24,6 @@ class App extends Component {
     };
   }
 
-
   getGeolocation = (nextFn) =>{
     let response = {
       disabled: false,
@@ -56,7 +55,7 @@ class App extends Component {
   onInitialSearchLocation = (isLocationServices) =>{
     if(!isLocationServices && !this.state.searchLocation) return;
 
-    this.setState({isLoading: true});
+    this.setState({isLoading: true, errorMessage: null});
     if(isLocationServices){
       this.getGeolocation((navigatorErr, navigatorRes)=>{
         if(navigatorErr){
@@ -111,7 +110,8 @@ class App extends Component {
           this.setState({
             geolocation: {...this.state.geolocation, coords: coords},
             results: results,
-            isLoading: false
+            isLoading: false,
+            errorMessage: null
           });
         }).catch(error => {
           this.handleError({title: "Connection problem", message: "There was a problem connecting to the map service. Please refresh and try again."});

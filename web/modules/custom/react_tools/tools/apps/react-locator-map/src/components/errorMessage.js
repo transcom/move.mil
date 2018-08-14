@@ -12,8 +12,8 @@ const ErrorMessage = (props) => {
     if(props.error){
         return (
             <div className="error-message usa-alert usa-alert-error">
-              {title(props.error)}
               <div className="usa-alert-body">
+                {title(props.error)}  
                 <div className="usa-alert-text">{props.error.message}</div>
               </div>
             </div>
