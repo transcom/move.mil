@@ -16,17 +16,36 @@ As part of the Defense Digital Service's goal of bringing technology industry pr
 
 Works created by U.S. Federal employees as part of their jobs typically are not eligible for copyright in the United States. In places where the contributions of U.S. Federal employees are not eligible for copyright, this work is in the public domain. In places where it is eligible for copyright, such as some foreign jurisdictions, this work is licensed as described in [LICENSE.md][license].
 
-## Uploading discounts files
+## Update tools data
 
-To make a new discount file ready for uploading follow the following steps:
+### Uploading discounts files
 
-1. Run the encryptscript.sc 'COMMAND: ./encryptscript.sc'
-2. Give the absolute path of the file.
-3. Give the effective date of the file.
-4. Add the encrypted file 'discounts-{effective_date.csv.enc}' to staging in 'lib/data/''.
-5. Push your changes.
-6. Make a pull request     
+Each quarter there is a new Traffic Distribution List (TDL) file(s) from US TRANSCOM containing the new discounts that need to be applied by the PPM tool.
 
+1. They will send the file(s) through the AMRDEC Safe Access File Exchange Tool.
+1. The files will be available at [AMRDEC](http://safe.amrdec.army.mil). Follow the instructions from the e-mail you will receive.
+1. There are 2 types of TDL files. The Peak (PK) discounts and the Non-Peak (NP). PK contains the discounts that are effective in the immediate quarter. NP are discounts after the immediate quarter in case a user is moving more than 3 months ahead, these are subject to change after the current quarter ends.
+1. Go to [Move.mil](https://move.mil/user/login) and log in with your admin user.
+1. Navigate to the Parser Admin.
+1. Expand Discounts tab.
+1. Choose the PK file.
+1. Set the effective date with the first day of the immediate quarter.
+1. If you don't need the previous data to remain there, check the `Clear table` checkbox. Otherwise leave it uncheck.
+1. Click `Save configuration`.
+1. Repeat the previous steps for the NP file if available.
+
+### Uploading locations files
+
+Each 2 weeks there is a new XML file with the locations changes from US TRANSCOM containing corrections or addition of address, phones, or e-mail addresses.
+
+1. They will upload the file on Pivotal.
+1. Go to [Move.mil](https://move.mil/user/login) and log in with your admin user.
+1. Navigate to the Parser Admin.
+1. Expand Locations tab.
+1. Choose the XML file.
+1. All the Drupal locations that have a `CNSL_ORG_ID` will be updated.
+1. This tool DO NOT add new locations, in case a new location is missing in Drupal, it will need to be added manually.
+1. This tool DO NOT remove old locations, in case of a mistake it will need to be remove manually.
 
 
 
