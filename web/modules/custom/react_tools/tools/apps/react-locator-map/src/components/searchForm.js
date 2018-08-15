@@ -36,7 +36,8 @@ class SearchForm extends Component {
     return (
       <div className="search-container">
         <div>
-          <input type="text" placeholder={placeholderText} value={this.props.searchLocation} onChange={(e) => {this.handleChange(e)}}/>
+          <label for="search"></label>
+          <input id="search" type="text" name="search" placeholder={placeholderText} value={this.props.searchLocation} onChange={(e) => {this.handleChange(e)}}/>
           {this.validationDisplay(this.props.isInvalidFields, this.warningMessage)}
         </div>
         <button onClick={() => this.handleClick(false)}>Search</button>
