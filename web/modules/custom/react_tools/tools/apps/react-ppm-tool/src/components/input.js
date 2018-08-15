@@ -42,10 +42,15 @@ class Input extends Component {
 
     inputComponent = () =>{
         return (
-            <input type={this.props.type} 
-                   placeholder={this.props.placeholder} 
-                   value={this.props.value}
-                   onChange={(e) => {this.handleChange(e)}}/> 
+            <div>
+                <label for={this.props.params.key}></label>
+                <input id={this.props.params.key}
+                    type={this.props.type}
+                    name={this.props.params.key}
+                    placeholder={this.props.placeholder} 
+                    value={this.props.value}
+                    onChange={(e) => {this.handleChange(e)}}/> 
+            </div>
         )
     }
 
