@@ -24,7 +24,6 @@ class App extends Component {
     };
   }
 
-
   getGeolocation = (nextFn) =>{
     let response = {
       disabled: false,
@@ -40,10 +39,10 @@ class App extends Component {
         }
         nextFn(null, response);
       }, (err)=>{
-        nextFn(err.message);
+        nextFn({title: "We can’t get your location", message: "Your browser is set to block your physical location. To search by location, please allow access."});
       });
     }else{
-      nextFn("Navigator doesn't support geolocation");
+      nextFn({title: "We can’t get your location", message: "Either your browser or the Windows operating system is set to block your physical location. To search by location, you need to allow this."});
     }
   }
 
@@ -56,7 +55,7 @@ class App extends Component {
   onInitialSearchLocation = (isLocationServices) =>{
     if(!isLocationServices && !this.state.searchLocation) return;
 
-    this.setState({isLoading: true});
+    this.setState({isLoading: true, errorMessage: null});
     if(isLocationServices){
       this.getGeolocation((navigatorErr, navigatorRes)=>{
         if(navigatorErr){
@@ -93,7 +92,7 @@ class App extends Component {
           let results = res.data;
 
           if(!results.offices){
-            this.handleError("no results.");
+            this.handleError({title: "We can’t find that location", message: "There was a problem. Please double check the location and try again."});
             return;
           }
 
@@ -111,10 +110,11 @@ class App extends Component {
           this.setState({
             geolocation: {...this.state.geolocation, coords: coords},
             results: results,
-            isLoading: false
+            isLoading: false,
+            errorMessage: null
           });
         }).catch(error => {
-          this.handleError(error);
+          this.handleError({title: "Connection problem", message: "There was a problem connecting to the map service. Please refresh and try again."});
         });;
   }
 
