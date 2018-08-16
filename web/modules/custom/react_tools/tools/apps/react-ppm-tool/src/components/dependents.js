@@ -14,7 +14,8 @@ class Dependents extends Component {
                 <div className="flex-item ie-2-col">
                     <div className="flex-container">
                         <div className="flex-item small">
-                            <input type="radio" name="dependent" onChange={(e) => this.handleChange(true)} checked={this.props.isDependencies} />
+                            <label for="dependent"></label>
+                            <input id="dependent" type="radio" name="dependent" onChange={(e) => this.handleChange(true)} checked={this.props.isDependencies} />
                         </div>
                         <div className="flex-item">
                             <div>Yes, I have dependents</div>
@@ -24,7 +25,8 @@ class Dependents extends Component {
                 <div className="flex-item ie-2-col">
                     <div className="flex-container">
                         <div className="flex-item small">
-                            <input type="radio" name="not-dependent" onChange={(e) => this.handleChange(false)}  checked={!this.props.isDependencies}/>
+                            <label for="not-dependent"></label>
+                            <input id="not-dependent" type="radio" name="not-dependent" onChange={(e) => this.handleChange(false)}  checked={!this.props.isDependencies}/>
                         </div>  
                         <div className="flex-item">
                             <div>No, I do not have dependents</div>
