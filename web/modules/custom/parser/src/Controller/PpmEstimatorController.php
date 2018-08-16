@@ -446,9 +446,9 @@ class PpmEstimatorController extends ControllerBase {
    */
   private function otherCharges($start_service_area, $end_service_area, $year, $weight, $cwt) {
     $charges = $start_service_area['orig_dest_service_charge'] + $end_service_area['orig_dest_service_charge'];
-    $pack = floatval($this->packunpack($start_service_area, $year, $weight));
-    $unpack = floatval($this->packunpack($end_service_area, $year));
-    $packunpack = $pack['pack'] + $unpack['unpack'];
+    $pack = $this->packunpack($start_service_area, $year, $weight);
+    $unpack = $this->packunpack($end_service_area, $year);
+    $packunpack = floatval($pack['pack']) + floatval($unpack['unpack']);
     $charges += $packunpack;
     return $charges * $cwt;
   }
@@ -460,7 +460,7 @@ class PpmEstimatorController extends ControllerBase {
     $area = $start_zip3['rate_area'];
     if ($area === 'ZIP') {
       $zip5 = $this->zip5($start_zipcode);
-      $area = $zip5['rate_area'];
+      $area = $zip5['service_area'];
     }
     if ($start_zip3['state'] == $end_zip3['state']) {
       $region = 15;
