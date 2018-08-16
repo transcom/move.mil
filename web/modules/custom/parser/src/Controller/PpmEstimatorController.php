@@ -446,9 +446,9 @@ class PpmEstimatorController extends ControllerBase {
    */
   private function otherCharges($start_service_area, $end_service_area, $year, $weight, $cwt) {
     $charges = $start_service_area['orig_dest_service_charge'] + $end_service_area['orig_dest_service_charge'];
-    $pack = floatval($this->packunpack($start_service_area, $year, $weight));
-    $unpack = floatval($this->packunpack($end_service_area, $year));
-    $packunpack = $pack['pack'] + $unpack['unpack'];
+    $pack = $this->packunpack($start_service_area, $year, $weight);
+    $unpack = $this->packunpack($end_service_area, $year);
+    $packunpack = floatval($pack['pack']) + floatval($unpack['unpack']);
     $charges += $packunpack;
     return $charges * $cwt;
   }
