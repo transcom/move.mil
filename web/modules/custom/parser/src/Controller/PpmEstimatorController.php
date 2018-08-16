@@ -460,7 +460,7 @@ class PpmEstimatorController extends ControllerBase {
     $area = $start_zip3['rate_area'];
     if ($area === 'ZIP') {
       $zip5 = $this->zip5($start_zipcode);
-      $area = $zip5['rate_area'];
+      $area = $zip5['service_area'];
     }
     if ($start_zip3['state'] == $end_zip3['state']) {
       $region = 15;
