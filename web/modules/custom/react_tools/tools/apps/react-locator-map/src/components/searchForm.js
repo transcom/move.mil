@@ -26,17 +26,17 @@ class SearchForm extends Component {
   validationDisplay = (isInvalid, message) =>{
     if(isInvalid){
         return (
-           <InputValidation type="warning" message={message} />
+          <InputValidation type="warning" message={message} />
         )
     }
-}
+  }
 
   render() {
     let placeholderText = 'e.g. 62225, Fort Belvoir';
     return (
       <div className="search-container">
         <div>
-          <label for="search"></label>
+          <label for="search" className="visually-hidden">Search By Zip or City and State</label>
           <input id="search" type="text" name="search" placeholder={placeholderText} value={this.props.searchLocation} onChange={(e) => {this.handleChange(e)}}/>
           {this.validationDisplay(this.props.isInvalidFields, this.warningMessage)}
         </div>
