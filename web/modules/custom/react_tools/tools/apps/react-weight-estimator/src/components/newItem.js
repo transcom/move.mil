@@ -18,7 +18,10 @@ class NewItem extends Component {
             <div className="flex-container item">
                 <div className="flex-item">
                     <div className="flex-item-content">
-                        <Input type="text" 
+                        <Input  id="new-item-name" type="text" 
+                                labelText="New Item Name"
+                                isHidden={true}
+                                name="new-item-name"
                                 validationType=""
                                 placeholder="Item Description" 
                                 value={this.props.tempItem.displayName}
@@ -29,7 +32,10 @@ class NewItem extends Component {
                 </div>
                 <div className="flex-item small">
                     <div className="flex-item-content right-align">
-                        <Input type="number"
+                        <Input  id="new-item-qty" type="number"
+                                labelText="New Item Quantity"
+                                isHidden={true}
+                                name="new-item-qty"
                                 validationType="positiveNumbers" 
                                 placeholder="qty" 
                                 value={this.props.tempItem.qty}
@@ -40,7 +46,10 @@ class NewItem extends Component {
                 </div>
                 <div className="flex-item small">
                     <div className="flex-item-content right-align">
-                        <Input type="number"
+                        <Input  id="new-item-weight" type="number"
+                                labelText="New Item Weight"
+                                isHidden={true}
+                                name="new-item-weight"
                                 validationType="positiveNumbers" 
                                 placeholder="lbs"
                                 value={this.props.tempItem.weight}

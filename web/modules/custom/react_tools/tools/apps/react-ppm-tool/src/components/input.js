@@ -41,12 +41,14 @@ class Input extends Component {
     }
 
     inputComponent = () =>{
+        let id = this.props.params.key || '';
+        let hiddenLabelClassName = this.props.isHidden ? 'visually-hidden' : '';
         return (
             <div>
-                <label for={this.props.params.key}></label>
-                <input id={this.props.params.key}
+                <label for={id} className={hiddenLabelClassName}>{this.props.labelText}</label>
+                <input id={id}
                     type={this.props.type}
-                    name={this.props.params.key}
+                    name={id}
                     placeholder={this.props.placeholder} 
                     value={this.props.value}
                     onChange={(e) => {this.handleChange(e)}}/> 
