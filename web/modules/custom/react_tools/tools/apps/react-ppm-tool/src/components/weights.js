@@ -47,7 +47,7 @@ class Weights extends Component {
                     </div>
                 </div>
                 <div className="weight-item">
-                    <Input  id="proGeart"
+                    <Input  id="proGear"
                             labelText="Estimated Pro-Gear Weight (lbs)"
                             validationType="number" 
                             value={this.props.weightOptions.proGear}
