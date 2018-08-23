@@ -22,12 +22,14 @@ class Items extends Component {
                 <div className="flex-container item" key={key}>
                     <div className="flex-item">
                         <div className="flex-item-content">
-                            <span>{item.displayName}</span>
+                            <div>{item.displayName}</div>
                         </div>
                     </div>
                     <div className="flex-item small">
                         <div className="flex-item-content right-align">
-                            <Input type="number" 
+                            <Input type="number"
+                                isHidden={true}
+                                labelText={item.displayName}
                                 validationType="positiveNumbers" 
                                 placeholder="qty" 
                                 value={item.qty}
@@ -47,31 +49,37 @@ class Items extends Component {
                 <div className="flex-container item" key={key}>
                     <div className="flex-item">
                         <div className="flex-item-content">
-                            <Input type="text" 
+                            <Input id={`${key}_name`} type="text" 
+                                isHidden={true}
+                                labelText={item.displayName}
                                 validationType="" 
                                 placeholder="Item Description"
                                 value={item.displayName}
-                                params={{itemKey: key, valKey: 'displayName'}}
+                                params={{itemKey: `${key}_name`, valKey: 'displayName'}}
                                 onChangeFn={this.handleInputChange}/>   
                         </div>
                     </div>
                     <div className="flex-item small">
                         <div className="flex-item-content right-align">
-                            <Input type="number" 
+                            <Input id={`${key}_qty`} type="number" 
+                                isHidden={true}
+                                labelText={item.displayName}
                                 validationType="positiveNumbers" 
                                 placeholder="qty" 
                                 value={item.qty}
-                                params={{itemKey: key, valKey: 'qty'}}
+                                params={{itemKey: `${key}_qty`, valKey: 'qty'}}
                                 onChangeFn={this.handleInputChange}/>
                         </div>
                     </div>
                     <div className="flex-item small">
                         <div className="flex-item-content right-align">
-                            <Input type="number" 
+                            <Input id={`${key}_weight`} type="number" 
+                                isHidden={true}
+                                labelText={item.displayName}
                                 validationType="number" 
                                 placeholder="lbs"
                                 value={item.weight}
-                                params={{itemKey: key, valKey: 'weight'}}
+                                params={{itemKey: `${key}_weight`, valKey: 'weight'}}
                                 onChangeFn={this.handleInputChange}/>
                          </div>
                     </div>

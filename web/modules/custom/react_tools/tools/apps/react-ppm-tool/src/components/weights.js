@@ -30,9 +30,10 @@ class Weights extends Component {
         return (
             <div>
                 <div className={"weight-item " + this.errClass}>
-                    <div>Estimated Household Goods Weight (lbs)</div>
                     <div>
-                        <Input validationType="number" 
+                        <Input id="houseHold"
+                               labelText="Estimated Household Goods Weight (lbs)"
+                               validationType="number" 
                                type="text" 
                                placeholder=""
                                onChangeFn={this.handleChange} 
@@ -46,24 +47,26 @@ class Weights extends Component {
                     </div>
                 </div>
                 <div className="weight-item">
-                    <div>Estimated Pro-Gear Weight (lbs)</div>
-                        <Input validationType="number" 
-                               value={this.props.weightOptions.proGear}
-                               type="text" 
-                               onChangeFn={this.handleChange} 
-                               params={{key: 'proGear'}} />
+                    <Input  id="proGear"
+                            labelText="Estimated Pro-Gear Weight (lbs)"
+                            validationType="number" 
+                            value={this.props.weightOptions.proGear}
+                            type="text" 
+                            onChangeFn={this.handleChange} 
+                            params={{key: 'proGear'}} />
                     <div style={{display: isRank ? 'inline-block' : 'none' }}>
                         <span>Your Pro-Gear allowance is up to </span>
                         <span className="bold" > {this.props.selectedEntitlmentOptions.pro_gear_weight} lbs.</span>
                     </div>
                 </div>
                 <div className="weight-item" style={{display: this.props.isDependencies ? 'inline-block' : 'none' }} >
-                    <div>Estimated Spouse's Pro-Gear Weight (lbs)</div>
-                    <Input validationType="number" 
-                               value={this.props.weightOptions.dependent}
-                               type="text" 
-                               onChangeFn={this.handleChange} 
-                               params={{key: 'dependent'}} />
+                    <Input  id="depWeight"
+                            labelText="Estimated Spouse's Pro-Gear Weight (lbs)"
+                            validationType="number" 
+                            value={this.props.weightOptions.depWeight}
+                            type="text" 
+                            onChangeFn={this.handleChange} 
+                            params={{key: 'depWeight'}} />
                     <div style={{display: isRank ? 'inline-block' : 'none' }}>
                         <span>Your spouse's Pro-Gear allowance is up to </span>
                         <span className="bold"> {this.props.selectedEntitlmentOptions.pro_gear_weight_spouse} lbs.</span>
