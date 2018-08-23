@@ -7,3 +7,8 @@ Feature: Entitlements
   Scenario: Visit the entitlements page
     Given I visit "/entitlements"
     Then I should see "What is your rank?"
+
+  Scenario: Visit the entitlements page
+    Given there is an entitlement "aviation-cadet"
+    And I visit "/entitlements"
+    Then I should see "What is your rank?"
