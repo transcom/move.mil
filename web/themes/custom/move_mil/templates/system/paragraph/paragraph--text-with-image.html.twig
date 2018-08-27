@@ -25,7 +25,11 @@
           <div class="usa-media_block-img usa-media_block-img__align-{{ imageAlignment }} usa-width-one-third">
 
             {% if content.field_image|field_value == true %}
-              <a href="{{ titleLink }}">{{ content.field_image }}</a>
+              {% if titleLink is not empty %}
+                <a href="{{ titleLink }}">{{ content.field_image }}</a>
+              {% else %}
+                {{ content.field_image }}
+              {% endif %}
             {% elseif content.field_image|field_value == false and content.field_plain_title|field_value == true %}
               {% if titleLink is not empty %}
                 <h3 class="field-title-plain--link"><a href="{{ titleLink }}">{{ content.field_plain_title.0 }}</a></h3>

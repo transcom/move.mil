@@ -139,7 +139,7 @@ class LocationsController extends ControllerBase {
       $res = $client->request('GET', $request);
     }
     catch (GuzzleException $ge) {
-      $this->errors[] = 'There was an network problem. Mind trying again?';
+      $this->errors[] = 'There was a network problem. Mind trying again?';
       return NULL;
     }
     $data = json_decode($res->getBody()->getContents(), JSON_OBJECT_AS_ARRAY);
@@ -288,7 +288,7 @@ class LocationsController extends ControllerBase {
       ->get('field_location_link')
       ->getValue();
     $data['notes'] = $entity
-      ->get('field_location_note')
+      ->get('field_location_notes')
       ->getValue();
     $data['services'] = $entity
       ->get('field_location_services')

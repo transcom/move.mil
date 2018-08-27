@@ -1,8 +1,9 @@
-.user-logged-in .usa-alert-error {
-  max-height: 15rem;
-  border: 1px solid $color-black-light;
-  overflow-y: scroll;
-}
+// rein in Drupal-ey error messages in local environments
+// .user-logged-in .usa-alert-error {
+//   max-height: 15rem;
+//   border: 1px solid $color-black-light;
+//   overflow-y: scroll;
+// }
 
 .video-wrapper {
   position: relative;

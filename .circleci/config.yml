@@ -74,6 +74,18 @@ behat_tests: &behat_tests
           cd ..
     - save_cache: *save_cache
     - run:
+        name: Install ReactJS tools
+        command: |
+          apt-get update && apt-get install -y gnupg
+          curl -sL https://deb.nodesource.com/setup_8.x | bash -
+          apt-get update && apt-get install -y --no-install-recommends nodejs
+          cd /var/www/html/web/modules/custom/react_tools/tools
+          npm install
+          npm rebuild node-sass
+          CI=false npm run build
+          npm test
+          cd /var/www/html
+    - run:
         name: Set up and run Behat tests
         command: |
           apache2-foreground&
@@ -97,8 +109,8 @@ code_sniffer: &code_sniffer
           robo install:dependencies
           vendor/bin/phpcs --config-set installed_paths vendor/drupal/coder/coder_sniffer
           mkdir -p artifacts/phpcs
-          vendor/bin/phpcs --standard=Drupal --report=junit --report-junit=artifacts/phpcs/phpcs.xml web/modules/custom
-          vendor/bin/phpcs --standard=DrupalPractice --report=junit --report-junit=artifacts/phpcs/phpcs.xml web/modules/custom
+          vendor/bin/phpcs --standard=Drupal --report=junit --report-junit=artifacts/phpcs/phpcs.xml web/modules/custom --ignore=*.min.js --ignore=*.min.css
+          vendor/bin/phpcs --standard=DrupalPractice --report=junit --report-junit=artifacts/phpcs/phpcs.xml web/modules/custom --ignore=*.min.js --ignore=*.min.css
     - store_test_results:
         path: /var/www/html/artifacts/phpcs
     - store_artifacts:
@@ -132,24 +144,134 @@ code_coverage: &code_coverage
         path: /var/www/html/artifacts
     - save_cache: *save_cache
 
+## Build stage image
+build_stage_image: &build_stage_image
+  docker:
+    - image: python:3.6.6
+  steps:
+    - checkout
+    - setup_remote_docker:
+        docker_layer_caching: true
+    - restore_cache: *restore_cache
+    - run:
+        name: Install dependencies
+        command: |
+          apt-get update \
+            && apt-get install -y \
+              unzip
+    - run:
+        name: Install Docker client
+        command: |
+          set -x
+          VER="18.03.1-ce"
+          curl -L -o /tmp/docker-$VER.tgz https://download.docker.com/linux/static/stable/x86_64/docker-$VER.tgz
+          tar -xz -C /tmp -f /tmp/docker-$VER.tgz
+          mv /tmp/docker/* /usr/bin
+    - run:
+        name: Install AWSCLI
+        command: |
+          curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
+          unzip awscli-bundle.zip
+          ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
+    - run:
+        name: Install AWS EB CLI
+        command: |
+          pip install awsebcli --upgrade --user
+    - run:
+        name: Python PATH
+        command: |
+            echo 'export PATH=$HOME/.local/bin:$PATH' >> $BASH_ENV
+            source ~/.bashrc
+    - run:
+        name: "Log in to AWS ECR"
+        command: eval $(aws ecr get-login --region us-east-1 --no-include-email)
+
+    - run:
+        name: "Build & Push Docker Image"
+        command: |
+          docker build -t $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/movemil:stage -f docker/Dockerfile .
+          docker push $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/movemil:stage
+
+## Build production Image
+build_production_image: &build_production_image
+  docker:
+    - image: python:3.6.6
+  steps:
+    - checkout
+    - setup_remote_docker:
+        docker_layer_caching: true
+    - restore_cache: *restore_cache
+    - run:
+        name: Install dependencies
+        command: |
+          apt-get update \
+            && apt-get install -y \
+              unzip
+    - run:
+        name: Install Docker client
+        command: |
+          set -x
+          VER="18.03.1-ce"
+          curl -L -o /tmp/docker-$VER.tgz https://download.docker.com/linux/static/stable/x86_64/docker-$VER.tgz
+          tar -xz -C /tmp -f /tmp/docker-$VER.tgz
+          mv /tmp/docker/* /usr/bin
+    - run:
+        name: Install AWSCLI
+        command: |
+          curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
+          unzip awscli-bundle.zip
+          ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
+    - run:
+        name: Install AWS EB CLI
+        command: |
+          pip install awsebcli --upgrade --user
+    - run:
+        name: Python PATH
+        command: |
+            echo 'export PATH=$HOME/.local/bin:$PATH' >> $BASH_ENV
+            source ~/.bashrc
+    - run:
+        name: "Log in to AWS ECR"
+        command: eval $(aws ecr get-login --region us-east-1 --no-include-email)
+
+    - run:
+        name: "Build & Push Docker Image"
+        command: |
+          docker build -t $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/movemil:production -f docker/Dockerfile .
+          docker push $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/movemil:production
+
+
 # Declare all of the jobs we should run.
 version: 2
 jobs:
-#  run-unit-kernel-tests:
-#     <<: *unit_kernel_tests
   behat:
-     <<: *behat_tests
+    <<: *behat_tests
   code-sniffer:
-     <<: *code_sniffer
+    <<: *code_sniffer
   code-coverage:
-     <<: *code_coverage
+    <<: *code_coverage
+  build-stage-image:
+    <<: *build_stage_image
+  build-production-image:
+    <<: *build_production_image
 
 # Declare a workflow that runs all of our jobs in parallel.
 workflows:
   version: 2
   test_and_lint:
     jobs:
-#      - run-unit-kernel-tests
       - behat
       - code-sniffer
       - code-coverage
+  build_stage_image:
+    jobs:
+      - build-stage-image:
+          filters:
+            branches:
+              only: 1.x-dev
+  build_production_image:
+    jobs:
+      - build-production-image:
+          filters:
+            branches:
+              only: master
