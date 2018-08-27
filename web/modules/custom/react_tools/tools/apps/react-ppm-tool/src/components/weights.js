@@ -60,13 +60,13 @@ class Weights extends Component {
                     </div>
                 </div>
                 <div className="weight-item" style={{display: this.props.isDependencies ? 'inline-block' : 'none' }} >
-                    <Input  id="depWeight"
+                    <Input  id="dependent"
                             labelText="Estimated Spouse's Pro-Gear Weight (lbs)"
                             validationType="number" 
-                            value={this.props.weightOptions.depWeight}
+                            value={this.props.weightOptions.dependent}
                             type="text" 
                             onChangeFn={this.handleChange} 
-                            params={{key: 'depWeight'}} />
+                            params={{key: 'dependent'}} />
                     <div style={{display: isRank ? 'inline-block' : 'none' }}>
                         <span>Your spouse's Pro-Gear allowance is up to </span>
                         <span className="bold"> {this.props.selectedEntitlmentOptions.pro_gear_weight_spouse} lbs.</span>

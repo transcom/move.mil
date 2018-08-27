@@ -14,20 +14,32 @@ class Conus extends Component {
                 <div className="flex-item ie-2-col">
                     <div className="flex-container">
                         <div className="flex-item small">
-                            <input type="radio" name="conus" onChange={(e) => this.handleChange(true)} checked={this.props.isConus} />
+                            <input
+                                type="radio"
+                                name="conus"
+                                id="conus"
+                                value="conus"
+                                onChange={(e) => this.handleChange(true)}
+                                checked={this.props.isConus} />
                         </div>
                         <div className="flex-item">
-                            <div>CONUS</div>
+                            <label for="conus">CONUS</label>
                         </div>
                     </div>
                 </div>
                 <div className="flex-item ie-2-col">
                     <div className="flex-container">
                         <div className="flex-item small">
-                            <input type="radio" name="oconus" onChange={(e) => this.handleChange(false)}  checked={!this.props.isConus}/>
+                            <input
+                                type="radio"
+                                name="oconus"
+                                id="oconus"
+                                value="oconus"
+                                onChange={(e) => this.handleChange(false)}
+                                checked={!this.props.isConus} />
                         </div>
                         <div className="flex-item">
-                            <div>OCONUS</div>
+                            <label for="oconus">OCONUS</label>
                         </div>
                     </div>
                 </div>

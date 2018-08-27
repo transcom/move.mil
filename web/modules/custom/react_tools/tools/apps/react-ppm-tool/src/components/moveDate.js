@@ -13,6 +13,7 @@ class MoveDate extends Component {
     render() {
         return (
             <DatePicker
+                id="moveDate"
                 selected={this.props.defaultDate}
                 onChange={this.handleChange}
             />
