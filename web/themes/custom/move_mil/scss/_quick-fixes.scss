@@ -4,19 +4,3 @@
 //   border: 1px solid $color-black-light;
 //   overflow-y: scroll;
 // }
-
-.video-wrapper {
-  position: relative;
-  height: 0;
-  overflow: hidden;
-  padding-bottom: 56.25%;
-  margin-bottom: 2rem !important;
-
-  iframe {
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 100%;
-  }
-}
