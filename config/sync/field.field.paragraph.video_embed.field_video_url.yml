@@ -1,0 +1,19 @@
+uuid: baa364ee-c9eb-4020-83fd-3f4692860b49
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_video_url
+    - paragraphs.paragraphs_type.video_embed
+id: paragraph.video_embed.field_video_url
+field_name: field_video_url
+entity_type: paragraph
+bundle: video_embed
+label: 'Video URL'
+description: "<strong>Paste the public link to any Youtube or Vimeo video here.</strong><br>\r\nYoutube example: https://www.youtube.com/watch?v=EyfE8aIASb4 or https://youtu.be/EyfE8aIASb4<br>\r\nVimeo example: https://vimeo.com/112866269"
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
