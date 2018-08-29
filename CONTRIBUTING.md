@@ -64,12 +64,12 @@ docker-compose run php drupal site:install --force --no-interaction
 
 Setup Move.mil:
 
-> Note: You don't have to execute this command if you have a db dump file(s) in your mariadb-init folder. 
+> Note: You don't have to execute this command if you have a db dump file(s) in your mariadb-init folder. In that case execute `make prune` && `make up`.
 
 ```
 docker-compose run php drupal config:import --no-interaction
 ```
-_See [this article](https://www.drupal.org/docs/8/configuration-management) for more information about configuramtion management_
+_See [this article](https://www.drupal.org/docs/8/configuration-management) for more information about configuration management_
 
 To stop the containers execute:
 ```
@@ -91,7 +91,11 @@ Lastly, navigate to [move.mil.localhost:8000](move.mil.localhost:8000) in your W
 Instead of installing the site, you can choose to place a .sql or .sql.gz file
 in mariadb-init. All files in this folder will be imported, in alphabetical order.
 .sql and .sql.gz files are gitignored so you do not have to worry about them
-getting commited.
+getting committed.
+
+1. Save your file on mariadb-init folder.
+1. Execute `make prune`.
+1. Execute `make up`. This step will pick up your db dumps and execute them.
 
 ## Making Changes
 
@@ -101,12 +105,14 @@ getting commited.
 1. Install missing dependencies: `make composer`.
 1. Import the current configuration: `make cim` (If this does not work, try a `make up` again).
 1. Go to `web/themes/custom/move_mil` and execute `npm install` and `npm run build`.
+1. Go to `web/modules/custom/react_tools/tools` and execute `npm install` and `npm run build`.
 1. _Write some code!_
-1. Run the application and verify that your changes function as intended.
+1. Run the application and verify that your changes function as intended. Remember to run `make cr` if you are not seeing your changes.
 1. If your changes would benefit from testing, add the necessary tests and verify everything passes.
 1. Export the configuration with your changes: `make cex`.
 1. Commit your changes: `git commit -am 'Add some new feature or fix some issue'`. _(See [this excellent article](https://chris.beams.io/posts/git-commit) for tips on writing useful Git commit messages.)_
-1. Push the branch to your fork: `git push -u origin your-descriptive-branch-name`.
+1. Push the branch to move.mil repository: `git push -u origin your-descriptive-branch-name`.
+1. Wait until al checks are passed.
 1. Create a new pull request and we'll review your changes.
 
 
