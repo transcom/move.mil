@@ -6,6 +6,13 @@ dependencies:
     - filter.format.full_html
   module:
     - ckeditor
+    - editor_file
+third_party_settings:
+  editor_file:
+    status: true
+    scheme: public
+    directory: inline-files
+    extensions: txt
 _core:
   default_config_hash: 967ijj7p6i7rwrYl7r08WQFeCY_c23YAh0h8u-w_CXM
 format: full_html
@@ -62,7 +69,7 @@ settings:
     language:
       language_list: un
     stylescombo:
-      styles: "p.usa-width-one-fourth|Column (1/4)\r\np.usa-width-one-third|Column (1/3)\r\np.usa-width-one-half|Column (1/2)\r\np.usa-width-two-thirds|Column (2/3)\r\np.pro-tip|Pro tip\r\nspan.approvals.tag.tag-unapproved|Tag as Unapproved\r\nspan.approvals.tag.tag-approved|Tag as Approved\r\nspan.approvals.tag.tag-semiapproved|Tag as Semi-Approved\r\n\r\n\r\n"
+      styles: "p.usa-width-one-fourth|Column (1/4)\r\np.usa-width-one-third|Column (1/3)\r\np.usa-width-one-half|Column (1/2)\r\np.usa-width-two-thirds|Column (2/3)\r\ndiv.video-embed|Video Embed\r\np.pro-tip|Pro tip\r\nspan.approvals.tag.tag-unapproved|Tag as Unapproved\r\nspan.approvals.tag.tag-approved|Tag as Approved\r\nspan.approvals.tag.tag-semiapproved|Tag as Semi-Approved\r\n"
 image_upload:
   status: true
   scheme: public
