@@ -37,6 +37,18 @@ class FeatureContext extends RawDrupalContext {
     foreach ($serviceAreas as $serviceArea) {
       $this->insertToDb('parser_service_areas', $serviceArea);
     }
+    $linehauls = $this->linehauls();
+    foreach ($linehauls as $linehaul) {
+      $this->insertToDb('parser_linehauls', $linehaul);
+    }
+    $packunpacks = $this->packunpacks();
+    foreach ($packunpacks as $packunpack) {
+      $this->insertToDb('parser_packunpacks', $packunpack);
+    }
+    $discounts = $this->discounts();
+    foreach ($discounts as $discount) {
+      $this->insertToDb('parser_discounts', $discount);
+    }
   }
   
   private function insertToDb($table, $record) {
@@ -177,6 +189,48 @@ class FeatureContext extends RawDrupalContext {
         'linehaul_factor' => '2.68',
         'orig_dest_service_charge' => '7.75',
         'year' => '2018',
+      ],
+    ];
+  }
+  
+  private function linehauls() {
+    return [
+      [
+        'miles' => '2601',
+        'weight' => '17000',
+        'rate' => '33616',
+        'year' => '2018',
+      ],
+    ];
+  }
+  
+  private function packunpacks() {
+    return [
+      [
+        'schedule' => '3',
+        'cwt' => '16001',
+        'pack' => '70.96',
+        'unpack' => '0.00000',
+        'year' => '2018',
+      ],
+      [
+        'schedule' => '3',
+        'cwt' => '0',
+        'pack' => '67.14',
+        'unpack' => '7.04970',
+        'year' => '2018',
+      ],
+    ];
+  }
+  
+  private function discounts() {
+    return [
+      [
+        'origin' => 'US25',
+        'destination' => 'REGION 2',
+        'discounts' => '65',
+        'site_rate' => '58',
+        'tdl' => '1533096000',
       ],
     ];
   }
