@@ -66,7 +66,7 @@ class Weights extends Component {
                             value={this.props.weightOptions.depWeight}
                             type="text" 
                             onChangeFn={this.handleChange} 
-                            params={{key: 'depWeight'}} />
+                            params={{key: 'dependent'}} />
                     <div style={{display: isRank ? 'inline-block' : 'none' }}>
                         <span>Your spouse's Pro-Gear allowance is up to </span>
                         <span className="bold"> {this.props.selectedEntitlmentOptions.pro_gear_weight_spouse} lbs.</span>
