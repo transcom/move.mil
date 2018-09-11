@@ -24,9 +24,9 @@ Feature: PPM Estimator
     And the focus is in field "houseHold"
     And I fill in the following:
       | houseHold | 14500 |
-      | proGear | 2000 |
-      | dependent | 500 |
-    And I wait 10 seconds until I see "dependent" field contains "500"
+      | proGear | 2001 |
+      | dependent | 501 |
+    And I wait 10 seconds until I see "dependent" field contains "501"
     When I press "Calculate"
     And I wait 10 seconds until I get a response with text "Your PPM Incentive Estimate"
     Then I should see "From: Fairfax, VA 22030 to Beverly Hills, CA 90210"
@@ -34,8 +34,8 @@ Feature: PPM Estimator
     And I should see "14500 lbs"
     And I should see "2000 lbs"
     And I should see "500 lbs"
-    And I should see "$15300-$17200"
-    And I should see "$9180-$10320 (60%)"
+    And I should see "$14700-$16700"
+    And I should see "$8820-$10020 (60%)"
 
   Scenario: Fields need to be fill in
     Given I visit "/resources/ppm-estimator"

@@ -166,7 +166,7 @@ class FeatureContext extends RawDrupalContext {
       [
         'zip3'=> '220',
         'basepoint_city'=> '',
-        'state'=> '',
+        'state'=> 'VA',
         'service_area'=> '168',
         'rate_area'=> '25',
         'region'=> '10',
@@ -174,7 +174,7 @@ class FeatureContext extends RawDrupalContext {
       [
         'zip3'=> '902',
         'basepoint_city'=> '',
-        'state'=> '',
+        'state'=> 'CA',
         'service_area'=> '56',
         'rate_area'=> '88',
         'region'=> '2',
@@ -257,9 +257,9 @@ class FeatureContext extends RawDrupalContext {
       [
         'origin' => 'US25',
         'destination' => 'REGION 2',
-        'discounts' => '65',
-        'site_rate' => '58',
-        'tdl' => '1533096000',
+        'discounts' => '67',
+        'site_rate' => '60',
+        'tdl' => '1541044800',
       ],
     ];
   }
