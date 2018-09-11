@@ -62,7 +62,7 @@ class FeatureContext extends RawDrupalContext {
   }
 
   /**
-   * Wait for a HTTP response.
+   * Wait for a HTML response.
    *
    * @When I wait :seconds seconds until I get a response with text :text
    */
@@ -101,6 +101,35 @@ class FeatureContext extends RawDrupalContext {
     }
     $message = "The text '$text' was not found after a $seconds seconds timeout";
     throw new ResponseTextException($message, $this->getSession());
+  }
+  
+  /**
+   * Wait for for a form field with specified id|name|label|value to have a specified value
+   * @When I wait :seconds seconds until I see :field field contains :value
+   */
+  public function iWaitSecondsForFieldContains($seconds, $field, $value) {
+    $i = 0;
+    while ($i < $seconds) {
+      try {
+        $this->assertSession()->fieldValueEquals($field, $value);
+        return;
+      }
+      catch (ExpectationException $e) {
+        ++$i;
+        sleep(1);
+      }
+    }
+    $message = "The value '$value' was not found after a $seconds seconds timeout";
+    throw new ResponseTextException($message, $this->getSession());
+  }
+  
+  /**
+   * Clicks a form field with specified id|name|label|value to ensure it has the focus
+   * @When the focus is in field :field
+   */
+  public function focusField($field) {
+    $node = $this->assertSession()->fieldExists($field);
+    $node->click();
   }
 
   private function entitlements() {

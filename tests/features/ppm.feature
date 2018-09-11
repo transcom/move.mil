@@ -12,18 +12,30 @@ Feature: PPM Estimator
   Scenario: Move from Fairfax to Beverly Hills
     Given there is an entitlement "rank-2"
     And there is PPM data
-    And I visit "/resources/ppm-estimator"
+    And I press "Tools & Resources"
+    And I click "PPM Estimator"
     And I wait 12 seconds until I see text "What is your rank?"
     And I select "rank-2" from "entitlement"
     And I select the radio button "Yes, I have dependents" with the id "with-dependent"
-    And I fill in "origin" with "22030"
-    And I fill in "destination" with "90210"
-    And I fill in "moveDate" with "01/01/2019"
-    And I fill in "houseHold" with "14500"
-    And I fill in "proGear" with "2000"
-    And I fill in "dependent" with "500"
+    And I fill in the following:
+      | origin | 22030 |
+      | destination | 90210 |
+      | moveDate | 01/01/2019 |
+    And the focus is in field "houseHold"
+    And I fill in the following:
+      | houseHold | 14500 |
+      | proGear | 2000 |
+      | dependent | 500 |
+    And I wait 10 seconds until I see "dependent" field contains "500"
     When I press "Calculate"
-    And I wait 60 seconds until I get a response with text "locations"
+    And I wait 10 seconds until I get a response with text "Your PPM Incentive Estimate"
+    Then I should see "From: Fairfax, VA 22030 to Beverly Hills, CA 90210"
+    And I should see "Rank 2 with dependents."
+    And I should see "14500 lbs"
+    And I should see "2000 lbs"
+    And I should see "500 lbs"
+    And I should see "$15300-$17200"
+    And I should see "$9180-$10320 (60%)"
 
   Scenario: Fields need to be fill in
     Given I visit "/resources/ppm-estimator"
