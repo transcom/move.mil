@@ -18,5 +18,3 @@ function move_mil_preprocess_block__system_branding_block(&$variables) {
   }
   $variables['#cache']['max-age'] = 0;
 }
-
-
