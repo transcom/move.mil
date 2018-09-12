@@ -16,4 +16,7 @@ function move_mil_preprocess_block__system_branding_block(&$variables) {
   if ($node instanceof \Drupal\node\NodeInterface) {
     $variables['nid'] = $node->id();
   }
+  $variables['#cache']['max-age'] = 0;
 }
+
+
