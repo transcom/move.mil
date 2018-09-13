@@ -32,7 +32,7 @@ class Results extends Component {
     render() {
         this.rank_dependents = this.props.isDependencies ? `${this.props.rank} with dependents.` : `${this.props.rank} without dependents.`;
         this.sumlineClass = this.props.isDependencies ? '' : 'sum-line';
-        let dateFormatted = moment(this.props.selectedMoveDate).format("dddd, MMMM Do YYYY");
+        let dateFormatted = moment(this.props.results.selectedMoveDate).format("dddd, MMMM Do YYYY");
 
         let mapOptions = {
             coords: {

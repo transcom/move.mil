@@ -1,0 +1,9 @@
+uuid: 4c480e9a-d4fc-46a0-83e8-9902c12e12c7
+langcode: en
+status: true
+dependencies: {  }
+id: video_embed
+label: 'Video Embed'
+icon_uuid: null
+description: 'Container for Youtube video embeds'
+behavior_plugins: {  }

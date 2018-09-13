@@ -60,6 +60,13 @@ class PpmEstimatorController extends ControllerBase {
     $end_zip3 = $this->zip3($params['locations']['destination']);
     // Get year to use in 400NG queries.
     $year = substr($params['selectedMoveDate'], 0, 4);
+    $month = substr($params['selectedMoveDate'], 5, 2);
+    $day = substr($params['selectedMoveDate'], 8, 2);
+    // 400NG rates are effective until May 15th.
+    if ($month <= 05 || ($month == 05 && $day < 15)) {
+      $year = $year - 1;
+    }
+    $year = $this->closest400NgYear($year);
     // Get service areas records.
     $start_service_area = $this->serviceArea($start_zip3['service_area'], $year);
     $end_service_area = $this->serviceArea($end_zip3['service_area'], $year);
@@ -327,6 +334,29 @@ class PpmEstimatorController extends ControllerBase {
       ->execute()
       ->fetch();
     return (array) $s;
+  }
+
+  /**
+   * Get closest year of the 400NG data.
+   *
+   * If the user enters a date that's after all 400NG rates in the database,
+   * then use the 400NG rates with an effective date closest to the date the
+   * user gave the parser_packunpacks table is the shortest,
+   * so should be the quickest to query.
+   *
+   * @param int $year
+   *   The year the user gave.
+   *
+   * @return int
+   *   The year closest to the one given in the database.
+   */
+  private function closest400NgYear($year) {
+    $ps = $this->databaseConnection
+      ->select('parser_packunpacks')
+      ->fields('parser_packunpacks')
+      ->execute()
+      ->fetchAll();
+    return $this->closestValue($ps, $year, 'year');
   }
 
   /**

@@ -14,22 +14,32 @@ class Dependents extends Component {
                 <div className="flex-item ie-2-col">
                     <div className="flex-container">
                         <div className="flex-item small">
-                            <label for="dependent"></label>
-                            <input id="dependent" type="radio" name="dependent" onChange={(e) => this.handleChange(true)} checked={this.props.isDependencies} />
+                            <input
+                                id="with-dependent"
+                                type="radio"
+                                name="with-dependent"
+                                value="with-dependent"
+                                onChange={(e) => this.handleChange(true)}
+                                checked={this.props.isDependencies} />
                         </div>
                         <div className="flex-item">
-                            <div>Yes, I have dependents</div>
+                            <label for="with-dependent">Yes, I have dependents</label>
                         </div>
                     </div>
                 </div>
                 <div className="flex-item ie-2-col">
                     <div className="flex-container">
                         <div className="flex-item small">
-                            <label for="not-dependent"></label>
-                            <input id="not-dependent" type="radio" name="not-dependent" onChange={(e) => this.handleChange(false)}  checked={!this.props.isDependencies}/>
+                            <input
+                                id="not-dependent"
+                                type="radio"
+                                name="not-dependent"
+                                value="not-dependent"
+                                onChange={(e) => this.handleChange(false)}
+                                checked={!this.props.isDependencies} />
                         </div>  
                         <div className="flex-item">
-                            <div>No, I do not have dependents</div>
+                            <label for="not-dependent">No, I do not have dependents</label>
                         </div>
                     </div>
                 </div>

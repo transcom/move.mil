@@ -21,9 +21,10 @@ class Locations extends Component {
         return (
             <div className="flex-container wrapper">
                 <div className="flex-item ie-2-col">
-                    <div>Origin ZIP Code</div>
                     <div>
-                        <Input validationType="number" 
+                        <Input id="origin"
+                               labelText="Origin ZIP Code"
+                               validationType="number" 
                                type="text" 
                                placeholder=""
                                value={this.props.locations.origin}
@@ -33,9 +34,10 @@ class Locations extends Component {
                     </div>
                 </div>
                 <div className="flex-item ie-2-col">
-                    <div>Destination ZIP Code</div>
                     <div>
-                        <Input validationType="number" 
+                        <Input id="destination"
+                               labelText="Destination ZIP Code"
+                               validationType="number" 
                                value={this.props.locations.destination}
                                type="text" 
                                placeholder=""

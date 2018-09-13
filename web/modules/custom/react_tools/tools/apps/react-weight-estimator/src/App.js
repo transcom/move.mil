@@ -31,10 +31,10 @@ class App extends Component {
             weight: 0
           }
         });
-        this.setState({ rooms: res.data});
+        this.setState({ rooms: data});
         this.appDivOffsetTop = this.appDiv.offsetTop;
         this.appDivHeight = this.appDiv.clientHeight;
-    })
+    });
   }
 
   setFixedState = () => { 
@@ -85,23 +85,17 @@ class App extends Component {
   addNewItem = (roomKey) => {
     let newState = this.state.rooms;
     let newItem = newState[roomKey].tempItem;
-    let idString, id;
+    let id;
 
     if(!newState[roomKey].customItems){
       newState[roomKey].customItems = {};
     }
 
-    idString = newState[roomKey].tempItem.displayName.replace(/[^\w\s]/gi, '').replace(' ', '');
-    id = isUnique(idString);
+    id = getUniqueId();
 
-    function isUnique(_id){
-      if(_id !== "" && !newState[roomKey].customItems[_id]){
-        return _id;
-      }
-      else{
-        _id = Math.floor(Math.random(1000000) * 10);
-        return isUnique(_id);
-      }
+    function getUniqueId(){
+      let _id = `${roomKey}_${Math.floor(Math.random() * 10000)}`;
+      return !newState[roomKey].customItems[_id] ? _id : getUniqueId();
     }
 
     newState[roomKey].customItems[id] = newItem;
