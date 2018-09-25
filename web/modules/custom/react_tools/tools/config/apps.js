@@ -55,8 +55,9 @@ function getReactAppNames(dirList){
   return appNames;
 }
 
-function appPaths(){
-  let appRoot = process.env.appName ? resolveApp(`./apps/${process.env.appName}`) : resolveApp('./');
+function appPaths(appName){
+  let _appName = appName || process.env.appName;
+  let appRoot = _appName ? resolveApp(`./apps/${_appName}`) : resolveApp('./');
 
   if(!appRoot) return null;
   return {
@@ -68,9 +69,34 @@ function appPaths(){
     packageJson: resolveApp('./package.json'),
     nodeModules: resolveApp('node_modules'),
     appSrc: `${appRoot}/src`,
+    sassDir: `${appRoot}/src/sass`,
+    cssDir: `${appRoot}/src/localcss`,
     yarnLockFile: `${appRoot}/yarn.lock`,
     testsSetup: `${appRoot}/src/setupTests.js`
   }
+}
+
+function sassWatch(appName){
+  let appRoots = this.appPaths(appName);
+  return new Promise((resolve, reject)=>{
+      let sassDir = path.join(appRoots.sassDir, '/main.scss');
+      let script = `node-sass --watch ${sassDir} ${appRoots.cssDir}`;
+      let scriptErr = null;
+
+      exec(script, (err, stdout, stderr) => {
+        if(err){
+          scriptErr = err;
+        }
+      });
+
+      setTimeout(()=>{
+        if(scriptErr){
+          reject(scriptErr);
+        }else{
+          resolve(`Watching src: ${sassDir} dest: ${appRoots.cssDir}`);
+        }
+      }, 100);
+  });
 }
 
 function buildSass(appRoots){
@@ -78,8 +104,8 @@ function buildSass(appRoots){
     let count = 0;
       async.each(appRoots, (app, next) => {
         let sassDir = path.join(app, '/src/sass/main.scss');
-        let cssDir = path.join(app, '/src/localcss/main.css');
-        let script = `node-sass --include-path scss ${sassDir} ${cssDir}`;
+        let cssDir = path.join(app, '/src/localcss');
+        let script = `node-sass --include-path scss ${sassDir} -o ${cssDir}`;
 
         exec(script, (err, stdout, stderr) => {
           if (err) {
@@ -108,5 +134,6 @@ module.exports = {
   requiredFiles: getRequiredFiles(),
   appPaths: appPaths,
   getDirectories,
-  buildSass
+  buildSass,
+  sassWatch
 };
