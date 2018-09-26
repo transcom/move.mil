@@ -12,6 +12,7 @@ Feature: PPM Estimator
   Scenario: Move from Fairfax to Beverly Hills
     Given there is an entitlement "rank-2"
     And there is PPM data
+    And I set the configuration item "parser.settings" with key "distancesurl" to "http://localhost/test/ppm/distances"
     And I press "Tools & Resources"
     And I click "PPM Estimator"
     And I wait 12 seconds until I see text "What is your rank?"

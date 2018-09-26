@@ -10,7 +10,7 @@ use Behat\Mink\Exception\ResponseTextException;
  * @codingStandardsIgnoreStart
  */
 class FeatureContext extends RawDrupalContext {
-  
+
   private $databaseConnection;
 
   /**
@@ -50,7 +50,7 @@ class FeatureContext extends RawDrupalContext {
       $this->insertToDb('parser_discounts', $discount);
     }
   }
-  
+
   private function insertToDb($table, $record) {
     if (empty($this->databaseConnection)) {
       $this->databaseConnection = \Drupal::service('database');
@@ -102,7 +102,7 @@ class FeatureContext extends RawDrupalContext {
     $message = "The text '$text' was not found after a $seconds seconds timeout";
     throw new ResponseTextException($message, $this->getSession());
   }
-  
+
   /**
    * Wait for for a form field with specified id|name|label|value to have a specified value
    * @When I wait :seconds seconds until I see :field field contains :value
@@ -122,7 +122,7 @@ class FeatureContext extends RawDrupalContext {
     $message = "The value '$value' was not found after a $seconds seconds timeout";
     throw new ResponseTextException($message, $this->getSession());
   }
-  
+
   /**
    * Clicks a form field with specified id|name|label|value to ensure it has the focus
    * @When the focus is in field :field
@@ -130,6 +130,14 @@ class FeatureContext extends RawDrupalContext {
   public function focusField($field) {
     $node = $this->assertSession()->fieldExists($field);
     $node->click();
+  }
+
+  /**
+   * Gets configuration item.
+   * @When print the configuration item :name with key :key
+   */
+  public function printConfig($name, $key) {
+    echo $this->getDriver()->configGet($name, $key);
   }
 
   private function entitlements() {
@@ -200,7 +208,7 @@ class FeatureContext extends RawDrupalContext {
       ],
     ];
   }
-  
+
   private function serviceAreas() {
     return [
       [
@@ -221,7 +229,7 @@ class FeatureContext extends RawDrupalContext {
       ],
     ];
   }
-  
+
   private function linehauls() {
     return [
       [
@@ -232,7 +240,7 @@ class FeatureContext extends RawDrupalContext {
       ],
     ];
   }
-  
+
   private function packunpacks() {
     return [
       [
@@ -251,7 +259,7 @@ class FeatureContext extends RawDrupalContext {
       ],
     ];
   }
-  
+
   private function discounts() {
     return [
       [

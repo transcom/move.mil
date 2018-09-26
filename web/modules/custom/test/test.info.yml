@@ -1,0 +1,5 @@
+name: 'test'
+type: module
+description: 'Functional testing support for move.mil (ReactJS) tools'
+core: 8.x
+package: 'Custom'

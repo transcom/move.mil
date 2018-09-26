@@ -4,7 +4,7 @@ namespace Drupal\parser\Service;
 
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
-use \Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Config\ConfigFactoryInterface;
 
 /**
  * Class RouteDistance.
