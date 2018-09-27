@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ * Contains test.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function test_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the test module.
+    case 'help.page.test':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Functional testing support for move.mil (ReactJS) tools') . '</p>';
+      return $output;
+
+    default:
+  }
+}

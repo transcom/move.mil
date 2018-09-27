@@ -1,0 +1,13 @@
+{
+  "name": "drupal/test",
+  "type": "drupal-module",
+  "description": "Functional testing support for move.mil (ReactJS) tools",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "https://github.com/Bixal/move.mil",
+    "source": "https://github.com/Bixal/move.mil"
+  },
+  "require": { }
+}

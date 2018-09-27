@@ -8,6 +8,9 @@ services:
   parser.writer:
     class: Drupal\parser\Service\DbWriter
     arguments: ['@database']
+  parser.reader:
+    class: Drupal\parser\Service\DbReader
+    arguments: ['@database']
   parser.location_reader:
     class: Drupal\parser\Service\LocationReader
   parser.xml.reader:
@@ -16,3 +19,6 @@ services:
   parser.location_writer:
       class: Drupal\parser\Service\LocationWriter
       arguments: ['@database']
+  parser.route_distance:
+    class: Drupal\parser\Service\RouteDistance
+    arguments: ['@http_client', '@config.factory']
