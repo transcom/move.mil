@@ -1,0 +1,25 @@
+uuid: 8cc6b3a4-ce0d-4cf9-aa7b-5c0b122aac7a
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:3dc8e15e-7f60-4205-a577-1b0ea644db79'
+  module:
+    - block_content
+  theme:
+    - move_mil
+id: move_mil_login_banner
+theme: move_mil
+region: hero
+weight: 0
+provider: null
+plugin: 'block_content:3dc8e15e-7f60-4205-a577-1b0ea644db79'
+settings:
+  id: 'block_content:3dc8e15e-7f60-4205-a577-1b0ea644db79'
+  label: 'Login Banner Block'
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }
