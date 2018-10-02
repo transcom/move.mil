@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Database\Connection as Connection;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Logger\LoggerChannelFactory;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 
@@ -23,6 +24,7 @@ class LocationsController extends ControllerBase {
   protected $entityTypeManager;
   private $nodeStorage;
   protected $errors;
+  protected $logger;
 
   /**
    * Constructs a LocationsController.
@@ -31,12 +33,16 @@ class LocationsController extends ControllerBase {
    *   A Database Connection object.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager interface.
+   * @param \Drupal\Core\Logger\LoggerChannelFactory $logger
+   *   Drupal logger.
    *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  public function __construct(Connection $databaseConnection, EntityTypeManagerInterface $entity_type_manager) {
+  public function __construct(Connection $databaseConnection, EntityTypeManagerInterface $entity_type_manager, LoggerChannelFactory $logger) {
     $this->databaseConnection = $databaseConnection;
     $this->entityTypeManager = $entity_type_manager;
+    $this->logger = $logger;
     $this->nodeStorage = $this->entityTypeManager->getStorage('node');
     $this->googleApi = $_SERVER['GOOGLE_MAPS_API_KEY'];
     $this->errors = [];
@@ -46,11 +52,13 @@ class LocationsController extends ControllerBase {
    * {@inheritdoc}
    *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('database'),
-      $container->get('entity_type.manager')
+      $container->get('entity_type.manager'),
+      $container->get('logger.factory')
     );
   }
 
@@ -139,10 +147,17 @@ class LocationsController extends ControllerBase {
       $res = $client->request('GET', $request);
     }
     catch (GuzzleException $ge) {
+      $this->logger->get('geocode')->error($ge->getMessage());
       $this->errors[] = 'There was a network problem. Mind trying again?';
       return NULL;
     }
     $data = json_decode($res->getBody()->getContents(), JSON_OBJECT_AS_ARRAY);
+    if ($data['status'] == 'REQUEST_DENIED') {
+      $error = $data['error_message'];
+      $this->logger->get('geocode')->error($error);
+      $this->errors[] = $error;
+      return NULL;
+    }
     if ($data['status'] == 'ZERO_RESULTS' || empty($data['results'])) {
       $this->errors[] = 'There was a problem performing that search. Mind trying again with another location?';
       return NULL;
@@ -272,12 +287,10 @@ class LocationsController extends ControllerBase {
     $data = [];
     $data['type'] = $type;
     $data['title'] = $entity->getTitle();
-    $data['location'] = $entity
-      ->get('field_location_address')
-      ->getValue()[0];
-    $data['location']['geolocation'] = $entity
-      ->get('field_geolocation')
-      ->getValue()[0];
+    $address = $entity->get('field_location_address')->getValue();
+    $data['location'] = empty($address) ? NULL : $address[0];
+    $geolocation = $entity->get('field_geolocation')->getValue();
+    $data['location']['geolocation'] = empty($geolocation) ? NULL : $geolocation[0];
     $data['email_addresses'] = $entity
       ->get('field_location_email')
       ->getValue();

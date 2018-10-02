@@ -93,6 +93,7 @@ class DbReader {
     $lhs = $this->databaseConnection
       ->select('parser_linehauls')
       ->fields('parser_linehauls')
+      ->condition('year', $year)
       ->execute()
       ->fetchAll();
     $closestMiles = $this->closestValue($lhs, $distance, 'miles');
