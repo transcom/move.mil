@@ -44,9 +44,11 @@ module:
   react_tools: 0
   search: 0
   shortcut: 0
+  syslog: 0
   system: 0
   taxonomy: 0
   telephone: 0
+  test: 0
   text: 0
   toolbar: 0
   tour: 0

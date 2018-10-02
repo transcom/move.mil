@@ -21,7 +21,7 @@
   {% endif %}
 
   {# Archive Banner Link was here -- Pivotal: https://www.pivotaltracker.com/story/show/159035314 #}
-  
+
   {% if header_basic %}
   <div class="usa-nav-container">
   {% endif %}
@@ -80,27 +80,11 @@
 </section>
 {% endif %}
 
-{# our login banner #}
-  <div class="homepage-login-banner">
-    <div class="login-banner">
-      <div class="login-banner-text">
-        <a href="https://eta.sddc.army.mil/ETASSOPortal/default.aspx">Sign in to <abbr title="Defense Personal Property System">DPS</abbr></a> or <a href="https://eta.sddc.army.mil/dpsRegister/dodCustomer.aspx">create a new account</a> to schedule your move, update information, or complete the claims process.
-      </div>
-    </div>
-  </div>
-
 <section class="usa-section uswds-middle-section {{ main_classes }}">
-
-  {# no need for a back-to-top on the homepage #}
-  {# <div class="back-to-top">
-    <a href="#">Return to top</a>
-  </div> #}
 
   <div class="usa-grid">
 
     <div class="usa-width-full">
-      {# no need for a breadcrumb on the homepage #}
-      {# {{ page.breadcrumb }} #}
 
       {{ page.highlighted }}
 
@@ -117,16 +101,15 @@
     </div>
   </div>
 
-{# <div class="uswds-main-content-wrapper {% if edge_to_edge == false %}usa-grid{% endif %}"> #}
 <div class="uswds-main-content-wrapper usa-grid">
-    <a id="main-content" tabindex="-1"></a>
+  <a id="main-content" tabindex="-1"></a>
 
-    {# we are not using the page.sidebar_first on our homepage #}
-    {% if page.sidebar_first %}
-    <aside class="region-sidebar-first usa-width-one-fourth">
-      {{ page.sidebar_first }}
-    </aside>
-    {% endif %}
+  {# we are not using the page.sidebar_first on our homepage #}
+  {% if page.sidebar_first %}
+  <aside class="region-sidebar-first usa-width-one-fourth">
+    {{ page.sidebar_first }}
+  </aside>
+  {% endif %}
 
   {# our anchor section #}
   <div class="usa-grid-full homepage-anchor-section">

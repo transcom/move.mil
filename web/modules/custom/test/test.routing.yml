@@ -1,0 +1,7 @@
+test.ppm_distances_controller_distances:
+  path: '/test/ppm/distances'
+  defaults:
+    _controller: '\Drupal\test\Controller\PpmDistancesController::distances'
+    _title: 'distances'
+  requirements:
+    _permission: 'access content'

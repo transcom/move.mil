@@ -184,8 +184,10 @@ $service-tag: #fdb81e;
         .map-marker-pulse:after {
             background-color: #02bfe7;
             border-radius: 50%;
-            height: 12px;
-            width: 12px;
+            height: 20px;
+            width: 20px;
+            margin-left: -6px;
+            margin-top: -6px;
         }
 
         .map-marker-pulse:after {
