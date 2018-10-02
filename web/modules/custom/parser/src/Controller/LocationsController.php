@@ -44,7 +44,7 @@ class LocationsController extends ControllerBase {
     $this->entityTypeManager = $entity_type_manager;
     $this->logger = $logger;
     $this->nodeStorage = $this->entityTypeManager->getStorage('node');
-    $this->googleApi = $_SERVER['GOOGLE_MAPS_API_KEY'];
+    $this->googleApi = $_ENV['GOOGLE_MAPS_API_KEY'];
     $this->errors = [];
   }
 
