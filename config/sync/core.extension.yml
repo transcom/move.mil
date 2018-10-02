@@ -17,6 +17,7 @@ module:
   contextual: 0
   custom_move_mil_menus: 0
   datetime: 0
+  dblog: 0
   dynamic_page_cache: 0
   editor: 0
   editor_file: 0
