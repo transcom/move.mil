@@ -21,4 +21,4 @@ services:
       arguments: ['@database']
   parser.route_distance:
     class: Drupal\parser\Service\RouteDistance
-    arguments: ['@http_client', '@config.factory']
+    arguments: ['@http_client', '@config.factory', '@logger.factory']

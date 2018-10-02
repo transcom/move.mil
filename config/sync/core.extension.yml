@@ -44,6 +44,7 @@ module:
   react_tools: 0
   search: 0
   shortcut: 0
+  syslog: 0
   system: 0
   taxonomy: 0
   telephone: 0
