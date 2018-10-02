@@ -52,7 +52,6 @@ class RouteDistance {
     $request = "{$googleUrl}?origins={$origins}&destinations={$destinations}&key={$this->googleApiKey}";
     try {
       $res = $this->httpClient->request('GET', $request);
-      $this->logger->get('distancematrix')->debug('Response code: ' . $res->getStatusCode());
     }
     catch (GuzzleException $e) {
       $this->logger->get('distancematrix')->error($e->getMessage());
