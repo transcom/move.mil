@@ -8,7 +8,7 @@ use Drupal\node\Entity\Node;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Drupal\Core\Database\Connection as Connection;
+use Drupal\parser\Service\DbReader;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Logger\LoggerChannelFactory;
 use GuzzleHttp\Client;
@@ -19,7 +19,7 @@ use GuzzleHttp\Exception\GuzzleException;
  */
 class LocationsController extends ControllerBase {
 
-  private $databaseConnection;
+  private $dbReader;
   private $googleApi;
   protected $entityTypeManager;
   private $nodeStorage;
@@ -29,7 +29,7 @@ class LocationsController extends ControllerBase {
   /**
    * Constructs a LocationsController.
    *
-   * @param \Drupal\Core\Database\Connection $databaseConnection
+   * @param \Drupal\parser\Service\DbReader $dbReader
    *   A Database Connection object.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager interface.
@@ -39,8 +39,8 @@ class LocationsController extends ControllerBase {
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  public function __construct(Connection $databaseConnection, EntityTypeManagerInterface $entity_type_manager, LoggerChannelFactory $logger) {
-    $this->databaseConnection = $databaseConnection;
+  public function __construct(DbReader $dbReader, EntityTypeManagerInterface $entity_type_manager, LoggerChannelFactory $logger) {
+    $this->dbReader = $dbReader;
     $this->entityTypeManager = $entity_type_manager;
     $this->logger = $logger;
     $this->nodeStorage = $this->entityTypeManager->getStorage('node');
@@ -56,7 +56,7 @@ class LocationsController extends ControllerBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('database'),
+      $container->get('parser.reader'),
       $container->get('entity_type.manager'),
       $container->get('logger.factory')
     );
@@ -132,7 +132,7 @@ class LocationsController extends ControllerBase {
       ];
     }
     elseif (array_key_exists('query', $params) && preg_match("/^\d{5}$/", $params['query'])) {
-      $uszipcode = $this->uszipcode($params['query']);
+      $uszipcode = $this->dbReader->uszipcode($params['query']);
       if ($uszipcode) {
         return [
           'lat' => floatval($uszipcode['lat']),
@@ -169,19 +169,6 @@ class LocationsController extends ControllerBase {
       'lon' => $location['lng'],
       'result' => $address,
     ];
-  }
-
-  /**
-   * Get uszipcode object according to the given zip code.
-   */
-  private function uszipcode($zipcode) {
-    $uszipcode = $this->databaseConnection
-      ->select('parser_zipcodes')
-      ->fields('parser_zipcodes')
-      ->condition('code', $zipcode)
-      ->execute()
-      ->fetch();
-    return (array) $uszipcode;
   }
 
   /**
