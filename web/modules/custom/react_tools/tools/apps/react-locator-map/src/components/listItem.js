@@ -114,21 +114,21 @@ this.showHours = (hours) =>{
 }
 
 this.renderLocationItem = (location) =>{
-  if(location.address_line || 
-     location.address_line2 || 
-     location.locality || 
-     location.administrative_area || 
-     location.postal_code || 
+  if(location.address_line1 ||
+     location.address_line2 ||
+     location.locality ||
+     location.administrative_area ||
+     location.postal_code ||
      location.country_code){
      return (
         <div>
           <div className="bold-header">Location</div>
           <div>
-            <LocationItem item={location.address_line} comma={true} />
+            <LocationItem item={location.address_line1} comma={!!location.address_line2} />
             <LocationItem item={location.address_line2} />
           </div>
           <div>
-            <LocationItem item={location.locality} comma={true}/>
+            <LocationItem item={location.locality} comma={!!location.administrative_area}/>
             <LocationItem item={location.administrative_area} />
             <LocationItem item={location.postal_code}/>
           </div>
@@ -141,7 +141,7 @@ this.renderLocationItem = (location) =>{
 }
 
 const LocationItem = (props) => {
-  if (!props.item){
+  if (!props.item || !props.item.length){
     return null;
   }
 
@@ -173,7 +173,7 @@ const ShippingOffice = (props) =>{
               <div className="usa-width-one-third">
                 {this.showEmails(props.office.email_addresses)}
               </div>
-              
+
               <div className="usa-width-one-third">
                 {this.showWebsites(props.office.websites)}
               </div>
@@ -187,14 +187,14 @@ const ShippingOffice = (props) =>{
 
 const ListItem = (props) => {
   let officeTypeClass = props.item.type.replace(' ', '-').toLowerCase();
-  
+
   return (
     <li>
         <div className={`${"location-search-result " + officeTypeClass}`}
           data-latitude={props.item.location.geolocation.lat}
-          data-longitude={props.item.location.geolocation.lng} 
-          data-name={props.item.title} 
-          data-type={props.item.type} 
+          data-longitude={props.item.location.geolocation.lng}
+          data-name={props.item.title}
+          data-type={props.item.type}
           id={props.item.id}>
 
           <div className="location-search-result-header">
