@@ -65,4 +65,4 @@ gulp.task('lint-scss', function (done) {
 
 });
 
-gulp.task('sass', ['copy-doc-styles']);
+gulp.task('sass', gulp.series('copy-doc-styles'));

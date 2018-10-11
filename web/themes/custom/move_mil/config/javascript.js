@@ -52,20 +52,19 @@ gulp.task('copy-uswds-javascript', function (done) {
 
 });
 
-gulp.task(javascript, [ 'copy-uswds-javascript' ], function (done) {
+gulp.task(javascript, gulp.series('copy-uswds-javascript', function(done) {
 
   dutil.logMessage(javascript, 'Compiling JavaScript');
 
   return gulp.src([
     './node_modules/slick-carousel/slick/slick.min.js',
     'js/**/*.js'])
-    .pipe(buffer())
-    .pipe(sourcemaps.init({ loadMaps: true }))
+      .pipe(buffer())
+      .pipe(sourcemaps.init({ loadMaps: true }))
       .pipe(concat('scripts.js'))
       .pipe(uglify())
       .on('error', gutil.log)
       .pipe(rename('scripts.min.js'))
-    .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest('assets/js'));
-
-});
+      .pipe(sourcemaps.write('.'))
+      .pipe(gulp.dest('assets/js'));
+}));
