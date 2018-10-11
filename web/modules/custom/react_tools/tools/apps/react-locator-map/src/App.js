@@ -11,7 +11,7 @@ class App extends Component {
     super();
 
     this.itemsPerPage = 10;
-    this.baseUrl = process.env.NODE_ENV === 'development' ? 'http://move.mil.localhost:8000/' : '/';
+    this.baseUrl = process.env.BASE_URL;
     this.state = {
       isLoading: false,
       geolocation: {
@@ -84,11 +84,11 @@ class App extends Component {
   }
 
   requestData = (options) =>{
-      let url = `${this.baseUrl}parser/locator-maps`;
+      let url = `${this.baseUrl}/parser/locator-maps`;
       let coords = options.query ? options : {};
 
       axios.post(url, options)
-        .then(res => {
+       .then(res => {
           let results = res.data;
 
           if(!results.offices){
@@ -113,9 +113,9 @@ class App extends Component {
             isLoading: false,
             errorMessage: null
           });
-        }).catch(error => {
-          this.handleError({title: "Connection problem", message: "There was a problem connecting to the map service. Please refresh and try again."});
-        });;
+       }).catch(error => {
+         this.handleError({title: "Connection problem", message: "There was a problem connecting to the map service. Please refresh and try again."});
+       });
   }
 
   changePageNo = (pageNo, totalPages) => {
