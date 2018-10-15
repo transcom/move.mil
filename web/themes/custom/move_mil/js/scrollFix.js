@@ -6,8 +6,10 @@
       if(href[0] === '#' || (href.indexOf(window.location.pathname) > -1 && href.indexOf('#') > -1)){
         e.preventDefault();
         var targetId = href.split('#')[1];
-        // var targetId = href.substring(1, href.length);
-        var target = $("div[id*='" + targetId + "']");
+        var target = $("div#" + targetId);
+        if(!target.length){
+          target = $("div[id*='" + targetId + "']");
+        }
         var offset = $(target).offset();
         offset.top -= 100;
         $('html, body').animate({
