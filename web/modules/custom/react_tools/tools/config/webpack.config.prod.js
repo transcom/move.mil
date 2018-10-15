@@ -21,6 +21,8 @@ function getConfig() {
       .then((appDirList) => {
         const entryPoints = apps.entryPoints(appDirList);
 
+        console.log('google key: ' + process.env.GOOGLE_MAPS_API_KEY);
+
         if (env.stringified['process.env'].NODE_ENV !== '"production"') {
           throw new Error('Production builds must have NODE_ENV=production.');
         }

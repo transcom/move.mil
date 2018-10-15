@@ -2,6 +2,8 @@ FROM php:7.2 as builder
 
 ENV DART_SASS_VERSION 1.7.0
 
+ARG GOOGLE_MAPS_API_KEY
+
 RUN apt-get update && apt-get install -y gnupg
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
 RUN apt-get update && apt-get install -y --no-install-recommends \
