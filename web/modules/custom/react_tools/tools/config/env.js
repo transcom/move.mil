@@ -97,9 +97,6 @@ function getClientEnvironment(publicUrl) {
     }, {}),
   };
 
-  console.log('google key:' + process.env.GOOGLE_MAPS_API_KEY);
-
-  console.log('process for react:' + stringified);
   return { raw, stringified };
 }
 
