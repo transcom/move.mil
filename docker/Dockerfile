@@ -51,10 +51,6 @@ RUN npm install && npm run build
 
 WORKDIR /var/www/html/web/modules/custom/react_tools/tools
 RUN npm install
-RUN sass apps/react-entitlements-page/src/sass/main.scss apps/react-entitlements-page/src/localcss/main.css
-RUN sass apps/react-locator-map/src/sass/main.scss apps/react-locator-map/src/localcss/main.css
-RUN sass apps/react-ppm-tool/src/sass/main.scss apps/react-ppm-tool/src/localcss/main.css
-RUN sass apps/react-weight-estimator/src/sass/main.scss apps/react-weight-estimator/src/localcss/main.css
 RUN npm run build
 
 COPY . /var/www/html
