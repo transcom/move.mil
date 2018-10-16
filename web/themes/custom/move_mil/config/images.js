@@ -27,5 +27,6 @@ gulp.task('copy-uswds-images', function (done) {
 gulp.task(images, gulp.series('copy-doc-images', 'copy-uswds-images', function(done) {
 
   dutil.logMessage(images, 'Copying images Sass');
+  done();
 
 }));

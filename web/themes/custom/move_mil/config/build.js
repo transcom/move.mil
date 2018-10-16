@@ -1,3 +1,8 @@
+require( './fonts' );
+require( './images' );
+require( './javascript' );
+require( './sass' );
+
 // var fs            = require('fs');
 // var path          = require('path');
 var child_process = require('child_process');
@@ -6,7 +11,6 @@ var dutil         = require('./doc-util');
 var runSequence   = require('run-sequence');
 var clean         = require('gulp-clean');
 var del           = require('del');
-
 
 gulp.task('clean-fonts', function () {
   return del('assets/fonts/');
@@ -28,43 +32,20 @@ gulp.task('remove-assets-folder', function () {
   return del('assets/');
 });
 
-gulp.task('clean-assets', function (done) {
-  runSequence(
-    [
-      'clean-fonts',
-      'clean-images',
-      'clean-javascript',
-      'clean-styles',
-      // 'remove-assets-folder',
-    ],
-    done
-  );
-});
+gulp.task('clean-assets', gulp.parallel(
+    'clean-fonts',
+    'clean-images',
+    'clean-javascript',
+    'clean-styles',
+    )
+);
 
-gulp.task('build', function (done) {
-
-  dutil.logIntroduction();
-  dutil.logMessage(
-    'build'
-  );
-
-  runSequence(
-    'clean-assets',
-    // 'build-uswds-if-needed',
-    [
-      'fonts',
-      'images',
-      'javascript',
-      'sass',
-    ],
-    done
-  );
-
-});
-
-gulp.task('build', gulp.series('clean-assets', 'fonts', 'images', 'javascript', 'sass', function(done) {
+gulp.task('build', gulp.series('clean-assets', gulp.parallel('fonts', 'images', 'javascript', 'sass'),
+    function(done) {
   dutil.logIntroduction();
   dutil.logMessage(
       'build'
   );
+  done();
+
 }));
