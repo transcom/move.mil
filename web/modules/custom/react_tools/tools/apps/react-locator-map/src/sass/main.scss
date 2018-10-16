@@ -165,59 +165,11 @@ $service-tag: #fdb81e;
         }
     }
 
-    #map-container{
-        height: 400px;
-
-        @keyframes map-marker-pulse {
-            to {
-                opacity: 0;
-                transform: scale(2.5)
-            }
-        }
-
-        .map-marker-pulse {
-            border: 2px solid #046b99;
-            position: relative
-        }
-
-        .map-marker-pulse,
-        .map-marker-pulse:after {
-            background-color: #02bfe7;
-            border-radius: 50%;
-            height: 20px;
-            width: 20px;
-            margin-left: -6px;
-            margin-top: -6px;
-        }
-
-        .map-marker-pulse:after {
-            animation: 2s map-marker-pulse infinite;
-            content: "";
-            position: absolute
-        }
-
-        .map-marker {
-            &.weight-scale:before, &.processing-office:before{
-                position: absolute;
-                bottom: 0;
-                right: -11px;
-                width: 34px;
-            }
-
-            &.weight-scale:before{
-                content: url('/themes/custom/move_mil/assets/img/icons/marker-weight-scale.svg');
-            }
-            &.processing-office:before{
-                content: url('/themes/custom/move_mil/assets/img/icons/marker-transportation-office.svg');
-            }
-        }
-
-        .map-popup{
-            text-align: center;
-            div{
-                &:first-child{
-                    font-weight: bold;
-                }
+    .map-popup{
+        text-align: center;
+        div{
+            &:first-child{
+                font-weight: bold;
             }
         }
     }

@@ -5,6 +5,10 @@ const path = require('path');
 const apps = require('./apps');
 const dotenv = apps.resolvePath('.env');
 
+// PULL IN THE MOVE.MIL .env file, later in this code we will set the process.env variables = to these, 
+// then weed out the ones we need for the react apps
+const MOVE_MIL_ENV = path.resolve(__dirname + '../../../../../../../.env');
+
 // Make sure that including paths.js after env.js will read .env variables.
 delete require.cache[require.resolve('./apps')];
 
@@ -17,6 +21,7 @@ if (!NODE_ENV) {
 
 // https://github.com/bkeepers/dotenv#what-other-env-files-can-i-use
 var dotenvFiles = [
+  MOVE_MIL_ENV,
   `${dotenv}.${NODE_ENV}.local`,
   `${dotenv}.${NODE_ENV}`,
   // Don't include `.env.local` for `test` environment
@@ -78,6 +83,10 @@ function getClientEnvironment(publicUrl) {
         // This should only be used as an escape hatch. Normally you would put
         // images into the `src` and `import` them in code to get their paths.
         PUBLIC_URL: publicUrl,
+
+        //SET SPECIFIC VARIBALES WE NEED IN REACT APPS HERE
+        GOOGLE_MAPS_API_KEY: process.env.GOOGLE_MAPS_API_KEY,
+        BASE_URL: process.env.NODE_ENV === 'development' ? 'http://move.mil.localhost:8000' : '',
       }
     );
   // Stringify all values so we can feed into Webpack DefinePlugin

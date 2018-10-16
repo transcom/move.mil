@@ -13,7 +13,7 @@ class App extends Component {
   constructor(){
     super();
 
-    this.baseUrl = process.env.NODE_ENV === 'development' ? 'http://move.mil.localhost:8000/' : '/';
+    this.baseUrl = process.env.BASE_URL;
 
     this.locations = {
       origin: '',
@@ -45,7 +45,7 @@ class App extends Component {
   }
 
   componentDidMount = () => {
-    let url = `${this.baseUrl}parser/entitlements`;
+    let url = `${this.baseUrl}/parser/entitlements`;
 
     axios.get(url)
       .then(res => {
@@ -54,7 +54,7 @@ class App extends Component {
           entitlements: data, 
           dropdowns: {...this.state.dropdowns, entitlement: this.getEntitlementDropDownData(data)}
         });
-      });
+    });
   }
 
   getEntitlementDropDownData = (data) =>{
@@ -148,7 +148,7 @@ class App extends Component {
   }
 
   getResults = () =>{
-    let url = `${this.baseUrl}parser/ppm_estimate`;
+    let url = `${this.baseUrl}/parser/ppm_estimate`;
     let options = this.state.request.data;
 
     axios.post(url, options)
@@ -156,8 +156,8 @@ class App extends Component {
         let results = res.data;
         this.setState({
           results: results
-        });
       });
+    });
   }
   
   isValid = (valid, data, excludedProps) =>{
