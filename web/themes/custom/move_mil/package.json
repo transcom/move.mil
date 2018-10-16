@@ -59,7 +59,7 @@
     "gulp-stylelint": "^7.0.0",
     "gulp-uglify": "^3.0.0",
     "gulp-util": "^3.0.8",
-    "jshint": "^2.9.5",
+    "jshint": "^2.9.6",
     "jshint-stylish": "^2.2.1",
     "merge-stream": "^1.0.1",
     "node-notifier": "^5.2.1",
@@ -74,7 +74,7 @@
     "vinyl-source-stream": "^2.0.0"
   },
   "devDependencies": {
-    "backstopjs": "^3.8.1",
+    "backstopjs": "^3.8.2",
     "casperjs": "^1.1.4",
     "minimalist": "^1.0.0",
     "minimist": "^1.2.0",
