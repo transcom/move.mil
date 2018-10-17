@@ -56,7 +56,7 @@ class Results extends Component {
 
                 <div className="flex-container">
                     <div className="flex-item">
-                        <span>From:</span><span className="bold">{this.props.results.locations.origin.address}</span><span>to</span> <span className="bold"> {this.props.results.locations.destination.address} </span>
+                        <span>From:</span><span className="bold"> {this.props.results.locations.origin.address} </span><span>to</span> <span className="bold"> {this.props.results.locations.destination.address} </span>
                     </div>
                     <div className="flex-item half right-align">
                         <div className="faux-link" onClick={(e)=>this.handlePrint()}>print</div>
