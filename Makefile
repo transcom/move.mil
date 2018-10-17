@@ -41,6 +41,9 @@ cim:
 	@echo "Importing Configuration"
 	docker-compose run php drupal config:import -y
 
+	@echo "Clearing Drupal Caches"
+	@docker-compose run php drupal cache:rebuild all
+
 cex:
 	@echo "Exporting Configuration"
 	docker-compose run php drupal config:export -y
@@ -78,32 +81,9 @@ dbclient:
 	@echo "Opening Move.mil DB client"
 	docker-compose run php drupal database:client
 
-build-tools:
-	@echo "Building our custom tools..."
-	
-	@echo "Building our weight estimator..."
-	@if [ ! -d "./web/modules/custom/react_tools/tools/react-weight-estimator/src/localcss/" ]; then echo "Creating Directory..." && cd ./web/modules/custom/react_tools/tools/react-weight-estimator/src/ && mkdir localcss; fi
-	@cd ./web/modules/custom/react_tools/tools/react-weight-estimator/src/sass/; sass main.scss ../localcss/main.css
-	@cd ./web/modules/custom/react_tools/tools/react-weight-estimator/; npm install
-	@cd ./web/modules/custom/react_tools/tools/react-weight-estimator/; npm run build
-
-	@echo "Building our locator map..."
-	@if [ ! -d "./web/modules/custom/react_tools/tools/react-locator-map/src/localcss/" ]; then echo "Creating Directory..." && cd ./web/modules/custom/react_tools/tools/react-locator-map/src/ && mkdir localcss; fi
-	@cd ./web/modules/custom/react_tools/tools/react-locator-map/src/sass/; sass main.scss ../localcss/main.css
-	@cd ./web/modules/custom/react_tools/tools/react-locator-map/; npm install
-	@cd ./web/modules/custom/react_tools/tools/react-locator-map/; npm run build
-
-	@echo "Building our ppm tool..."
-	@if [ ! -d "./web/modules/custom/react_tools/tools/react-ppm-tool/src/localcss/" ]; then echo "Creating Directory..." && cd ./web/modules/custom/react_tools/tools/react-ppm-tool/src/ && mkdir localcss; fi
-	@cd ./web/modules/custom/react_tools/tools/react-ppm-tool/src/sass/; sass main.scss ../localcss/main.css
-	@cd ./web/modules/custom/react_tools/tools/react-ppm-tool/; npm install
-	@cd ./web/modules/custom/react_tools/tools/react-ppm-tool/; npm run build
-
-	@echo "Building our entitlements page..."
-	@if [ ! -d "./web/modules/custom/react_tools/tools/react-entitlements-page/src/localcss/" ]; then echo "Creating Directory..." && cd ./web/modules/custom/react_tools/tools/react-entitlements-page/src/ && mkdir localcss; fi
-	@cd ./web/modules/custom/react_tools/tools/react-entitlements-page/src/sass/; sass main.scss ../localcss/main.css
-	@cd ./web/modules/custom/react_tools/tools/react-entitlements-page/; npm install
-	@cd ./web/modules/custom/react_tools/tools/react-entitlements-page/; npm run build
+tools:
+	@echo "Building our custom ReactJS tools"
+	@cd ./web/modules/custom/react_tools/tools/; npm install && npm run build
 
 	@echo "Clearing Drupal Caches"
 	@docker-compose run php drupal cache:rebuild all
