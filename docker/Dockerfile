@@ -2,6 +2,8 @@ FROM php:7.2 as builder
 
 ENV DART_SASS_VERSION 1.7.0
 
+ARG GOOGLE_MAPS_API_KEY
+
 RUN apt-get update && apt-get install -y gnupg
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -51,10 +53,6 @@ RUN npm install && npm run build
 
 WORKDIR /var/www/html/web/modules/custom/react_tools/tools
 RUN npm install
-RUN sass apps/react-entitlements-page/src/sass/main.scss apps/react-entitlements-page/src/localcss/main.css
-RUN sass apps/react-locator-map/src/sass/main.scss apps/react-locator-map/src/localcss/main.css
-RUN sass apps/react-ppm-tool/src/sass/main.scss apps/react-ppm-tool/src/localcss/main.css
-RUN sass apps/react-weight-estimator/src/sass/main.scss apps/react-weight-estimator/src/localcss/main.css
 RUN npm run build
 
 COPY . /var/www/html

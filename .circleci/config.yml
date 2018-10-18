@@ -189,7 +189,7 @@ build_stage_image: &build_stage_image
     - run:
         name: "Build & Push Docker Image"
         command: |
-          docker build -t $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/movemil:stage -f docker/Dockerfile .
+          docker build --build-arg GOOGLE_MAPS_API_KEY=$GOOGLE_MAPS_API_KEY -t $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/movemil:stage -f docker/Dockerfile .
           docker push $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/movemil:stage
 
 ## Build production Image
@@ -237,7 +237,7 @@ build_production_image: &build_production_image
     - run:
         name: "Build & Push Docker Image"
         command: |
-          docker build -t $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/movemil:production -f docker/Dockerfile .
+          docker build --build-arg GOOGLE_MAPS_API_KEY=$GOOGLE_MAPS_API_KEY -t $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/movemil:production -f docker/Dockerfile .
           docker push $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/movemil:production
 
 

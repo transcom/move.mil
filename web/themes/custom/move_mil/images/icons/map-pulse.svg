@@ -1,0 +1,14 @@
+<svg width="50px" height="50px" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  			<circle class="circle first-circle" 
+                fill="#046b99" cx="50" cy="50" r="15">
+        </circle>
+  			<g fill="#02bfe7" fill-rule="evenodd" stroke-width="1" stroke="#046b99" fill-opacity="0.4">
+    		<circle cx="50" cy="50" r="50">
+      		<animate attributeName="r" begin="0s" dur="3s" values="0;50" keyTimes="0;1" 
+                   keySplines="0.1,0.2,0.3,1"
+                   calcMode="spline" repeatCount="indefinite">  
+          </animate>
+      		<animate attributeName="stroke-opacity" begin="0s" dur="3s" values="0;.3;.3;0" repeatCount="indefinite">           </animate>
+    		</circle>
+  			</g>
+</svg>
