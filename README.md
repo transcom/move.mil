@@ -36,7 +36,7 @@ Each quarter there is a new Traffic Distribution List (TDL) file(s) from US TRAN
 
 ### Uploading locations files
 
-Each 2 weeks there is a new XML file with the locations changes from US TRANSCOM containing corrections or addition of address, phones, or e-mail addresses.
+Each 2 weeks there is a new XML file with location updates from US TRANSCOM containing corrections or addition of addresses, phones, or e-mail addresses.
 
 1. They will upload the file on Pivotal.
 1. Go to [Move.mil](https://move.mil/user/login) and log in with your admin user.
@@ -44,8 +44,8 @@ Each 2 weeks there is a new XML file with the locations changes from US TRANSCOM
 1. Expand Locations tab.
 1. Choose the XML file.
 1. All the Drupal locations that have a `CNSL_ORG_ID` will be updated.
-1. This tool DO NOT add new locations, in case a new location is missing in Drupal, it will need to be added manually.
-1. This tool DO NOT remove old locations, in case of a mistake it will need to be remove manually.
+1. This tool DOES NOT add new locations, in case a new location is missing in Drupal, it will need to be added manually.
+1. This tool DOES NOT remove old locations, in case of a mistake it will need to be removed manually.
 
 
 
