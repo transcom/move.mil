@@ -227,7 +227,7 @@ class App extends Component {
                 <Weights changeWeightFn={this.changeWeight} weightOptions={this.state.weightOptions} isDependencies={this.state.isDependencies} selectedEntitlmentOptions={this.state.selectedEntitlmentOptions} invalidFields={this.state.invalidFields}/>
             </div>
         </div>
-        <button onClick={this.calculate}>Calculate</button>
+        <button className="calc-button" onClick={this.calculate}>Calculate</button>
         {this.renderResults()}
       </div>
     );
