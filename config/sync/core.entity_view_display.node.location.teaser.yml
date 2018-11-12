@@ -18,10 +18,12 @@ content:
 hidden:
   field_geolocation: true
   field_location_address: true
+  field_location_cnsl_id: true
   field_location_email: true
   field_location_hours: true
   field_location_link: true
   field_location_note: true
+  field_location_notes: true
   field_location_reference: true
   field_location_services: true
   field_location_telephone: true

@@ -14,7 +14,7 @@ entity_type: node
 bundle: location
 label: 'Location Telephone'
 description: ''
-required: true
+required: false
 translatable: false
 default_value: {  }
 default_value_callback: ''
@@ -54,5 +54,8 @@ settings:
         enabled: false
       warning_callout_box:
         weight: 20
+        enabled: false
+      video_embed:
+        weight: 21
         enabled: false
 field_type: entity_reference_revisions
