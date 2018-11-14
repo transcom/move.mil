@@ -11,7 +11,7 @@ entity_type: node
 bundle: location
 label: 'CNSL organization id'
 description: ''
-required: true
+required: false
 translatable: false
 default_value:
   -
