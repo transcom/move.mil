@@ -1,0 +1,60 @@
+uuid: b5070dd7-90be-4e8c-93d3-7a11773cb19d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.sme_document.field_document_archive_date
+    - field.field.node.sme_document.field_document_file
+    - field.field.node.sme_document.field_document_id
+    - field.field.node.sme_document.field_document_updated_date
+    - node.type.sme_document
+  module:
+    - datetime
+    - file
+    - user
+id: node.sme_document.default
+targetEntityType: node
+bundle: sme_document
+mode: default
+content:
+  field_document_archive_date:
+    weight: 104
+    label: above
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_document_file:
+    weight: 105
+    label: above
+    settings:
+      use_description_as_link_text: true
+    third_party_settings: {  }
+    type: file_default
+    region: content
+  field_document_id:
+    weight: 102
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_integer
+    region: content
+  field_document_updated_date:
+    weight: 103
+    label: above
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden: {  }

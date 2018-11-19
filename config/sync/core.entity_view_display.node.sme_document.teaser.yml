@@ -1,0 +1,28 @@
+uuid: 78fc5763-8f22-4906-a820-a520b32e04fb
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.sme_document.field_document_archive_date
+    - field.field.node.sme_document.field_document_file
+    - field.field.node.sme_document.field_document_id
+    - field.field.node.sme_document.field_document_updated_date
+    - node.type.sme_document
+  module:
+    - user
+id: node.sme_document.teaser
+targetEntityType: node
+bundle: sme_document
+mode: teaser
+content:
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  field_document_archive_date: true
+  field_document_file: true
+  field_document_id: true
+  field_document_updated_date: true

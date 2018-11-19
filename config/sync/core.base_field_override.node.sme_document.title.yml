@@ -1,0 +1,18 @@
+uuid: 993dbe75-b949-4a50-84e1-2294bd3995bd
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.sme_document
+id: node.sme_document.title
+field_name: title
+entity_type: node
+bundle: sme_document
+label: 'Document Title'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

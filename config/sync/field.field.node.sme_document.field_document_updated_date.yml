@@ -1,0 +1,24 @@
+uuid: 5843dfb4-bd97-4d4c-ac93-67146da4ace7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_document_updated_date
+    - node.type.sme_document
+  module:
+    - datetime
+id: node.sme_document.field_document_updated_date
+field_name: field_document_updated_date
+entity_type: node
+bundle: sme_document
+label: 'Document Updated Date'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    default_date_type: now
+    default_date: now
+default_value_callback: ''
+settings: {  }
+field_type: datetime
