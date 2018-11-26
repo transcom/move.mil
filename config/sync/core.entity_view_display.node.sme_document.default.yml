@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.sme_document.field_document_file
     - field.field.node.sme_document.field_document_id
     - field.field.node.sme_document.field_document_updated_date
+    - field.field.node.sme_document.field_sme_section
     - node.type.sme_document
   module:
     - datetime
@@ -18,25 +19,24 @@ bundle: sme_document
 mode: default
 content:
   field_document_archive_date:
-    weight: 104
+    type: datetime_default
+    weight: 4
+    region: content
     label: above
     settings:
       format_type: medium
       timezone_override: ''
     third_party_settings: {  }
-    type: datetime_default
-    region: content
   field_document_file:
-    weight: 105
+    weight: 3
     label: above
-    settings:
-      use_description_as_link_text: true
+    settings: {  }
     third_party_settings: {  }
-    type: file_default
+    type: file_url_plain
     region: content
   field_document_id:
-    weight: 102
-    label: above
+    weight: 1
+    label: inline
     settings:
       thousand_separator: ''
       prefix_suffix: true
@@ -44,17 +44,25 @@ content:
     type: number_integer
     region: content
   field_document_updated_date:
-    weight: 103
-    label: above
+    weight: 2
+    label: inline
     settings:
-      format_type: medium
       timezone_override: ''
+      format_type: short
     third_party_settings: {  }
     type: datetime_default
     region: content
+  field_sme_section:
+    type: entity_reference_label
+    weight: 5
+    region: content
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
   links:
-    weight: 100
+    weight: 0
+    region: content
     settings: {  }
     third_party_settings: {  }
-    region: content
 hidden: {  }

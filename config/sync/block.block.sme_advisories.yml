@@ -1,0 +1,30 @@
+uuid: 12610e14-f160-401c-815b-053b0404c0f1
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.sme_section
+  module:
+    - system
+    - views
+  theme:
+    - move_mil
+id: sme_advisories
+theme: move_mil
+region: content
+weight: -3
+provider: null
+plugin: 'views_block:sme_section-block_1'
+settings:
+  id: 'views_block:sme_section-block_1'
+  label: ''
+  provider: views
+  label_display: visible
+  views_label: ''
+  items_per_page: none
+visibility:
+  request_path:
+    id: request_path
+    pages: /sme-page
+    negate: false
+    context_mapping: {  }

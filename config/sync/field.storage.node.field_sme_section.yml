@@ -1,17 +1,17 @@
-uuid: 662d7330-5ecf-4bdd-9ec2-2e8f3c9ef3f4
+uuid: 647a954a-1b77-40ee-82e7-ba7b6e75bbd8
 langcode: en
 status: true
 dependencies:
   module:
-    - datetime
     - node
-id: node.field_document_updated_date
-field_name: field_document_updated_date
+    - taxonomy
+id: node.field_sme_section
+field_name: field_sme_section
 entity_type: node
-type: datetime
+type: entity_reference
 settings:
-  datetime_type: datetime
-module: datetime
+  target_type: taxonomy_term
+module: core
 locked: false
 cardinality: 1
 translatable: true

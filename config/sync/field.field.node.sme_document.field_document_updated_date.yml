@@ -11,7 +11,7 @@ id: node.sme_document.field_document_updated_date
 field_name: field_document_updated_date
 entity_type: node
 bundle: sme_document
-label: 'Document Updated Date'
+label: 'Last Updated'
 description: ''
 required: false
 translatable: false

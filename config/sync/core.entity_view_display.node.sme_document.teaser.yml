@@ -8,21 +8,43 @@ dependencies:
     - field.field.node.sme_document.field_document_file
     - field.field.node.sme_document.field_document_id
     - field.field.node.sme_document.field_document_updated_date
+    - field.field.node.sme_document.field_sme_section
     - node.type.sme_document
   module:
+    - datetime
+    - file
     - user
 id: node.sme_document.teaser
 targetEntityType: node
 bundle: sme_document
 mode: teaser
 content:
-  links:
-    weight: 100
+  field_document_file:
+    type: file_url_plain
+    weight: 2
+    region: content
+    label: hidden
     settings: {  }
     third_party_settings: {  }
+  field_document_id:
+    type: number_integer
+    weight: 0
     region: content
+    label: inline
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+  field_document_updated_date:
+    type: datetime_default
+    weight: 1
+    region: content
+    label: inline
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
 hidden:
   field_document_archive_date: true
-  field_document_file: true
-  field_document_id: true
-  field_document_updated_date: true
+  field_sme_section: true
+  links: true
