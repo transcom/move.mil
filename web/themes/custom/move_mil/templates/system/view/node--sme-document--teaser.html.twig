@@ -86,10 +86,13 @@
 
   <div class="document-link">
     <h3{{ title_attributes }}>
-      <a href="{{ content.field_document_file.0 }}" title="Download file">{{ label }}</a>
+      <a href="{{ file_url(content.field_document_file[0]['#file'].uri.value) }}" title="Download file">{{ label }}</a>
     </h3>
   </div>
 
   {{ content|without('field_document_file') }}
+  <div class="file-size">
+    <span class="field-label">File Size: </span><span class="field-value">{{ content.field_document_file[0]['#file'].filesize.value|number_format ~ ' bytes'|t }}</span>
+  </div>
 
 </article>
