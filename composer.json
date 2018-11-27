@@ -44,6 +44,7 @@
         "drupal/google_analytics": "^2.2",
         "drupal/node_class": "^1.0@beta",
         "drupal/paragraphs": "^1.2",
+        "drupal/password_policy": "^3.0@alpha",
         "drupal/stage_file_proxy": "^1.0@alpha",
         "drupal/svg_image": "^1.8",
         "drupal/twig_field_value": "^1.1",

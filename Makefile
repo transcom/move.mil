@@ -27,43 +27,43 @@ shell:
 
 dbdump:
 	@echo "Creating Database Dump for $(PROJECT_NAME)..."
-	docker-compose run php drupal database:dump --file=../mariadb-init/restore.sql --gz
+	docker-compose run --rm php drupal database:dump --file=../mariadb-init/restore.sql --gz
 
 dbrestore:
 	@echo "Restoring database..."
-	docker-compose run php drupal database:connect < mariadb-init/restore.sql.gz
+	docker-compose run --rm php drupal database:connect < mariadb-init/restore.sql.gz
 
 uli:
 	@echo "Getting admin login"
-	docker-compose run php drush user:login --uri="$(PROJECT_BASE_URL)":8000
+	docker-compose run --rm php drush user:login --uri="$(PROJECT_BASE_URL)":8000
 
 cim:
 	@echo "Importing Configuration"
-	docker-compose run php drupal config:import -y
+	docker-compose run --rm php drupal config:import -y
 
 	@echo "Clearing Drupal Caches"
-	@docker-compose run php drupal cache:rebuild all
+	@docker-compose run --rm php drupal cache:rebuild all
 
 cex:
 	@echo "Exporting Configuration"
-	docker-compose run php drupal config:export -y
+	docker-compose run --rm php drupal config:export -y
 
 gm:
 	@echo "Displaying Generate Module UI"
-	docker-compose run php drupal generate:module
+	docker-compose run --rm php drupal generate:module
 
 menu-update:
 	@echo "Updating site menus"
-	docker-compose run php drush cim -y --partial --source=modules/custom/custom_move_mil_menus/config/install/
-	docker-compose run php drupal cache:rebuild all
+	docker-compose run --rm php drush cim -y --partial --source=modules/custom/custom_move_mil_menus/config/install/
+	docker-compose run --rm php drupal cache:rebuild all
 
 composer:
 	@echo "Installing dependencies"
-	docker-compose run php composer install --prefer-source
+	docker-compose run --rm php composer install --prefer-source
 
 cr:
 	@echo "Clearing Drupal Caches"
-	docker-compose run php drupal cache:rebuild all
+	docker-compose run --rm php drupal cache:rebuild all
 
 logs:
 	@echo "Displaying past containers logs"
@@ -75,15 +75,15 @@ logsf:
 
 parser:
 	@echo "Parsing move.mil office locations data to Drupal content."
-	docker-compose run php drupal parser
+	docker-compose run --rm php drupal parser
 
 dbclient:
 	@echo "Opening Move.mil DB client"
-	docker-compose run php drupal database:client
+	docker-compose run --rm php drupal database:client
 
 tools:
 	@echo "Building our custom ReactJS tools"
 	@cd ./web/modules/custom/react_tools/tools/; npm install && npm run build
 
 	@echo "Clearing Drupal Caches"
-	@docker-compose run php drupal cache:rebuild all
+	@docker-compose run --rm php drupal cache:rebuild all

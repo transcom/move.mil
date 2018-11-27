@@ -15,6 +15,7 @@ module:
   config: 0
   contact: 0
   contextual: 0
+  ctools: 0
   custom_move_mil_menus: 0
   datetime: 0
   dynamic_page_cache: 0
@@ -38,6 +39,13 @@ module:
   options: 0
   page_cache: 0
   parser: 0
+  password_policy: 0
+  password_policy_character_types: 0
+  password_policy_characters: 0
+  password_policy_consecutive: 0
+  password_policy_history: 0
+  password_policy_length: 0
+  password_policy_username: 0
   path: 0
   quickedit: 0
   rdf: 0
