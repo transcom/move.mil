@@ -1,0 +1,23 @@
+uuid: b728c1f6-93d7-4b7d-a4f1-5ca0539a1747
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_document_id
+    - node.type.sme_document
+id: node.sme_document.field_document_id
+field_name: field_document_id
+entity_type: node
+bundle: sme_document
+label: 'Document ID'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: 0
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

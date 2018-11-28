@@ -1,0 +1,29 @@
+uuid: 10ab9d81-3ddb-45b3-87c4-4020c36c950d
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.sme-sections
+  module:
+    - system
+  theme:
+    - move_mil
+id: smesections
+theme: move_mil
+region: sidebar_first
+weight: 0
+provider: null
+plugin: 'system_menu_block:sme-sections'
+settings:
+  id: 'system_menu_block:sme-sections'
+  label: 'SME Sections'
+  provider: system
+  label_display: visible
+  level: 1
+  depth: 0
+visibility:
+  request_path:
+    id: request_path
+    pages: /sme-page
+    negate: false
+    context_mapping: {  }

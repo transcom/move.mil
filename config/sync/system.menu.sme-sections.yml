@@ -1,0 +1,8 @@
+uuid: e0ad8d36-c941-43e1-9693-14899c99711e
+langcode: en
+status: true
+dependencies: {  }
+id: sme-sections
+label: 'SME Sections'
+description: 'Used in the sidebar of the SME page to serve as jumplinks.'
+locked: false
