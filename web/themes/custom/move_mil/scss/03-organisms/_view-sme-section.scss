@@ -1,0 +1,27 @@
+.view-sme-section {
+  ul.document-list {
+    list-style: none;
+    padding-left: 0;
+    margin-left: 0;
+    li.document-item {
+      margin-bottom: 1.5rem;
+
+      .node--type-sme-document {
+        display: flex;
+        justify-content: space-between;
+
+        .field--name-field-document-id {
+          flex: 0 0 75px;
+        }
+
+        .doc-link-size-wrapper {
+          flex-grow: 1;
+
+          &:first-child {
+            padding-left: 75px;
+          }
+        }
+      }
+    }
+  }
+}

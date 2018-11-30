@@ -13,5 +13,6 @@
    $node = $variables['node'];
    $file = $node->get('field_document_file')->entity;
    $size = $file->getSize();
-   $variables['filesize'] = format_size($size);
+   $variables['file_url'] = file_create_url($file->getFileUri());
+   $variables['file_size'] = format_size($size);
  }
