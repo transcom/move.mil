@@ -84,15 +84,16 @@
 {{ attach_library('classy/node') }}
 <article{{ attributes.addClass(classes) }}>
 
-  <div class="document-link">
+  {{ content.field_document_id }}
+
+  <div class="doc-link-size-wrapper">
     <h3{{ title_attributes }}>
-      <a href="{{ file_url(content.field_document_file[0]['#file'].uri.value) }}" title="Download file">{{ label }}</a>
+      <a class="document-link" href="{{ file_url(content.field_document_file[0]['#file'].uri.value) }}" title="Download file">{{ label }}</a>
+      <span class="file-size">[{{ filesize }}]</span>
+        <!-- [{{ content.field_document_file[0]['#file'].filesize.value|number_format ~ ' bytes'|t }}] -->
     </h3>
   </div>
 
-  {{ content|without('field_document_file') }}
-  <div class="file-size">
-    <span class="field-label">File Size: </span><span class="field-value">{{ content.field_document_file[0]['#file'].filesize.value|number_format ~ ' bytes'|t }}</span>
-  </div>
+  {{ content.field_document_updated_date }}
 
 </article>
