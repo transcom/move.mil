@@ -1,0 +1,30 @@
+uuid: fc3f997b-fffb-43e8-b765-c51368c4954f
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.sme_section
+  module:
+    - system
+    - views
+  theme:
+    - move_mil
+id: sme_non_temporary_storage
+theme: move_mil
+region: content
+weight: 0
+provider: null
+plugin: 'views_block:sme_section-block_4'
+settings:
+  id: 'views_block:sme_section-block_4'
+  label: ''
+  provider: views
+  label_display: visible
+  views_label: ''
+  items_per_page: none
+visibility:
+  request_path:
+    id: request_path
+    pages: /sme-page
+    negate: false
+    context_mapping: {  }

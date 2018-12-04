@@ -1,0 +1,29 @@
+uuid: 5df0b2c1-abb9-4eb4-9d2b-86fc3de05d49
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_sme_section
+    - node.type.sme_document
+    - taxonomy.vocabulary.sme_section
+id: node.sme_document.field_sme_section
+field_name: field_sme_section
+entity_type: node
+bundle: sme_document
+label: 'SME Section'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      sme_section: sme_section
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

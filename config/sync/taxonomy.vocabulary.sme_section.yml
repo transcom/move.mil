@@ -1,0 +1,9 @@
+uuid: 83d95d9c-15a7-448f-9b38-3c30bfd1f370
+langcode: en
+status: true
+dependencies: {  }
+name: 'SME Section'
+vid: sme_section
+description: 'Category of document for use on SME page'
+hierarchy: 0
+weight: 0

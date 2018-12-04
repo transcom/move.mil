@@ -192,7 +192,7 @@
             "version": "4.5.7",
             "dist": {
                 "type": "zip",
-                "url": "http://download.ckeditor.com/templates/releases/templates_4.5.7.zip",
+                "url": "https://download.cksource.com/CKEditor/CKEditor/CKEditor%204.5.7/ckeditor_4.5.7_full.zip",
                 "reference": "master",
                 "shasum": null
             },
