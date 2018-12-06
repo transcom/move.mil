@@ -11,7 +11,7 @@ entity_type: node
 type: file
 settings:
   display_field: true
-  display_default: false
+  display_default: true
   uri_scheme: public
   target_type: file
 module: file

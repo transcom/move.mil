@@ -1,4 +1,4 @@
-uuid: d026c9a1-b9fb-46ed-b22b-ad831eed356c
+uuid: 7df5dce5-772c-44f5-a410-a2bceca5ca4f
 langcode: en
 status: true
 dependencies:
@@ -7,10 +7,11 @@ dependencies:
 id: node.field_document_id
 field_name: field_document_id
 entity_type: node
-type: integer
+type: string
 settings:
-  unsigned: false
-  size: normal
+  max_length: 30
+  is_ascii: false
+  case_sensitive: false
 module: core
 locked: false
 cardinality: 1

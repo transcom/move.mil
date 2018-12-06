@@ -28,22 +28,21 @@ content:
       use_description_as_link_text: true
     third_party_settings: {  }
   field_document_id:
-    type: number_integer
+    type: string
     weight: 0
     region: content
-    label: inline
+    label: hidden
     settings:
-      thousand_separator: ''
-      prefix_suffix: true
+      link_to_entity: false
     third_party_settings: {  }
   field_document_updated_date:
-    type: datetime_default
+    type: datetime_custom
     weight: 1
     region: content
-    label: inline
+    label: hidden
     settings:
-      format_type: medium
       timezone_override: ''
+      date_format: j/n/Y
     third_party_settings: {  }
 hidden:
   field_document_archive_date: true
