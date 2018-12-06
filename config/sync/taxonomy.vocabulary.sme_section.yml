@@ -1,9 +1,9 @@
-uuid: 83d95d9c-15a7-448f-9b38-3c30bfd1f370
+uuid: 1be586ac-7f8d-4139-8e11-b1601173cf18
 langcode: en
 status: true
 dependencies: {  }
 name: 'SME Section'
 vid: sme_section
-description: 'Category of document for use on SME page'
+description: 'Category of document for use on SME and POV pages'
 hierarchy: 0
 weight: 0
