@@ -139,6 +139,13 @@ main_menu.service-specific-information:
   parent: main_menu.moving_guide
   weight: 12
 
+main_menu.pov:
+  title: 'Privately Owned Vehicles (POVs)'
+  url: 'internal:/pov'
+  menu_name: main_menu
+  parent: main_menu.moving_guide
+  weight: 13
+
 ### Tools & Resources Subnav ###
 main_menu.links:
   title: 'Helpful Links'
