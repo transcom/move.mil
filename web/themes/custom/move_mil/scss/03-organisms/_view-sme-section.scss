@@ -3,6 +3,7 @@
     list-style: none;
     padding-left: 0;
     margin-left: 0;
+
     li.document-item {
       margin-bottom: 1.5rem;
 
@@ -12,6 +13,10 @@
 
         .field--name-field-document-id {
           flex: 0 0 75px;
+
+          @include media($medium-screen) {
+            flex: 0 0 100px;
+          }
         }
 
         .doc-link-size-wrapper {
@@ -20,6 +25,10 @@
           &:first-child {
             padding-left: 75px;
           }
+        }
+
+        .edit-item {
+          @include h6();
         }
       }
     }
