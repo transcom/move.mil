@@ -67,7 +67,7 @@ display:
           id: 0
           total_pages: null
           tags:
-            previous: '‹ Previous'
+            previous: '‹ Prev'
             next: 'Next ›'
             first: '« First'
             last: 'Last »'
@@ -373,7 +373,7 @@ display:
           id: 0
           total_pages: null
           tags:
-            previous: '‹ Previous'
+            previous: '‹ Prev'
             next: 'Next ›'
             first: '« First'
             last: 'Last »'

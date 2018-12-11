@@ -89,6 +89,11 @@
   <div class="doc-link-size-wrapper">
     <a class="document-link" href="{{ file_url }}" title="Download file">{{ label.0 }}</a>
     <span class="file-size">[{{ file_size }}]</span>
+    {% if logged_in %}
+      <span class="edit-item">
+        (<a href="{{ drupal_url('node/' ~ node.id ~ '/edit') }}" target="_blank">{{ 'Edit'|t }}</a>)
+      </span>
+    {% endif %}
   </div>
 
   {{ content.field_document_updated_date }}
