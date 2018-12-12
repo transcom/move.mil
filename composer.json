@@ -106,6 +106,9 @@
         "patches": {
             "drupal/node_class": {
                 "Fixes https://www.drupal.org/project/node_class/issues/2907451": "https://www.drupal.org/files/issues/2018-03-10/undefined_offset-2907451-3_0.patch"
+            },
+            "drupal/password_policy": {
+                "Fixes config sync issue mentioned in https://www.drupal.org/project/password_policy/issues/2771129": "https://www.drupal.org/files/issues/2018-07-30/password_policy-config_import_field_error-2771129-57.patch"
             }
         }
     }
