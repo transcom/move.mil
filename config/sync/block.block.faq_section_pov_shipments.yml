@@ -1,0 +1,38 @@
+uuid: 06d2c4af-cf0e-48e9-84b1-15fd79c0ccb4
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.faqs
+  module:
+    - node
+    - system
+    - views
+  theme:
+    - move_mil
+id: faq_section_pov_shipments
+theme: move_mil
+region: content
+weight: -10
+provider: null
+plugin: 'views_block:faqs-block_9'
+settings:
+  id: 'views_block:faqs-block_9'
+  label: ''
+  provider: views
+  label_display: visible
+  views_label: ''
+  items_per_page: none
+visibility:
+  node_type:
+    id: node_type
+    bundles:
+      page: page
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+  request_path:
+    id: request_path
+    pages: "/faqs\r\n/pov"
+    negate: false
+    context_mapping: {  }
