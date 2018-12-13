@@ -29,6 +29,10 @@ class Results extends Component {
         }
     }
 
+    handlePrint = (e) =>{
+        window.print();
+    }
+
     render() {
         this.rank_dependents = this.props.isDependencies ? `${this.props.rank} with dependents.` : `${this.props.rank} without dependents.`;
         this.sumlineClass = this.props.isDependencies ? '' : 'sum-line';
@@ -44,11 +48,23 @@ class Results extends Component {
 
         return (
             <div className="results">
-                <div className="title">Your PPM Incentive Estimate:</div>
-                <div>
-                    From: <span className="bold"> {this.props.results.locations.origin.address} </span> 
-                    to <span className="bold"> {this.props.results.locations.destination.address} </span>
+
+                <div className="flex-container">
+                    <div className="title flex-item">Your PPM Incentive Estimate:</div>
+                    <div className="flex-item half"></div>
                 </div>
+
+                <div className="flex-container">
+                    <div className="flex-item">
+                        <span>From:</span><span className="bold"> {this.props.results.locations.origin.address} </span><span>to</span> <span className="bold"> {this.props.results.locations.destination.address} </span>
+                    </div>
+                    <div className="flex-item half right-align">
+                        <div className="faux-link" onClick={(e)=>this.handlePrint()}>print</div>
+                    </div>
+                </div>
+
+
+
                 <ResultMap map={mapOptions}/>
                 <div className="details">
                     <div className="flex-container">
@@ -81,10 +97,10 @@ class Results extends Component {
                                 <div className="flex-item">
                                     Pro Gear
                                 </div>
-                                <div className="flex-item arithmatic-sign">
+                                <div className="flex-item half">
                                     {this.renderPlusSign()}
                                 </div>
-                                <div className="flex-item right-align small">
+                                <div className="flex-item right-align half">
                                     {this.props.results.weightOptions.proGear} lbs
                                 </div>
                             </div>
@@ -93,10 +109,10 @@ class Results extends Component {
                                 <div className="flex-item">
                                     TOTAL	
                                 </div>
-                                <div className="flex-item arithmatic-sign">
+                                <div className="flex-item half">
                                     =
                                 </div>
-                                <div className="flex-item right-align small">
+                                <div className="flex-item right-align half">
                                     {this.props.results.weightOptions.total} lbs
                                 </div>
                             </div>

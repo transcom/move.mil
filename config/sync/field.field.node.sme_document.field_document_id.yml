@@ -1,0 +1,19 @@
+uuid: 60a12890-a2e3-43f1-aa94-0d61f6616182
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_document_id
+    - node.type.sme_document
+id: node.sme_document.field_document_id
+field_name: field_document_id
+entity_type: node
+bundle: sme_document
+label: 'Document ID'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

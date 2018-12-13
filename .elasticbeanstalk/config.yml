@@ -1,0 +1,26 @@
+branch-defaults:
+  1.x-dev:
+    environment: staging
+  set_docker_env:
+    environment: move-mil-test
+  master:
+    environment: production
+environment-defaults:
+  production:
+    branch: null
+    repository: null
+  staging:
+    branch: null
+    repository: null
+global:
+  application_name: Move.mil
+  default_ec2_keyname: movemil-eb-stage
+  default_platform: PHP 7.1
+  default_region: us-east-1
+  include_git_submodules: true
+  instance_profile: movemil
+  platform_name: null
+  platform_version: null
+  profile: movemil
+  sc: git
+  workspace_type: Application

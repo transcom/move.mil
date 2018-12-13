@@ -87,3 +87,7 @@ tools:
 
 	@echo "Clearing Drupal Caches"
 	@docker-compose run php drupal cache:rebuild all
+
+updatedb:
+	@echo "Updating DB schema to match with Drupal's core and modules updates."
+	@docker-compose run php drush updatedb

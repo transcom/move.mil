@@ -1,0 +1,21 @@
+uuid: 63349cc1-7d0a-4ccb-8e3c-4bf3c0444b61
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_document_archive_date
+    - node.type.sme_document
+  module:
+    - datetime
+id: node.sme_document.field_document_archive_date
+field_name: field_document_archive_date
+entity_type: node
+bundle: sme_document
+label: 'Document Expiration/Archive Date'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

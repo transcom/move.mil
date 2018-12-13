@@ -1,0 +1,50 @@
+uuid: 78fc5763-8f22-4906-a820-a520b32e04fb
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.sme_document.field_document_archive_date
+    - field.field.node.sme_document.field_document_file
+    - field.field.node.sme_document.field_document_id
+    - field.field.node.sme_document.field_document_updated_date
+    - field.field.node.sme_document.field_sme_section
+    - node.type.sme_document
+  module:
+    - datetime
+    - file
+    - user
+id: node.sme_document.teaser
+targetEntityType: node
+bundle: sme_document
+mode: teaser
+content:
+  field_document_file:
+    type: file_default
+    weight: 2
+    region: content
+    label: hidden
+    settings:
+      use_description_as_link_text: true
+    third_party_settings: {  }
+  field_document_id:
+    type: string
+    weight: 0
+    region: content
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  field_document_updated_date:
+    type: datetime_custom
+    weight: 1
+    region: content
+    label: hidden
+    settings:
+      timezone_override: ''
+      date_format: j/n/Y
+    third_party_settings: {  }
+hidden:
+  field_document_archive_date: true
+  field_sme_section: true
+  links: true

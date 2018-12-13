@@ -1,0 +1,30 @@
+uuid: 620699ed-3e30-4efa-be10-d13af4aeba75
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.sme_section
+  module:
+    - system
+    - views
+  theme:
+    - move_mil
+id: sme_household_goods
+theme: move_mil
+region: content
+weight: -1
+provider: null
+plugin: 'views_block:sme_section-block_3'
+settings:
+  id: 'views_block:sme_section-block_3'
+  label: ''
+  provider: views
+  label_display: visible
+  views_label: ''
+  items_per_page: none
+visibility:
+  request_path:
+    id: request_path
+    pages: /sme
+    negate: false
+    context_mapping: {  }

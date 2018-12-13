@@ -10,7 +10,7 @@ dependencies:
 id: reactppmtoolblock
 theme: move_mil
 region: content
-weight: -1
+weight: -6
 provider: null
 plugin: react_ppm_tool_block
 settings:
