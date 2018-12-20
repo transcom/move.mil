@@ -10,7 +10,7 @@ dependencies:
 id: locatormapblock
 theme: move_mil
 region: content
-weight: -7
+weight: -5
 provider: null
 plugin: locator_map_block
 settings:
