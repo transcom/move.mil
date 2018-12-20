@@ -10,7 +10,7 @@ dependencies:
 id: reactweightestimatorblock
 theme: move_mil
 region: content
-weight: -7
+weight: -6
 provider: null
 plugin: react_weight_estimator_block
 settings:
