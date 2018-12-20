@@ -2386,7 +2386,7 @@ display:
   block_9:
     display_plugin: block
     id: block_9
-    display_title: 'FAQ Block - POV Shipments'
+    display_title: 'FAQ Block - POVs'
     position: 1
     display_options:
       display_extenders: {  }
@@ -2495,7 +2495,7 @@ display:
         operator: AND
         groups:
           1: AND
-      title: 'Privately Owned Vehicle (POV) Shipment FAQs'
+      title: 'Privately Owned Vehicles (POVs)'
     cache_metadata:
       max-age: -1
       contexts:
