@@ -33,6 +33,6 @@ visibility:
       node: '@node.node_route_context:node'
   request_path:
     id: request_path
-    pages: "/faqs\r\n/pov"
+    pages: /faqs
     negate: false
     context_mapping: {  }
