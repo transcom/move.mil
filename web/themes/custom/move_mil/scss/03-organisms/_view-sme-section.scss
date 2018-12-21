@@ -25,8 +25,8 @@
           flex-grow: 1;
           padding-right: 2rem;
 
-          &:first-child {
-            // padding-left: 75px;
+          &:only-child {
+            padding-left: 2rem;
           }
 
           .document-link {
@@ -68,6 +68,7 @@
         a {
           // background: $color-blue;
           color: $color-white;
+
           &:hover {
             cursor: default;
           }
