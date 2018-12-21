@@ -15,4 +15,5 @@
    $size = $file->getSize();
    $variables['file_url'] = file_create_url($file->getFileUri());
    $variables['file_size'] = format_size($size);
+   $variables['file_type'] = $file->getMimeType();
  }

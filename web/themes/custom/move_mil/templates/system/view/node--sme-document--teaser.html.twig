@@ -87,7 +87,7 @@
   {{ content.field_document_id }}
 
   <div class="doc-link-size-wrapper">
-    <a class="document-link" href="{{ file_url }}" title="Download file">{{ label.0 }}</a>
+    <a class="document-link" href="{{ file_url }}" title="View/Download {{ file_type|split('/')[1]|upper }} File">{{ label.0 }}</a>
     <span class="file-size">[{{ file_size }}]</span>
     {% if logged_in %}
       <span class="edit-item">
