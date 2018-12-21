@@ -42,7 +42,7 @@
   },
   "dependencies": {
     "autoprefixer": "^8.4.1",
-    "browserify": "^16.1.1",
+    "browserify": "^16.2.3",
     "chalk": "^2.3.2",
     "del": "^3.0.0",
     "gulp": "^4.0.0",
