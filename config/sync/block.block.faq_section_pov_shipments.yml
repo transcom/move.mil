@@ -13,7 +13,7 @@ dependencies:
 id: faq_section_pov_shipments
 theme: move_mil
 region: content
-weight: -10
+weight: -14
 provider: null
 plugin: 'views_block:faqs-block_9'
 settings:
@@ -33,6 +33,6 @@ visibility:
       node: '@node.node_route_context:node'
   request_path:
     id: request_path
-    pages: "/faqs\r\n/pov"
+    pages: /faqs
     negate: false
     context_mapping: {  }

@@ -1,22 +1,22 @@
-uuid: e9c74a6e-29bf-473e-bc8d-8736f0f5327a
+uuid: 08685d60-e808-47bf-adf9-85f684598cda
 langcode: en
 status: true
 dependencies:
   config:
-    - views.view.sme_section
+    - views.view.faqs
   module:
     - system
     - views
   theme:
     - move_mil
-id: sme_personal_property
+id: faq_section_inconvenience_claims
 theme: move_mil
 region: content
-weight: -2
+weight: -11
 provider: null
-plugin: 'views_block:sme_section-block_8'
+plugin: 'views_block:faqs-block_10'
 settings:
-  id: 'views_block:sme_section-block_8'
+  id: 'views_block:faqs-block_10'
   label: ''
   provider: views
   label_display: visible
@@ -25,6 +25,6 @@ settings:
 visibility:
   request_path:
     id: request_path
-    pages: /sme
+    pages: /faqs
     negate: false
     context_mapping: {  }
