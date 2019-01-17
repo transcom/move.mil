@@ -70,13 +70,6 @@ class XMLReader {
     }
     // Report locations parsed and updated.
     $locationsParsed = [];
-    // Get all telephone paragraphs.
-    $phone_paragraphs = $this->paragraphStorage
-      ->loadByProperties(['type' => 'location_telephone']);
-    $phones = [];
-    foreach ($phone_paragraphs as $phone) {
-      $phones[$phone->id()] = $phone;
-    }
     // Get XML offices to update on Drupal.
     $xml_offices = simplexml_load_file($xmlFile)->LIST_G_CNSL_ORG_ID->G_CNSL_ORG_ID;
     // Update each XML offices that is found in Drupal content.
@@ -88,7 +81,7 @@ class XMLReader {
           ->getStorage('node')
           ->loadByProperties([
             'type' => 'location',
-            'field_location_cnsl_id' => $xmlId,
+            'field_location_type' => 'Transportation Office',
           ]);
       }
       catch (InvalidPluginDefinitionException $ipde) {
@@ -97,7 +90,7 @@ class XMLReader {
       $location = current($locations);
       if (!empty($location)) {
         try {
-          $this->updateLocationPhones($location, $xml_office, $phones);
+//          $this->updateLocationPhones($location, $xml_office, $phones);
           $this->updateLocationAddress($location, $xml_office);
           $this->updateLocationEmails($location, $xml_office);
         }
