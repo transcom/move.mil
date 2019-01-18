@@ -51,8 +51,8 @@
         "drupal/twig_tweak": "^1.9",
         "drupal/uswds": "^1.0@beta",
         "drupal/wysiwyg_template": "^2.0",
-        "drush/drush": "^9.0.0",
-        "phpoffice/phpspreadsheet": "^1.2.1",
+        "drush/drush": "^9.4",
+        "phpoffice/phpspreadsheet": "^1.6",
         "vlucas/phpdotenv": "^2.4",
         "webflo/drupal-finder": "^1.0.0",
         "webmozart/path-util": "^2.3"
