@@ -1,0 +1,6 @@
+locations.manager_form:
+  title: 'Locations admin (Locator Maps tool data manager)'
+  route_name: locations.manager_form
+  description: 'Upload DoD XML file to create and update Drupal Locations entities to be used by the Locator Maps tool.'
+  parent: system.admin_config_system
+  weight: 99

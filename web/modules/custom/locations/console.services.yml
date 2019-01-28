@@ -1,0 +1,6 @@
+services:
+  locations.createlocations:
+    class: Drupal\locations\Command\CreateLocationsCommand
+    arguments: ['@locations.reader','@locations.writer']
+    tags:
+      - { name: drupal.command }

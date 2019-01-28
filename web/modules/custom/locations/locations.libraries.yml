@@ -1,0 +1,6 @@
+locations:
+  version: 1.x
+  js:
+    js/locations.js: {}
+  dependencies:
+    - core/jquery

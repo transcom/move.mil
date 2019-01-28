@@ -1,0 +1,7 @@
+services:
+  locations.reader:
+    class: Drupal\locations\Service\Reader
+    arguments: ['@entity_type.manager', '@logger.factory']
+  locations.writer:
+      class: Drupal\locations\Service\Writer
+      arguments: ['@database']

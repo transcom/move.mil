@@ -1,0 +1,8 @@
+description: 'Parses locations XML file and creates Drupal entities of type Location.'
+options:
+    file: 'The file name to parse'
+arguments: {}
+messages:
+    success: 'File parsed and stored.'
+questions:
+    file: 'Which is the file name to be parsed?'

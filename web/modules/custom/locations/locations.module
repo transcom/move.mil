@@ -1,0 +1,34 @@
+<?php
+
+/**
+ * @file
+ * Contains locations.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function locations_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the locations module.
+    case 'help.page.locations':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Upload DoD XML file to create and update Drupal Locations entities to be used by the Locator Maps tool.') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_help().
+ */
+function locations_page_attachments(array &$attachments) {
+  $route_name = \Drupal::routeMatch()->getRouteName();
+  if ($route_name == 'locations.manager_form') {
+    $attachments['#attached']['library'][] = 'locations/locations';
+  }
+}
