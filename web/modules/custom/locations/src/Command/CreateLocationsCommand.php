@@ -12,7 +12,7 @@ use Drupal\locations\Service\Writer;
 /**
  * Class CreateLocationsCommand.
  *
- * @DrupalCommand (
+ * @Drupal\Console\Annotations\DrupalCommand (
  *     extension="locations",
  *     extensionType="module"
  * )

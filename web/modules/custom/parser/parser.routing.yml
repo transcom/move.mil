@@ -96,3 +96,12 @@ parser.zipcodes_controller_table:
     _title: 'Zipcodes'
   requirements:
     _permission: 'administer site configuration'
+parser.files_and_tables_manager_form:
+  path: '/admin/config/parser/manager'
+  defaults:
+    _form: '\Drupal\parser\Form\FilesAndTablesManagerForm'
+    _title: 'Parser Manager'
+  requirements:
+    _permission: 'administer site configuration'
+  options:
+    _admin_route: TRUE
