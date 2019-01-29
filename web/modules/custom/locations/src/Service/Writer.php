@@ -34,7 +34,7 @@ class Writer {
   /**
    * Normalizes data then creates Location nodes.
    */
-  public function write(array $rawdata) {
+  public function writeFrom(array $xml) {
     $location_type = NULL;
     $error = '';
     foreach ($rawdata as $key => $file) {
@@ -156,6 +156,15 @@ class Writer {
     if ($error) {
       throw new \RuntimeException($error);
     }
+  }
+
+  /**
+   * Delete Location nodes that don't exist in the XML file.
+   */
+  public function deleteFrom(array $xml) {
+    $storageHandler = $this->etm->getStorage("node");
+    $nodeEntities = $storageHandler->loadMultiple($db_objs);
+    $storageHandler->delete($nodeEntities);
   }
 
   /**

@@ -105,15 +105,15 @@ class ManagerForm extends ConfigFormBase {
       '#markup' => '<p>' . $this->t('Manage the data used by the Locator Maps tool') . '</p>',
     ];
 
-    $form['update'] = [
+    $form['upload'] = [
       '#type' => 'details',
-      '#title' => $this->t('Update Locations'),
+      '#title' => $this->t('Upload Locations File'),
     ];
 
-    $form['update']['file'] = [
+    $form['upload']['file'] = [
       '#type' => 'managed_file',
       '#upload_location' => 'public://',
-      '#title' => $this->t('Locations'),
+      '#title' => $this->t('Locations file to upload'),
       '#upload_validators' => [
         'file_validate_extensions' => ['txt'],
         'file_validate_size' => [20000000],
@@ -126,7 +126,28 @@ class ManagerForm extends ConfigFormBase {
       '#url' => Url::fromRoute('view.content.page_1'),
     ];
 
-    return parent::buildForm($form, $form_state);
+    $form['actions']['#type'] = 'actions';
+
+    $form['actions']['submit'] = [
+      '#type' => 'submit',
+      '#value' => $this->t('Update Locations'),
+      '#button_type' => 'primary',
+    ];
+
+    $form['actions']['delete'] = array(
+      '#type' => 'submit',
+      '#value' => t('Delete old locations'),
+      '#submit' => array('::deleteOldLocations'),
+    );
+
+    $form['actions']['geolocation'] = array(
+      '#type' => 'submit',
+      '#value' => t('Fix/Add geolocation'),
+      '#submit' => array('::addGeolocation'),
+    );
+    // By default, render the form using system-config-form.html.twig.
+    $form['#theme'] = 'system_config_form';
+    return $form;
   }
 
   /**
@@ -134,52 +155,86 @@ class ManagerForm extends ConfigFormBase {
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
     parent::validateForm($form, $form_state);
-
+    if (stripos($form_state->getValue('op'), 'geolocation')) {
+      return;
+    }
+    // If the actions is 'update' or 'delete', verify we have a file uploaded.
+    $locations = $form_state->getValue('upload');
+    if (empty($locations['file'])) {
+      $form_state->setErrorByName(
+        'locations',
+        $this->t('Please add the file to upload.')
+      );
+    }
   }
 
   /**
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-
-    $groups = $form_state->getValues();
-    $action = NULL;
-
-    foreach ($groups as $key => $group) {
-      $continue = FALSE;
-      $read_info = '';
-
-      if ($continue == TRUE) {
-        continue;
-      }
-      $fid = array_key_exists(0, $group['file']) ? intval($group['file'][0]) : 0;
-      $this->execute($fid, $key);
+    $locations = $form_state->getValue('upload');
+    $fid = 0;
+    if (array_key_exists(0, $locations['file'])) {
+      $fid = intval($locations['file'][0]);
     }
+    $this->updateLocations($fid);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function deleteOldLocations(array &$form, FormStateInterface $form_state) {
+    if (empty($fid)) {
+      $this->messenger()->addError('Empty file.');
+      return;
+    }
+    try {
+      $file = $this->entity->getStorage('file')->load($fid);
+      $stream_wrapper_manager = $this->swm->getViaUri($file->getFileUri());
+      $xml = $this->reader->parse($stream_wrapper_manager->realpath());
+      $this->writer->deleteFrom($xml);
+      $this->messenger()->addMessage('Old locations deleted.');
+    }
+    catch (\Exception $e) {
+      $this->messenger()
+        ->addError('Exception on file, ' . $e->getMessage());
+    }
+    catch (\TypeError $e) {
+      $this->messenger()
+        ->addError('Error on file, ' . $e->getMessage());
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function addGeolocation() {
+    $this->messenger()
+      ->addMessage('Geolocation added/fixed on Drupal Locations');
   }
 
   /**
    * Checks FID, reads the content, executes actions on Drupal locations.
    */
-  protected function execute($fid, $key) {
-    if ($fid != 0) {
-      try {
-        $file = $this->entity->getStorage('file')->load($fid);
-        $uri = $file->getFileUri();
-        $stream_wrapper_manager = $this->swm->getViaUri($uri);
-        $file_path = $stream_wrapper_manager->realpath();
-        $rawdata = $this->reader->parse($file_path);
-        $this->writer->write($rawdata);
-
-        $this->messenger()->addMessage("Locations " . $key . "d");
-      }
-      catch (\Exception $e) {
-        $this->messenger()
-          ->addError('Exception on file, ' . $e->getMessage());
-      }
-      catch (\TypeError $e) {
-        $this->messenger()
-          ->addError('Error on file, ' . $e->getMessage());
-      }
+  protected function updateLocations($fid) {
+    if (empty($fid)) {
+      $this->messenger()->addError('Empty file.');
+      return;
+    }
+    try {
+      $file = $this->entity->getStorage('file')->load($fid);
+      $stream_wrapper_manager = $this->swm->getViaUri($file->getFileUri());
+      $xml = $this->reader->parse($stream_wrapper_manager->realpath());
+      $this->writer->writeFrom($xml);
+      $this->messenger()->addMessage('Locations updated.');
+    }
+    catch (\Exception $e) {
+      $this->messenger()
+        ->addError('Exception on file, ' . $e->getMessage());
+    }
+    catch (\TypeError $e) {
+      $this->messenger()
+        ->addError('Error on file, ' . $e->getMessage());
     }
   }
 
