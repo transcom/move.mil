@@ -361,6 +361,7 @@ display:
         filters: false
         filter_groups: false
         pager: false
+        sorts: false
       filter_groups:
         operator: AND
         groups:
@@ -386,6 +387,32 @@ display:
             offset: false
             offset_label: Offset
           quantity: 5
+      sorts:
+        field_document_updated_date_value:
+          id: field_document_updated_date_value
+          table: node__field_document_updated_date
+          field: field_document_updated_date_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          order: DESC
+          exposed: false
+          expose:
+            label: ''
+          granularity: minute
+          plugin_id: datetime
+        field_document_id_value:
+          id: field_document_id_value
+          table: node__field_document_id
+          field: field_document_id_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          order: DESC
+          exposed: false
+          expose:
+            label: ''
+          plugin_id: standard
     cache_metadata:
       max-age: -1
       contexts:
@@ -2171,11 +2198,38 @@ display:
       defaults:
         filters: false
         filter_groups: false
+        sorts: false
       filter_groups:
         operator: AND
         groups:
           1: AND
       enabled: false
+      sorts:
+        field_document_updated_date_value:
+          id: field_document_updated_date_value
+          table: node__field_document_updated_date
+          field: field_document_updated_date_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          order: DESC
+          exposed: false
+          expose:
+            label: ''
+          granularity: minute
+          plugin_id: datetime
+        field_document_id_value:
+          id: field_document_id_value
+          table: node__field_document_id
+          field: field_document_id_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          order: DESC
+          exposed: false
+          expose:
+            label: ''
+          plugin_id: standard
     cache_metadata:
       max-age: -1
       contexts:
