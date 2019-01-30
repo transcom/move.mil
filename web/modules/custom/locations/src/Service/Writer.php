@@ -2,8 +2,14 @@
 
 namespace Drupal\locations\Service;
 
+use Drupal\Component\Plugin\Exception\PluginNotFoundException;
+use Drupal\Core\Entity\EntityStorageException;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Logger\LoggerChannelFactory;
 use Drupal\node\Entity\Node;
-use Drupal\Core\Database\Connection;
+use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use SimpleXMLElement;
 
 /**
  * Class Writer.
@@ -12,14 +18,22 @@ use Drupal\Core\Database\Connection;
  */
 class Writer {
 
-  protected $entity;
-  protected $db;
+  protected $entityTypeManager;
+  protected $loggerFactory;
 
   /**
    * Writer constructor.
+   *
+   * Needed for the EntityTypeManager dependency injection.
+   *
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
+   *   The entity type manager interface.
+   * @param \Drupal\Core\Logger\LoggerChannelFactory $loggerFactory
+   *   The logger channel factory.
    */
-  public function __construct(Connection $db) {
-    $this->db = $db;
+  public function __construct(EntityTypeManagerInterface $entityTypeManager, LoggerChannelFactory $loggerFactory) {
+    $this->entityTypeManager = $entityTypeManager;
+    $this->loggerFactory = $loggerFactory;
   }
 
   /**
@@ -27,162 +41,120 @@ class Writer {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('database')
+      $container->get('entity_type.manager'),
+      $container->get('logger.factory')
     );
   }
 
   /**
    * Normalizes data then creates Location nodes.
+   *
+   * @param \SimpleXMLElement $xml_offices
+   *   XML location offices.
+   *
+   * @throws \Exception
    */
-  public function writeFrom(array $xml) {
-    $location_type = NULL;
-    $error = '';
-    foreach ($rawdata as $key => $file) {
-      switch ($key) {
-        case 0:
-          $query_term = 'Shipping Office';
-          break;
-
-        case 1:
-          $query_term = 'Transportation Office';
-          break;
-
-        case 2:
-          $query_term = 'Weight Scale';
-          break;
-
-        default:
-          throw new \RuntimeException(sprintf('Unknown file key ["%s"].', $key));
+  public function writeFrom(SimpleXMLElement $xml_offices) {
+    // Report locations parsed.
+    $locationsUpdated = [];
+    $locationsCreated = [];
+    // Update each XML offices that is found in Drupal content.
+    foreach ($xml_offices as $xml_office) {
+      $xmlId = (string) $xml_office->CNSL_ORG_ID1;
+      $location = $this->getDrupalLocationByCnslId($xmlId);
+      if (!empty($location)) {
+        $this->updateDrupalLocation($location, $xmlId, $xml_office);
+        $locationsUpdated[] = $location->toUrl()->setAbsolute()->toString();
       }
-
-      $location_type = $this->db
-        ->select('taxonomy_term_field_data', 't')
-        ->fields('t', ['tid'])
-        ->condition('name', $query_term, '=')
-        ->execute()
-        ->fetchField();
-
-      if (!$this->isEmpty($location_type)) {
-        $error .= "{$query_term} file is already parsed. Remove all Location nodes and try again." . PHP_EOL;
-        continue;
-      }
-
-      foreach (json_decode($file) as $obj) {
-        $node_ref = (property_exists($obj, 'shipping_office_name')) &&
-        ($obj->shipping_office_name != NULL) ?
-          $this->db
-            ->select('node_field_data', 'n')
-            ->fields('n', ['nid'])
-            ->condition('title', $obj->shipping_office_name, '=')
-            ->execute()
-            ->fetchField() : NULL;
-
-        $emails = property_exists($obj, 'email_addresses') ?
-            array_map(function ($mail) {
-              return $mail->email_address;
-            }, $obj->email_addresses) : NULL;
-
-        $urls = NULL;
-        if (property_exists($obj, 'urls')) {
-          if (is_array($obj->urls)) {
-            $urls = array_map(function ($links) {
-              return ['uri' => $links->url, 'title' => ''];
-            }, $obj->urls);
-          }
-          else {
-            $urls = $obj->urls->url;
-          }
-        }
-
-        $phone_numbers = NULL;
-        if (property_exists($obj, 'phone_numbers')) {
-          if (is_array($obj->phone_numbers)) {
-            $phone_numbers = array_map(function ($phone) {
-                return Paragraph::create([
-                  'type' => 'location_telephone',
-                  'field_dsn' => $phone->dsn,
-                  'field_phonenumber' => $phone->phone_number,
-                  'field_type' => $phone->phone_type,
-                ]);
-            }, $obj->phone_numbers);
-          }
-          else {
-            $phone_numbers = Paragraph::create([
-              'type' => 'location_telephone',
-              'field_dsn' => $obj->phone_numbers->dsn,
-              'field_phonenumber' => $obj->phone_numbers->phone_number,
-              'field_type' => $obj->phone_numbers->phone_type,
-            ]);
-          }
-        }
-
-        $hours = property_exists($obj, 'hours') ? $obj->hours : NULL;
-        $note = property_exists($obj, 'note') ? $obj->note : NULL;
-        $services = property_exists($obj, 'services') ? $obj->services : NULL;
-
-        $node = Node::create([
-          'title'                     => $obj->name,
-          'type'                      => 'location',
-          'field_geolocation'         => [
-            'lat' => $obj->location->latitude,
-            'lng' => $obj->location->longitude,
-          ],
-          'field_location_address'    => [
-            'country_code' => $obj->location->country_code,
-            'address_line1' => $obj->location->street_address,
-            'address_line2' => $obj->location->extended_address,
-            'locality' => $obj->location->locality,
-            'administrative_area' => $obj->location->region_code,
-            'postal_code' => $obj->location->postal_code,
-          ],
-          'field_location_email'      => $emails,
-          'field_location_hours'      => $hours,
-          'field_location_link'       => $urls,
-          'field_location_note'       => $note ,
-          'field_location_reference'  => [
-            'target_id' => $node_ref,
-            'target_type' => "node",
-          ],
-          'field_location_services'   => $services ,
-          'field_location_telephone'  => $phone_numbers,
-          'field_location_type'       => [
-            'target_id' => $location_type,
-            'target_type' => "taxonomy_term",
-          ],
-        ]);
-        $node->save();
+      else {
+        $location = $this->createDrupalLocation($xmlId, $xml_office);
+        $locationsCreated[] = $location->toUrl()->setAbsolute()->toString();
       }
     }
-    if ($error) {
-      throw new \RuntimeException($error);
-    }
+    $this->loggerFactory
+      ->get('locations')
+      ->notice(count($locationsUpdated) . ' locations parsed and updated: ' . implode(', ', $locationsUpdated));
+    $this->loggerFactory
+      ->get('locations')
+      ->notice(count($locationsCreated) . ' locations parsed and updated: ' . implode(', ', $locationsCreated));
   }
 
   /**
    * Delete Location nodes that don't exist in the XML file.
    */
-  public function deleteFrom(array $xml) {
-    $storageHandler = $this->etm->getStorage("node");
+  public function deleteFrom(SimpleXMLElement $xml) {
+    try {
+      $storageHandler = $this->entityTypeManager->getStorage('node');
+    }
+    catch (InvalidPluginDefinitionException $e) {
+    }
+    catch (PluginNotFoundException $e) {
+    }
     $nodeEntities = $storageHandler->loadMultiple($db_objs);
     $storageHandler->delete($nodeEntities);
   }
 
   /**
-   * {@inheritdoc}
+   * Get Drupal location by its CNSL id.
+   *
+   * @param string $id
+   *   The CNSL id to look in Drupal.
+   *
+   * @return \Drupal\node\Entity\Node
+   *   The node found with CNSL id or NULL.
+   *
+   * @throws \Exception
    */
-  protected function isEmpty($location_type) {
-    $db_objs = $this->db
-      ->select('node__field_location_type', 'n')
-      ->fields('n')
-      ->condition('n.bundle', 'location', '=')
-      ->condition('n.field_location_type_target_id', $location_type, '=')
-      ->execute()
-      ->fetchAll();
-
-    if (count($db_objs) > 0) {
-      return FALSE;
+  public function getDrupalLocationByCnslId($id) {
+    // Get all location entity.
+    try {
+      $locations = $this->entityTypeManager
+        ->getStorage('node')
+        ->loadByProperties([
+          'type' => 'location',
+          'field_location_cnsl_id' => $id,
+        ]);
     }
-    return TRUE;
+    catch (InvalidPluginDefinitionException $ipde) {
+      throw new \Exception('Exception on location node, ' . $ipde->getMessage());
+    }
+    return current($locations);
+  }
+
+  /**
+   * Update existing Drupal location.
+   *
+   * @param \Drupal\node\Entity\Node $location
+   *   The Drupal location to update.
+   * @param string $id
+   *   The CNSL id.
+   * @param \SimpleXMLElement $xml_office
+   *   The source data from XML office.
+   *
+   * @throws \Exception
+   */
+  private function updateDrupalLocation(Node $location, $id, SimpleXMLElement $xml_office) {
+    $location = [];
+    $location['phones'] = $this->updateLocationPhones($location, $xml_office);
+    $location['address'] = $this->updateLocationAddress($location, $xml_office);
+    $location['email'] = $this->updateLocationEmails($location, $xml_office);
+  }
+
+  /**
+   * Update existing Drupal location.
+   *
+   * @param string $id
+   *   The CNSL id.
+   * @param \SimpleXMLElement $xml_office
+   *   The source data from XML office.
+   *
+   * @return \Drupal\node\Entity\Node
+   *   The Drupal location created.
+   *
+   * @throws \Exception
+   */
+  private function createDrupalLocation($id, $xml_office) {
+  
   }
 
 }

@@ -171,19 +171,26 @@ class ManagerForm extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
-  public function submitForm(array &$form, FormStateInterface $form_state) {
+  public function getFileId(FormStateInterface $form_state) {
     $locations = $form_state->getValue('upload');
-    $fid = 0;
     if (array_key_exists(0, $locations['file'])) {
-      $fid = intval($locations['file'][0]);
+      return intval($locations['file'][0]);
     }
-    $this->updateLocations($fid);
+    return 0;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function submitForm(array &$form, FormStateInterface $form_state) {
+    $this->updateLocations($this->getFileId($form_state));
   }
 
   /**
    * {@inheritdoc}
    */
   public function deleteOldLocations(array &$form, FormStateInterface $form_state) {
+    $fid = $this->updateLocations($this->getFileId($form_state));
     if (empty($fid)) {
       $this->messenger()->addError('Empty file.');
       return;
@@ -195,13 +202,13 @@ class ManagerForm extends ConfigFormBase {
       $this->writer->deleteFrom($xml);
       $this->messenger()->addMessage('Old locations deleted.');
     }
-    catch (\Exception $e) {
-      $this->messenger()
-        ->addError('Exception on file, ' . $e->getMessage());
-    }
     catch (\TypeError $e) {
       $this->messenger()
         ->addError('Error on file, ' . $e->getMessage());
+    }
+    catch (\Exception $e) {
+      $this->messenger()
+        ->addError('Exception on file, ' . $e->getMessage());
     }
   }
 
