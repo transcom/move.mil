@@ -1,5 +1,6 @@
-description: 'Drupal Console generated command.'
-options: {}
+description: 'Remove drupal entities. DB index will not be truncated'
+options:
+    type: 'Location type to delete (Transportation Office / Shipping Office / Weight Scale)'
 arguments: {}
 messages:
     success: 'I am a new generated command.'
