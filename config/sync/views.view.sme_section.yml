@@ -1937,7 +1937,7 @@ display:
     display_options:
       display_extenders: {  }
       display_description: ''
-      title: 'Personal Property'
+      title: 'Defense Personal Property Program Business Rules'
       defaults:
         title: false
         filters: false
