@@ -219,15 +219,24 @@ display:
             label: ''
           granularity: minute
           plugin_id: datetime
+        title:
+          id: title
+          table: node_field_data
+          field: title
+          relationship: none
+          group_type: group
+          admin_label: ''
+          order: ASC
+          exposed: false
+          expose:
+            label: ''
+          entity_type: node
+          entity_field: title
+          plugin_id: standard
       title: Advisories
       header: {  }
       footer: {  }
-      empty:
-        area:
-          id: area
-          table: views
-          field: area
-          plugin_id: text
+      empty: {  }
       relationships: {  }
       arguments: {  }
       display_extenders: {  }
@@ -1784,6 +1793,7 @@ display:
         operator: AND
         groups:
           1: AND
+      block_hide_empty: true
     cache_metadata:
       max-age: -1
       contexts:
@@ -1937,7 +1947,7 @@ display:
     display_options:
       display_extenders: {  }
       display_description: ''
-      title: 'Personal Property'
+      title: 'Defense Personal Property Program Business Rules'
       defaults:
         title: false
         filters: false
@@ -2069,6 +2079,20 @@ display:
             label: ''
           granularity: minute
           plugin_id: datetime
+        title:
+          id: title
+          table: node_field_revision
+          field: title
+          relationship: none
+          group_type: group
+          admin_label: ''
+          order: ASC
+          exposed: false
+          expose:
+            label: ''
+          entity_type: node
+          entity_field: title
+          plugin_id: standard
     cache_metadata:
       max-age: -1
       contexts:
