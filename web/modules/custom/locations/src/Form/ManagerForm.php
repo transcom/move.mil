@@ -33,13 +33,6 @@ class ManagerForm extends ConfigFormBase {
   protected $entity;
 
   /**
-   * Variables containing the databaseWriter service.
-   *
-   * @var \Drupal\locations\Service\Writer
-   */
-  protected $writer;
-
-  /**
    * Variables containing the Reader service.
    *
    * @var \Drupal\locations\Service\Reader
@@ -61,13 +54,11 @@ class ManagerForm extends ConfigFormBase {
   public function __construct(ConfigFactoryInterface $config_factory,
                               Connection $db,
                               EntityTypeManager $entity,
-                              Writer $writer,
                               Reader $reader,
                               StreamWrapperManager $swm) {
     parent::__construct($config_factory);
     $this->db = $db;
     $this->entity = $entity;
-    $this->writer = $writer;
     $this->reader = $reader;
     $this->swm = $swm;
   }
@@ -80,7 +71,6 @@ class ManagerForm extends ConfigFormBase {
       $container->get('config.factory'),
       $container->get('database'),
       $container->get('entity_type.manager'),
-      $container->get('locations.writer'),
       $container->get('locations.reader'),
       $container->get('stream_wrapper_manager')
     );
@@ -151,9 +141,6 @@ class ManagerForm extends ConfigFormBase {
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
     parent::validateForm($form, $form_state);
-    if (stripos($form_state->getValue('op'), 'geolocation')) {
-      return;
-    }
     // If the actions is 'update' or 'delete', verify we have a file uploaded.
     $locations = $form_state->getValue('upload');
     if (empty($locations['file'])) {
@@ -188,7 +175,9 @@ class ManagerForm extends ConfigFormBase {
       $file = $this->entity->getStorage('file')->load($fid);
       $stream_wrapper_manager = $this->swm->getViaUri($file->getFileUri());
       $filePath = $stream_wrapper_manager->realpath();
-      $this->updateLocations($filePath);
+      $xml = $this->reader->parse($filePath);
+      $this->updateLocations($xml);
+      $this->deleteOldLocations($xml);
     }
     catch (\Exception $e) {
       $this->messenger()->addError('Error: ' . $e->getMessage());
@@ -197,19 +186,35 @@ class ManagerForm extends ConfigFormBase {
 
   /**
    * Reads the content, executes actions on Drupal locations.
-   *
-   * @throws \Exception
    */
-  protected function updateLocations($filePath) {
-    $batchSize = 50;
+  protected function updateLocations($xmlOffices) {
     $batch = [
       'title' => 'Updating Drupal Locations...',
+      'operations' => [],
+      'progress_message' => 'Updated @current out of @total locations. @elapsed',
+      'error_message'    => 'An error occurred during processing',
+      'finished' => '\Drupal\locations\Service\Writer::finishedCallback',
+    ];
+    foreach ($xmlOffices as $office) {
+      $batch['operations'][] = ['\Drupal\locations\Service\Writer::update', [$office]];
+    }
+    batch_set($batch);
+  }
+
+  /**
+   * Deletes Drupal locations not present in XML file.
+   */
+  protected function deleteOldLocations($xmlOffices) {
+    $batchSize = 50;
+    $batch = [
+      'title' => 'Deleting Drupal Locations not present in XML file...',
       'operations' => [
-        ['\Drupal\locations\Service\Reader::parse', [$filePath]],
-        ['\Drupal\locations\Service\Writer::update', [$batchSize]],
-        ['\Drupal\locations\Service\Writer::deleteLocations', [$batchSize]],
+        [
+          '\Drupal\locations\Service\Writer::deleteLocations',
+          [$batchSize, $xmlOffices],
+        ],
       ],
-      'progress_message' => 'Processed @current out of @total operations.',
+      'progress_message' => 'Deleting old locations: @percentage% processed. @elapsed',
       'error_message'    => 'An error occurred during processing',
       'finished' => '\Drupal\locations\Service\Writer::finishedCallback',
     ];

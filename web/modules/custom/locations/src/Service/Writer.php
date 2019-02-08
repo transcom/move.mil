@@ -19,38 +19,27 @@ class Writer {
    *
    * @throws \Exception
    */
-  public static function update($batchSize, &$context) {
-    // Retrieve location types only once per iteration.
+  public static function update($nodeData) {
     $cnslTypeId = self::getDrupalTaxonomyTermId('Transportation Office');
     $ppsoTypeId = self::getDrupalTaxonomyTermId('Shipping Office');
-    // Get Google API once per iteration.
     $googleApi = $_ENV['GOOGLE_MAPS_API_KEY'];
-    // Initialize batch context sandbox.
-    $context = self::initializeSandbox($context);
-    // Start where we left off last time.
-    $nextNodes = array_slice($context['results'], $context['sandbox']['progress'], $batchSize, TRUE);
     // Update each XML offices that is found in Drupal content.
-    foreach ($nextNodes as $nodeData) {
-      $node = Writer::getDrupalLocationByCnslId($nodeData['id'], $cnslTypeId, $ppsoTypeId);
-      if (!empty($node)) {
-        Writer::updateDrupalLocation($node, $nodeData);
-      }
-      else {
-        $node = Writer::createDrupalLocation($nodeData, $cnslTypeId, $ppsoTypeId);
-      }
-      // Update or create location phone paragraphs.
-      if (!empty($nodeData['phones'])) {
-        Writer::updateLocationPhones($node, $nodeData['phones']);
-      }
-      // Update or add geolocation.
-      $error = Writer::updateGeolocation($node, $googleApi);
-      if (!empty($error)) {
-        \Drupal::messenger()->addWarning($error);
-      }
-      // Update our progress!
-      $context['sandbox']['progress']++;
+    $node = Writer::getDrupalLocationByCnslId($nodeData['id'], $cnslTypeId, $ppsoTypeId);
+    if (!empty($node)) {
+      Writer::updateDrupalLocation($node, $nodeData);
     }
-    $context = self::contextProgress($context);
+    else {
+      $node = Writer::createDrupalLocation($nodeData, $cnslTypeId, $ppsoTypeId);
+    }
+    // Update or create location phone paragraphs.
+    if (!empty($nodeData['phones'])) {
+      Writer::updateLocationPhones($node, $nodeData['phones']);
+    }
+    // Update or add geolocation.
+    $error = Writer::updateGeolocation($node, $googleApi);
+    if (!empty($error)) {
+      \Drupal::messenger()->addWarning($error);
+    }
   }
 
   /**
@@ -58,21 +47,27 @@ class Writer {
    *
    * @throws \Exception
    */
-  public static function deleteLocations($batchSize, &$context) {
+  public static function deleteLocations($batchSize, $xmlOffices, &$context) {
     // Retrieve location types only once per iteration.
     $cnslTypeId = self::getDrupalTaxonomyTermId('Transportation Office');
     $ppsoTypeId = self::getDrupalTaxonomyTermId('Shipping Office');
     // Initialize batch context sandbox.
-    $context = self::initializeSandbox($context);
+    if (empty($context['sandbox'])) {
+      $context['sandbox']['progress'] = 0;
+      $context['sandbox']['offices_count'] = count($xmlOffices);
+    }
     // Start where we left off last time.
-    $nextNodes = array_slice($context['results'], $context['sandbox']['progress'], $batchSize, TRUE);
+    $nextNodes = array_slice($xmlOffices, $context['sandbox']['progress'], $batchSize, TRUE);
     // Update each XML offices that is found in Drupal content.
     foreach ($nextNodes as $nodeData) {
       $node = Writer::getDrupalLocationByCnslId($nodeData['id'], $cnslTypeId, $ppsoTypeId);
+      $context['results'][] = $node->getTitle();
       // Update our progress!
       $context['sandbox']['progress']++;
     }
-    $context = self::contextProgress($context);
+    if ($context['sandbox']['progress'] != $context['sandbox']['offices_count']) {
+      $context['finished'] = $context['sandbox']['progress'] / $context['sandbox']['offices_count'];
+    }
   }
 
   /**
@@ -282,53 +277,34 @@ class Writer {
   }
 
   /**
-   * Initialize Context Sandbox.
-   *
-   * @param array $context
-   *   Array that the batch process passes in.
-   *
-   * @return array
-   *   Array that the batch process passes in.
-   */
-  protected static function initializeSandbox(array &$context) {
-    if (empty($context['sandbox'])) {
-      $context['sandbox']['progress'] = 0;
-      $context['sandbox']['offices_count'] = count($context['results']);
-    }
-    return $context;
-  }
-
-  /**
-   * Initialize Context Sandbox.
-   *
-   * @param array $context
-   *   Array that the batch process passes in.
-   *
-   * @return array
-   *   Array that the batch process passes in.
-   */
-  protected static function contextProgress(array &$context) {
-    if ($context['sandbox']['progress'] != $context['sandbox']['offices_count']) {
-      $context['finished'] = $context['sandbox']['progress'] / $context['sandbox']['offices_count'];
-      $context['message'] = $context['finished'] . ' locations written.';
-    }
-    return $context;
-  }
-
-  /**
    * Finalize updating location batch.
    */
-  public static function finishedCallback($success, $results, $operations) {
+  public static function finishedUpdateCallback($success, $results, $operations) {
     // The 'success' parameter means no fatal PHP errors were detected. All
     // other error management should be handled using 'results'.
     if ($success) {
       $message = \Drupal::translation()
-        ->formatPlural(count($results), 'One location processed.', '@count locations processed.');
+        ->formatPlural(count($results), 'One location updated.', '@count locations updated.');
       \Drupal::messenger()->addMessage($message);
     }
     else {
-      $message = t('Finished with an error.');
-      \Drupal::messenger()->addError($message);
+      \Drupal::messenger()->addError('Finished with an error.');
+    }
+  }
+
+  /**
+   * Finalize deleting locations batch.
+   */
+  public static function finishedDeleteCallback($success, $results, $operations) {
+    // The 'success' parameter means no fatal PHP errors were detected. All
+    // other error management should be handled using 'results'.
+    if ($success) {
+      $message = \Drupal::translation()
+        ->formatPlural(count($results), 'One location deleted.', '@count locations deleted.');
+      \Drupal::messenger()->addMessage($message);
+    }
+    else {
+      \Drupal::messenger()->addError('Finished with an error.');
     }
   }
 

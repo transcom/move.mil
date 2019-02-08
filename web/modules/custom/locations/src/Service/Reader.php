@@ -14,7 +14,7 @@ class Reader {
   /**
    * Reads and parses XML location file provided by DoD.
    */
-  public static function parse($xmlFile, &$context) {
+  public function parse($xmlFile) {
     if (!is_file($xmlFile)) {
       throw new \RuntimeException(sprintf('File "%s" does not exist.', $xmlFile));
     }
@@ -23,54 +23,34 @@ class Reader {
     }
     // Get XML offices to update on Drupal.
     $xml_offices = simplexml_load_file($xmlFile)->xpath('LIST_G_CNSL_ORG_ID/G_CNSL_ORG_ID');
-    // Initialize batch context sandbox.
-    if (empty($context['sandbox'])) {
-      $context['sandbox']['progress'] = 0;
-      $context['sandbox']['offices_count'] = count($xml_offices);
-    }
-    // Process the next 100 if there are at least 100 left. Otherwise,
-    // we process the remaining number.
-    $batchSize = 100;
-    // Start where we left off last time.
-    $nextOffices = array_slice($xml_offices, $context['sandbox']['progress'], $batchSize, TRUE);
     // Parse from XML to array of
     // unique transportation and shipping offices.
-    foreach ($nextOffices as $xml_office) {
-      $nodeData = Reader::getNodeData($xml_office, FALSE);
-      $context['results'][$nodeData['id']] = $nodeData;
+    $allLocations = [];
+    foreach ($xml_offices as $xml_office) {
+      $nodeData = $this->getNodeData($xml_office, FALSE);
+      $allLocations[$nodeData['id']] = $nodeData;
       // If PPSO's been added, skip the parsing.
       $ppsoId = $nodeData['ppsoId'];
       if (!empty($ppsoId) && empty($context['results'][$ppsoId])) {
-        $ppsoData = Reader::getNodeData($xml_office, TRUE);
-        $context['results'][$ppsoId] = $ppsoData;
+        $ppsoData = $this->getNodeData($xml_office, TRUE);
+        $allLocations[$ppsoId] = $ppsoData;
       }
-      // Update our progress!
-      $context['sandbox']['progress']++;
     }
-    // Inform the batch engine that we are not finished,
-    // and provide an estimation of the completion level we reached.
-    if ($context['sandbox']['progress'] != $context['sandbox']['offices_count']) {
-      $context['finished'] = $context['sandbox']['progress'] / $context['sandbox']['offices_count'];
-      $context['message'] = $context['finished'] . ' locations read.';
-    }
-    else {
-      $context['finished'] = 1;
-      // Sort locations.
-      uasort($context['results'], function ($a, $b) {
-        // Shipping Offices (PPSOs) go first.
-        if ($a['isPPSO'] && !$b['isPPSO']) {
-          return -1;
-        }
-        elseif (!$a['isPPSO'] && $b['isPPSO']) {
-          return 1;
-        }
-        else {
-          // If both are from the same type, sort by id.
-          return strcmp($a['id'], $b['id']);
-        }
-      });
-      \Drupal::messenger()->addMessage('The XML file provided has been read and parsed.');
-    }
+    // Sort locations.
+    uasort($allLocations, function ($a, $b) {
+      // Shipping Offices (PPSOs) go first.
+      if ($a['isPPSO'] && !$b['isPPSO']) {
+        return -1;
+      }
+      elseif (!$a['isPPSO'] && $b['isPPSO']) {
+        return 1;
+      }
+      else {
+        // If both are from the same type, sort by id.
+        return strcmp($a['id'], $b['id']);
+      }
+    });
+    return $allLocations;
   }
 
   /**
@@ -84,7 +64,7 @@ class Reader {
    * @return array
    *   The node data.
    */
-  private static function getNodeData(SimpleXMLElement $xml_office, $isPPSO) {
+  private function getNodeData(SimpleXMLElement $xml_office, $isPPSO) {
     $officeInfo = $xml_office->LIST_G_CNSL_INFO->G_CNSL_INFO;
     $locType = $isPPSO ? 'PPSO_' : 'CNSL_';
     $node = [];
