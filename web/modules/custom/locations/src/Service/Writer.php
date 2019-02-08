@@ -161,9 +161,20 @@ class Writer {
    * @return \Drupal\node\Entity\Node
    *   The Drupal location created.
    *
-   * @throws \Drupal\Core\Entity\EntityStorageException
+   * @throws \Exception
    */
   private static function createDrupalLocation(array $nodeData, $cnslTypeId, $ppsoTypeId) {
+    // Get Shipping office reference for Transportation Offices.
+    $ref = NULL;
+    if (!$nodeData['isPPSO']) {
+      $ppso = Writer::getDrupalLocationByCnslId($nodeData['ppsoId'], $cnslTypeId, $ppsoTypeId);
+      if (!empty($ppso)) {
+        $ref = [
+          'target_id' => $ppso->id(),
+          'target_type' => 'node',
+        ];
+      }
+    }
     $node = Node::create([
       'title'                  => $nodeData['name'],
       'field_location_cnsl_id' => $nodeData['id'],
@@ -174,6 +185,7 @@ class Writer {
       ],
       'field_location_address' => $nodeData['address'],
       'field_location_email'   => empty($nodeData['emails']) ? NULL : $nodeData['emails'],
+      'field_location_reference'  => $ref,
     ]);
     $node->save();
     return $node;
