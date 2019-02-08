@@ -2,6 +2,8 @@
 
 namespace Drupal\locations\Form;
 
+use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
+use Drupal\Component\Plugin\Exception\PluginNotFoundException;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
@@ -47,7 +49,14 @@ class ManagerForm extends ConfigFormBase {
   protected $reader;
 
   /**
-   * FilesAndTablesManagerForm constructor.
+   * The Stream wrapper manager.
+   *
+   * @var \Drupal\Core\StreamWrapper\StreamWrapperManager
+   */
+  protected $swm;
+
+  /**
+   * ManagerForm constructor.
    *
    * Needed for dependency injection.
    */
@@ -134,17 +143,6 @@ class ManagerForm extends ConfigFormBase {
       '#button_type' => 'primary',
     ];
 
-    $form['actions']['delete'] = array(
-      '#type' => 'submit',
-      '#value' => t('Delete old locations'),
-      '#submit' => array('::deleteOldLocations'),
-    );
-
-    $form['actions']['geolocation'] = array(
-      '#type' => 'submit',
-      '#value' => t('Fix/Add geolocation'),
-      '#submit' => array('::addGeolocation'),
-    );
     // By default, render the form using system-config-form.html.twig.
     $form['#theme'] = 'system_config_form';
     return $form;
@@ -169,9 +167,9 @@ class ManagerForm extends ConfigFormBase {
   }
 
   /**
-   * {@inheritdoc}
+   * Get file id from the uploaded file.
    */
-  public function getFileId(FormStateInterface $form_state) {
+  private function getFileId(FormStateInterface $form_state) {
     $locations = $form_state->getValue('upload');
     if (array_key_exists(0, $locations['file'])) {
       return intval($locations['file'][0]);
@@ -183,66 +181,41 @@ class ManagerForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $this->updateLocations($this->getFileId($form_state));
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function deleteOldLocations(array &$form, FormStateInterface $form_state) {
-    $fid = $this->updateLocations($this->getFileId($form_state));
+    $fid = $this->getFileId($form_state);
     if (empty($fid)) {
-      $this->messenger()->addError('Empty file.');
+      $this->messenger()->addError('Error: Empty file.');
       return;
     }
     try {
       $file = $this->entity->getStorage('file')->load($fid);
       $stream_wrapper_manager = $this->swm->getViaUri($file->getFileUri());
-      $xml = $this->reader->parse($stream_wrapper_manager->realpath());
-      $this->writer->deleteFrom($xml);
-      $this->messenger()->addMessage('Old locations deleted.');
-    }
-    catch (\TypeError $e) {
-      $this->messenger()
-        ->addError('Error on file, ' . $e->getMessage());
+      $filePath = $stream_wrapper_manager->realpath();
+      $this->updateLocations($filePath);
     }
     catch (\Exception $e) {
-      $this->messenger()
-        ->addError('Exception on file, ' . $e->getMessage());
+      $this->messenger()->addError('Error: ' . $e->getMessage());
     }
   }
 
   /**
-   * {@inheritdoc}
+   * Reads the content, executes actions on Drupal locations.
+   *
+   * @throws \Exception
    */
-  public function addGeolocation() {
-    $this->messenger()
-      ->addMessage('Geolocation added/fixed on Drupal Locations');
-  }
-
-  /**
-   * Checks FID, reads the content, executes actions on Drupal locations.
-   */
-  protected function updateLocations($fid) {
-    if (empty($fid)) {
-      $this->messenger()->addError('Empty file.');
-      return;
-    }
-    try {
-      $file = $this->entity->getStorage('file')->load($fid);
-      $stream_wrapper_manager = $this->swm->getViaUri($file->getFileUri());
-      $xml = $this->reader->parse($stream_wrapper_manager->realpath());
-      $this->writer->writeFrom($xml);
-      $this->messenger()->addMessage('Locations updated.');
-    }
-    catch (\Exception $e) {
-      $this->messenger()
-        ->addError('Exception on file, ' . $e->getMessage());
-    }
-    catch (\TypeError $e) {
-      $this->messenger()
-        ->addError('Error on file, ' . $e->getMessage());
-    }
+  protected function updateLocations($filePath) {
+    $batchSize = 50;
+    $batch = array(
+      'title' => t('Updating Drupal Locations...'),
+      'operations' => [
+        ['\Drupal\locations\Service\Reader::parse', [$filePath]],
+        ['\Drupal\locations\Service\Writer::update', [$batchSize]],
+        ['\Drupal\locations\Service\Writer::deleteLocations', [$batchSize]],
+      ],
+      'progress_message' => t('Processed @current out of @total operations.'),
+      'error_message'    => t('An error occurred during processing'),
+      'finished' => '\Drupal\locations\Service\Writer::finishedCallback',
+    );
+    batch_set($batch);
   }
 
 }

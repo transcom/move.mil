@@ -79,8 +79,7 @@ class TruncateCommand extends ContainerAwareCommand {
    */
   protected function execute(InputInterface $input, OutputInterface $output) {
     $type = $input->getOption('type');
-    $io = new DrupalStyle($input, $output);
-    $this->getIo()->text("Deleting all locations");
+    $this->getIo()->text('Deleting all ' . $type . 's');
     $nodeStorage = NULL;
     try {
       $nodeStorage = $this->etm->getStorage('node');
@@ -107,7 +106,7 @@ class TruncateCommand extends ContainerAwareCommand {
           'target_type' => "taxonomy_term",
         ],
       ]);
-    $this->getIo()->text('Found :' . count($locations) . ' locations');
+    $this->getIo()->text('Found: ' . count($locations) . ' ' . $type . 's');
     try {
       $nodeStorage->delete($locations);
     }

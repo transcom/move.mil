@@ -2,15 +2,10 @@
 
 namespace Drupal\locations\Service;
 
-use Drupal\Component\Plugin\Exception\PluginNotFoundException;
-use Drupal\Core\Entity\EntityStorageException;
-use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\Logger\LoggerChannelFactory;
-use Drupal\Core\Database\Connection;
-use Drupal\node\Entity\Node;
 use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use SimpleXMLElement;
+use Drupal\node\Entity\Node;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 
 /**
  * Class Writer.
@@ -19,132 +14,65 @@ use SimpleXMLElement;
  */
 class Writer {
 
-  protected $entityTypeManager;
-  protected $paragraphStorage;
-  protected $loggerFactory;
-  protected $db;
-  protected $cnslTypeId;
-  protected $ppsoTypeId;
-
   /**
-   * Writer constructor.
-   *
-   * Needed for the EntityTypeManager dependency injection.
-   *
-   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
-   *   The entity type manager interface.
-   * @param \Drupal\Core\Logger\LoggerChannelFactory $loggerFactory
-   *   The logger channel factory.
-   * @param \Drupal\Core\Database\Connection $db
-   *   The db connection.
-   *
-   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
-   */
-  public function __construct(EntityTypeManagerInterface $entityTypeManager, LoggerChannelFactory $loggerFactory, Connection $db) {
-    $this->entityTypeManager = $entityTypeManager;
-    try {
-      $this->paragraphStorage = $this->entityTypeManager->getStorage('paragraph');
-    }
-    catch (InvalidPluginDefinitionException $ipde) {
-      throw new \Exception('Exception on location_telephone paragraph,  ' . $ipde->getMessage());
-    }
-    $this->db = $db;
-    $this->loggerFactory = $loggerFactory;
-    $this->cnslTypeId = $this->getDrupalTaxonomyTermId('Transportation Office');
-    $this->ppsoTypeId = $this->getDrupalTaxonomyTermId('Shipping Office');
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container) {
-    return new static(
-      $container->get('entity_type.manager'),
-      $container->get('logger.factory'),
-      $container->get('database')
-    );
-  }
-
-  /**
-   * Normalizes data then creates Location nodes.
-   *
-   * @param \SimpleXMLElement $xml_offices
-   *   XML location offices.
+   * Updates and creates Location nodes.
    *
    * @throws \Exception
    */
-  public function writeFrom(SimpleXMLElement $xml_offices) {
-    // Report locations parsed.
-    $locationsUpdated = [];
-    $locationsCreated = [];
-    // PPSOs (Shipping offices) handled.
-    $ppsos = [];
-    // Get all telephone paragraphs.
-    $phone_paragraphs = $this->paragraphStorage
-      ->loadByProperties(['type' => 'location_telephone']);
-    $phones = [];
-    foreach ($phone_paragraphs as $phone) {
-      $phones[$phone->id()] = $phone;
-    }
+  public static function update($batchSize, &$context) {
+    \Drupal::messenger()->addMessage('Updating Drupal Locations.');
+    // Retrieve location types only once per iteration.
+    $cnslTypeId = self::getDrupalTaxonomyTermId('Transportation Office');
+    $ppsoTypeId = self::getDrupalTaxonomyTermId('Shipping Office');
+    // Get Google API once per iteration.
+    $googleApi = $_ENV['GOOGLE_MAPS_API_KEY'];
+    // Initialize batch context sandbox.
+    $context = self::initializeSandbox($context);
+    // Start where we left off last time.
+    $nextNodes = array_slice($context['results'], $context['sandbox']['progress'], $batchSize, TRUE);
     // Update each XML offices that is found in Drupal content.
-    foreach ($xml_offices as $xml_office) {
-      $nodeData = $this->getNodeData($xml_office, FALSE);
-      // Verify that this office's ppso has been handled.
-      // Get PPSO Drupal entity.
-      $ppso = $this->getDrupalLocationByCnslId($nodeData['ppsoId']);
-      if (!in_array($nodeData['ppsoId'], $ppsos)) {
-        // Not handled, let's update or create it.
-        $ppsoData = $this->getNodeData($xml_office, TRUE);
-        if (!empty($ppso)) {
-          $this->updateDrupalLocation($ppso, $ppsoData);
-          $locationsUpdated[] = $ppso->toUrl()->setAbsolute()->toString();
-        }
-        else {
-          $location = $this->createDrupalLocation($ppsoData, TRUE);
-          $locationsCreated[] = $location->toUrl()->setAbsolute()->toString();
-        }
-        // Update or create location phone paragraphs.
-        // $this->updateLocationPhones($location, $xml_office, $phones);
-        // Add PPSO to handled ppsos array.
-        $ppsos[] = $nodeData['ppsoId'];
-      }
-      $location = $this->getDrupalLocationByCnslId($nodeData['id']);
-      if (!empty($location)) {
-        $this->updateDrupalLocation($location, $nodeData);
-        $locationsUpdated[] = $location->toUrl()->setAbsolute()->toString();
+    foreach ($nextNodes as $nodeData) {
+      $node = Writer::getDrupalLocationByCnslId($nodeData['id'], $cnslTypeId, $ppsoTypeId);
+      if (!empty($node)) {
+        Writer::updateDrupalLocation($node, $nodeData);
       }
       else {
-        $location = $this->createDrupalLocation($nodeData, FALSE);
-        $locationsCreated[] = $location->toUrl()->setAbsolute()->toString();
+        $node = Writer::createDrupalLocation($nodeData, $cnslTypeId, $ppsoTypeId);
       }
       // Update or create location phone paragraphs.
-      $this->updateLocationPhones($location, $xml_office, $phones);
+      if (!empty($nodeData['phones'])) {
+        Writer::updateLocationPhones($node, $nodeData['phones']);
+      }
+      // Update or add geolocation.
+      $error = Writer::updateGeolocation($node, $googleApi);
+      if (!empty($error)) {
+        \Drupal::messenger()->addWarning($error);
+      }
+      // Update our progress!
+      $context['sandbox']['progress']++;
     }
-    if (count($locationsUpdated) > 1) {
-      $this->loggerFactory
-        ->get('locations')
-        ->notice(count($locationsUpdated) . ' locations parsed and updated: ' . implode(', ', $locationsUpdated));
-    }
-    if (count($locationsCreated)) {
-      $this->loggerFactory
-        ->get('locations')
-        ->notice(count($locationsCreated) . ' new locations parsed and created: ' . implode(', ', $locationsCreated));
-    }
+    $context = self::contextProgress($context);
   }
 
   /**
    * Delete Location nodes that don't exist in the XML file.
    */
-  public function deleteFrom(SimpleXMLElement $xml) {
-    try {
-      $storageHandler = $this->entityTypeManager->getStorage('node');
+  public function deleteLocations($batchSize, &$context) {
+    \Drupal::messenger()->addMessage('Deleting old locations.');
+    // Retrieve location types only once per iteration.
+    $cnslTypeId = self::getDrupalTaxonomyTermId('Transportation Office');
+    $ppsoTypeId = self::getDrupalTaxonomyTermId('Shipping Office');
+    // Initialize batch context sandbox.
+    $context = self::initializeSandbox($context);
+    // Start where we left off last time.
+    $nextNodes = array_slice($context['results'], $context['sandbox']['progress'], $batchSize, TRUE);
+    // Update each XML offices that is found in Drupal content.
+    foreach ($nextNodes as $nodeData) {
+      $node = Writer::getDrupalLocationByCnslId($nodeData['id'], $cnslTypeId, $ppsoTypeId);
+      // Update our progress!
+      $context['sandbox']['progress']++;
     }
-    catch (InvalidPluginDefinitionException $e) {
-    }
-    catch (PluginNotFoundException $e) {
-    }
-    $nodeEntities = $storageHandler->loadMultiple($db_objs);
-    $storageHandler->delete($nodeEntities);
+    $context = self::contextProgress($context);
   }
 
   /**
@@ -152,16 +80,20 @@ class Writer {
    *
    * @param string $id
    *   The CNSL id to look in Drupal.
+   * @param int $cnslTypeId
+   *   CNSL term id.
+   * @param int $ppsoTypeId
+   *   PPSO term id.
    *
    * @return \Drupal\node\Entity\Node
    *   The node found with CNSL id or NULL.
    *
-   * @throws \Exception
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  public function getDrupalLocationByCnslId($id) {
+  public static function getDrupalLocationByCnslId($id, $cnslTypeId, $ppsoTypeId) {
     // Get all location entity.
     try {
-      $locations = $this->entityTypeManager
+      $locations = \Drupal::entityTypeManager()
         ->getStorage('node')
         ->loadByProperties([
           'type' => 'location',
@@ -171,6 +103,11 @@ class Writer {
     catch (InvalidPluginDefinitionException $ipde) {
       throw new \Exception('Exception on location node, ' . $ipde->getMessage());
     }
+    // Remove Weight Scales, they shouldn't have CNSL id.
+    $locations = array_filter($locations, function ($location) use ($cnslTypeId, $ppsoTypeId) {
+      $locType = $location->get('field_location_type')->getValue()[0]['target_id'];
+      return $locType == $ppsoTypeId || $locType == $cnslTypeId;
+    });
     return current($locations);
   }
 
@@ -178,18 +115,19 @@ class Writer {
    * Get Drupal taxonomy term id.
    *
    * @param string $office_type
-   *   The CNSL id to look in Drupal.
+   *   The office type which is the term name.
    *
    * @return int
-   *   The node found with CNSL id or NULL.
+   *   The taxonomy term id.
+   *
+   * @throws \Exception
    */
-  public function getDrupalTaxonomyTermId($office_type) {
-    return $this->db
-      ->select('taxonomy_term_field_data', 't')
-      ->fields('t', ['tid'])
-      ->condition('name', $office_type, '=')
-      ->execute()
-      ->fetchField();
+  private static function getDrupalTaxonomyTermId($office_type) {
+    $terms = \Drupal::entityTypeManager()
+      ->getStorage('taxonomy_term')
+      ->loadByProperties(['name' => trim($office_type)]);
+    $term = current($terms);
+    return $term->id();
   }
 
   /**
@@ -202,7 +140,8 @@ class Writer {
    *
    * @throws \Exception
    */
-  private function updateDrupalLocation(Node $location, array $nodeData) {
+  private static function updateDrupalLocation(Node $location, array $nodeData) {
+    \Drupal::messenger()->addMessage('Update old location .' . $nodeData['name']);
     $location->set('title', $nodeData['name']);
     $location->set('field_location_address', $nodeData['address']);
     $location->set('field_location_email', $nodeData['emails']);
@@ -214,108 +153,47 @@ class Writer {
    *
    * @param array $nodeData
    *   The source data from XML office.
-   * @param bool $isPPSO
-   *   If it is a PPSO (Shipping Office).
+   * @param int $cnslTypeId
+   *   Term id for Transportation Office or CNSL.
+   * @param int $ppsoTypeId
+   *   Term id for Shipping Office or PPSO.
    *
    * @return \Drupal\node\Entity\Node
    *   The Drupal location created.
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  private function createDrupalLocation(array $nodeData, $isPPSO) {
-    $location = Node::create([
+  private static function createDrupalLocation(array $nodeData, $cnslTypeId, $ppsoTypeId) {
+    \Drupal::messenger()->addMessage('Creating new location .' . $nodeData['name']);
+    $node = Node::create([
       'title'                  => $nodeData['name'],
       'field_location_cnsl_id' => $nodeData['id'],
       'type'                   => 'location',
       'field_location_type'    => [
-        'target_id' => $isPPSO ? $this->ppsoTypeId : $this->cnslTypeId,
+        'target_id' => $nodeData['isPPSO'] ? $ppsoTypeId : $cnslTypeId,
         'target_type' => "taxonomy_term",
       ],
+      'field_location_address' => $nodeData['address'],
+      'field_location_email'   => empty($nodeData['emails']) ? NULL : $nodeData['emails'],
     ]);
-    $location->save();
-    return $location;
-  }
-
-  /**
-   * Get data needed to fill in a location node.
-   *
-   * @param \SimpleXMLElement $xml_office
-   *   The source data from XML office.
-   * @param bool $isPPSO
-   *   If it is a PPSO (Shipping Office).
-   *
-   * @return array
-   *   The node data.
-   */
-  private function getNodeData(SimpleXMLElement $xml_office, $isPPSO) {
-    $officeInfo = $xml_office->LIST_G_CNSL_INFO->G_CNSL_INFO;
-    $suffix = $isPPSO ? 'PPSO_' : 'CNSL_';
-    $node = [];
-    // Get XML file id element.
-    $node['id'] = (string) $isPPSO ? $xml_office->PPSO_ORG_ID : $xml_office->CNSL_ORG_ID1;
-    // Get XML file name element.
-    $node['name'] = $officeInfo->{$suffix . 'NAME'};
-    // Get XML file address element.
-    $node['address'] = [
-      'country_code' => $officeInfo->{$suffix . 'COUNTRY'},
-      'address_line1' => $officeInfo->{$suffix . 'ADDR1'},
-      'address_line2' => $officeInfo->{$suffix . 'ADDR2'},
-      'locality' => $officeInfo->{$suffix . 'CITY'},
-      'administrative_area' => $officeInfo->{$suffix . 'STATE'},
-      'postal_code' => $officeInfo->{$suffix . 'ZIP'},
-    ];
-    // Get XML file email elements.
-    $xmlEmails = $isPPSO ? $officeInfo->xpath('//G_ppso_email') : $xml_office->xpath('//G_CNSL_EMAIL');
-    $node['emails'] = array_map(
-      function ($email) use ($isPPSO) {
-        if ($isPPSO) {
-          if ($email->EMAIL_TYPEP == 'Customer Service') {
-            return $email->EMAIL_ADDRESSP;
-          }
-        }
-        return $email->EMAIL_ADDRESS;
-      },
-      $xmlEmails
-    );
-    if (!$isPPSO) {
-      $node['ppsoId'] = $officeInfo->PPSO_ORG_ID;
-    }
+    $node->save();
     return $node;
   }
 
   /**
    * Update Drupal Location with the XML phone content.
    *
-   * @param \Drupal\node\Entity\Node $location
+   * @param \Drupal\node\Entity\Node $node
    *   Drupal Location entity.
-   * @param \SimpleXMLElement $element
-   *   XML file element.
-   * @param array $phones
-   *   All phone paragraphs.
+   * @param array $xml_phone_numbers
+   *   The source data from XML office.
    *
-   * @throws \Drupal\Core\Entity\EntityStorageException
+   * @throws \Exception
    */
-  private function updateLocationPhones(Node $location, SimpleXMLElement $element, array $phones) {
-    // Get XML file phone elements.
-    $xmlPhones = $element
-      ->LIST_G_CNSL_PHONE_ORG_ID
-      ->G_CNSL_PHONE_ORG_ID
-      ->LIST_G_CNSL_PHONE_NOTES
-      ->G_CNSL_PHONE_NOTES;
-    $xml_phone_numbers = [];
-    // Parse XML file phone elements.
-    foreach ($xmlPhones as $phone) {
-      $dns = (string) $phone->CNSL_COMM_OR_DSN == 'D';
-      $number = $dns ? (string) $phone->CNSL_DSN_NUM : (string) $phone->CNSL_PHONE_NUM;
-      $type = (string) $phone->CNSL_VOICE_OR_FAX == 'V' ? 'voice' : 'fax';
-      $xml_phone_numbers[] = [
-        'dns' => $dns,
-        'number' => $number,
-        'type' => $type,
-      ];
-    }
+  private static function updateLocationPhones(Node $node, array $xml_phone_numbers) {
+    \Drupal::messenger()->addMessage('Updating phone numbers');
     // Get this location phones references.
-    $phone_references = $location
+    $phone_references = $node
       ->get('field_location_telephone')
       ->getValue();
     $updatesCount = count($phone_references);
@@ -325,7 +203,9 @@ class Writer {
       foreach ($updates as $key => $update) {
         $ref = $phone_references[$key];
         $id = $ref['target_id'];
-        $paragraph = $phones[$id];
+        $paragraph = \Drupal::entityTypeManager()
+          ->getStorage('paragraph')
+          ->load($id);
         $paragraph->set('field_dsn', $update['dns']);
         $paragraph->set('field_phonenumber', $update['number']);
         $paragraph->set('field_type', $update['type']);
@@ -338,19 +218,115 @@ class Writer {
     }
     // Create the new location telephone paragraphs.
     foreach ($newones as $new) {
-      $paragraph = $this->paragraphStorage->create([
-        'type' => 'location_telephone',
-        'field_dsn' => $new['dns'],
-        'field_phonenumber' => $new['number'],
-        'field_type' => $new['type'],
-      ]);
+      $paragraph = \Drupal::entityTypeManager()
+        ->getStorage('paragraph')
+        ->create([
+          'type' => 'location_telephone',
+          'field_dsn' => $new['dns'],
+          'field_phonenumber' => $new['number'],
+          'field_type' => $new['type'],
+        ]);
       $paragraph->save();
       $phone_references[] = [
         'target_id' => $paragraph->id(),
+        'target_revision_id' => $paragraph->getRevisionId(),
       ];
     }
-    $location->set('field_location_telephone', $phone_references);
-    $location->save();
+    $node->set('field_location_telephone', $phone_references);
+    $node->save();
+  }
+
+  /**
+   * Update Drupal Location with the XML phone content.
+   *
+   * @param \Drupal\node\Entity\Node $node
+   *   Drupal Location entity.
+   * @param string $googleApi
+   *   Environment Google API key.
+   *
+   * @return string|null
+   *   Return the error or null if the call was successful.
+   *
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   */
+  private static function updateGeolocation(Node $node, $googleApi) {
+    $title = $node->getTitle();
+    \Drupal::messenger()->addMessage('Updating geolocation of .' . $title);
+    $request = "https://maps.google.com/maps/api/geocode/json?address={$title}&key=$googleApi";
+    $client = new Client();
+    try {
+      $res = $client->request('GET', $request);
+    }
+    catch (GuzzleException $ge) {
+      $error = 'There was a network problem while searching the geolocation of ' . $title;
+      return $error;
+    }
+    $data = json_decode($res->getBody()->getContents(), JSON_OBJECT_AS_ARRAY);
+    if ($data['status'] == 'REQUEST_DENIED') {
+      $error = $data['error_message'];
+      return $error;
+    }
+    if ($data['status'] == 'ZERO_RESULTS' || empty($data['results'])) {
+      $error = 'There are zero results while searching the geolocation of ' . $title;
+      return $error;
+    }
+    $location = $data['results'][0]['geometry']['location'];
+    $node->set('field_geolocation', [
+      'lat' => $location['lat'],
+      'lng' => $location['lng'],
+    ]);
+    $node->save();
+    return NULL;
+  }
+
+  /**
+   * Initialize Context Sandbox.
+   *
+   * @param array $context
+   *   Array that the batch process passes in.
+   *
+   * @return array
+   *   Array that the batch process passes in.
+   */
+  protected static function initializeSandbox(array &$context) {
+    if (empty($context['sandbox'])) {
+      $context['sandbox']['progress'] = 0;
+      $context['sandbox']['offices_count'] = count($context['results']);
+    }
+    return $context;
+  }
+
+  /**
+   * Initialize Context Sandbox.
+   *
+   * @param array $context
+   *   Array that the batch process passes in.
+   *
+   * @return array
+   *   Array that the batch process passes in.
+   */
+  protected static function contextProgress(array &$context) {
+    if ($context['sandbox']['progress'] != $context['sandbox']['offices_count']) {
+      $context['finished'] = $context['sandbox']['progress'] / $context['sandbox']['offices_count'];
+    }
+    return $context;
+  }
+
+  /**
+   * Finalize updating location batch.
+   */
+  public static function finishedCallback($success, $results, $operations) {
+    // The 'success' parameter means no fatal PHP errors were detected. All
+    // other error management should be handled using 'results'.
+    if ($success) {
+      $message = \Drupal::translation()
+        ->formatPlural(count($results), 'One location processed.', '@count locations processed.');
+      \Drupal::messenger()->addMessage($message);
+    }
+    else {
+      $message = t('Finished with an error.');
+      \Drupal::messenger()->addError($message);
+    }
   }
 
 }
