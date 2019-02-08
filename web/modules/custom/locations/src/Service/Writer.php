@@ -20,7 +20,6 @@ class Writer {
    * @throws \Exception
    */
   public static function update($batchSize, &$context) {
-    \Drupal::messenger()->addMessage('Updating Drupal Locations.');
     // Retrieve location types only once per iteration.
     $cnslTypeId = self::getDrupalTaxonomyTermId('Transportation Office');
     $ppsoTypeId = self::getDrupalTaxonomyTermId('Shipping Office');
@@ -56,9 +55,10 @@ class Writer {
 
   /**
    * Delete Location nodes that don't exist in the XML file.
+   *
+   * @throws \Exception
    */
-  public function deleteLocations($batchSize, &$context) {
-    \Drupal::messenger()->addMessage('Deleting old locations.');
+  public static function deleteLocations($batchSize, &$context) {
     // Retrieve location types only once per iteration.
     $cnslTypeId = self::getDrupalTaxonomyTermId('Transportation Office');
     $ppsoTypeId = self::getDrupalTaxonomyTermId('Shipping Office');
@@ -88,7 +88,7 @@ class Writer {
    * @return \Drupal\node\Entity\Node
    *   The node found with CNSL id or NULL.
    *
-   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   * @throws \Exception
    */
   public static function getDrupalLocationByCnslId($id, $cnslTypeId, $ppsoTypeId) {
     // Get all location entity.
@@ -141,10 +141,15 @@ class Writer {
    * @throws \Exception
    */
   private static function updateDrupalLocation(Node $location, array $nodeData) {
-    \Drupal::messenger()->addMessage('Update old location .' . $nodeData['name']);
     $location->set('title', $nodeData['name']);
-    $location->set('field_location_address', $nodeData['address']);
-    $location->set('field_location_email', $nodeData['emails']);
+    $location->set(
+      'field_location_address',
+      empty($nodeData['address']) ? NULL : $nodeData['address']
+    );
+    $location->set(
+      'field_location_email',
+      empty($nodeData['emails']) ? NULL : $nodeData['emails']
+    );
     $location->save();
   }
 
@@ -164,7 +169,6 @@ class Writer {
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
   private static function createDrupalLocation(array $nodeData, $cnslTypeId, $ppsoTypeId) {
-    \Drupal::messenger()->addMessage('Creating new location .' . $nodeData['name']);
     $node = Node::create([
       'title'                  => $nodeData['name'],
       'field_location_cnsl_id' => $nodeData['id'],
@@ -191,7 +195,6 @@ class Writer {
    * @throws \Exception
    */
   private static function updateLocationPhones(Node $node, array $xml_phone_numbers) {
-    \Drupal::messenger()->addMessage('Updating phone numbers');
     // Get this location phones references.
     $phone_references = $node
       ->get('field_location_telephone')
@@ -251,7 +254,6 @@ class Writer {
    */
   private static function updateGeolocation(Node $node, $googleApi) {
     $title = $node->getTitle();
-    \Drupal::messenger()->addMessage('Updating geolocation of .' . $title);
     $request = "https://maps.google.com/maps/api/geocode/json?address={$title}&key=$googleApi";
     $client = new Client();
     try {
@@ -308,6 +310,7 @@ class Writer {
   protected static function contextProgress(array &$context) {
     if ($context['sandbox']['progress'] != $context['sandbox']['offices_count']) {
       $context['finished'] = $context['sandbox']['progress'] / $context['sandbox']['offices_count'];
+      $context['message'] = $context['finished'] . ' locations written.';
     }
     return $context;
   }

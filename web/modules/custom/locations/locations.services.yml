@@ -3,4 +3,3 @@ services:
     class: Drupal\locations\Service\Reader
   locations.writer:
     class: Drupal\locations\Service\Writer
-    arguments: ['@entity_type.manager', '@logger.factory', '@database']

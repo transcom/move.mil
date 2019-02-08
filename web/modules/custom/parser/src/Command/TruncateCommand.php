@@ -5,7 +5,6 @@ namespace Drupal\parser\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputOption;
-use Drupal\Console\Core\Style\DrupalStyle;
 use Drupal\Console\Core\Command\ContainerAwareCommand;
 use Drupal\Core\Database\Driver\mysql\Connection;
 use Drupal\Core\Entity\EntityTypeManager;

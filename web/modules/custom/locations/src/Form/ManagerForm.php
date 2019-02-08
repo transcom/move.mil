@@ -2,8 +2,6 @@
 
 namespace Drupal\locations\Form;
 
-use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
-use Drupal\Component\Plugin\Exception\PluginNotFoundException;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
@@ -204,17 +202,17 @@ class ManagerForm extends ConfigFormBase {
    */
   protected function updateLocations($filePath) {
     $batchSize = 50;
-    $batch = array(
-      'title' => t('Updating Drupal Locations...'),
+    $batch = [
+      'title' => 'Updating Drupal Locations...',
       'operations' => [
         ['\Drupal\locations\Service\Reader::parse', [$filePath]],
         ['\Drupal\locations\Service\Writer::update', [$batchSize]],
         ['\Drupal\locations\Service\Writer::deleteLocations', [$batchSize]],
       ],
-      'progress_message' => t('Processed @current out of @total operations.'),
-      'error_message'    => t('An error occurred during processing'),
+      'progress_message' => 'Processed @current out of @total operations.',
+      'error_message'    => 'An error occurred during processing',
       'finished' => '\Drupal\locations\Service\Writer::finishedCallback',
-    );
+    ];
     batch_set($batch);
   }
 

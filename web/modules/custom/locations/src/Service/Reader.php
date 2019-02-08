@@ -15,7 +15,6 @@ class Reader {
    * Reads and parses XML location file provided by DoD.
    */
   public static function parse($xmlFile, &$context) {
-    \Drupal::messenger()->addMessage('Reading XML file.');
     if (!is_file($xmlFile)) {
       throw new \RuntimeException(sprintf('File "%s" does not exist.', $xmlFile));
     }
@@ -52,6 +51,7 @@ class Reader {
     // and provide an estimation of the completion level we reached.
     if ($context['sandbox']['progress'] != $context['sandbox']['offices_count']) {
       $context['finished'] = $context['sandbox']['progress'] / $context['sandbox']['offices_count'];
+      $context['message'] = $context['finished'] . ' locations read.';
     }
     else {
       $context['finished'] = 1;
@@ -69,6 +69,7 @@ class Reader {
           return strcmp($a['id'], $b['id']);
         }
       });
+      \Drupal::messenger()->addMessage('The XML file provided has been read and parsed.');
     }
   }
 
