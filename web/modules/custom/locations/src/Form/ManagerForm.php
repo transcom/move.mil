@@ -190,7 +190,7 @@ class ManagerForm extends ConfigFormBase {
     $batch = [
       'title' => 'Updating Drupal Locations...',
       'operations' => [],
-      'progress_message' => 'Updated @current out of @total locations. @elapsed',
+      'progress_message' => 'Updated @current out of @total locations, elapsed time: @elapsed',
       'error_message'    => 'An error occurred during processing',
       'finished' => '\Drupal\locations\Service\Writer::finishedUpdateCallback',
     ];

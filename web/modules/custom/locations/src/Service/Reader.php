@@ -31,7 +31,7 @@ class Reader {
       $allLocations[$nodeData['id']] = $nodeData;
       // If PPSO's been added, skip the parsing.
       $ppsoId = $nodeData['ppsoId'];
-      if (!empty($ppsoId) && empty($context['results'][$ppsoId])) {
+      if (!empty($ppsoId) && empty($allLocations[$ppsoId])) {
         $ppsoData = $this->getNodeData($xml_office, TRUE);
         $allLocations[$ppsoId] = $ppsoData;
       }
