@@ -7,7 +7,6 @@ use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
 use Drupal\Core\Database\Connection;
-use Drupal\parser\Service\XMLReader;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\parser\Service\CsvReader;
@@ -64,11 +63,11 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
   protected $xslReader;
 
   /**
-   * Variables containing the XmlReader service.
+   * The Stream wrapper manager.
    *
-   * @var \Drupal\parser\Service\XMLReader
+   * @var \Drupal\Core\StreamWrapper\StreamWrapperManager
    */
-  protected $xmlReader;
+  protected $swm;
 
   /**
    * FilesAndTablesManagerForm constructor.
@@ -82,7 +81,6 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
                               CsvReader $csvReader,
                               ExcelReader $xslReader,
                               DbWriter $writer,
-                              XMLReader $xmlReader,
                               StreamWrapperManager $swm) {
     parent::__construct($config_factory);
     $this->db = $db;
@@ -92,7 +90,6 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
     $this->ymlReader = $ymlReader;
     $this->xslReader = $xslReader;
     $this->swm = $swm;
-    $this->xmlReader = $xmlReader;
   }
 
   /**
@@ -107,7 +104,6 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
       $container->get('parser.csv_reader'),
       $container->get('parser.xsl_reader'),
       $container->get('parser.writer'),
-      $container->get('parser.xml.reader'),
       $container->get('stream_wrapper_manager')
     );
   }
@@ -321,27 +317,6 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
       '#url' => Url::fromRoute('parser.zipcodes_controller_table'),
     ];
 
-    $form['locations'] = [
-      '#type' => 'details',
-      '#title' => $this->t('Locations'),
-    ];
-
-    $form['locations']['file'] = [
-      '#type' => 'managed_file',
-      '#upload_location' => 'public://',
-      '#title' => $this->t('Locations'),
-      '#upload_validators' => [
-        'file_validate_extensions' => ['txt'],
-        'file_validate_size' => [20000000],
-      ],
-    ];
-
-    $form['locations']['link'] = [
-      '#title' => $this->t('What location entities do we have?'),
-      '#type' => 'link',
-      '#url' => Url::fromRoute('view.content.page_1'),
-    ];
-
     unset($form['400NG']['year']['#options']['_none']);
     $form['400NG']['year']['#options'] = ['' => 'Select'] + $form['400NG']['year']['#options'];
 
@@ -420,11 +395,6 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
           $reader = $this->csvReader;
           break;
 
-        case 'locations':
-          $tables = '';
-          $reader = $this->xmlReader;
-          break;
-
         default:
           $continue = TRUE;
       }
@@ -484,10 +454,6 @@ class FilesAndTablesManagerForm extends ConfigFormBase {
       catch (\Exception $e) {
         $this->messenger()
           ->addError('Exception on file: ' . $key . ",  " . $e->getMessage());
-      }
-      catch (\TypeError $e) {
-        $this->messenger()
-          ->addError('Error on file: ' . $key . ",  " . $e->getMessage());
       }
     }
   }
