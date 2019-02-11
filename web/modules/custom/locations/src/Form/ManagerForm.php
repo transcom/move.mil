@@ -10,7 +10,6 @@ use Drupal\Core\Database\Connection;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\locations\Service\Reader;
-use Drupal\locations\Service\Writer;
 use Drupal\Core\StreamWrapper\StreamWrapperManager;
 
 /**
