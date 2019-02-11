@@ -193,7 +193,7 @@ class ManagerForm extends ConfigFormBase {
       'operations' => [],
       'progress_message' => 'Updated @current out of @total locations. @elapsed',
       'error_message'    => 'An error occurred during processing',
-      'finished' => '\Drupal\locations\Service\Writer::finishedCallback',
+      'finished' => '\Drupal\locations\Service\Writer::finishedUpdateCallback',
     ];
     foreach ($xmlOffices as $office) {
       $batch['operations'][] = ['\Drupal\locations\Service\Writer::update', [$office]];
@@ -216,7 +216,7 @@ class ManagerForm extends ConfigFormBase {
       ],
       'progress_message' => 'Deleting old locations: @percentage% processed. @elapsed',
       'error_message'    => 'An error occurred during processing',
-      'finished' => '\Drupal\locations\Service\Writer::finishedCallback',
+      'finished' => '\Drupal\locations\Service\Writer::finishedDeleteCallback',
     ];
     batch_set($batch);
   }

@@ -19,7 +19,7 @@ class Writer {
    *
    * @throws \Exception
    */
-  public static function update($nodeData) {
+  public static function update($nodeData, &$context) {
     $cnslTypeId = self::getDrupalTaxonomyTermId('Transportation Office');
     $ppsoTypeId = self::getDrupalTaxonomyTermId('Shipping Office');
     $googleApi = $_ENV['GOOGLE_MAPS_API_KEY'];
@@ -27,9 +27,11 @@ class Writer {
     $node = Writer::getDrupalLocationByCnslId($nodeData['id'], $cnslTypeId, $ppsoTypeId);
     if (!empty($node)) {
       Writer::updateDrupalLocation($node, $nodeData);
+      $context['results']['update'][] = $nodeData['id'];
     }
     else {
       $node = Writer::createDrupalLocation($nodeData, $cnslTypeId, $ppsoTypeId);
+      $context['results']['create'][] = $nodeData['id'];
     }
     // Update or create location phone paragraphs.
     if (!empty($nodeData['phones'])) {
@@ -51,22 +53,45 @@ class Writer {
     // Retrieve location types only once per iteration.
     $cnslTypeId = self::getDrupalTaxonomyTermId('Transportation Office');
     $ppsoTypeId = self::getDrupalTaxonomyTermId('Shipping Office');
+    // Load all Drupal locations nodes.
+    $allLocations = \Drupal::entityTypeManager()
+      ->getStorage('node')
+      ->loadByProperties([
+        'type' => 'location',
+      ]);
+    // Remove Weight Scales, they're not part of the XML.
+    $locations = array_filter($allLocations, function ($location) use ($cnslTypeId, $ppsoTypeId) {
+      $locType = $location->get('field_location_type')->getValue()[0]['target_id'];
+      return $locType == $ppsoTypeId || $locType == $cnslTypeId;
+    });
     // Initialize batch context sandbox.
     if (empty($context['sandbox'])) {
       $context['sandbox']['progress'] = 0;
-      $context['sandbox']['offices_count'] = count($xmlOffices);
+      $context['sandbox']['count'] = count($locations);
     }
     // Start where we left off last time.
-    $nextNodes = array_slice($xmlOffices, $context['sandbox']['progress'], $batchSize, TRUE);
-    // Update each XML offices that is found in Drupal content.
-    foreach ($nextNodes as $nodeData) {
-      $node = Writer::getDrupalLocationByCnslId($nodeData['id'], $cnslTypeId, $ppsoTypeId);
-      $context['results'][] = $node->getTitle();
+    $nextNodes = array_slice($locations, $context['sandbox']['progress'], $batchSize, TRUE);
+    // Delete each Drupal node that is not found in XML offices.
+    $toDelete = [];
+    foreach ($nextNodes as $node) {
+      $cnslId = $node->get('field_location_cnsl_id')->getValue()[0]['value'];
+      if (!empty($cnslId) && empty($xmlOffices[$cnslId])) {
+        // Not found in XML file.
+        $toDelete[] = $node;
+        $title = $node->getTitle();
+        $message = $cnslId . ' - ' . $title . ' deleted';
+        $context['results'][] = $message;
+        $context['message'] = $message;
+        \Drupal::messenger()->addMessage($message);
+      }
       // Update our progress!
       $context['sandbox']['progress']++;
     }
-    if ($context['sandbox']['progress'] != $context['sandbox']['offices_count']) {
-      $context['finished'] = $context['sandbox']['progress'] / $context['sandbox']['offices_count'];
+    \Drupal::entityTypeManager()
+      ->getStorage('node')
+      ->delete($toDelete);
+    if ($context['sandbox']['progress'] != $context['sandbox']['count']) {
+      $context['finished'] = $context['sandbox']['progress'] / $context['sandbox']['count'];
     }
   }
 
@@ -295,9 +320,18 @@ class Writer {
     // The 'success' parameter means no fatal PHP errors were detected. All
     // other error management should be handled using 'results'.
     if ($success) {
-      $message = \Drupal::translation()
-        ->formatPlural(count($results), 'One location updated.', '@count locations updated.');
-      \Drupal::messenger()->addMessage($message);
+      $updates = empty($results['update']) ? 0 : count($results['update']);
+      $creates = empty($results['create']) ? 0 : count($results['create']);
+      if ($updates) {
+        $message = \Drupal::translation()
+          ->formatPlural($updates, 'One location updated.', '@count locations updated.');
+        \Drupal::messenger()->addMessage($message);
+      }
+      if ($creates) {
+        $message = \Drupal::translation()
+          ->formatPlural($creates, 'One location created.', '@count locations created.');
+        \Drupal::messenger()->addMessage($message);
+      }
     }
     else {
       \Drupal::messenger()->addError('Finished with an error.');
