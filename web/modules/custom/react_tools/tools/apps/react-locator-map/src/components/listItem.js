@@ -7,7 +7,7 @@ const Phones = (props) =>{
       <div key={i}>
         <span>{phone.field_phonenumber[0].value}</span>
         <span style={{display: phone.field_type.length > 0 ? 'inline-block:' : 'none'}}> ({phone.field_type[0].value})</span>
-        <span style={{display: phone.field_dsn.length && phone.field_dsn[0] === '1' ? 'inline-block:' : 'none'}}> (DSN)</span>
+        <span style={{display: phone.field_dsn.length && phone.field_dsn[0].value === '1' ? 'inline-block:' : 'none'}}> (DSN)</span>
       </div>
     )
   })
