@@ -3,11 +3,12 @@ import * as _ from 'lodash';
 
 const Phones = (props) =>{
   return _.map(props.phones, (phone, i)=>{
+    let phonenumber = phone.field_phonenumber[0] ? phone.field_phonenumber[0].value : '';
     return (
       <div key={i}>
-        <span>{phone.field_phonenumber[0].value}</span>
+        <span>{phonenumber}</span>
         <span style={{display: phone.field_type.length > 0 ? 'inline-block:' : 'none'}}> ({phone.field_type[0].value})</span>
-        <span style={{display: phone.field_dsn.length && phone.field_dsn[0].value === '1' ? 'inline-block:' : 'none'}}> (DSN)</span>
+        <span style={{display: phone.field_dsn.length > 0 && phone.field_dsn[0].value === '1' ? 'inline-block:' : 'none'}}> (DSN)</span>
       </div>
     )
   })
