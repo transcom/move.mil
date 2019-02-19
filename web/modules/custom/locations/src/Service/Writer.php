@@ -167,7 +167,7 @@ class Writer {
       empty($nodeData['address']) ? NULL : $nodeData['address']
     );
     $location->set(
-      'field_location_email',
+      'field_location_email_addresses',
       empty($nodeData['emails']) ? NULL : $nodeData['emails']
     );
     $location->save();
@@ -209,7 +209,7 @@ class Writer {
         'target_type' => "taxonomy_term",
       ],
       'field_location_address' => $nodeData['address'],
-      'field_location_email'   => empty($nodeData['emails']) ? NULL : $nodeData['emails'],
+      'field_location_email_addresses'   => empty($nodeData['emails']) ? NULL : $nodeData['emails'],
       'field_location_reference'  => $ref,
     ]);
     $node->save();
@@ -243,6 +243,7 @@ class Writer {
           ->load($id);
         $paragraph->set('field_dsn', $update['dns']);
         $paragraph->set('field_phonenumber', $update['number']);
+        $paragraph->set('field_voice', $update['voice']);
         $paragraph->set('field_type', $update['type']);
         $paragraph->save();
       }
@@ -259,6 +260,7 @@ class Writer {
           'type' => 'location_telephone',
           'field_dsn' => $new['dns'],
           'field_phonenumber' => $new['number'],
+          'field_voice' => $new['voice'],
           'field_type' => $new['type'],
         ]);
       $paragraph->save();
