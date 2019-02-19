@@ -1,0 +1,19 @@
+uuid: 50f77149-c03f-4ce3-9798-6d0fef31fd0d
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_location_email_addresses
+field_name: field_location_email_addresses
+entity_type: node
+type: string_long
+settings:
+  case_sensitive: false
+module: core
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
