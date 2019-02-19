@@ -6,6 +6,7 @@ dependencies:
     - field.field.paragraph.location_telephone.field_dsn
     - field.field.paragraph.location_telephone.field_phonenumber
     - field.field.paragraph.location_telephone.field_type
+    - field.field.paragraph.location_telephone.field_voice
     - paragraphs.paragraphs_type.location_telephone
   module:
     - telephone
@@ -22,19 +23,26 @@ content:
     type: boolean_checkbox
     region: content
   field_phonenumber:
-    weight: 0
+    weight: 3
     settings:
       placeholder: ''
     third_party_settings: {  }
     type: telephone_default
     region: content
   field_type:
-    weight: 2
+    weight: 0
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
+  field_voice:
+    weight: 2
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
     region: content
 hidden:
   created: true
