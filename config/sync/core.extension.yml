@@ -33,6 +33,7 @@ module:
   image: 0
   jumplink: 0
   link: 0
+  locations: 0
   menu_ui: 0
   node: 0
   node_class: 0

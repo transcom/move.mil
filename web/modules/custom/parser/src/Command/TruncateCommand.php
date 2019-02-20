@@ -4,10 +4,13 @@ namespace Drupal\parser\Command;
 
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Drupal\Console\Core\Style\DrupalStyle;
-use Drupal\Core\Database\Driver\mysql\Connection;
+use Symfony\Component\Console\Input\InputOption;
 use Drupal\Console\Core\Command\ContainerAwareCommand;
+use Drupal\Core\Database\Driver\mysql\Connection;
 use Drupal\Core\Entity\EntityTypeManager;
+use Drupal\Core\Entity\EntityStorageException;
+use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
+use Drupal\Component\Plugin\Exception\PluginNotFoundException;
 
 /**
  * Class TruncateCommand.
@@ -48,28 +51,69 @@ class TruncateCommand extends ContainerAwareCommand {
   protected function configure() {
     $this
       ->setName('truncate')
-      ->setDescription($this->trans('commands.truncate.description'));
+      ->setDescription($this->trans('commands.truncate.description'))
+      ->addOption(
+        'type',
+        NULL,
+        InputOption::VALUE_REQUIRED,
+        $this->trans('commands.truncate.options.type')
+      );
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function interact(InputInterface $input, OutputInterface $output) {
+    if (!$input->getOption('type')) {
+      $type = $this->getIo()->choiceNoList(
+        'Which location type?',
+        ['Shipping Office', 'Transportation Office', 'Weight Scale']
+      );
+      $input->setOption('type', $type);
+    }
   }
 
   /**
    * {@inheritdoc}
    */
   protected function execute(InputInterface $input, OutputInterface $output) {
-    $io = new DrupalStyle($input, $output);
-    $io->text("Deleting all locations");
-    $db_objs = $this->database
-      ->select('node', 'n')
-      ->fields('n', ['nid'])
-      ->condition('n.type', 'location', '=')
+    $type = $input->getOption('type');
+    $this->getIo()->text('Deleting all ' . $type . 's');
+    $nodeStorage = NULL;
+    try {
+      $nodeStorage = $this->etm->getStorage('node');
+    }
+    catch (PluginNotFoundException $exception) {
+      $this->getIo()->error('Exception on location node, ' . $exception->getMessage());
+      exit(-1);
+    }
+    catch (InvalidPluginDefinitionException $exception) {
+      $this->getIo()->error('Exception on location node, ' . $exception->getMessage());
+      exit(-1);
+    }
+    $location_type = $this->database
+      ->select('taxonomy_term_field_data', 't')
+      ->fields('t', ['tid'])
+      ->condition('name', $type, '=')
       ->execute()
-      ->fetchCol();
-    $io->text("Found : " . count($db_objs) . " locations");
-
-    $storageHandler = $this->etm->getStorage("node");
-    $nodeEntities = $storageHandler->loadMultiple($db_objs);
-    $storageHandler->delete($nodeEntities);
-
-    $io->success("Deletion successful");
+      ->fetchField();
+    $locations = $nodeStorage
+      ->loadByProperties([
+        'type' => 'location',
+        'field_location_type' => [
+          'target_id' => $location_type,
+          'target_type' => "taxonomy_term",
+        ],
+      ]);
+    $this->getIo()->text('Found: ' . count($locations) . ' ' . $type . 's');
+    try {
+      $nodeStorage->delete($locations);
+    }
+    catch (EntityStorageException $exception) {
+      $this->getIo()->error('Error when deleting node, ' . $exception->getMessage());
+      exit(-1);
+    }
+    $this->getIo()->success("Deletion successful");
   }
 
 }

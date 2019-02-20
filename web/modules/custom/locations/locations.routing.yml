@@ -1,0 +1,9 @@
+locations.manager_form:
+  path: '/admin/config/locations/manager'
+  defaults:
+    _form: '\Drupal\locations\Form\ManagerForm'
+    _title: 'Locations Manager'
+  requirements:
+    _permission: 'administer site configuration'
+  options:
+    _admin_route: TRUE

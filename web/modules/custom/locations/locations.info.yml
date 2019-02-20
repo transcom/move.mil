@@ -1,0 +1,5 @@
+name: 'Locations'
+type: module
+description: 'Upload DoD XML file to create and update Drupal Locations entities to be used by the Locator Maps tool.'
+core: 8.x
+package: 'Custom'
