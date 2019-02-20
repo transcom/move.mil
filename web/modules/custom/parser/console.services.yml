@@ -14,3 +14,8 @@ services:
     arguments: ['@database', '@entity_type.manager']
     tags:
       - { name: drupal.command }
+  parser.mails:
+    class: Drupal\parser\Command\MailsCommand
+    arguments: ['@entity_type.manager']
+    tags:
+      - { name: drupal.command }

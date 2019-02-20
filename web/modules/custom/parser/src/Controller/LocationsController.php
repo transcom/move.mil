@@ -279,7 +279,7 @@ class LocationsController extends ControllerBase {
     $geolocation = $entity->get('field_geolocation')->getValue();
     $data['location']['geolocation'] = empty($geolocation) ? NULL : $geolocation[0];
     $data['email_addresses'] = $entity
-      ->get('field_location_email')
+      ->get('field_location_email_address')
       ->getValue();
     $data['hours'] = $entity
       ->get('field_location_hours')
@@ -300,15 +300,24 @@ class LocationsController extends ControllerBase {
     foreach ($phone_references as $ref) {
       $id = $ref['target_id'];
       $phone = $phones[$id];
-      $data['phones'][$id]['field_phonenumber'] = $phone
+      $type = $phone
+        ->get('field_type')
+        ->getValue()[0]['value'];
+      $number = $phone
         ->get('field_phonenumber')
         ->getValue();
-      $data['phones'][$id]['field_dsn'] = $phone
+      $dsn = $phone
         ->get('field_dsn')
         ->getValue();
-      $data['phones'][$id]['field_type'] = $phone
-        ->get('field_type')
+      $voice = $phone
+        ->get('field_voice')
         ->getValue();
+      $typePhone = [
+        'field_phonenumber' => $number,
+        'field_dsn' => $dsn,
+        'field_voice' => $voice,
+      ];
+      $data['phones'][$type][$id][] = $typePhone;
     }
     return $data;
   }

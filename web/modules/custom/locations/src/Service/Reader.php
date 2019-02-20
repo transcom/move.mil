@@ -89,24 +89,22 @@ class Reader {
     foreach ($xmlEmails as $email) {
       $type = $isPPSO ? (string) $email->EMAIL_TYPEP : (string) $email->EMAIL_TYPE;
       $address = $isPPSO ? (string) $email->EMAIL_ADDRESSP : (string) $email->EMAIL_ADDRESS;
-      $node['emails'][] = $type . PHP_EOL . $address;
+      $node['emails'][] = $type . '%' . $address;
     }
     // Get XML file phone elements.
     $xpath = "LIST_G_{$locType}PHONE_ORG_ID/G_{$locType}PHONE_ORG_ID/LIST_G_{$locType}PHONE_NOTES/G_{$locType}PHONE_NOTES";
     $xmlPhones = $isPPSO ? $officeInfo->xpath($xpath) : $xml_office->xpath($xpath);
     foreach ($xmlPhones as $phone) {
-      if (!$isPPSO || $phone->PPSO_PHONE_TYPE == 'Customer Service') {
-        $dns = (string) $phone->{$locType . 'COMM_OR_DSN'} == 'D';
-        $number = $dns ? (string) $phone->{$locType . 'DSN_NUM'} : (string) $phone->{$locType . 'PHONE_NUM'};
-        $voice = (string) $phone->{$locType . 'VOICE_OR_FAX'} == 'V';
-        $type = (string) $phone->{$locType . 'PHONE_TYPE'};
-        $node['phones'][] = [
-          'dns' => $dns,
-          'number' => $number,
-          'voice' => $voice,
-          'type' => $type,
-        ];
-      }
+      $dns = (string) $phone->{$locType . 'COMM_OR_DSN'} == 'D';
+      $number = $dns ? (string) $phone->{$locType . 'DSN_NUM'} : (string) $phone->{$locType . 'PHONE_NUM'};
+      $voice = (string) $phone->{$locType . 'VOICE_OR_FAX'} == 'V';
+      $type = (string) $phone->{$locType . 'PHONE_TYPE'};
+      $node['phones'][] = [
+        'dns' => $dns,
+        'number' => $number,
+        'voice' => $voice,
+        'type' => empty($type) ? 'Customer Service' : $type,
+      ];
     }
     // Get XML file ppso id.
     if (!$isPPSO) {

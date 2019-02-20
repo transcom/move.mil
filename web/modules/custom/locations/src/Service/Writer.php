@@ -167,7 +167,7 @@ class Writer {
       empty($nodeData['address']) ? NULL : $nodeData['address']
     );
     $location->set(
-      'field_location_email_addresses',
+      'field_location_email_address',
       empty($nodeData['emails']) ? NULL : $nodeData['emails']
     );
     $location->save();
@@ -209,7 +209,7 @@ class Writer {
         'target_type' => "taxonomy_term",
       ],
       'field_location_address' => $nodeData['address'],
-      'field_location_email_addresses'   => empty($nodeData['emails']) ? NULL : $nodeData['emails'],
+      'field_location_email_address'   => empty($nodeData['emails']) ? NULL : $nodeData['emails'],
       'field_location_reference'  => $ref,
     ]);
     $node->save();
