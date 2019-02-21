@@ -300,24 +300,18 @@ class LocationsController extends ControllerBase {
     foreach ($phone_references as $ref) {
       $id = $ref['target_id'];
       $phone = $phones[$id];
-      $type = $phone
-        ->get('field_type')
-        ->getValue()[0]['value'];
-      $number = $phone
+      $data['phones'][$id]['field_phonenumber'] = $phone
         ->get('field_phonenumber')
         ->getValue();
-      $dsn = $phone
+      $data['phones'][$id]['field_dsn'] = $phone
         ->get('field_dsn')
         ->getValue();
-      $voice = $phone
+      $data['phones'][$id]['field_type'] = $phone
+        ->get('field_type')
+        ->getValue();
+      $data['phones'][$id]['field_voice'] = $phone
         ->get('field_voice')
         ->getValue();
-      $typePhone = [
-        'field_phonenumber' => $number,
-        'field_dsn' => $dsn,
-        'field_voice' => $voice,
-      ];
-      $data['phones'][$type][$id][] = $typePhone;
     }
     return $data;
   }

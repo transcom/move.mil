@@ -1,31 +1,26 @@
 import React from 'react';
 import * as _ from 'lodash';
 
-const PhonesNumbers = (props) =>{
-  return _.map(props.phones, (phone, i)=>{
-    let number = (phone.field_phonenumber.length > 0) ? phone.field_phonenumber[0].value : '';
-    let dsn = (phone.field_dsn.length > 0 && phone.field_dsn[0].value === '1') ? 'DSN' : 'Commercial';
-    let voice = (phone.field_voice.length > 0 && phone.field_voice[0].value === '1' ) ? 'Voice' : 'Fax';
-    return (
-        <div key={i}>{ i } ({ phone })</div>
-    )
-  })
-}
-
 const Phones = (props) =>{
-  return _.map(props.phones, (numbers, type)=>{
-    console.log(numbers);
+  return _.map(props.phones, (phone, i)=>{
+    let phonenumber = phone.field_phonenumber.length > 0 && phone.field_phonenumber[0].value ? phone.field_phonenumber[0].value : '';
+    let type = phone.field_type.length > 0 && phone.field_type[0].value ? phone.field_type[0].value : 'Other';
+    let dsn = phone.field_dsn.length > 0 && phone.field_dsn[0].value === '1' ? 'DSN' : 'Commercial';
+    let voice = phone.field_voice.length > 0 && phone.field_voice[0].value === '1' ? 'Voice' : 'Fax';
     return (
-        <tr>
-          <td>{ type }</td>
-          <td><PhonesNumbers numbers={ numbers } /></td>
-        </tr>
+        <div key={i}>
+          <span>{type}</span>
+          <span> {phonenumber}</span>
+          <span> ({dsn})</span>
+          <span> ({voice})</span>
+        </div>
     )
   })
 }
 
 const Emails = (props) =>{
   return _.map(props.emails, (email, i)=>{
+    // the string will be like this: "email_type"%"email" (to avoid paragraphs)
     return (
       <div key={i}><a href={"mailto:" + email.value}>{email.value}</a></div>
     )
@@ -59,16 +54,10 @@ const Services = (props) =>{
 this.showPhones = (phones) =>{
   if(phones){
     return (
-      <div>
-        <div className="bold-header">Phone:</div>
-        <table>
-          <tr>
-            <th>Phone Type</th>
-            <th>Numbers</th>
-          </tr>
+        <div>
+          <div className="bold-header">Phone:</div>
           <Phones phones={phones} />
-        </table>
-      </div>
+        </div>
     )
   }
 }
