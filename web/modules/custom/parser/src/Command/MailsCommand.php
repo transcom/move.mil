@@ -4,7 +4,6 @@ namespace Drupal\parser\Command;
 
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Drupal\Core\Database\Driver\mysql\Connection;
 use Drupal\Core\Entity\EntityStorageException;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Console\Core\Command\ContainerAwareCommand;
