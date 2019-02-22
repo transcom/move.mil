@@ -1,0 +1,18 @@
+uuid: b7a24536-d1ba-4e6e-b3fd-20f2d91e20ce
+langcode: en
+status: true
+dependencies:
+  module:
+    - paragraphs
+id: paragraph.field_voice
+field_name: field_voice
+entity_type: paragraph
+type: boolean
+settings: {  }
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -3,19 +3,24 @@ import * as _ from 'lodash';
 
 const Phones = (props) =>{
   return _.map(props.phones, (phone, i)=>{
-    let phonenumber = phone.field_phonenumber[0] ? phone.field_phonenumber[0].value : '';
+    let phonenumber = phone.field_phonenumber.length > 0 && phone.field_phonenumber[0].value ? phone.field_phonenumber[0].value : '';
+    let type = phone.field_type.length > 0 && phone.field_type[0].value ? phone.field_type[0].value : 'Other';
+    let dsn = phone.field_dsn.length > 0 && phone.field_dsn[0].value === '1' ? 'DSN' : 'Commercial';
+    let voice = phone.field_voice.length > 0 && phone.field_voice[0].value === '1' ? 'Voice' : 'Fax';
     return (
-      <div key={i}>
-        <span>{phonenumber}</span>
-        <span style={{display: phone.field_type.length > 0 ? 'inline-block:' : 'none'}}> ({phone.field_type[0].value})</span>
-        <span style={{display: phone.field_dsn.length > 0 && phone.field_dsn[0].value === '1' ? 'inline-block:' : 'none'}}> (DSN)</span>
-      </div>
+        <div key={i}>
+          <span>{type}</span>
+          <span> {phonenumber}</span>
+          <span> ({dsn})</span>
+          <span> ({voice})</span>
+        </div>
     )
   })
 }
 
 const Emails = (props) =>{
   return _.map(props.emails, (email, i)=>{
+    // the string will be like this: "email_type"%"email" (to avoid paragraphs)
     return (
       <div key={i}><a href={"mailto:" + email.value}>{email.value}</a></div>
     )
@@ -49,10 +54,10 @@ const Services = (props) =>{
 this.showPhones = (phones) =>{
   if(phones){
     return (
-      <div>
-        <div className="bold-header">Phone:</div>
-        <Phones phones={phones} />
-      </div>
+        <div>
+          <div className="bold-header">Phone:</div>
+          <Phones phones={phones} />
+        </div>
     )
   }
 }
@@ -167,16 +172,12 @@ const ShippingOffice = (props) =>{
           </div>
 
           <div className="shipping-office-body usa-grid-full">
-              <div className="usa-width-one-third">
+              <div className="usa-width-one-half">
                 {this.showPhones(props.office.phones)}
               </div>
 
-              <div className="usa-width-one-third">
+              <div className="usa-width-one-half">
                 {this.showEmails(props.office.email_addresses)}
-              </div>
-
-              <div className="usa-width-one-third">
-                {this.showWebsites(props.office.websites)}
               </div>
           </div>
         </div>

@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.location.field_location_address
     - field.field.node.location.field_location_cnsl_id
     - field.field.node.location.field_location_email
+    - field.field.node.location.field_location_email_address
     - field.field.node.location.field_location_hours
     - field.field.node.location.field_location_link
     - field.field.node.location.field_location_notes
@@ -49,15 +50,16 @@ content:
     third_party_settings: {  }
     type: number_integer
     region: content
-  field_location_email:
-    weight: 5
+  field_location_email_address:
+    weight: 10
     label: above
-    settings: {  }
+    settings:
+      link_to_entity: false
     third_party_settings: {  }
-    type: basic_string
+    type: string
     region: content
   field_location_hours:
-    weight: 8
+    weight: 7
     label: above
     settings:
       link_to_entity: false
@@ -65,7 +67,7 @@ content:
     type: string
     region: content
   field_location_link:
-    weight: 6
+    weight: 5
     label: above
     settings:
       trim_length: 80
@@ -77,14 +79,14 @@ content:
     type: link
     region: content
   field_location_notes:
-    weight: 9
+    weight: 8
     label: above
     settings: {  }
     third_party_settings: {  }
     type: basic_string
     region: content
   field_location_reference:
-    weight: 10
+    weight: 9
     label: above
     settings:
       link: true
@@ -92,7 +94,7 @@ content:
     type: entity_reference_label
     region: content
   field_location_services:
-    weight: 7
+    weight: 6
     label: above
     settings:
       link_to_entity: false
@@ -121,4 +123,5 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  field_location_email: true
