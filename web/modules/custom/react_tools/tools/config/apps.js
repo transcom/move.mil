@@ -80,7 +80,8 @@ function sassWatch(appName){
   let appRoots = this.appPaths(appName);
   return new Promise((resolve, reject)=>{
       let sassDir = path.join(appRoots.sassDir, '/main.scss');
-      let script = `node-sass --watch ${sassDir} ${appRoots.cssDir}`;
+      let cssDir = path.join(appRoots.cssDir, '/main.css');
+      let script = `node-sass --watch ${sassDir} ${cssDir}`;
       let scriptErr = null;
 
       exec(script, (err, stdout, stderr) => {
@@ -93,7 +94,7 @@ function sassWatch(appName){
         if(scriptErr){
           reject(scriptErr);
         }else{
-          resolve(`Watching src: ${sassDir} dest: ${appRoots.cssDir}`);
+          resolve(`Watching src: ${sassDir} dest: ${cssDir}`);
         }
       }, 100);
   });

@@ -85,37 +85,38 @@ class App extends Component {
 
   requestData = (options) =>{
       let url = `${this.baseUrl}/parser/locator-maps`;
-      let coords = options.query ? options : {};
 
       axios.post(url, options)
        .then(res => {
-          let results = res.data;
-
-          if(!results.offices){
-            this.handleError({title: "We can’t find that location", message: "There was a problem. Please double check the location and try again."});
-            return;
-          }
-
-          coords = {
-            latitude: results.geolocation.lat,
-            longitude: results.geolocation.lon
-          }
-          results.selectedPage = 1;
-          results.offices = _.sortBy(results.offices, 'distance_mi');
-
-          _.each(results.offices, (office, i)=>{
-              office.id = `office-${i}`;
-          });
-
-          this.setState({
-            geolocation: {...this.state.geolocation, coords: coords},
-            results: results,
-            isLoading: false,
-            errorMessage: null
-          });
+          this.handleSearchResponse(res.data);
        }).catch(error => {
          this.handleError({title: "Connection problem", message: "There was a problem connecting to the map service. Please refresh and try again."});
        });
+  }
+
+  handleSearchResponse = (results) =>{
+    if(!results.offices){
+      this.handleError({title: "We can’t find that location", message: "There was a problem. Please double check the location and try again."});
+      return;
+    }
+
+    let coords = {
+      latitude: results.geolocation.lat,
+      longitude: results.geolocation.lon
+    }
+    results.selectedPage = 1;
+    results.offices = _.sortBy(results.offices, 'distance_mi');
+
+    _.each(results.offices, (office, i)=>{
+        office.id = `office-${i}`;
+    });
+
+    this.setState({
+      geolocation: {...this.state.geolocation, coords: coords},
+      results: results,
+      isLoading: false,
+      errorMessage: null
+    });
   }
 
   changePageNo = (pageNo, totalPages) => {

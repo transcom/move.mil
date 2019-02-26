@@ -248,3 +248,82 @@ $service-tag: #fdb81e;
         }
     }
 }
+
+.three-quarters{
+    width: 75%;
+    margin-top: 10px;
+}
+
+.shipping-office-header, .mailing-address{
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+.flex-container {
+    position: relative;
+    display: flex;
+    text-align: left;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    align-items: baseline;
+    padding: 2px;
+    color: #000;
+
+    &.column{
+      flex-direction: column;
+
+      .flex-item{
+        width: auto;
+        padding: 5px;
+      }
+    }
+
+    &.selectable {
+      cursor: pointer;
+      &:hover {
+        background: #2886fa;
+        color: #000;
+      }
+    }
+    
+    &.header-row {
+      border: none;
+      color: #fff;
+      background: blue;
+    }
+
+    &.odd{
+        background: #c2cad4;
+    }
+
+    .flex-item {
+      position: relative;
+      width: 100%;
+      padding: 5px;
+      line-height: 10px;
+
+      input[type="checkbox"]{
+        width: auto;
+      }
+
+      &.header-column{
+        border: none;
+        color: #fff;
+        font-weight: bold;
+      }
+
+      &.large {
+        width: 150%;
+      }
+      &.right {
+        text-align: right;
+      }
+      &.half {
+        flex-basis: 50%;
+      }
+      &.center {
+        text-align: center;
+      }
+    }
+  }

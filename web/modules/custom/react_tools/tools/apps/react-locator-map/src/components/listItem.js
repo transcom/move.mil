@@ -2,27 +2,42 @@ import React from 'react';
 import * as _ from 'lodash';
 
 const Phones = (props) =>{
-  return _.map(props.phones, (phone, i)=>{
-    let phonenumber = phone.field_phonenumber.length > 0 && phone.field_phonenumber[0].value ? phone.field_phonenumber[0].value : '';
-    let type = phone.field_type.length > 0 && phone.field_type[0].value ? phone.field_type[0].value : 'Other';
-    let dsn = phone.field_dsn.length > 0 && phone.field_dsn[0].value === '1' ? 'DSN' : 'Commercial';
-    let voice = phone.field_voice.length > 0 && phone.field_voice[0].value === '1' ? 'Voice' : 'Fax';
-    return (
-        <div key={i}>
-          <span>{type}</span>
-          <span> {phonenumber}</span>
-          <span> ({dsn})</span>
-          <span> ({voice})</span>
-        </div>
-    )
+  let index = 0;
+  return _.map(props.phones, (phone, type)=>{
+    let element = [],
+    largestArray = Number.NEGATIVE_INFINITY;
+    largestArray = phone.numbers.voice.length > largestArray ? phone.numbers.voice.length : largestArray;
+    largestArray = phone.numbers.fax.length > largestArray ? phone.numbers.fax.length : largestArray;
+    largestArray = phone.numbers.dsn.length > largestArray ? phone.numbers.dsn.length : largestArray;
+    
+
+    let odd =  index % 2 ? 'odd' : '';
+    for (let i=0; i< largestArray; i++){
+      element.push(
+          <div key={`${type}_${i}`} className={`flex-container ${odd}`}>
+            <div className="flex-item">{i === 0 ? phone.name : null}</div>
+            <div className="flex-item">{formatPhone(phone.numbers.voice[i] || null)}</div>
+            <div className="flex-item">{formatPhone(phone.numbers.dsn[i] || null)}</div>
+            <div className="flex-item">{formatPhone(phone.numbers.fax[i] || null)}</div>
+          </div>
+      )
+    }
+    index++;
+    return element;
   })
 }
 
 const Emails = (props) =>{
   return _.map(props.emails, (email, i)=>{
-    // the string will be like this: "email_type"%"email" (to avoid paragraphs)
+    let odd =  i % 2 ? 'odd' : '';
+    let [_name, _address] = email.value.split('%');
     return (
-      <div key={i}><a href={"mailto:" + email.value}>{email.value}</a></div>
+      <div key={i} className={`flex-container ${odd}`}>
+        <div className="flex-item half">{_name}</div>
+        <div className="flex-item">
+          <a href={`mailto: ${_address}`}>{_address}</a>
+        </div>
+      </div>
     )
   })
 }
@@ -53,11 +68,17 @@ const Services = (props) =>{
 
 this.showPhones = (phones) =>{
   if(phones){
+    let model = buildPhoneModel(phones);
     return (
-        <div>
-          <div className="bold-header">Phone:</div>
-          <Phones phones={phones} />
+      <div className="shipping-office-body usa-grid-full">
+        <div className="flex-container header-row">
+          <div className="flex-item">Phone Numbers</div>
+          <div className="flex-item">Voice</div>
+          <div className="flex-item">DSN</div>
+          <div className="flex-item">Fax</div>
         </div>
+        <Phones phones={model} />
+      </div>
     )
   }
 }
@@ -65,9 +86,12 @@ this.showPhones = (phones) =>{
 this.showEmails = (emails) =>{
   if(emails && emails.length > 0){
     return (
-      <div>
-        <div className="bold-header">Email:</div>
-        <Emails emails={emails} />
+      <div className="three-quarters">
+        <div className="flex-container header-row">
+          <div className="flex-item half">Contacts</div>
+          <div className="flex-item">Email Address</div>
+         </div>
+         <Emails emails={emails} />
       </div>
     )
   }
@@ -127,8 +151,8 @@ this.renderLocationItem = (location) =>{
      location.postal_code ||
      location.country_code){
      return (
-        <div>
-          <div className="bold-header">Location</div>
+        <div className="mailing-address">
+          <div className="bold-header">Mailing Address</div>
           <div>
             <LocationItem item={location.address_line1} comma={!!location.address_line2} />
             <LocationItem item={location.address_line2} />
@@ -171,15 +195,8 @@ const ShippingOffice = (props) =>{
             <div>{props.office.title}</div>
           </div>
 
-          <div className="shipping-office-body usa-grid-full">
-              <div className="usa-width-one-half">
-                {this.showPhones(props.office.phones)}
-              </div>
-
-              <div className="usa-width-one-half">
-                {this.showEmails(props.office.email_addresses)}
-              </div>
-          </div>
+          {this.showPhones(props.office.phones)}
+          {this.showEmails(props.office.email_addresses)}
         </div>
     )
   }else{
@@ -188,13 +205,14 @@ const ShippingOffice = (props) =>{
 }
 
 const ListItem = (props) => {
-  let officeTypeClass = props.item.type.replace(' ', '-').toLowerCase();
+  let officeTypeClass = props.item.type.replace(' ', '-').toLowerCase(),
+  _geolocation = props.item.location.geolocation;
 
   return (
     <li>
         <div className={`${"location-search-result " + officeTypeClass}`}
-          data-latitude={props.item.location.geolocation.lat}
-          data-longitude={props.item.location.geolocation.lng}
+          data-latitude={_geolocation ? _geolocation.lat : null}
+          data-longitude={_geolocation ? _geolocation.lng : null}
           data-name={props.item.title}
           data-type={props.item.type}
           id={props.item.id}>
@@ -205,14 +223,12 @@ const ListItem = (props) => {
 
           <div className="location-search-result-body">
             <div className="usa-grid-full">
-              <div className="usa-width-one-third">
+              <div className="">
                   {this.renderLocationItem(props.item.location)}
-                  {this.showPhones(props.item.phones)}
               </div>
-              <div className="usa-width-one-third">
-                  {this.showEmails(props.item.email_addresses)}
-              </div>
-              <div className="usa-width-one-third">
+              {this.showPhones(props.item.phones)}
+              {this.showEmails(props.item.email_addresses)}
+              <div className="">
                   {this.showHours(props.item.location.hours)}
                   {this.showNotes(props.item.notes)}
                   {this.showServices(props.item.services)}
@@ -224,5 +240,53 @@ const ListItem = (props) => {
     </li>
   );
 }
+
+function buildPhoneModel(_data){
+  let phonesModel = {};
+  _.each(_data, phone =>{
+    let type = phone.field_type[0].value.replace(' ', '_');
+
+    if(!phonesModel[type]){
+      phonesModel[type] = {
+        name: phone.field_type[0].value,
+        numbers: {
+          dsn: [],
+          voice: [],
+          fax: []
+        }
+      }
+    }
+    
+    if(parseInt(phone.field_dsn[0].value, 0) === 1){
+      phonesModel[type].numbers.dsn.push(phone.field_phonenumber[0].value);
+    }
+    if(parseInt(phone.field_voice[0].value, 0) === 1){
+      phonesModel[type].numbers.voice.push(phone.field_phonenumber[0].value);
+    }else{
+      phonesModel[type].numbers.fax.push(phone.field_phonenumber[0].value);
+    }
+
+  });
+  return phonesModel;
+}
+
+function formatPhone(val){
+  if(!val || val === '') return null;
+  let reg = /\D/g; //numbers only
+  val = val.replace(reg,'');
+  let _len = val.length;
+  if( _len > 6 && _len < 10){
+    return `${val.substring(0,3)}-${val.substring(3,_len)}`;
+  }
+
+  if(_len > 9 && _len < 11){
+    return `(${val.substring(0,3)}) ${val.substring(3,6)}-${val.substring(6,_len)}`;
+  }
+
+  if(_len > 10){
+    return `${val.substring(0,1)} (${val.substring(1,4)}) ${val.substring(4,7)}-${val.substring(7,_len)}`;
+  }
+}
+
 
 export default ListItem;
