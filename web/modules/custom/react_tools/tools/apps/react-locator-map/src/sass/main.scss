@@ -249,8 +249,7 @@ $service-tag: #fdb81e;
     }
 }
 
-.three-quarters{
-    width: 75%;
+.email-container{
     margin-top: 10px;
 }
 
@@ -290,7 +289,7 @@ $service-tag: #fdb81e;
     &.header-row {
       border: none;
       color: #fff;
-      background: blue;
+      background: #0071bc;
     }
 
     &.odd{

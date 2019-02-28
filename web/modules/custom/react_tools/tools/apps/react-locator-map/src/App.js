@@ -85,7 +85,6 @@ class App extends Component {
 
   requestData = (options) =>{
       let url = `${this.baseUrl}/parser/locator-maps`;
-
       axios.post(url, options)
        .then(res => {
           this.handleSearchResponse(res.data);

@@ -6,18 +6,19 @@ const Phones = (props) =>{
   return _.map(props.phones, (phone, type)=>{
     let element = [],
     largestArray = Number.NEGATIVE_INFINITY;
-    largestArray = phone.numbers.voice.length > largestArray ? phone.numbers.voice.length : largestArray;
+    largestArray = phone.numbers.commercial.length > largestArray ? phone.numbers.commercial.length : largestArray;
+    largestArray = phone.numbers.dsnVoice.length > largestArray ? phone.numbers.dsnVoice.length : largestArray;
     largestArray = phone.numbers.fax.length > largestArray ? phone.numbers.fax.length : largestArray;
-    largestArray = phone.numbers.dsn.length > largestArray ? phone.numbers.dsn.length : largestArray;
+    largestArray = phone.numbers.dsnFax.length > largestArray ? phone.numbers.dsnFax.length : largestArray;
     
-
     let odd =  index % 2 ? 'odd' : '';
     for (let i=0; i< largestArray; i++){
       element.push(
           <div key={`${type}_${i}`} className={`flex-container ${odd}`}>
             <div className="flex-item">{i === 0 ? phone.name : null}</div>
-            <div className="flex-item">{formatPhone(phone.numbers.voice[i] || null)}</div>
-            <div className="flex-item">{formatPhone(phone.numbers.dsn[i] || null)}</div>
+            <div className="flex-item">{formatPhone(phone.numbers.commercial[i] || null)}</div>
+            <div className="flex-item">{formatPhone(phone.numbers.dsnVoice[i] || null)}</div>
+            <div className="flex-item">{formatPhone(phone.numbers.dsnFax[i] || null)}</div>
             <div className="flex-item">{formatPhone(phone.numbers.fax[i] || null)}</div>
           </div>
       )
@@ -28,15 +29,13 @@ const Phones = (props) =>{
 }
 
 const Emails = (props) =>{
-  return _.map(props.emails, (email, i)=>{
-    let odd =  i % 2 ? 'odd' : '';
-    let [_name, _address] = email.value.split('%');
+  let i = -1;
+  return _.map(props.addresses, (emailAddress, key)=>{
+    i++;
     return (
-      <div key={i} className={`flex-container ${odd}`}>
-        <div className="flex-item half">{_name}</div>
-        <div className="flex-item">
-          <a href={`mailto: ${_address}`}>{_address}</a>
-        </div>
+      <div className={`flex-container ${props.oddClass}`} key={i}>
+        <div className="flex-item half">{i === 0 ? props.category : null}</div>
+        <div className="flex-item">{emailAddress}</div>
       </div>
     )
   })
@@ -73,9 +72,10 @@ this.showPhones = (phones) =>{
       <div className="shipping-office-body usa-grid-full">
         <div className="flex-container header-row">
           <div className="flex-item">Phone Numbers</div>
-          <div className="flex-item">Voice</div>
+          <div className="flex-item">Commerical</div>
           <div className="flex-item">DSN</div>
-          <div className="flex-item">Fax</div>
+          <div className="flex-item">Fax DSN</div>
+          <div className="flex-item">Fax Commercial</div>
         </div>
         <Phones phones={model} />
       </div>
@@ -85,16 +85,30 @@ this.showPhones = (phones) =>{
 
 this.showEmails = (emails) =>{
   if(emails && emails.length > 0){
+    let emailModel = buildEmailModel(emails);
     return (
-      <div className="three-quarters">
+      <div className="email-container">
         <div className="flex-container header-row">
           <div className="flex-item half">Contacts</div>
           <div className="flex-item">Email Address</div>
          </div>
-         <Emails emails={emails} />
+         <div>
+            {this.emailCategories(emailModel)}
+        </div>
       </div>
     )
   }
+}
+
+this.emailCategories = (emailModel) =>{
+  let i = 0;
+  return _.map(emailModel, category =>{
+    let odd =  i % 2 ? 'odd' : '';
+    i++;
+    return(
+      <Emails addresses={category.emails} category={category.name} oddClass={odd} />
+    )
+  })
 }
 
 this.showWebsites = (websites) =>{
@@ -244,30 +258,54 @@ const ListItem = (props) => {
 function buildPhoneModel(_data){
   let phonesModel = {};
   _.each(_data, phone =>{
-    let type = phone.field_type[0].value.replace(' ', '_');
+    let type = phone.field_type[0].value.replace(' ', '_'),
+    isDSN = parseInt(phone.field_dsn[0].value, 0) === 1,
+    isVoice = parseInt(phone.field_voice[0].value, 0) === 1;
 
     if(!phonesModel[type]){
       phonesModel[type] = {
         name: phone.field_type[0].value,
         numbers: {
-          dsn: [],
-          voice: [],
+          dsnVoice: [],
+          commercial: [],
+          dsnFax: [],
           fax: []
         }
       }
     }
-    
-    if(parseInt(phone.field_dsn[0].value, 0) === 1){
-      phonesModel[type].numbers.dsn.push(phone.field_phonenumber[0].value);
-    }
-    if(parseInt(phone.field_voice[0].value, 0) === 1){
-      phonesModel[type].numbers.voice.push(phone.field_phonenumber[0].value);
-    }else{
-      phonesModel[type].numbers.fax.push(phone.field_phonenumber[0].value);
-    }
 
+    if(isVoice){
+      if(isDSN){
+        phonesModel[type].numbers.dsnVoice.push(phone.field_phonenumber[0].value);
+      }else{
+        phonesModel[type].numbers.commercial.push(phone.field_phonenumber[0].value);
+      }
+    }else{
+      if(isDSN){
+        phonesModel[type].numbers.dsnFax.push(phone.field_phonenumber[0].value);
+      }else{
+        phonesModel[type].numbers.fax.push(phone.field_phonenumber[0].value);
+      }
+    }
   });
   return phonesModel;
+}
+
+function buildEmailModel(_data){
+  let emailModel = {}
+
+  _.each(_data, email =>{
+    let [_name, _address] = email.value.split('%');
+
+    if(!emailModel[_name]){
+      emailModel[_name] = {
+        name: _name,
+        emails: []
+      }
+    }
+    emailModel[_name].emails.push(_address);
+  });
+  return emailModel;
 }
 
 function formatPhone(val){
