@@ -14,7 +14,7 @@ class Reader {
   /**
    * Reads and parses XML location file provided by DoD.
    */
-  public function parse($xmlFile) {
+  public function parse($xmlFile, $ignored) {
     if (!is_file($xmlFile)) {
       throw new \RuntimeException(sprintf('File "%s" does not exist.', $xmlFile));
     }
