@@ -124,7 +124,7 @@ class ManagerForm extends ConfigFormBase {
 
     $form['filters_fieldset'] = [
       '#type' => 'fieldset',
-      '#title' => $this->t('Filters'),
+      '#title' => $this->t('Exception List'),
       '#prefix' => '<div id="filters-fieldset-wrapper">',
       '#suffix' => '</div>',
     ];
@@ -132,7 +132,7 @@ class ManagerForm extends ConfigFormBase {
     for ($i = 0; $i < $num_filters; $i++) {
       $form['filters_fieldset']['filter'][$i] = [
         '#type' => 'number',
-        '#title' => $this->t('Filter ID'),
+        '#title' => $this->t('Office ID'),
       ];
     }
 
@@ -141,7 +141,7 @@ class ManagerForm extends ConfigFormBase {
     ];
     $form['filters_fieldset']['actions']['add_filter'] = [
       '#type' => 'submit',
-      '#value' => $this->t('Add filter'),
+      '#value' => $this->t('Add another office'),
       '#submit' => ['::addOne'],
       '#ajax' => [
         'callback' => '::addmoreCallback',
