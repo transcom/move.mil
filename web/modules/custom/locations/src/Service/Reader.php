@@ -14,7 +14,7 @@ class Reader {
   /**
    * Reads and parses XML location file provided by DoD.
    */
-  public function parse($xmlFile) {
+  public function parse($xmlFile, $ignored) {
     if (!is_file($xmlFile)) {
       throw new \RuntimeException(sprintf('File "%s" does not exist.', $xmlFile));
     }
@@ -27,13 +27,15 @@ class Reader {
     // unique transportation and shipping offices.
     $allLocations = [];
     foreach ($xml_offices as $xml_office) {
-      $nodeData = $this->getNodeData($xml_office, FALSE);
-      $allLocations[$nodeData['id']] = $nodeData;
-      // If PPSO's been added, skip the parsing.
-      $ppsoId = $nodeData['ppsoId'];
-      if (!empty($ppsoId) && empty($allLocations[$ppsoId])) {
-        $ppsoData = $this->getNodeData($xml_office, TRUE);
-        $allLocations[$ppsoId] = $ppsoData;
+      if (!in_array((string) $xml_office->CNSL_ORG_ID1, $ignored)) {
+        $nodeData = $this->getNodeData($xml_office, FALSE);
+        $allLocations[$nodeData['id']] = $nodeData;
+        // If PPSO's been added, skip the parsing.
+        $ppsoId = $nodeData['ppsoId'];
+        if (!empty($ppsoId) && empty($allLocations[$ppsoId])) {
+          $ppsoData = $this->getNodeData($xml_office, TRUE);
+          $allLocations[$ppsoId] = $ppsoData;
+        }
       }
     }
     // Sort locations.
