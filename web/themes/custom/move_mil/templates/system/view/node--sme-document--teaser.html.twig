@@ -84,11 +84,18 @@
 {{ attach_library('classy/node') }}
 <article{{ attributes.addClass(classes) }}>
 
+
+
   {{ content.field_document_id }}
 
   <div class="doc-link-size-wrapper">
-    <a class="document-link" href="{{ file_url }}" title="View/Download {{ file_type|split('/')[1]|upper }} File">{{ label.0 }}</a>
-    <span class="file-size">[{{ file_size }}]</span>
+    {% if content.field_document_file.0 %}
+      <a class="document-link" href="{{ file_url }}" title="View/Download {{ file_type|split('/')[1]|upper }} File">{{ label.0 }}</a>
+      <span class="file-size">[{{ file_size }}]</span>
+    {% else %}
+      <a class="external-link" href="{{ content.field_external_link.0 }}" title="Open Link in New Window" target="_blank">{{ label.0 }}</a>
+    {% endif %}
+
     {% if logged_in %}
       <span class="edit-item">
         (<a href="{{ drupal_url('node/' ~ node.id ~ '/edit') }}" target="_blank">{{ 'Edit'|t }}</a>)
