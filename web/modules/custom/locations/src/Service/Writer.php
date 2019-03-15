@@ -272,7 +272,7 @@ class Writer {
     $node->set('field_location_telephone', $phone_references);
     $node->save();
   }
-  
+
   /**
    * Update Drupal Location with the XML phone content.
    *
