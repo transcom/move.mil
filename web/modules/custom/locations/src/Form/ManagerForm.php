@@ -249,7 +249,8 @@ class ManagerForm extends ConfigFormBase {
       $ignored = $form_state->getValue(['filters_fieldset', 'filter']);
       $xml = $this->reader->parse($filePath, $ignored);
       $this->updateLocations($xml);
-      $this->deleteOldLocations($xml);
+      // Removing since there's a bug with this, and we have the exception list.
+      // $this->deleteOldLocations($xml);
     }
     catch (\Exception $e) {
       $this->messenger()->addError('Error: ' . $e->getMessage());
