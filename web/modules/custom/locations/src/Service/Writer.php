@@ -38,7 +38,7 @@ class Writer {
       Writer::updateLocationPhones($node, $nodeData['phones']);
     }
     // Update or add geolocation.
-    $error = Writer::updateGeolocation($node, $googleApi);
+    $error = Writer::updateGeolocation($node, $nodeData, $googleApi);
     if (!empty($error)) {
       \Drupal::messenger()->addWarning($error);
     }
@@ -278,6 +278,8 @@ class Writer {
    *
    * @param \Drupal\node\Entity\Node $node
    *   Drupal Location entity.
+   * @param array $nodeData
+   *   The source data from XML office.
    * @param string $googleApi
    *   Environment Google API key.
    *
@@ -286,9 +288,18 @@ class Writer {
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  private static function updateGeolocation(Node $node, $googleApi) {
-    $title = $node->getTitle();
-    $request = "https://maps.google.com/maps/api/geocode/json?address={$title}&key=$googleApi";
+  private static function updateGeolocation(Node $node, array $nodeData, $googleApi) {
+    $title = $nodeData['name'];
+    $country = $nodeData['address']['country_code'];
+    $zipcode = $nodeData['address']['postal_code'];
+    $city = $nodeData['address']['locality'];
+    // String to send to Google Maps API.
+    $address = "{$zipcode}, {$city}, {$country}";
+    // Don't use zipcode outside the US. Some don't have the correct format.
+    if ($country != 'US') {
+      $address = "{$city}, {$country}";
+    }
+    $request = "https://maps.google.com/maps/api/geocode/json?address={$address}&key=$googleApi";
     $client = new Client();
     try {
       $res = $client->request('GET', $request);
