@@ -34,13 +34,13 @@
     {% endif %}
 
     {% if site_slogan == true %}
-      <h2 class="usa-font-lead">{{ site_slogan }}</h2>
-      {% elseif site_logo == false %}
-        {% if nid == '928' %} <!-- SME page slogan -->
-          <span class="usa-font-lead"> Official <abbr title="Department of Defense">DOD</abbr> PPSO & TSP Moving Portal</span>
-        {% else %}
-          <span class="usa-font-lead"> Official <abbr title="Department of Defense">DOD</abbr> Customer Moving Portal</span>
-        {% endif %}
+      <span class="usa-font-lead">{{ site_slogan }}</span>
+    {% else %}
+      {% if nid == '928' %} <!-- SME page slogan -->
+        <span class="usa-font-lead"> Official <abbr title="Department of Defense">DOD</abbr> PPSO & TSP Moving Portal</span>
+      {% else %}
+        <span class="usa-font-lead"> Official <abbr title="Department of Defense">DOD</abbr> Customer Moving Portal</span>
+      {% endif %}
     {% endif %}
   </div>
 

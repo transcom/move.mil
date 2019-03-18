@@ -1,6 +1,6 @@
-uuid: c465b50f-d905-4d3b-bab3-a96c44efe0d8
+uuid: 35ccd757-fdef-4576-a703-ab814ce5d462
 langcode: en
-status: false
+status: true
 dependencies:
   config:
     - views.view.sme_section
@@ -9,14 +9,14 @@ dependencies:
     - views
   theme:
     - move_mil
-id: sme_direct_procurement_method
+id: forums_and_workshops
 theme: move_mil
 region: content
-weight: 0
+weight: 5
 provider: null
-plugin: 'views_block:sme_section-block_2'
+plugin: 'views_block:sme_section-block_5'
 settings:
-  id: 'views_block:sme_section-block_2'
+  id: 'views_block:sme_section-block_5'
   label: ''
   provider: views
   label_display: visible
@@ -26,5 +26,5 @@ visibility:
   request_path:
     id: request_path
     pages: /sme
-    negate: true
+    negate: false
     context_mapping: {  }
