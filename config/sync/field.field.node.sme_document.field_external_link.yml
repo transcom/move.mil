@@ -1,0 +1,23 @@
+uuid: 6df62345-8e4f-4ff5-a3da-10a34a1824a0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_external_link
+    - node.type.sme_document
+  module:
+    - link
+id: node.sme_document.field_external_link
+field_name: field_external_link
+entity_type: node
+bundle: sme_document
+label: 'External Link'
+description: 'The Document Title field will be used as the link''s display text.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 17
+  title: 0
+field_type: link

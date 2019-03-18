@@ -20,7 +20,7 @@
     {% if site_logo == true %}
       <img src="{{ site_logo }}"  alt="{{ 'Home'|t }}" />
     {% elseif site_logo == false %}
-      <img src="/themes/custom/move_mil/ustranscom-logo.svg"  alt="{{ 'Home'|t }}" />
+      <img src="/themes/custom/move_mil/United_States_Department_of_Defense_Seal.svg"  alt="{{ 'Home'|t }}" />
   </a>
   {% endif %}
 
@@ -34,13 +34,13 @@
     {% endif %}
 
     {% if site_slogan == true %}
-      <h2 class="usa-font-lead">{{ site_slogan }}</h2>
-      {% elseif site_logo == false %}
-        {% if nid == '928' %} <!-- SME page slogan -->
-          <span class="usa-font-lead"> Official <abbr title="Department of Defense">DOD</abbr> PPSO & TSP Moving Portal</span>
-        {% else %}
-          <span class="usa-font-lead"> Official <abbr title="Department of Defense">DOD</abbr> Customer Moving Portal</span>
-        {% endif %}
+      <span class="usa-font-lead">{{ site_slogan }}</span>
+    {% else %}
+      {% if nid == '928' %} <!-- SME page slogan -->
+        <span class="usa-font-lead"> Official <abbr title="Department of Defense">DOD</abbr> PPSO & TSP Moving Portal</span>
+      {% else %}
+        <span class="usa-font-lead"> Official <abbr title="Department of Defense">DOD</abbr> Customer Moving Portal</span>
+      {% endif %}
     {% endif %}
   </div>
 

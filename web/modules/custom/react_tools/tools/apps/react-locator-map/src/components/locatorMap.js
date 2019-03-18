@@ -41,25 +41,27 @@ class LocatorMap extends Component {
 
     getGoogleMarkersArray = (props) =>{
       return _.map(this.props.offices, (office, key) =>{
-        if(office.location.geolocation.lat && office.location.geolocation.lng){
-          let _icon = {
-            url: this.getIconObject(office),
-            scaledSize: { width: 50, height: 50},
-          };
+        if(office.location.geolocation){
+          if(office.location.geolocation.lat && office.location.geolocation.lng){
+            let _icon = {
+              url: this.getIconObject(office),
+              scaledSize: { width: 50, height: 50},
+            };
 
-          return <Marker key={`office_${key}`}
-            position={{ lat: parseFloat(office.location.geolocation.lat), lng: parseFloat(office.location.geolocation.lng) }}
-            icon={_icon}
-            optimized={false}
-            onClick={() => props.onToggleOpen(office.id)}
-          >
-            {props.isOpenId === office.id && <InfoWindow onCloseClick={() => props.onToggleOpen(null)}>
-              <div className="map-popup">
-                <div>{office.title}</div>
-                <a href={`#${office.id}`}>View Details</a>
-              </div>
-            </InfoWindow>}
-          </Marker>
+            return <Marker key={`office_${key}`}
+              position={{ lat: parseFloat(office.location.geolocation.lat), lng: parseFloat(office.location.geolocation.lng) }}
+              icon={_icon}
+              optimized={false}
+              onClick={() => props.onToggleOpen(office.id)}
+            >
+              {props.isOpenId === office.id && <InfoWindow onCloseClick={() => props.onToggleOpen(null)}>
+                <div className="map-popup">
+                  <div>{office.title}</div>
+                  <a href={`#${office.id}`}>View Details</a>
+                </div>
+              </InfoWindow>}
+            </Marker>
+          }
         }
       });
     }

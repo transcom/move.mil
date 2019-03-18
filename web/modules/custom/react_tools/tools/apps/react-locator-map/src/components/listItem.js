@@ -2,22 +2,41 @@ import React from 'react';
 import * as _ from 'lodash';
 
 const Phones = (props) =>{
-  return _.map(props.phones, (phone, i)=>{
-    let phonenumber = phone.field_phonenumber[0] ? phone.field_phonenumber[0].value : '';
-    return (
-      <div key={i}>
-        <span>{phonenumber}</span>
-        <span style={{display: phone.field_type.length > 0 ? 'inline-block:' : 'none'}}> ({phone.field_type[0].value})</span>
-        <span style={{display: phone.field_dsn.length > 0 && phone.field_dsn[0].value === '1' ? 'inline-block:' : 'none'}}> (DSN)</span>
-      </div>
-    )
+  let index = 0;
+  return _.map(props.phones, (phone, type)=>{
+    let element = [],
+    largestArray = Number.NEGATIVE_INFINITY;
+    largestArray = phone.numbers.commercial.length > largestArray ? phone.numbers.commercial.length : largestArray;
+    largestArray = phone.numbers.dsnVoice.length > largestArray ? phone.numbers.dsnVoice.length : largestArray;
+    largestArray = phone.numbers.fax.length > largestArray ? phone.numbers.fax.length : largestArray;
+    largestArray = phone.numbers.dsnFax.length > largestArray ? phone.numbers.dsnFax.length : largestArray;
+    
+    let odd =  index % 2 ? 'odd' : '';
+    for (let i=0; i< largestArray; i++){
+      element.push(
+          <div key={`${type}_${i}`} className={`flex-container ${odd}`}>
+            <div className="flex-item">{i === 0 ? phone.name : null}</div>
+            <div className="flex-item">{formatPhone(phone.numbers.commercial[i] || null)}</div>
+            <div className="flex-item">{formatPhone(phone.numbers.dsnVoice[i] || null)}</div>
+            <div className="flex-item">{formatPhone(phone.numbers.dsnFax[i] || null)}</div>
+            <div className="flex-item">{formatPhone(phone.numbers.fax[i] || null)}</div>
+          </div>
+      )
+    }
+    index++;
+    return element;
   })
 }
 
 const Emails = (props) =>{
-  return _.map(props.emails, (email, i)=>{
+  let i = -1;
+  return _.map(props.addresses, (emailAddress, key)=>{
+    i++;
     return (
-      <div key={i}><a href={"mailto:" + email.value}>{email.value}</a></div>
+      <div className={`flex-container ${props.oddClass}`} key={i}>
+        <div className="flex-item half">{i === 0 ? props.category : null}</div>
+        <div className="flex-item">{emailAddress}</div>
+      </div>
     )
   })
 }
@@ -48,10 +67,17 @@ const Services = (props) =>{
 
 this.showPhones = (phones) =>{
   if(phones){
+    let model = buildPhoneModel(phones);
     return (
-      <div>
-        <div className="bold-header">Phone:</div>
-        <Phones phones={phones} />
+      <div className="shipping-office-body usa-grid-full">
+        <div className="flex-container header-row">
+          <div className="flex-item">Phone Numbers</div>
+          <div className="flex-item">Commerical</div>
+          <div className="flex-item">DSN</div>
+          <div className="flex-item">Fax DSN</div>
+          <div className="flex-item">Fax Commercial</div>
+        </div>
+        <Phones phones={model} />
       </div>
     )
   }
@@ -59,13 +85,30 @@ this.showPhones = (phones) =>{
 
 this.showEmails = (emails) =>{
   if(emails && emails.length > 0){
+    let emailModel = buildEmailModel(emails);
     return (
-      <div>
-        <div className="bold-header">Email:</div>
-        <Emails emails={emails} />
+      <div className="email-container">
+        <div className="flex-container header-row">
+          <div className="flex-item half">Contacts</div>
+          <div className="flex-item">Email Address</div>
+         </div>
+         <div>
+            {this.emailCategories(emailModel)}
+        </div>
       </div>
     )
   }
+}
+
+this.emailCategories = (emailModel) =>{
+  let i = 0;
+  return _.map(emailModel, category =>{
+    let odd =  i % 2 ? 'odd' : '';
+    i++;
+    return(
+      <Emails addresses={category.emails} category={category.name} oddClass={odd} />
+    )
+  })
 }
 
 this.showWebsites = (websites) =>{
@@ -122,8 +165,8 @@ this.renderLocationItem = (location) =>{
      location.postal_code ||
      location.country_code){
      return (
-        <div>
-          <div className="bold-header">Location</div>
+        <div className="mailing-address">
+          <div className="bold-header">Mailing Address</div>
           <div>
             <LocationItem item={location.address_line1} comma={!!location.address_line2} />
             <LocationItem item={location.address_line2} />
@@ -166,19 +209,8 @@ const ShippingOffice = (props) =>{
             <div>{props.office.title}</div>
           </div>
 
-          <div className="shipping-office-body usa-grid-full">
-              <div className="usa-width-one-third">
-                {this.showPhones(props.office.phones)}
-              </div>
-
-              <div className="usa-width-one-third">
-                {this.showEmails(props.office.email_addresses)}
-              </div>
-
-              <div className="usa-width-one-third">
-                {this.showWebsites(props.office.websites)}
-              </div>
-          </div>
+          {this.showPhones(props.office.phones)}
+          {this.showEmails(props.office.email_addresses)}
         </div>
     )
   }else{
@@ -187,13 +219,14 @@ const ShippingOffice = (props) =>{
 }
 
 const ListItem = (props) => {
-  let officeTypeClass = props.item.type.replace(' ', '-').toLowerCase();
+  let officeTypeClass = props.item.type.replace(' ', '-').toLowerCase(),
+  _geolocation = props.item.location.geolocation;
 
   return (
     <li>
         <div className={`${"location-search-result " + officeTypeClass}`}
-          data-latitude={props.item.location.geolocation.lat}
-          data-longitude={props.item.location.geolocation.lng}
+          data-latitude={_geolocation ? _geolocation.lat : null}
+          data-longitude={_geolocation ? _geolocation.lng : null}
           data-name={props.item.title}
           data-type={props.item.type}
           id={props.item.id}>
@@ -204,14 +237,12 @@ const ListItem = (props) => {
 
           <div className="location-search-result-body">
             <div className="usa-grid-full">
-              <div className="usa-width-one-third">
+              <div className="">
                   {this.renderLocationItem(props.item.location)}
-                  {this.showPhones(props.item.phones)}
               </div>
-              <div className="usa-width-one-third">
-                  {this.showEmails(props.item.email_addresses)}
-              </div>
-              <div className="usa-width-one-third">
+              {this.showPhones(props.item.phones)}
+              {this.showEmails(props.item.email_addresses)}
+              <div className="">
                   {this.showHours(props.item.location.hours)}
                   {this.showNotes(props.item.notes)}
                   {this.showServices(props.item.services)}
@@ -223,5 +254,77 @@ const ListItem = (props) => {
     </li>
   );
 }
+
+function buildPhoneModel(_data){
+  let phonesModel = {};
+  _.each(_data, phone =>{
+    let type = phone.field_type[0].value.replace(' ', '_'),
+    isDSN = parseInt(phone.field_dsn[0].value, 0) === 1,
+    isVoice = parseInt(phone.field_voice[0].value, 0) === 1;
+
+    if(!phonesModel[type]){
+      phonesModel[type] = {
+        name: phone.field_type[0].value,
+        numbers: {
+          dsnVoice: [],
+          commercial: [],
+          dsnFax: [],
+          fax: []
+        }
+      }
+    }
+
+    if(isVoice){
+      if(isDSN){
+        phonesModel[type].numbers.dsnVoice.push(phone.field_phonenumber[0].value);
+      }else{
+        phonesModel[type].numbers.commercial.push(phone.field_phonenumber[0].value);
+      }
+    }else{
+      if(isDSN){
+        phonesModel[type].numbers.dsnFax.push(phone.field_phonenumber[0].value);
+      }else{
+        phonesModel[type].numbers.fax.push(phone.field_phonenumber[0].value);
+      }
+    }
+  });
+  return phonesModel;
+}
+
+function buildEmailModel(_data){
+  let emailModel = {}
+
+  _.each(_data, email =>{
+    let [_name, _address] = email.value.split('%');
+
+    if(!emailModel[_name]){
+      emailModel[_name] = {
+        name: _name,
+        emails: []
+      }
+    }
+    emailModel[_name].emails.push(_address);
+  });
+  return emailModel;
+}
+
+function formatPhone(val){
+  if(!val || val === '') return null;
+  let reg = /\D/g; //numbers only
+  val = val.replace(reg,'');
+  let _len = val.length;
+  if( _len > 6 && _len < 10){
+    return `${val.substring(0,3)}-${val.substring(3,_len)}`;
+  }
+
+  if(_len > 9 && _len < 11){
+    return `(${val.substring(0,3)}) ${val.substring(3,6)}-${val.substring(6,_len)}`;
+  }
+
+  if(_len > 10){
+    return `${val.substring(0,1)} (${val.substring(1,4)}) ${val.substring(4,7)}-${val.substring(7,_len)}`;
+  }
+}
+
 
 export default ListItem;
