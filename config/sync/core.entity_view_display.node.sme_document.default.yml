@@ -7,11 +7,13 @@ dependencies:
     - field.field.node.sme_document.field_document_file
     - field.field.node.sme_document.field_document_id
     - field.field.node.sme_document.field_document_updated_date
+    - field.field.node.sme_document.field_external_link
     - field.field.node.sme_document.field_sme_section
     - node.type.sme_document
   module:
     - datetime
     - file
+    - link
     - user
 id: node.sme_document.default
 targetEntityType: node
@@ -51,6 +53,18 @@ content:
       format_type: short
     third_party_settings: {  }
     type: datetime_default
+    region: content
+  field_external_link:
+    weight: 6
+    label: above
+    settings:
+      trim_length: null
+      url_only: true
+      target: _blank
+      url_plain: false
+      rel: '0'
+    third_party_settings: {  }
+    type: link
     region: content
   field_sme_section:
     type: entity_reference_label

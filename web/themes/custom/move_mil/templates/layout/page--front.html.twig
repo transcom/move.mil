@@ -235,12 +235,12 @@
           {% if footer_agency_logo == true %}
             <img class="{{ footer_agency_logo_class }}" src="{{ footer_agency_logo }}"  alt="{{ 'Home'|t }}" />
           {% elseif site_logo == false %}
-            <img class="{{ footer_agency_logo_class }} usa-footer-big-logo-img" src="/themes/custom/move_mil/ustranscom-logo.svg"  alt="{{ 'United States Transportation Command emblem'|t }}" />
+            <img class="{{ footer_agency_logo_class }} usa-footer-big-logo-img" src="/themes/custom/move_mil/United_States_Department_of_Defense_Seal.svg"  alt="{{ 'United States Transportation Command emblem'|t }}" />
           {% endif %}
 
         <div class="footer-agency--content">
           {% if footer_agency_name %}
-          <h3 class="{{ footer_agency_heading_class }}">{{ footer_agency_name }}</br><span class="footer-agency-name--description usa-text-small">United States Transportation Command</span></h3>
+          <h3 class="{{ footer_agency_heading_class }}"><span>{{ 'Maintained by'|t }}</span><br />{{ footer_agency_name }}</br><span class="footer-agency-name--description usa-text-small">United States Transportation Command</span></h3>
           {% endif %}
         </div>
 

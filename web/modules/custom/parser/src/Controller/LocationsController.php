@@ -279,7 +279,7 @@ class LocationsController extends ControllerBase {
     $geolocation = $entity->get('field_geolocation')->getValue();
     $data['location']['geolocation'] = empty($geolocation) ? NULL : $geolocation[0];
     $data['email_addresses'] = $entity
-      ->get('field_location_email')
+      ->get('field_location_email_address')
       ->getValue();
     $data['hours'] = $entity
       ->get('field_location_hours')
@@ -308,6 +308,9 @@ class LocationsController extends ControllerBase {
         ->getValue();
       $data['phones'][$id]['field_type'] = $phone
         ->get('field_type')
+        ->getValue();
+      $data['phones'][$id]['field_voice'] = $phone
+        ->get('field_voice')
         ->getValue();
     }
     return $data;

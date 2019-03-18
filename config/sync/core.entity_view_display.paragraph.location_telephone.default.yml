@@ -6,15 +6,18 @@ dependencies:
     - field.field.paragraph.location_telephone.field_dsn
     - field.field.paragraph.location_telephone.field_phonenumber
     - field.field.paragraph.location_telephone.field_type
+    - field.field.paragraph.location_telephone.field_voice
     - paragraphs.paragraphs_type.location_telephone
+  module:
+    - telephone
 id: paragraph.location_telephone.default
 targetEntityType: paragraph
 bundle: location_telephone
 mode: default
 content:
   field_dsn:
-    weight: 0
-    label: above
+    weight: 1
+    label: visually_hidden
     settings:
       format: default
       format_custom_false: ''
@@ -23,18 +26,29 @@ content:
     type: boolean
     region: content
   field_phonenumber:
-    weight: 1
-    label: above
-    settings: {  }
+    weight: 3
+    label: inline
+    settings:
+      title: ''
     third_party_settings: {  }
-    type: basic_string
+    type: telephone_link
     region: content
   field_type:
-    weight: 2
-    label: above
+    weight: 0
+    label: visually_hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
+  field_voice:
+    weight: 2
+    label: visually_hidden
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
     region: content
 hidden: {  }

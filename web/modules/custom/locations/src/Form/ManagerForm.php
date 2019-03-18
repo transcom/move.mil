@@ -116,6 +116,51 @@ class ManagerForm extends ConfigFormBase {
       ],
     ];
 
+    $num_filters = $form_state->get('num_filters');
+    if ($num_filters === NULL) {
+      $form_state->set('num_filters', 1);
+      $num_filters = 1;
+    }
+
+    $form['filters_fieldset'] = [
+      '#type' => 'fieldset',
+      '#title' => $this->t('Exception List'),
+      '#prefix' => '<div id="filters-fieldset-wrapper">',
+      '#suffix' => '</div>',
+    ];
+
+    for ($i = 0; $i < $num_filters; $i++) {
+      $form['filters_fieldset']['filter'][$i] = [
+        '#type' => 'number',
+        '#title' => $this->t('Office ID'),
+      ];
+    }
+
+    $form['filters_fieldset']['actions'] = [
+      '#type' => 'actions',
+    ];
+    $form['filters_fieldset']['actions']['add_filter'] = [
+      '#type' => 'submit',
+      '#value' => $this->t('Add another office'),
+      '#submit' => ['::addOne'],
+      '#ajax' => [
+        'callback' => '::addmoreCallback',
+        'wrapper' => 'filters-fieldset-wrapper',
+      ],
+    ];
+
+    if ($num_filters > 1) {
+      $form['filters_fieldset']['actions']['remove_filter'] = [
+        '#type' => 'submit',
+        '#value' => $this->t('Remove'),
+        '#submit' => ['::removeCallback'],
+        '#ajax' => [
+          'callback' => '::addmoreCallback',
+          'wrapper' => 'filters-fieldset-wrapper',
+        ],
+      ];
+    }
+
     $form['update']['link'] = [
       '#title' => $this->t('What location entities do we have?'),
       '#type' => 'link',
@@ -133,6 +178,33 @@ class ManagerForm extends ConfigFormBase {
     // By default, render the form using system-config-form.html.twig.
     $form['#theme'] = 'system_config_form';
     return $form;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function addmoreCallback(array &$form, FormStateInterface $form_state) {
+    return $form['filters_fieldset'];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function addOne(array &$form, FormStateInterface $form_state) {
+    $filter_field = $form_state->get('num_filters');
+    $form_state->set('num_filters', $filter_field + 1);
+    $form_state->setRebuild();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function removeCallback(array &$form, FormStateInterface $form_state) {
+    $filter_field = $form_state->get('num_filters');
+    if ($filter_field > 1) {
+      $form_state->set('num_filters', $filter_field - 1);
+    }
+    $form_state->setRebuild();
   }
 
   /**
@@ -174,9 +246,11 @@ class ManagerForm extends ConfigFormBase {
       $file = $this->entity->getStorage('file')->load($fid);
       $stream_wrapper_manager = $this->swm->getViaUri($file->getFileUri());
       $filePath = $stream_wrapper_manager->realpath();
-      $xml = $this->reader->parse($filePath);
+      $ignored = $form_state->getValue(['filters_fieldset', 'filter']);
+      $xml = $this->reader->parse($filePath, $ignored);
       $this->updateLocations($xml);
-      $this->deleteOldLocations($xml);
+      // Removing since there's a bug with this, and we have the exception list.
+      // $this->deleteOldLocations($xml);
     }
     catch (\Exception $e) {
       $this->messenger()->addError('Error: ' . $e->getMessage());
