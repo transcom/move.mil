@@ -13,13 +13,13 @@ entity_type: node
 bundle: sme_document
 label: 'Document File'
 description: ''
-required: false
+required: true
 translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
   file_directory: '[date:custom:Y]-[date:custom:m]'
-  file_extensions: 'doc docx pdf ppt'
+  file_extensions: 'doc docx pdf ppt xls'
   max_filesize: ''
   description_field: false
   handler: 'default:file'

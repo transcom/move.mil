@@ -1,0 +1,21 @@
+uuid: 59aa3418-fbb6-42cc-9447-40d0c48a386a
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.sme_section
+  module:
+    - text
+id: taxonomy_term.sme_section.default
+targetEntityType: taxonomy_term
+bundle: sme_section
+mode: default
+content:
+  description:
+    label: hidden
+    type: text_default
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }
