@@ -423,6 +423,7 @@ display:
           expose:
             label: ''
           plugin_id: standard
+      block_hide_empty: true
     cache_metadata:
       max-age: -1
       contexts:
@@ -1389,6 +1390,7 @@ display:
         operator: AND
         groups:
           1: AND
+      block_hide_empty: true
     cache_metadata:
       max-age: -1
       contexts:
@@ -1524,6 +1526,7 @@ display:
         operator: AND
         groups:
           1: AND
+      block_hide_empty: true
     cache_metadata:
       max-age: -1
       contexts:
@@ -1659,6 +1662,7 @@ display:
         operator: AND
         groups:
           1: AND
+      block_hide_empty: true
     cache_metadata:
       max-age: -1
       contexts:
@@ -1825,6 +1829,7 @@ display:
         operator: AND
         groups:
           1: AND
+      block_hide_empty: true
     cache_metadata:
       max-age: -1
       contexts:
@@ -2096,6 +2101,7 @@ display:
         operator: AND
         groups:
           1: AND
+      block_hide_empty: true
     cache_metadata:
       max-age: -1
       contexts:
@@ -2291,6 +2297,7 @@ display:
           entity_type: node
           entity_field: title
           plugin_id: standard
+      block_hide_empty: true
     cache_metadata:
       max-age: -1
       contexts:
