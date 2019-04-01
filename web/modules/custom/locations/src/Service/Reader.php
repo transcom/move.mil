@@ -97,12 +97,28 @@ class Reader {
     $xpath = "LIST_G_{$locType}PHONE_ORG_ID/G_{$locType}PHONE_ORG_ID/LIST_G_{$locType}PHONE_NOTES/G_{$locType}PHONE_NOTES";
     $xmlPhones = $isPPSO ? $officeInfo->xpath($xpath) : $xml_office->xpath($xpath);
     foreach ($xmlPhones as $phone) {
-      $dns = (string) $phone->{$locType . 'COMM_OR_DSN'} == 'D';
-      $number = $dns ? (string) $phone->{$locType . 'DSN_NUM'} : (string) $phone->{$locType . 'PHONE_NUM'};
+      $dsn = (string) $phone->{$locType . 'COMM_OR_DSN'} == 'D';
+      $number = $dsn ? (string) $phone->{$locType . 'DSN_NUM'} : (string) $phone->{$locType . 'PHONE_NUM'};
       $voice = (string) $phone->{$locType . 'VOICE_OR_FAX'} == 'V';
       $type = (string) $phone->{$locType . 'PHONE_TYPE'};
+      // Verify phone number is not empty.
+      if (empty($number)) {
+        if ($dsn && !empty($phone->{$locType . 'PHONE_NUM'})) {
+          // Phone number is marked as DSN but in the commercial field.
+          $number = (string) $phone->{$locType . 'PHONE_NUM'};
+          $dsn = FALSE;
+        }
+        elseif (!$dsn && !empty($phone->{$locType . 'DSN_NUM'})) {
+          // Phone number is marked as not DSN but in the DSN field.
+          $number = (string) $phone->{$locType . 'DSN_NUM'};
+          $dsn = TRUE;
+        }
+        else {
+          $number = 'Not available';
+        }
+      }
       $node['phones'][] = [
-        'dns' => $dns,
+        'dns' => $dsn,
         'number' => $number,
         'voice' => $voice,
         'type' => empty($type) ? 'Customer Service' : $type,

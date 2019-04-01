@@ -97,9 +97,9 @@ main_menu.tips:
   parent: main_menu.moving_guide
   weight: 6
 
-main_menu.nightmare-moves:
-  title: 'Nightmare Moves'
-  url: 'internal:/moving-guide/nightmare-moves'
+main_menu.moving-stories:
+  title: 'Moving Stories'
+  url: 'internal:/moving-guide/moving-stories'
   menu_name: main_menu
   parent: main_menu.moving_guide
   weight: 7
