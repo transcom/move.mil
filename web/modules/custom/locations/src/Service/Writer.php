@@ -37,10 +37,12 @@ class Writer {
     if (!empty($nodeData['phones'])) {
       Writer::updateLocationPhones($node, $nodeData['phones']);
     }
-    // Update or add geolocation.
-    $error = Writer::updateGeolocation($node, $nodeData, $googleApi);
-    if (!empty($error)) {
-      \Drupal::messenger()->addWarning($error);
+    // Update or add geolocation if transportation office.
+    if (!$nodeData['isPPSO']) {
+      $error = Writer::updateGeolocation($node, $nodeData, $googleApi);
+      if (!empty($error)) {
+        \Drupal::messenger()->addWarning($error);
+      }
     }
   }
 
@@ -290,7 +292,7 @@ class Writer {
    */
   private static function updateGeolocation(Node $node, array $nodeData, $googleApi) {
     $title = $nodeData['name'];
-    $country = $nodeData['address']['country_code'];
+    $country = empty($nodeData['address']['country_name']) ? $nodeData['address']['country_code'] : $nodeData['address']['country_name'];
     $zipcode = $nodeData['address']['postal_code'];
     $city = $nodeData['address']['locality'];
     // String to send to Google Maps API.

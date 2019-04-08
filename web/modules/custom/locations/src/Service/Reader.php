@@ -84,6 +84,9 @@ class Reader {
       'administrative_area' => (string) $officeInfo->{$locType . 'STATE'},
       'postal_code' => (string) $officeInfo->{$locType . 'ZIP'},
     ];
+    if (!$isPPSO) {
+      $node['address']['country_name'] = (string) $officeInfo->CNSL_CTRY_NM;
+    }
     // Get XML file email elements.
     $xpath = "LIST_G_{$locType}EMAIL_ORG_ID/G_{$locType}EMAIL_ORG_ID/LIST_G_{$locType}EMAIL/G_";
     $xpath = $xpath . ($isPPSO ? 'ppso_email' : 'CNSL_EMAIL');
