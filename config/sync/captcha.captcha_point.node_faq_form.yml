@@ -1,0 +1,7 @@
+uuid: fcdbcbff-1251-44ca-8e1a-2fe1073f2b21
+langcode: en
+status: false
+dependencies: {  }
+formId: node_faq_form
+captchaType: default
+label: null
