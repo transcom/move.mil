@@ -4,7 +4,7 @@ class Table extends Component {
     
     render() {
 
-    const totalWeightRow = this.props.selectedEntitlement != -1 ? (<tr>
+    const totalWeightRow = this.props.selectedEntitlement !== -1 ? (<tr>
                                 <td>
                                 <h3>Total Weight of Household Goods {this.props.isDependencies ? `(with dependents)` : ""}</h3>
 
@@ -19,7 +19,7 @@ class Table extends Component {
                                 </td>
                             </tr>): null;
     
-    const proGearRow = (this.props.selectedEntitlement != -1 && 
+    const proGearRow = (this.props.selectedEntitlement !== -1 && 
                         this.props.entitlements[this.props.selectedEntitlement].pro_gear_weight > 0) ? 
                         (<tr>
                             <td>
@@ -36,7 +36,7 @@ class Table extends Component {
                             </td>
                         </tr>) : null;
 
-    const spouseProGearRow = (this.props.selectedEntitlement != -1 && 
+    const spouseProGearRow = (this.props.selectedEntitlement !== -1 && 
                               this.props.isDependencies && 
                               this.props.entitlements[this.props.selectedEntitlement].pro_gear_weight_spouse > 0) ?
                              (<tr>
@@ -61,7 +61,7 @@ class Table extends Component {
                                 </div>
                             </div>) : null ;
 
-    return this.props.selectedEntitlement != -1 ? (<div className ="table">
+    return this.props.selectedEntitlement !== -1 ? (<div className ="table">
                         <ul className="usa-unstyled-list">
                           <li> Military pay grade: <b>{this.props.entitlements[this.props.selectedEntitlement].rank}</b> </li>
                           <li> Dependency Status: 
