@@ -1,0 +1,7 @@
+uuid: e32959ea-7687-4063-b245-1405fc8ae949
+langcode: en
+status: false
+dependencies: {  }
+formId: node_sme_document_form
+captchaType: default
+label: null

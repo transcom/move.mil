@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d7b3308b37c234b4004004db558ddd98",
+    "content-hash": "307a3e3a32288de630f9abe4772dccb0",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -2231,10 +2231,6 @@
                     "homepage": "https://www.drupal.org/user/86106"
                 },
                 {
-                    "name": "dww",
-                    "homepage": "https://www.drupal.org/user/46549"
-                },
-                {
                     "name": "googletorp",
                     "homepage": "https://www.drupal.org/user/386230"
                 },
@@ -2250,7 +2246,7 @@
             "description": "Provides functionality for storing, validating and displaying international postal addresses.",
             "homepage": "http://drupal.org/project/address",
             "support": {
-                "source": "https://git.drupalcode.org/project/address"
+                "source": "http://cgit.drupalcode.org/address"
             }
         },
         {
@@ -2407,6 +2403,73 @@
                 "source": "https://cgit.drupalcode.org/advanced_help",
                 "issues": "https://www.drupal.org/project/issues/advanced_help",
                 "irc": "irc://irc.freenode.org/drupal-contribute"
+            }
+        },
+        {
+            "name": "drupal/captcha",
+            "version": "1.0.0-beta1",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/captcha.git",
+                "reference": "8.x-1.0-beta1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/captcha-8.x-1.0-beta1.zip",
+                "reference": "8.x-1.0-beta1",
+                "shasum": "5b6c701bdab332bac61f59dcc78e05578f94d8b7"
+            },
+            "require": {
+                "drupal/core": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.0-beta1",
+                    "datestamp": "1487198586",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Beta releases are not covered by Drupal security advisories."
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "RobLoach",
+                    "homepage": "https://www.drupal.org/user/61114"
+                },
+                {
+                    "name": "elachlan",
+                    "homepage": "https://www.drupal.org/user/1021502"
+                },
+                {
+                    "name": "naveenvalecha",
+                    "homepage": "https://www.drupal.org/user/2665733"
+                },
+                {
+                    "name": "podarok",
+                    "homepage": "https://www.drupal.org/user/116002"
+                },
+                {
+                    "name": "soxofaan",
+                    "homepage": "https://www.drupal.org/user/41478"
+                },
+                {
+                    "name": "wundo",
+                    "homepage": "https://www.drupal.org/user/25523"
+                }
+            ],
+            "description": "The CAPTCHA module provides this feature to virtually any user facing web form on a Drupal site.",
+            "homepage": "https://www.drupal.org/project/captcha",
+            "support": {
+                "source": "https://git.drupalcode.org/project/captcha"
             }
         },
         {
@@ -3041,7 +3104,7 @@
             "description": "Allow users to link uploaded files in the text Editor.",
             "homepage": "https://www.drupal.org/project/editor_file",
             "support": {
-                "source": "https://git.drupalcode.org/project/editor_file"
+                "source": "http://cgit.drupalcode.org/editor_file"
             }
         },
         {
@@ -3099,7 +3162,7 @@
             "description": "Adds a Entity Reference field type with revision support.",
             "homepage": "https://www.drupal.org/project/entity_reference_revisions",
             "support": {
-                "source": "https://git.drupalcode.org/project/entity_reference_revisions"
+                "source": "http://cgit.drupalcode.org/entity_reference_revisions"
             }
         },
         {
@@ -3154,7 +3217,7 @@
             "description": "Modify behavior and appearance of external links.",
             "homepage": "https://www.drupal.org/project/extlink",
             "support": {
-                "source": "https://git.drupalcode.org/project/extlink"
+                "source": "http://cgit.drupalcode.org/extlink"
             }
         },
         {
@@ -3205,7 +3268,7 @@
             "description": "Provides a simple geolocation Drupal field type to store and display location data (lat, lng).",
             "homepage": "https://www.drupal.org/project/geolocation",
             "support": {
-                "source": "https://git.drupalcode.org/project/geolocation"
+                "source": "http://cgit.drupalcode.org/geolocation"
             }
         },
         {
@@ -3264,14 +3327,14 @@
                     "homepage": "https://www.drupal.org/user/385042"
                 },
                 {
-                    "name": "sacred8",
+                    "name": "valor",
                     "homepage": "https://www.drupal.org/user/393247"
                 }
             ],
             "description": "Adds classes specific to node",
             "homepage": "https://www.drupal.org/project/node_class",
             "support": {
-                "source": "https://git.drupalcode.org/project/node_class"
+                "source": "http://cgit.drupalcode.org/node_class"
             }
         },
         {
@@ -3418,7 +3481,72 @@
             "description": "Sets up constraints and expiration of passwords.",
             "homepage": "https://www.drupal.org/project/password_policy",
             "support": {
-                "source": "https://git.drupalcode.org/project/password_policy"
+                "source": "http://cgit.drupalcode.org/password_policy"
+            }
+        },
+        {
+            "name": "drupal/recaptcha",
+            "version": "2.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/recaptcha.git",
+                "reference": "8.x-2.4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/recaptcha-8.x-2.4.zip",
+                "reference": "8.x-2.4",
+                "shasum": "ee68020dc33f880313b83d8bbcb159ef85285c7a"
+            },
+            "require": {
+                "drupal/captcha": "^1.0.0-alpha1",
+                "drupal/core": "~8.0"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-2.x": "2.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-2.4",
+                    "datestamp": "1548967980",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "hass",
+                    "homepage": "https://www.drupal.org/u/hass"
+                },
+                {
+                    "name": "See other contributors",
+                    "homepage": "https://www.drupal.org/node/147903/committers"
+                },
+                {
+                    "name": "diolan",
+                    "homepage": "https://www.drupal.org/user/2336786"
+                },
+                {
+                    "name": "hass",
+                    "homepage": "https://www.drupal.org/user/85918"
+                },
+                {
+                    "name": "id.medion",
+                    "homepage": "https://www.drupal.org/user/2542592"
+                }
+            ],
+            "description": "Protect your website from spam and abuse while letting real people pass through with ease.",
+            "homepage": "https://www.drupal.org/project/recaptcha",
+            "support": {
+                "source": "https://git.drupal.org/project/recaptcha.git",
+                "issues": "https://www.drupal.org/project/issues/recaptcha"
             }
         },
         {
@@ -3493,7 +3621,7 @@
             "description": "Provides stage_file_proxy module.",
             "homepage": "https://www.drupal.org/project/stage_file_proxy",
             "support": {
-                "source": "https://git.drupalcode.org/project/stage_file_proxy"
+                "source": "http://cgit.drupalcode.org/stage_file_proxy"
             }
         },
         {
@@ -3540,7 +3668,7 @@
             "description": "Overrides the standard image formatter and widget to support SVG files.",
             "homepage": "https://www.drupal.org/project/svg_image",
             "support": {
-                "source": "https://git.drupalcode.org/project/svg_image"
+                "source": "http://cgit.drupalcode.org/svg_image"
             }
         },
         {
@@ -3587,7 +3715,7 @@
             "description": "Twig filters for value(s) and label.",
             "homepage": "https://www.drupal.org/project/twig_field_value",
             "support": {
-                "source": "https://git.drupalcode.org/project/twig_field_value"
+                "source": "http://cgit.drupalcode.org/twig_field_value"
             }
         },
         {
@@ -3681,14 +3809,6 @@
                 "GPL-2.0+"
             ],
             "authors": [
-                {
-                    "name": "Irisibk",
-                    "homepage": "https://www.drupal.org/user/1175178"
-                },
-                {
-                    "name": "JayDarnell",
-                    "homepage": "https://www.drupal.org/user/667566"
-                },
                 {
                     "name": "brockfanning",
                     "homepage": "https://www.drupal.org/user/709486"
@@ -3843,7 +3963,7 @@
             "description": "Core functionality for the WYSIWYG Template module",
             "homepage": "https://www.drupal.org/project/wysiwyg_template",
             "support": {
-                "source": "https://git.drupalcode.org/project/wysiwyg_template"
+                "source": "http://cgit.drupalcode.org/wysiwyg_template"
             }
         },
         {
