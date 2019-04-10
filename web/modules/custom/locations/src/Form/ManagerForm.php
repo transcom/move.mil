@@ -46,6 +46,13 @@ class ManagerForm extends ConfigFormBase {
   protected $swm;
 
   /**
+   * Global configuration settings var.
+   *
+   * @var string Config settings
+   */
+  const SETTINGS = 'locations.settings';
+
+  /**
    * ManagerForm constructor.
    *
    * Needed for dependency injection.
@@ -81,6 +88,7 @@ class ManagerForm extends ConfigFormBase {
   protected function getEditableConfigNames() {
     return [
       'locations.manager',
+      static::SETTINGS,
     ];
   }
 
@@ -95,6 +103,9 @@ class ManagerForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
+    $config = $this->config(static::SETTINGS);
+    $configExclusions = $config->get('exclusions');
+
     $form['#tree'] = TRUE;
 
     $form['description'] = [
@@ -116,50 +127,40 @@ class ManagerForm extends ConfigFormBase {
       ],
     ];
 
-    $num_filters = $form_state->get('num_filters');
-    if ($num_filters === NULL) {
-      $form_state->set('num_filters', 1);
-      $num_filters = 1;
+    $exclusionsCount = $form_state->get('exclusions_count');
+    if ($exclusionsCount === NULL) {
+      $count = count($configExclusions) + 1;
+      $form_state->set('exclusions_count', $count);
+      $exclusionsCount = $count;
     }
 
-    $form['filters_fieldset'] = [
+    $form['exclusions_fieldset'] = [
       '#type' => 'fieldset',
-      '#title' => $this->t('Exception List'),
-      '#prefix' => '<div id="filters-fieldset-wrapper">',
+      '#title' => $this->t('Exclusion List'),
+      '#prefix' => '<div id="exclusions-fieldset-wrapper">',
       '#suffix' => '</div>',
     ];
 
-    for ($i = 0; $i < $num_filters; $i++) {
-      $form['filters_fieldset']['filter'][$i] = [
+    for ($i = 0; $i < $exclusionsCount; $i++) {
+      $form['exclusions_fieldset']['exclusions'][$i] = [
         '#type' => 'number',
         '#title' => $this->t('Office ID'),
+        '#default_value' => $configExclusions[$i],
       ];
     }
 
-    $form['filters_fieldset']['actions'] = [
+    $form['exclusions_fieldset']['actions'] = [
       '#type' => 'actions',
     ];
-    $form['filters_fieldset']['actions']['add_filter'] = [
+    $form['exclusions_fieldset']['actions']['add_exclusion'] = [
       '#type' => 'submit',
       '#value' => $this->t('Add another office'),
       '#submit' => ['::addOne'],
       '#ajax' => [
-        'callback' => '::addmoreCallback',
-        'wrapper' => 'filters-fieldset-wrapper',
+        'callback' => '::addMoreCallback',
+        'wrapper' => 'exclusions-fieldset-wrapper',
       ],
     ];
-
-    if ($num_filters > 1) {
-      $form['filters_fieldset']['actions']['remove_filter'] = [
-        '#type' => 'submit',
-        '#value' => $this->t('Remove'),
-        '#submit' => ['::removeCallback'],
-        '#ajax' => [
-          'callback' => '::addmoreCallback',
-          'wrapper' => 'filters-fieldset-wrapper',
-        ],
-      ];
-    }
 
     $form['update']['link'] = [
       '#title' => $this->t('What location entities do we have?'),
@@ -183,27 +184,16 @@ class ManagerForm extends ConfigFormBase {
   /**
    * {@inheritdoc}
    */
-  public function addmoreCallback(array &$form, FormStateInterface $form_state) {
-    return $form['filters_fieldset'];
+  public function addMoreCallback(array &$form, FormStateInterface $form_state) {
+    return $form['exclusions_fieldset'];
   }
 
   /**
    * {@inheritdoc}
    */
   public function addOne(array &$form, FormStateInterface $form_state) {
-    $filter_field = $form_state->get('num_filters');
-    $form_state->set('num_filters', $filter_field + 1);
-    $form_state->setRebuild();
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function removeCallback(array &$form, FormStateInterface $form_state) {
-    $filter_field = $form_state->get('num_filters');
-    if ($filter_field > 1) {
-      $form_state->set('num_filters', $filter_field - 1);
-    }
+    $exclusion_count = $form_state->get('exclusions_count');
+    $form_state->set('exclusions_count', $exclusion_count + 1);
     $form_state->setRebuild();
   }
 
@@ -237,6 +227,13 @@ class ManagerForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
+    $exclusions = array_filter($form_state->getValue(['exclusions_fieldset', 'exclusions']));
+    // Retrieve the configuration.
+    $this->configFactory->getEditable(static::SETTINGS)
+      // Set exclusions on config.
+      ->set('exclusions', $exclusions)
+      ->save();
+
     $fid = $this->getFileId($form_state);
     if (empty($fid)) {
       $this->messenger()->addError('Error: Empty file.');
@@ -246,11 +243,12 @@ class ManagerForm extends ConfigFormBase {
       $file = $this->entity->getStorage('file')->load($fid);
       $stream_wrapper_manager = $this->swm->getViaUri($file->getFileUri());
       $filePath = $stream_wrapper_manager->realpath();
-      $ignored = $form_state->getValue(['filters_fieldset', 'filter']);
-      $xml = $this->reader->parse($filePath, $ignored);
+      $xml = $this->reader->parse($filePath, $exclusions);
       $this->updateLocations($xml);
       // Removing since there's a bug with this, and we have the exception list.
-      // $this->deleteOldLocations($xml);
+      if ($exclusions) {
+        $this->deleteLocations($exclusions);
+      }
     }
     catch (\Exception $e) {
       $this->messenger()->addError('Error: ' . $e->getMessage());
@@ -264,7 +262,7 @@ class ManagerForm extends ConfigFormBase {
     $batch = [
       'title' => 'Updating Drupal Locations...',
       'operations' => [],
-      'progress_message' => 'Updated @current out of @total locations, elapsed time: @elapsed',
+      'progress_message' => 'Updated @current out of @total locations, elapsed time: @elapsed, estimated time: @estimate',
       'error_message'    => 'An error occurred during processing',
       'finished' => '\Drupal\locations\Service\Writer::finishedUpdateCallback',
     ];
@@ -275,22 +273,19 @@ class ManagerForm extends ConfigFormBase {
   }
 
   /**
-   * Deletes Drupal locations not present in XML file.
+   * Deletes Drupal locations to be excluded if present.
    */
-  protected function deleteOldLocations($xmlOffices) {
-    $batchSize = 50;
+  protected function deleteLocations($exclusions) {
     $batch = [
-      'title' => 'Deleting Drupal Locations not present in XML file...',
-      'operations' => [
-        [
-          '\Drupal\locations\Service\Writer::deleteLocations',
-          [$batchSize, $xmlOffices],
-        ],
-      ],
-      'progress_message' => 'Deleting old locations: @percentage% processed. @elapsed',
+      'title' => 'Deleting excluded Drupal Locations if present.',
+      'operations' => [],
+      'progress_message' => 'Processed @current out of @total exclusions, elapsed time: @elapsed, estimated time: @estimate',
       'error_message'    => 'An error occurred during processing',
       'finished' => '\Drupal\locations\Service\Writer::finishedDeleteCallback',
     ];
+    foreach ($exclusions as $exclusion) {
+      $batch['operations'][] = ['\Drupal\locations\Service\Writer::delete', [$exclusion]];
+    }
     batch_set($batch);
   }
 
