@@ -245,7 +245,6 @@ class ManagerForm extends ConfigFormBase {
       $filePath = $stream_wrapper_manager->realpath();
       $xml = $this->reader->parse($filePath, $exclusions);
       $this->updateLocations($xml);
-      // Removing since there's a bug with this, and we have the exception list.
       if ($exclusions) {
         $this->deleteLocations($exclusions);
       }
@@ -279,7 +278,7 @@ class ManagerForm extends ConfigFormBase {
     $batch = [
       'title' => 'Deleting excluded Drupal Locations if present.',
       'operations' => [],
-      'progress_message' => 'Processed @current out of @total exclusions, elapsed time: @elapsed, estimated time: @estimate',
+      'progress_message' => 'Processed @current out of @total exclusions.',
       'error_message'    => 'An error occurred during processing',
       'finished' => '\Drupal\locations\Service\Writer::finishedDeleteCallback',
     ];
