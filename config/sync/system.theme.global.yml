@@ -1,8 +1,8 @@
 favicon:
   mimetype: image/vnd.microsoft.icon
-  path: ''
+  path: 'public://favicon.ico'
   url: ''
-  use_default: true
+  use_default: false
 features:
   comment_user_picture: true
   comment_user_verification: true

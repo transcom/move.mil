@@ -1,6 +1,6 @@
-site_key: 6Ld4_5wUAAAAAIdAG7UWejOOcOas8yp3ec5cfalV
-secret_key: 6Ld4_5wUAAAAAP_DS9Q09A9Qns2C0tvrLjkbXyb_
-verify_hostname: true
+site_key: site-key
+secret_key: secret-key
+verify_hostname: false
 use_globally: false
 widget:
   theme: light

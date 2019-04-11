@@ -7,9 +7,9 @@ logo:
   use_default: 0
   path: ''
 favicon:
-  use_default: 1
-  path: 'public://move.png'
-  mimetype: image/png
+  use_default: 0
+  path: 'public://favicon.ico'
+  mimetype: image/vnd.microsoft.icon
 uswds_header_style: extended
 uswds_header_mega: 0
 uswds_search: 1
