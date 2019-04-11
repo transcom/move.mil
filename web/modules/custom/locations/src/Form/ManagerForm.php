@@ -104,7 +104,12 @@ class ManagerForm extends ConfigFormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $this->config(static::SETTINGS);
-    $configExclusions = $config->get('exclusions');
+    if (!empty($config->get('exclusions'))) {
+      $configExclusions = $config->get('exclusions');
+    }
+    else {
+      $configExclusions = [];
+    }
 
     $form['#tree'] = TRUE;
 
