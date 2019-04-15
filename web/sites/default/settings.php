@@ -806,6 +806,10 @@ try {
 }
 $settings['install_profile'] = 'standard';
 
+// Override reCaptcha configuration
+$config['recaptcha.settings']['site_key'] = getenv('RECAPTCHA_SITE_KEY');
+$config['recaptcha.settings']['secret_key'] = getenv('RECAPTCHA_SECRET_KEY');
+
 /**
  * Load local development override configuration, if available.
  *
