@@ -10,7 +10,7 @@ class App extends Component {
   constructor() {
     super();
 
-    this.baseUrl = process.env.NODE_ENV === 'development' ? 'https://stage.move.mil/' : '/';
+    this.baseUrl = process.env.BASE_URL;
 
     this.state = {
       entitlements: null,
