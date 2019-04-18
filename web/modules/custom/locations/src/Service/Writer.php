@@ -47,53 +47,19 @@ class Writer {
   }
 
   /**
-   * Delete Location nodes that don't exist in the XML file.
+   * Delete excluded Drupal Locations if present.
    *
    * @throws \Exception
    */
-  public static function deleteLocations($batchSize, $xmlOffices, &$context) {
+  public static function delete($exclusion, &$context) {
     // Retrieve location types only once per iteration.
     $cnslTypeId = self::getDrupalTaxonomyTermId('Transportation Office');
     $ppsoTypeId = self::getDrupalTaxonomyTermId('Shipping Office');
-    // Load all Drupal locations nodes.
-    $allLocations = \Drupal::entityTypeManager()
-      ->getStorage('node')
-      ->loadByProperties([
-        'type' => 'location',
-      ]);
-    // Remove Weight Scales, they're not part of the XML.
-    $locations = array_filter($allLocations, function ($location) use ($cnslTypeId, $ppsoTypeId) {
-      $locType = $location->get('field_location_type')->getValue()[0]['target_id'];
-      return $locType == $ppsoTypeId || $locType == $cnslTypeId;
-    });
-    // Initialize batch context sandbox.
-    if (empty($context['sandbox'])) {
-      $context['sandbox']['progress'] = 0;
-      $context['sandbox']['count'] = count($locations);
-    }
-    // Start where we left off last time.
-    $nextNodes = array_slice($locations, $context['sandbox']['progress'], $batchSize, TRUE);
-    // Delete each Drupal node that is not found in XML offices.
-    $toDelete = [];
-    foreach ($nextNodes as $node) {
-      $cnslId = $node->get('field_location_cnsl_id')->getValue()[0]['value'];
-      if (!empty($cnslId) && empty($xmlOffices[$cnslId])) {
-        // Not found in XML file.
-        $toDelete[] = $node;
-        $title = $node->getTitle();
-        $message = $cnslId . ' - ' . $title . ' deleted';
-        $context['results'][] = $message;
-        $context['message'] = $message;
-        \Drupal::messenger()->addMessage($message);
-      }
-      // Update our progress!
-      $context['sandbox']['progress']++;
-    }
-    \Drupal::entityTypeManager()
-      ->getStorage('node')
-      ->delete($toDelete);
-    if ($context['sandbox']['progress'] != $context['sandbox']['count']) {
-      $context['finished'] = $context['sandbox']['progress'] / $context['sandbox']['count'];
+    // Get node to delete.
+    $node = Writer::getDrupalLocationByCnslId($exclusion, $cnslTypeId, $ppsoTypeId);
+    if (!empty($node)) {
+      \Drupal::entityTypeManager()->getStorage('node')->delete([$node]);
+      $context['results']['delete'][] = $exclusion;
     }
   }
 
