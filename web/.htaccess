@@ -3,17 +3,10 @@
 #
 
 # Hide web server version
-ServerTokens Prod
 ServerSignature Off
 
 # Don't show sensitive information through Etag header
 FileETag None
-
-# Disable TRACE
-TraceEnable off
-
-# Reduce timeout
-Timeout 70
 
 # Protect files and directories from prying eyes.
 <FilesMatch "\.(engine|inc|install|make|module|profile|po|sh|.*sql|theme|twig|tpl(\.php)?|xtmpl|yml)(~|\.sw[op]|\.bak|\.orig|\.save)?$|^(\.(?!well-known).*|Entries.*|Repository|Root|Tag|Template|composer\.(json|lock))$|^#.*#$|\.php(~|\.sw[op]|\.bak|\.orig|\.save)$">
