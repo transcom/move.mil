@@ -35,7 +35,9 @@ const Emails = (props) =>{
     return (
       <div className={`flex-container ${props.oddClass}`} key={i}>
         <div className="flex-item half">{i === 0 ? props.category : null}</div>
-        <div className="flex-item">{emailAddress}</div>
+        <div className="flex-item">
+          <a href={`mailto:${emailAddress}`}>{emailAddress}}</a>  
+        </div>
       </div>
     )
   })
@@ -72,7 +74,7 @@ this.showPhones = (phones) =>{
       <div className="shipping-office-body usa-grid-full">
         <div className="flex-container header-row">
           <div className="flex-item">Phone Numbers</div>
-          <div className="flex-item">Commerical</div>
+          <div className="flex-item">Commercial</div>
           <div className="flex-item">DSN</div>
           <div className="flex-item">Fax DSN</div>
           <div className="flex-item">Fax Commercial</div>
@@ -258,9 +260,9 @@ const ListItem = (props) => {
 function buildPhoneModel(_data){
   let phonesModel = {};
   _.each(_data, phone =>{
-    let type = phone.field_type[0].value.replace(' ', '_'),
-    isDSN = parseInt(phone.field_dsn[0].value, 0) === 1,
-    isVoice = parseInt(phone.field_voice[0].value, 0) === 1;
+    let type = phone.field_type[0] ? phone.field_type[0].value.replace(' ', '_') : {},
+    isDSN = phone.field_dsn[0] !== undefined ? parseInt(phone.field_dsn[0].value, 0) === 1 : 0,
+    isVoice = phone.field_voice[0] !== undefined ? parseInt(phone.field_voice[0].value, 0) === 1 : 0;
 
     if(!phonesModel[type]){
       phonesModel[type] = {

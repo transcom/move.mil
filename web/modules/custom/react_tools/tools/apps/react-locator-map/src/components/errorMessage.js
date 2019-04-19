@@ -3,7 +3,7 @@ import React from 'react';
 const title = (error) =>{
     if(error.title){
         return (
-            <h3 role="alert" class="usa-alert-heading">{error.title}</h3>
+            <h3 role="alert" className="usa-alert-heading">{error.title}</h3>
         )
     }
 };
