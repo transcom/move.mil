@@ -86,7 +86,7 @@ function getClientEnvironment(publicUrl) {
 
         //SET SPECIFIC VARIBALES WE NEED IN REACT APPS HERE
         GOOGLE_MAPS_API_KEY: process.env.GOOGLE_MAPS_API_KEY,
-        BASE_URL: process.env.NODE_ENV === 'development' ? 'http://move.mil.localhost:8000' : '',
+        BASE_URL: process.env.NODE_ENV === 'development' ? 'http://move.mil.localhost:8000/' : '/',
       }
     );
   // Stringify all values so we can feed into Webpack DefinePlugin
