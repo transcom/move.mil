@@ -45,13 +45,13 @@ class App extends Component {
   }
 
   componentDidMount = () => {
-    let url = `${this.baseUrl}/parser/entitlements`;
+    let url = `${this.baseUrl}parser/entitlements`;
 
     axios.get(url)
       .then(res => {
         let data = res.data;
-        this.setState({ 
-          entitlements: data, 
+        this.setState({
+          entitlements: data,
           dropdowns: {...this.state.dropdowns, entitlement: this.getEntitlementDropDownData(data)}
         });
     });
@@ -148,7 +148,7 @@ class App extends Component {
   }
 
   getResults = () =>{
-    let url = `${this.baseUrl}/parser/ppm_estimate`;
+    let url = `${this.baseUrl}parser/ppm_estimate`;
     let options = this.state.request.data;
 
     axios.post(url, options)
