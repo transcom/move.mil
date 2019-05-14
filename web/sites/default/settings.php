@@ -801,6 +801,10 @@ try {
       'driver' => 'mysql',
 );
   }
+  //https://www.drupal.org/project/drupal/issues/2833539#comment-12505571
+  $databases['default']['default']['init_commands'] = [
+    'isolation' => "SET SESSION tx_isolation='READ-COMMITTED'"
+  ];
 } catch(Exception $e) {
   echo $e->getMessage();
 }
