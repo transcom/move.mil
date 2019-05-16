@@ -799,12 +799,13 @@ try {
       'port' => getenv('RDS_PORT'),
       'namespace' => 'Drupal\\Core\\Database\\Driver\\mysql',
       'driver' => 'mysql',
-);
+      );
+    //https://www.drupal.org/project/drupal/issues/2833539#comment-12574515
+    $databases['default']['default']['init_commands']['isolation'] = "SET SESSION tx_isolation='READ-COMMITTED'";
+    $databases['default']['default']['init_commands']['lock_wait_timeout'] = "SET SESSION innodb_lock_wait_timeout = 20";
+    $databases['default']['default']['init_commands']['wait_timeout'] = "SET SESSION wait_timeout = 600";
   }
-  //https://www.drupal.org/project/drupal/issues/2833539#comment-12505571
-  $databases['default']['default']['init_commands'] = [
-    'isolation' => "SET SESSION tx_isolation='READ-COMMITTED'"
-  ];
+  
 } catch(Exception $e) {
   echo $e->getMessage();
 }
