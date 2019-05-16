@@ -110,6 +110,9 @@
             },
             "drupal/password_policy": {
                 "Fixes config sync issue mentioned in https://www.drupal.org/project/password_policy/issues/2771129": "https://www.drupal.org/files/issues/2018-07-30/password_policy-config_import_field_error-2771129-57.patch"
+            },
+            "drupal/core": {
+                "Avoid DB deadlock https://www.drupal.org/project/drupal/issues/1650930#comment-12834256": "https://www.drupal.org/files/issues/2018-10-29/1650930-67.patch"
             }
         }
     }
