@@ -5,5 +5,4 @@ dependencies: {  }
 name: 'SME Section'
 vid: sme_section
 description: 'Category of document for use on SME and POV pages'
-hierarchy: 0
 weight: 0
