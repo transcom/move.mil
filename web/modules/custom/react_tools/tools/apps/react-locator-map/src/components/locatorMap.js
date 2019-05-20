@@ -12,9 +12,9 @@ const apiKey = process.env.GOOGLE_MAPS_API_KEY;
 const baseUrl = process.env.BASE_URL;
 const gMapUrl = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&v=3.exp&libraries=geometry,drawing,places`;
 const iconPaths = {
-  geolocation: `${baseUrl}/themes/custom/move_mil/assets/img/icons/map-pulse.svg`,
-  weight: `${baseUrl}/themes/custom/move_mil/assets/img/icons/marker-weight-scale.svg`,
-  transportation: `${baseUrl}/themes/custom/move_mil/assets/img/icons/marker-transportation-office.svg`
+  geolocation: `${baseUrl}themes/custom/move_mil/assets/img/icons/map-pulse.svg`,
+  weight: `${baseUrl}themes/custom/move_mil/assets/img/icons/marker-weight-scale.svg`,
+  transportation: `${baseUrl}themes/custom/move_mil/assets/img/icons/marker-transportation-office.svg`
 }
 
 class LocatorMap extends Component {
@@ -34,7 +34,7 @@ class LocatorMap extends Component {
         case this.isType(marker.type, 'transportation'):
           return iconPaths.transportation;
 
-        default: 
+        default:
           return;
       }
     }
@@ -95,7 +95,7 @@ class LocatorMap extends Component {
           {this.getGoogleMarkersArray(props)}
         </GoogleMap>
       );
-      
+
       return (
         <MapWithMarkerAndInfoWindow
           googleMapURL={gMapUrl}

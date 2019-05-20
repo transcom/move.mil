@@ -63,7 +63,6 @@
     "jshint-stylish": "^2.2.1",
     "merge-stream": "^1.0.1",
     "node-notifier": "^5.4.0",
-    "nswatch": "^0.2.0",
     "run-sequence": "^2.2.1",
     "slick-carousel": "^1.8.1",
     "stylelint": "^9.10.1",
@@ -78,6 +77,7 @@
     "casperjs": "^1.1.4",
     "minimalist": "^1.0.0",
     "minimist": "^1.2.0",
+    "nswatch": "^0.2.0",
     "path": "^0.12.7",
     "slimerjs": "^1.0.0"
   }

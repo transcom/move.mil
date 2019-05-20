@@ -799,12 +799,21 @@ try {
       'port' => getenv('RDS_PORT'),
       'namespace' => 'Drupal\\Core\\Database\\Driver\\mysql',
       'driver' => 'mysql',
-);
+      );
+    //https://www.drupal.org/project/drupal/issues/2833539#comment-12574515
+    $databases['default']['default']['init_commands']['isolation'] = "SET SESSION tx_isolation='READ-COMMITTED'";
+    $databases['default']['default']['init_commands']['lock_wait_timeout'] = "SET SESSION innodb_lock_wait_timeout = 20";
+    $databases['default']['default']['init_commands']['wait_timeout'] = "SET SESSION wait_timeout = 600";
   }
+  
 } catch(Exception $e) {
   echo $e->getMessage();
 }
 $settings['install_profile'] = 'standard';
+
+// Override reCaptcha configuration
+$config['recaptcha.settings']['site_key'] = getenv('RECAPTCHA_SITE_KEY');
+$config['recaptcha.settings']['secret_key'] = getenv('RECAPTCHA_SECRET_KEY');
 
 /**
  * Load local development override configuration, if available.

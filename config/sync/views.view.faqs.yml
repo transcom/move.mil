@@ -1649,7 +1649,7 @@ display:
     display_options:
       display_extenders: {  }
       display_description: ''
-      title: 'During the Move (Packing & Unloading)'
+      title: 'During the Move (Packing & Loading)'
       defaults:
         title: false
         filters: false
@@ -2081,7 +2081,7 @@ display:
     display_options:
       display_extenders: {  }
       display_description: ''
-      title: 'At Your Destination'
+      title: 'At Your Destination (Unpacking & Unloading)'
       defaults:
         title: false
         filters: false

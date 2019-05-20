@@ -55,9 +55,9 @@ class Table extends Component {
                               </tr>) : null;
 
     const oconusAlertMsg = !this.props.isConus ? 
-                            (<div class="usa-alert usa-alert-warning">
-                                <div class="usa-alert-body">
-                                     <p class="usa-alert-text"><strong>Important:</strong> Certain overseas (<abbr title="Outside the Continental United States">OCONUS</abbr>) locations have weight restrictions due to limited housing and storage availability. If you are moving to an overseas (<abbr title="Outside the Continental United States">OCONUS</abbr>) location with restrictions any excess weight above your restricted weight up to your full weight entitlement can be placed in stateside longterm "non-temporary" storage (NTS).</p>
+                            (<div className="usa-alert usa-alert-warning">
+                                <div className="usa-alert-body">
+                                     <p className="usa-alert-text"><strong>Important:</strong> Certain overseas (<abbr title="Outside the Continental United States">OCONUS</abbr>) locations have weight restrictions due to limited housing and storage availability. If you are moving to an overseas (<abbr title="Outside the Continental United States">OCONUS</abbr>) location with restrictions any excess weight above your restricted weight up to your full weight entitlement can be placed in stateside longterm "non-temporary" storage (NTS).</p>
                                 </div>
                             </div>) : null ;
 
@@ -73,7 +73,7 @@ class Table extends Component {
                           <li> Move type: <b> {this.props.isConus ? `CONUS` : `OCONUS`} </b> </li>
                         </ul>
 
-                        <table class="entitlements-table">
+                        <table className="entitlements-table">
                           <tbody>
                               {totalWeightRow}
                               {proGearRow}

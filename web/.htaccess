@@ -2,6 +2,12 @@
 # Apache/PHP/Drupal settings:
 #
 
+# Hide web server version
+ServerSignature Off
+
+# Don't show sensitive information through Etag header
+FileETag None
+
 # Protect files and directories from prying eyes.
 <FilesMatch "\.(engine|inc|install|make|module|profile|po|sh|.*sql|theme|twig|tpl(\.php)?|xtmpl|yml)(~|\.sw[op]|\.bak|\.orig|\.save)?$|^(\.(?!well-known).*|Entries.*|Repository|Root|Tag|Template|composer\.(json|lock))$|^#.*#$|\.php(~|\.sw[op]|\.bak|\.orig|\.save)$">
   <IfModule mod_authz_core.c>
@@ -99,6 +105,10 @@ AddEncoding gzip svgz
   RewriteEngine On
   RewriteCond %{HTTP:X-Forwarded-Proto} =http
   RewriteRule .* https://%{HTTP:Host}%{REQUEST_URI} [L,R=permanent]
+
+  # Disable HTTP 1.0
+  RewriteCond %{THE_REQUEST} !HTTP/1.1$
+  RewriteRule .* - [F]
 
   # If your site can be accessed both with and without the 'www.' prefix, you
   # can use one of the following settings to redirect users to your preferred

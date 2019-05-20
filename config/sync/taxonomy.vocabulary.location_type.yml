@@ -5,5 +5,4 @@ dependencies: {  }
 name: 'Location type'
 vid: location_type
 description: 'Type of location'
-hierarchy: 0
 weight: 0

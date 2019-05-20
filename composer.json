@@ -37,14 +37,16 @@
         "drupal/admin_toolbar": "^1.26",
         "drupal/advanced_help": "^1.0@alpha",
         "drupal/console": "^1.0.2",
-        "drupal/core": "~8.6",
+        "drupal/core": "8.7.1",
         "drupal/ctools": "^3.2",
+        "drupal/devel_entity_updates": "^1.0@RC",
         "drupal/editor_file": "^1.3",
         "drupal/extlink": "^1.0",
         "drupal/geolocation": "^1.11",
         "drupal/node_class": "^1.0@beta",
         "drupal/paragraphs": "^1.6",
         "drupal/password_policy": "^3.0@alpha",
+        "drupal/recaptcha": "^2.4",
         "drupal/stage_file_proxy": "^1.0@alpha",
         "drupal/svg_image": "^1.9.0",
         "drupal/twig_field_value": "^1.2.0",
@@ -109,6 +111,9 @@
             },
             "drupal/password_policy": {
                 "Fixes config sync issue mentioned in https://www.drupal.org/project/password_policy/issues/2771129": "https://www.drupal.org/files/issues/2018-07-30/password_policy-config_import_field_error-2771129-57.patch"
+            },
+            "drupal/core": {
+                "Avoid DB deadlock https://www.drupal.org/project/drupal/issues/1650930#comment-12834256": "https://www.drupal.org/files/issues/2018-10-29/1650930-67.patch"
             }
         }
     }
