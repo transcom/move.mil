@@ -12,7 +12,7 @@ dependencies:
 id: sme_direct_procurement_method
 theme: move_mil
 region: content
-weight: 6
+weight: 0
 provider: null
 plugin: 'views_block:sme_section-block_2'
 settings:
