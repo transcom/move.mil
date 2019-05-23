@@ -15,6 +15,7 @@ module:
   comment: 0
   config: 0
   contact: 0
+  content_moderation: 0
   contextual: 0
   ctools: 0
   custom_move_mil_menus: 0
@@ -69,6 +70,7 @@ module:
   update: 0
   user: 0
   views_ui: 0
+  workflows: 0
   wysiwyg_template: 0
   wysiwyg_template_core: 0
   extlink: 1
