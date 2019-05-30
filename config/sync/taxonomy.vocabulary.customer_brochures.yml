@@ -5,5 +5,4 @@ dependencies: {  }
 name: 'Customer Brochures'
 vid: customer_brochures
 description: 'Customer Brochures'
-hierarchy: 0
 weight: 0
