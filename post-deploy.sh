@@ -9,7 +9,7 @@ vendor/bin/drush updatedb -y
 echo 'Updating entities...'
 vendor/bin/drush entity-updates -y
 echo 'Importing configuration changes...'
-php drupal config:import -y
+vendor/bin/drupal config:import -y
 echo 'Updating entities...'
 vendor/bin/drush entity-updates -y
 echo 'Rebuilding cache...'
