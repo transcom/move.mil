@@ -12,6 +12,7 @@ There are several ways in which you can help improve this project:
 
 - [Getting Started](#getting-started)
 - [Making Changes](#making-changes)
+- [Deploying to Elastic Beanstalk](#deploying-to-elastic-beanstalk)
 - [Code Style](#code-style)
 - [Legalese](#legalese)
 - [FAQ](#faq)
