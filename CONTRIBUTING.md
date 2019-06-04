@@ -172,6 +172,20 @@ Follow the steps below to update your core files.
    of a [three-way merge tool such as kdiff3](http://www.gitshah.com/2010/12/how-to-setup-kdiff-as-diff-tool-for-git.html). This setup is not necessary if your changes are simple; 
    keeping all of your modifications at the beginning or end of the file is a 
    good strategy to keep merges easy.
+   
+## Deploying to Elastic Beanstalk
+
+### Running Post Deploy Script
+
+The script `post-deploy.sh` in the project root contains commands that often
+want to be after deploying a new version of the site to Elastic Beanstalk. This
+includes update configuration, update the database, rebuild the cache and more. 
+
+To run:
+1. `eb ssh <application-name>` to the application that was deployed to.
+2. `sudo docker ps` to get the container id or name.
+3. `sudo docker exec -it <container-id|name> /bin/bash /var/www/html/post-deploy.sh`
+   to run the script.
 
 ## Code Style
 
