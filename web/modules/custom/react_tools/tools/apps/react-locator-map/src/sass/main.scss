@@ -328,10 +328,43 @@ $service-tag: #fdb81e;
   }
 
   .responsive-table-container{
-      .table {
+      table.responsive-table {
         width: 100%;
         max-width: 100%;
-      }
+        border-collapse: collapse;
+        
+        tr {
+            th, td{
+                background-color: transparent;
+            }
+
+            &.odd{
+                th, td{
+                    background-color: #c2cad4;
+                }
+            }
+        }
+
+        thead tr, thead th{
+            background: #0071bc;
+            color: #fff;
+            line-height: 20px;
+        }
+        
+        td, th {
+            padding: 5px;
+            line-height: 20px;
+            border: none;
+        }
+
+        td.mobile-hide{
+            display: table-cell;
+        }
+        
+        th {
+            text-align: left;
+        }
+    }
       
       /* ------- Presentational Formatting --------- */
 
@@ -340,37 +373,8 @@ $service-tag: #fdb81e;
         width: 80%;
       }
       
-      .table {
-            border-collapse: collapse;
-        
-            tr {
-                &.odd{
-                    background: #c2cad4;
-                }
-            }
-
-            thead{
-                background: #0071bc;
-                color: #fff;
-            }
-            
-            td, th {
-                padding: 5px;
-                line-height: 10px;
-            }
-
-            td.mobile-hide{
-                display: table-cell;
-            }
-            
-            th {
-                text-align: left;
-            }
-        }
-      
-      
       @media screen and (max-width:641px) {
-        .table {
+        table.responsive-table {
           margin: 0 auto;
           width: 100%;
           border-spacing: 0;
@@ -392,7 +396,7 @@ $service-tag: #fdb81e;
             white-space: normal;
           }
 
-          tr{
+          tr, th{
               margin-bottom: 25px;
               &.odd{
                 background: transparent;
@@ -409,7 +413,15 @@ $service-tag: #fdb81e;
                 white-space: normal;
             }
 
-            th[scope="row"] {
+            tr.odd td{
+                background-color: transparent;
+
+                &.odd{
+                    background-color: #c2cad4;
+                }
+            }
+
+            th[scope="row"], tr.odd th[scope="row"] {
                 width: 100%;
                 text-align: center;
                 display: block;
@@ -418,6 +430,7 @@ $service-tag: #fdb81e;
                 padding: .5em 0;
                 color: #fff;
             }
+
             td[data-header]:before {
                 content: attr(data-header);
                 display: block;
@@ -429,9 +442,6 @@ $service-tag: #fdb81e;
             }
             td[data-header] > * {
                 display: block;
-                //   width: 50%;
-                //   float: right;
-                //   clear: right;
                 margin-top: 0;
             }
             td[data-header]:after {

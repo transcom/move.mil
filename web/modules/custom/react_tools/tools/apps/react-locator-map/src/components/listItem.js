@@ -91,7 +91,7 @@ const PhonesTable = (props) =>{
     let model = buildPhoneModel(props.phones);
     return (
       <div className="shipping-office-body usa-grid-full responsive-table-container">
-        <table className="table">
+        <table className="responsive-table">
           <thead>
             <tr>
               <th scope="row">Phone Numbers</th>
@@ -117,7 +117,7 @@ const EmailsTable = (props) =>{
     let emailModel = buildEmailModel(props.emails);
     return (
       <div className="email-container responsive-table-container">
-        <table className="table">
+        <table className="responsive-table">
           <thead>
             <tr>
               <th scope="row">Contacts</th>
