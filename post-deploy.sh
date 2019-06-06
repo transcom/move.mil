@@ -6,12 +6,8 @@ echo 'Setting site in maintenance mode...'
 vendor/bin/drush sset system.maintenance_mode 1
 echo 'Updating database...'
 vendor/bin/drush updatedb -y
-echo 'Updating entities...'
-vendor/bin/drush entity-updates -y
 echo 'Importing configuration changes...'
 vendor/bin/drupal config:import -y
-echo 'Updating entities...'
-vendor/bin/drush entity-updates -y
 echo 'Rebuilding cache...'
 vendor/bin/drush cr -y
 echo 'Exiting maintenance mode...'
