@@ -106,12 +106,12 @@ setup:
 	@echo "> [STEP 5/9] Building our custom ReactJS tools"
 	cd ./web/modules/custom/react_tools/tools/; npm install && npm run build
 	@echo "> [STEP 6/9] Set site to maintenance mode"
-	docker-compose run --rm php sset system.maintenance_mode 1
+	docker-compose run --rm php drush sset system.maintenance_mode 1
 	docker-compose run --rm php drupal cache:rebuild all
 	@echo "> [STEP 7/9] Updating DB schema to match with Drupal's core and modules updates."
 	docker-compose run --rm php drush updatedb -y
 	@echo "> [STEP 8/9] Importing Configuration"
 	docker-compose run --rm php drupal config:import -y
 	@echo "> [STEP 9/9] Clearing Drupal Caches"
-	docker-compose run --rm php sset system.maintenance_mode 0
+	docker-compose run --rm php drush sset system.maintenance_mode 0
 	docker-compose run --rm php drupal cache:rebuild all
