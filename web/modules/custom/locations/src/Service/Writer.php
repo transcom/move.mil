@@ -264,7 +264,7 @@ class Writer {
     // String to send to Google Maps API.
     $address = "{$zipcode}, {$city}, {$country}";
     // Don't use zipcode outside the US. Some don't have the correct format.
-    if ($country != 'US') {
+    if ($country != 'UNITED STATES' && $country != 'US') {
       $address = "{$city}, {$country}";
     }
     $request = "https://maps.google.com/maps/api/geocode/json?address={$address}&key=$googleApi";
