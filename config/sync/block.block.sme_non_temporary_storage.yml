@@ -12,7 +12,7 @@ dependencies:
 id: sme_non_temporary_storage
 theme: move_mil
 region: content
-weight: 2
+weight: 3
 provider: null
 plugin: 'views_block:sme_section-block_4'
 settings:

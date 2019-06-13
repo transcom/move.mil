@@ -12,6 +12,7 @@ There are several ways in which you can help improve this project:
 
 - [Getting Started](#getting-started)
 - [Making Changes](#making-changes)
+- [Deploying to Elastic Beanstalk](#deploying-to-elastic-beanstalk)
 - [Code Style](#code-style)
 - [Legalese](#legalese)
 - [FAQ](#faq)
@@ -64,7 +65,7 @@ docker-compose run php drupal site:install --force --no-interaction
 
 Setup Move.mil:
 
-> Note: You don't have to execute this command if you have a db dump file(s) in your mariadb-init folder. In that case execute `make prune` && `make up`.
+> Note: You don't have to execute this command if you have a db dump file(s) in your mariadb-init folder. In that case execute `make setup`.
 
 ```
 docker-compose run php drupal config:import --no-interaction
@@ -100,12 +101,9 @@ getting committed.
 ## Making Changes
 
 1. Clone the project's repo.
-1. Setup your environment as outlined above.
+1. Place an updated db dump (.sql or .sql.gz) file in mariadb-init.
 1. Create a feature branch for the code changes you're looking to make: `git checkout -b your-descriptive-branch-name origin/1.x-dev`.
-1. Install missing dependencies: `make composer`.
-1. Import the current configuration: `make cim` (If this does not work, try a `make up` again).
-1. Go to `web/themes/custom/move_mil` and execute `npm install` and `npm run build`.
-1. Go to `web/modules/custom/react_tools/tools` and execute `npm install` and `npm run build`.
+1. Setup move.mil: `make setup`.
 1. _Write some code!_
 1. Run the application and verify that your changes function as intended. Remember to run `make cr` if you are not seeing your changes.
 1. If your changes would benefit from testing, add the necessary tests and verify everything passes.
@@ -172,6 +170,20 @@ Follow the steps below to update your core files.
    of a [three-way merge tool such as kdiff3](http://www.gitshah.com/2010/12/how-to-setup-kdiff-as-diff-tool-for-git.html). This setup is not necessary if your changes are simple; 
    keeping all of your modifications at the beginning or end of the file is a 
    good strategy to keep merges easy.
+   
+## Deploying to Elastic Beanstalk
+
+### Running Post Deploy Script
+
+The script `post-deploy.sh` in the project root contains commands that often
+want to be after deploying a new version of the site to Elastic Beanstalk. This
+includes update configuration, update the database, rebuild the cache and more. 
+
+To run:
+1. `eb ssh <application-name>` to the application that was deployed to.
+2. `sudo docker ps` to get the container id or name.
+3. `sudo docker exec -it <container-id|name> /bin/bash /var/www/html/post-deploy.sh`
+   to run the script.
 
 ## Code Style
 

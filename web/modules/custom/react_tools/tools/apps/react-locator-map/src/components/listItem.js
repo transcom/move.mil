@@ -4,44 +4,63 @@ import * as _ from 'lodash';
 const Phones = (props) =>{
   let index = 0;
   return _.map(props.phones, (phone, type)=>{
-    let element = [],
-    largestArray = Number.NEGATIVE_INFINITY;
-    largestArray = phone.numbers.commercial.length > largestArray ? phone.numbers.commercial.length : largestArray;
-    largestArray = phone.numbers.dsnVoice.length > largestArray ? phone.numbers.dsnVoice.length : largestArray;
-    largestArray = phone.numbers.fax.length > largestArray ? phone.numbers.fax.length : largestArray;
-    largestArray = phone.numbers.dsnFax.length > largestArray ? phone.numbers.dsnFax.length : largestArray;
-    
-    let odd =  index % 2 ? 'odd' : '';
-    for (let i=0; i< largestArray; i++){
-      element.push(
-          <div key={`${type}_${i}`} className={`flex-container ${odd}`}>
-            <div className="flex-item">{i === 0 ? phone.name : null}</div>
-            <div className="flex-item">{formatPhone(phone.numbers.commercial[i] || null)}</div>
-            <div className="flex-item">{formatPhone(phone.numbers.dsnVoice[i] || null)}</div>
-            <div className="flex-item">{formatPhone(phone.numbers.dsnFax[i] || null)}</div>
-            <div className="flex-item">{formatPhone(phone.numbers.fax[i] || null)}</div>
-          </div>
-      )
-    }
+    let odd = index % 2 !== 0 ? 'odd' : '';
     index++;
-    return element;
-  })
-}
-
-const Emails = (props) =>{
-  let i = -1;
-  return _.map(props.addresses, (emailAddress, key)=>{
-    i++;
-    return (
-      <div className={`flex-container ${props.oddClass}`} key={i}>
-        <div className="flex-item half">{i === 0 ? props.category : null}</div>
-        <div className="flex-item">
-          <a href={`mailto:${emailAddress}`}>{emailAddress}}</a>  
-        </div>
-      </div>
+    return(
+      <tr key={`${type}_${index}`} className={`${odd}`}>
+        <th scope="row">{phone.name}</th>
+        <td data-header="Commercial" className={phone.numbers.commercial.length < 1 ? 'mobile-hide' : ''}>
+          <PhoneNumber numbers={phone.numbers.commercial}></PhoneNumber> 
+        </td>
+        <td data-header="DSN" className={phone.numbers.dsnVoice.length < 1 ? 'mobile-hide odd' : 'odd'}>  
+          <PhoneNumber numbers={phone.numbers.dsnVoice}></PhoneNumber> 
+        </td>
+        <td data-header="Fax DSN" className={phone.numbers.dsnFax.length < 1 ? 'mobile-hide' : ''}>  
+          <PhoneNumber numbers={phone.numbers.dsnFax}></PhoneNumber> 
+        </td>
+        <td data-header="Fax Commercial" className={phone.numbers.fax.length < 1 ? 'mobile-hide odd' : 'odd'}>  
+          <PhoneNumber numbers={phone.numbers.fax}></PhoneNumber> 
+        </td>
+      </tr>
     )
   })
 }
+
+const PhoneNumber = (props) =>{
+  let index = -1;
+  return _.map(props.numbers, (p)=>{
+    index++;
+    return (
+      <p key={`p_${index}`} className={index > 0 ? 'margin-left' : ''}>{formatPhone(p || null)}</p>
+    )
+  });
+}
+
+const Emails = (props) =>{
+  let index = 0;
+  return _.map(props.emailModel, (email)=>{
+    let odd = index % 2 !== 0 ? 'odd' : '';
+    index++;
+    return (
+      <tr key={`${email.name}_${index}`} className={`${odd}`}>
+        <th scope="row">{email.name}</th>
+        <td data-header="" className={email.emails.length < 1 ? 'mobile-hide' : ''}>
+          <EmailHref addressList={email.emails}></EmailHref> 
+        </td>
+      </tr>
+    )
+  })
+}
+
+const EmailHref = (props) => {
+  let index = -1;
+  return _.map(props.addressList, (address)=>{
+    index++;
+    return (
+      <p key={`p_${index}`} className={index > 0 ? 'margin-left' : ''}><a href={`mailto:${address}`}>{address}</a></p> 
+    )
+  });
+} 
 
 const Websites = (props) =>{
   return _.map(props.websites, (website, i)=>{
@@ -67,50 +86,53 @@ const Services = (props) =>{
   })
 }
 
-this.showPhones = (phones) =>{
-  if(phones){
-    let model = buildPhoneModel(phones);
+const PhonesTable = (props) =>{
+  if(props.phones){
+    let model = buildPhoneModel(props.phones);
     return (
-      <div className="shipping-office-body usa-grid-full">
-        <div className="flex-container header-row">
-          <div className="flex-item">Phone Numbers</div>
-          <div className="flex-item">Commercial</div>
-          <div className="flex-item">DSN</div>
-          <div className="flex-item">Fax DSN</div>
-          <div className="flex-item">Fax Commercial</div>
-        </div>
-        <Phones phones={model} />
+      <div className="shipping-office-body usa-grid-full responsive-table-container">
+        <table className="responsive-table">
+          <thead>
+            <tr>
+              <th scope="row">Phone Numbers</th>
+              <th scope="col">Commercial</th>
+              <th scope="col">DSN</th>
+              <th scope="col">Fax DSN</th>
+              <th scope="col">Fax Commercial</th>
+            </tr>
+          </thead>
+          <tbody>
+            <Phones phones={model} />
+          </tbody>
+        </table>
       </div>
     )
+  }else{
+    return null;
   }
 }
 
-this.showEmails = (emails) =>{
-  if(emails && emails.length > 0){
-    let emailModel = buildEmailModel(emails);
+const EmailsTable = (props) =>{
+  if(props.emails && props.emails.length > 0){
+    let emailModel = buildEmailModel(props.emails);
     return (
-      <div className="email-container">
-        <div className="flex-container header-row">
-          <div className="flex-item half">Contacts</div>
-          <div className="flex-item">Email Address</div>
-         </div>
-         <div>
-            {this.emailCategories(emailModel)}
-        </div>
+      <div className="email-container responsive-table-container">
+        <table className="responsive-table">
+          <thead>
+            <tr>
+              <th scope="row">Contacts</th>
+              <th scope="col">Email Address</th>
+            </tr>
+          </thead>
+          <tbody>
+            <Emails emailModel={emailModel}></Emails>
+          </tbody>
+        </table>
       </div>
     )
+  }else{
+    return null;
   }
-}
-
-this.emailCategories = (emailModel) =>{
-  let i = 0;
-  return _.map(emailModel, category =>{
-    let odd =  i % 2 ? 'odd' : '';
-    i++;
-    return(
-      <Emails addresses={category.emails} category={category.name} oddClass={odd} />
-    )
-  })
 }
 
 this.showWebsites = (websites) =>{
@@ -211,8 +233,8 @@ const ShippingOffice = (props) =>{
             <div>{props.office.title}</div>
           </div>
 
-          {this.showPhones(props.office.phones)}
-          {this.showEmails(props.office.email_addresses)}
+          <PhonesTable phones={props.office.phones}></PhonesTable>
+          <EmailsTable emails={props.office.email_addresses}></EmailsTable>
         </div>
     )
   }else{
@@ -242,8 +264,8 @@ const ListItem = (props) => {
               <div className="">
                   {this.renderLocationItem(props.item.location)}
               </div>
-              {this.showPhones(props.item.phones)}
-              {this.showEmails(props.item.email_addresses)}
+              <PhonesTable phones={props.item.phones}></PhonesTable>
+              <EmailsTable emails={props.item.email_addresses}></EmailsTable>
               <div className="">
                   {this.showHours(props.item.location.hours)}
                   {this.showNotes(props.item.notes)}

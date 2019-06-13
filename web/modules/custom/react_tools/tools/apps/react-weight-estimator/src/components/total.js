@@ -18,7 +18,12 @@ class Total extends Component {
             <div className={"total-container "  + (this.props.isFixed ? 'fixed' : '')}>
                 <div className="total usa-grid">
                     <div className="flex-container no-pad">
-                        <div className="flex-item logo" />
+                        {/* show print button when any >0 value is entered on any line item by the user */}
+                        <div className="flex-item print-button">
+                            { this.props.totalEstimate > 0 && (
+                                <button className="usa-button usa-button-secondary" onClick={(e)=>window.print()}>Print</button>
+                            )}
+                        </div>
                         <div className="flex-item">
                             <div className="flex-container total-item">
                                 <div className="flex-item">

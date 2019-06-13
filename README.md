@@ -40,12 +40,12 @@ Each 2 weeks there is a new XML file with location updates from US TRANSCOM cont
 
 1. They will upload the file on Pivotal.
 1. Go to [Move.mil](https://move.mil/user/login) and log in with your admin user.
-1. Navigate to the Parser Admin.
-1. Expand Locations tab.
-1. Choose the XML file.
-1. All the Drupal locations that have a `CNSL_ORG_ID` will be updated.
-1. This tool DOES NOT add new locations, in case a new location is missing in Drupal, it will need to be added manually.
-1. This tool DOES NOT remove old locations, in case of a mistake it will need to be removed manually.
+1. Navigate to the Locations Admin.
+1. Choose the XML file and wait until it is uploaded.
+1. Click on 'Update Locations' and wait until the process has finished. Do not execute this process more than once at a time.
+1. All the Drupal locations that have a `CNSL_ORG_ID` will be updated: name, address, e-mails, geolocation, and phones.
+1. This tool will add new locations, in case a new location is missing in Drupal.
+1. This tool will remove offices that exist on the exception list.
 
 
 

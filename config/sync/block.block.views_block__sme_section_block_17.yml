@@ -1,4 +1,4 @@
-uuid: e9c74a6e-29bf-473e-bc8d-8736f0f5327a
+uuid: 68b4a3a7-4f8b-427f-b28b-2b9332e72879
 langcode: en
 status: true
 dependencies:
@@ -9,14 +9,14 @@ dependencies:
     - views
   theme:
     - move_mil
-id: sme_personal_property
+id: views_block__sme_section_block_17
 theme: move_mil
 region: content
-weight: -4
+weight: 0
 provider: null
-plugin: 'views_block:sme_section-block_8'
+plugin: 'views_block:sme_section-block_17'
 settings:
-  id: 'views_block:sme_section-block_8'
+  id: 'views_block:sme_section-block_17'
   label: ''
   provider: views
   label_display: visible

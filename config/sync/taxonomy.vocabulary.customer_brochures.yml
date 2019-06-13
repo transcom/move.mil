@@ -1,0 +1,8 @@
+uuid: ebf0d2ed-7054-471f-bbf9-c70b2027fe35
+langcode: en
+status: true
+dependencies: {  }
+name: 'Customer Brochures'
+vid: customer_brochures
+description: 'Customer Brochures'
+weight: 0
