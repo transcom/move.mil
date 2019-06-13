@@ -187,6 +187,10 @@ $total-background: #d6d7d9;
                 overflow: hidden;
             }
 
+            &.print-button {
+              flex-basis: 10%;
+            }
+
             &.colspan2{
                 flex: 2;
             }
