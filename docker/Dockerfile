@@ -178,9 +178,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     zip \
     && rm -rf /var/lib/apt/lists/*
 
-COPY php.ini /usr/local/etc/php
+COPY docker/php/php.ini /usr/local/etc/php
 
-COPY nginx.conf /etc/nginx/
+COPY docker/nginx.conf /etc/nginx/
 
 RUN curl https://github.com/hechoendrupal/drupal-console-launcher/releases/download/$DRUPAL_CONSOLE_VERSION/drupal.phar -L -o drupal.phar
 RUN mv drupal.phar /usr/local/bin/drupal
