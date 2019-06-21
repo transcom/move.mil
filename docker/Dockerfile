@@ -48,8 +48,8 @@ COPY composer.json /var/www/html/
 COPY composer.lock /var/www/html/
 RUN composer install --no-scripts --no-autoloader
 
-COPY move_mil/ /var/www/html/web/themes/custom/move_mil/
-COPY react_tools/ /var/www/html/web/modules/custom/react_tools/
+COPY web/themes/custom/move_mil/ /var/www/html/web/themes/custom/move_mil/
+COPY web/modules/custom/react_tools/ /var/www/html/web/modules/custom/react_tools/
 
 WORKDIR /var/www/html/web/themes/custom/move_mil/
 RUN npm install
