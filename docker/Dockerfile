@@ -201,4 +201,4 @@ EXPOSE 80
 
 STOPSIGNAL SIGTERM
 
-CMD ["/usr/bin/supervisord", "-n"]
+CMD ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisord.conf"]
