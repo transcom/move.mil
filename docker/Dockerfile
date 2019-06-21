@@ -171,6 +171,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libpng-dev \
     libzip-dev \
     ca-certificates \
+    supervisor \
     && docker-php-ext-install gd \
     opcache \
     pdo \
@@ -179,7 +180,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 COPY docker/php/php.ini /usr/local/etc/php
-
+COPY docker/supervisor.d /etc/
 COPY docker/nginx.conf /etc/nginx/
 
 RUN curl https://github.com/hechoendrupal/drupal-console-launcher/releases/download/$DRUPAL_CONSOLE_VERSION/drupal.phar -L -o drupal.phar
@@ -195,11 +196,9 @@ COPY --from=builder /var/www/html /var/www/html
 
 # make nginx able to access web root
 RUN chown -R www-data:www-data /var/www/html
-#start the php-fpm daemon to process php
-RUN php-fpm -D
 
 EXPOSE 80
 
 STOPSIGNAL SIGTERM
 
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["/usr/bin/supervisord", "-n"]
