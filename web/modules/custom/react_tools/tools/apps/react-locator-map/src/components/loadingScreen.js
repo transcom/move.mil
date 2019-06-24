@@ -23,6 +23,6 @@ const LoadingScreen = (props) => {
     }else{
         return null;
     }
-}
+};
 
 export default LoadingScreen;

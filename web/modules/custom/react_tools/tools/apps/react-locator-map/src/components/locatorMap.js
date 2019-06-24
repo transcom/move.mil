@@ -15,13 +15,13 @@ const iconPaths = {
   geolocation: `${baseUrl}themes/custom/move_mil/assets/img/icons/map-pulse.svg`,
   weight: `${baseUrl}themes/custom/move_mil/assets/img/icons/marker-weight-scale.svg`,
   transportation: `${baseUrl}themes/custom/move_mil/assets/img/icons/marker-transportation-office.svg`
-}
+};
 
 class LocatorMap extends Component {
 
     isType = (type, value) =>{
       return type.toLowerCase().indexOf(value) !== -1;
-    }
+    };
 
     getIconObject = (marker) => {
       switch(true){
@@ -37,7 +37,7 @@ class LocatorMap extends Component {
         default:
           return;
       }
-    }
+    };
 
     getGoogleMarkersArray = (props) =>{
       return _.map(this.props.offices, (office, key) =>{
@@ -64,13 +64,13 @@ class LocatorMap extends Component {
           }
         }
       });
-    }
+    };
 
     render() {
       let defaultMapOptions = {
         disableDefaultUI: true,
         zoomControl: true
-      }
+      };
       let center = { lat: parseFloat(this.props.centerCoords.lat), lng: parseFloat(this.props.centerCoords.lon) };
       const MapWithMarkerAndInfoWindow = compose(
         withScriptjs,
