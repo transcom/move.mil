@@ -180,7 +180,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 COPY docker/php/php.ini /usr/local/etc/php
-COPY docker/supervisor.d /etc/
+COPY docker/supervisord.conf /etc/
 COPY docker/nginx.conf /etc/nginx/
 
 RUN curl https://github.com/hechoendrupal/drupal-console-launcher/releases/download/$DRUPAL_CONSOLE_VERSION/drupal.phar -L -o drupal.phar
@@ -201,4 +201,4 @@ EXPOSE 80
 
 STOPSIGNAL SIGTERM
 
-CMD ["/usr/bin/supervisord", "-n"]
+CMD ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisord.conf"]
