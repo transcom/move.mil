@@ -22,7 +22,7 @@ class ListContainer extends Component {
     });
 
     return pageTabs;
-  }
+  };
 
   getPageTabsArray = () => {
     let array = [];

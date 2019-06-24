@@ -8,7 +8,7 @@ class SearchForm extends Component {
       this.props.setValidationFlagFn(false);
     }
     this.props.setSearchLocationFn(event.target.value);
-  }
+  };
 
   handleClick = (isLocationServices) =>{
     if(!isLocationServices && !this.props.searchLocation) {
@@ -29,7 +29,7 @@ class SearchForm extends Component {
           <InputValidation type="warning" message={message} />
         )
     }
-  }
+  };
 
   render() {
     let placeholderText = 'e.g. 62225, Fort Belvoir';

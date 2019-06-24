@@ -11,7 +11,7 @@ class InputValidation extends Component {
                 </div>
             </div>
         )
-    }
+    };
 
     render() {
         return (

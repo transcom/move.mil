@@ -240,7 +240,7 @@ const ShippingOffice = (props) =>{
   }else{
     return null;
   }
-}
+};
 
 const ListItem = (props) => {
   let officeTypeClass = props.item.type.replace(' ', '-').toLowerCase(),
@@ -334,7 +334,7 @@ function buildEmailModel(_data){
 
 function formatPhone(val){
   if(!val || val === '') return null;
-  let reg = /\D/g; //numbers only
+  let reg = '/\D/g'; //numbers only
   val = val.replace(reg,'');
   let _len = val.length;
   if( _len > 6 && _len < 10){
