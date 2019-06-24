@@ -4,7 +4,7 @@ class PageTab extends Component {
 
   handlePageChange = (pageNo) =>{
     this.props.changePageFn(pageNo, this.props.totalPages); 
-  }
+  };
   render() {
     let element = null;
     let cssClass = this.props.isSelected ? 'selected' : '';
