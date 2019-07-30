@@ -37,7 +37,7 @@
         "drupal/admin_toolbar": "^1.26",
         "drupal/advanced_help": "^1.0@alpha",
         "drupal/console": "^1.0.2",
-        "drupal/core": "8.7.1",
+        "drupal/core": "^8.7.5",
         "drupal/ctools": "^3.2",
         "drupal/devel_entity_updates": "^1.0@RC",
         "drupal/editor_file": "^1.3",
