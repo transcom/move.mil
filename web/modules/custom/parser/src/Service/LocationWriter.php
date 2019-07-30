@@ -13,7 +13,11 @@ use Drupal\Core\Database\Connection;
  */
 class LocationWriter {
 
-  protected $entity;
+  /**
+   * Drupal\Core\Database\Connection definition.
+   *
+   * @var \Drupal\Core\Database\Connection
+   */
   protected $db;
 
   /**

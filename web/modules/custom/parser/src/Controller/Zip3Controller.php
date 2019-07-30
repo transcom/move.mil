@@ -11,6 +11,11 @@ use Drupal\Core\Database\Connection as Connection;
  */
 class Zip3Controller extends ControllerBase {
 
+  /**
+   * Drupal\Core\Database\Connection definition.
+   *
+   * @var \Drupal\Core\Database\Connection
+   */
   private $databaseConnection;
 
   /**

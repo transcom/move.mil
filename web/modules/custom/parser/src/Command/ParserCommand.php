@@ -19,8 +19,18 @@ use Drupal\Console\Core\Command\ContainerAwareCommand;
  */
 class ParserCommand extends ContainerAwareCommand {
 
-  protected $paragraph;
+  /**
+   * Drupal\parser\Service\LocationReader definition.
+   *
+   * @var \Drupal\parser\Service\LocationReader
+   */
   protected $reader;
+
+  /**
+   * Drupal\parser\Service\LocationWriter definition.
+   *
+   * @var \Drupal\parser\Service\LocationWriter
+   */
   protected $writer;
 
   /**

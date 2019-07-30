@@ -14,7 +14,18 @@ use Drupal\parser\Service\RouteDistance;
  */
 class PpmEstimatorController extends ControllerBase {
 
+  /**
+   * Drupal\parser\Service\DbReader definition.
+   *
+   * @var \Drupal\parser\Service\DbReader
+   */
   private $dbReader;
+
+  /**
+   * Drupal\parser\Service\RouteDistance definition.
+   *
+   * @var \Drupal\parser\Service\RouteDistance
+   */
   private $routeDistancesClient;
 
   /**
