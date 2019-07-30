@@ -11,6 +11,11 @@ use Drupal\Core\Database\Connection;
  */
 class DbWriter {
 
+  /**
+   * Drupal\Core\Database\Connection definition.
+   *
+   * @var \Drupal\Core\Database\Connection
+   */
   protected $db;
 
   /**

@@ -12,6 +12,11 @@ use Drupal\Core\Database\Connection as Connection;
  */
 class EntitlementsController extends ControllerBase {
 
+  /**
+   * Drupal\Core\Database\Connection definition.
+   *
+   * @var \Drupal\Core\Database\Connection
+   */
   private $databaseConnection;
 
   /**
