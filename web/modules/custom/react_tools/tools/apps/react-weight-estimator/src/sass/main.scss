@@ -219,3 +219,13 @@ $total-background: #d6d7d9;
         height: 100px;
     }
 }
+
+@media print {
+    .estimator-container{
+        .total-container{
+            &.fixed{
+                position: relative;
+            }
+        }
+    }
+ }
