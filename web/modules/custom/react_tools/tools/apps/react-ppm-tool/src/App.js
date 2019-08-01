@@ -186,48 +186,50 @@ class App extends Component {
   render() {
     return (
       <div className="app">
-         <div className="list-item">
-            <div className="number">1</div>
-            <div className="content">
-                <div className="title">What is your rank?</div>
-                <DropDown data={this.state.dropdowns.entitlement} onSelectFn={this.onSelectEntitlment} name="entitlement" invalidFields={this.state.invalidFields}/>
-            </div>
+        <div className="forms">
+          <div className="list-item">
+              <div className="number">1</div>
+              <div className="content">
+                  <div className="title">What is your rank?</div>
+                  <DropDown data={this.state.dropdowns.entitlement} onSelectFn={this.onSelectEntitlment} name="entitlement" invalidFields={this.state.invalidFields}/>
+              </div>
+          </div>
+          <div className="list-item">
+              <div className="number">2</div>
+              <div className="content">
+                  <div className="title">Do you have dependents?</div>
+                  <Dependents isDependencies={this.state.isDependencies} selectedDependentsFn={this.selectedDependents} />
+              </div>
+          </div>
+          <div className="list-item">
+              <div className="number">3</div>
+              <div className="content">
+                  <div className="title">Where are you moving from and to?</div>
+                  <div className="sub-text">
+                      To get the most accurate estimate, enter the locations authorized by your orders. These locations might be different from where you live.
+                  </div>
+                  <Locations locations={this.state.locations} setLocationFn={this.setLocation} invalidFields={this.state.invalidFields}/>
+              </div>
+          </div>
+          <div className="list-item">
+              <div className="number">4</div>
+              <div className="content">
+                  <div className="title">When do you want to move?</div>
+                  <MoveDate defaultDate={this.state.moveDate} onSelectDateFn={this.selectDate} invalidFields={this.state.invalidFields}/>
+              </div>
+          </div>
+          <div className="list-item">
+              <div className="number">5</div>
+              <div className="content">
+                  <div className="title">How much, in pounds, do you expect to move without the government's help?</div>
+                  <div className="sub-text">
+                    The government will only pay for the actual weight transported, up to your weight allowance. Don't forget - if you move some of your goods yourself (PPM) and have the government move the rest (HHG), the weights of both shipments count towards your allowance. <a href="/resources/weight-estimator"> Need help estimating your total household weight?</a>
+                  </div>
+                  <Weights changeWeightFn={this.changeWeight} weightOptions={this.state.weightOptions} isDependencies={this.state.isDependencies} selectedEntitlmentOptions={this.state.selectedEntitlmentOptions} invalidFields={this.state.invalidFields}/>
+              </div>
+          </div>
+          <button className="calc-button" onClick={this.calculate}>Calculate</button>
         </div>
-        <div className="list-item">
-            <div className="number">2</div>
-            <div className="content">
-                <div className="title">Do you have dependents?</div>
-                <Dependents isDependencies={this.state.isDependencies} selectedDependentsFn={this.selectedDependents} />
-            </div>
-        </div>
-        <div className="list-item">
-            <div className="number">3</div>
-            <div className="content">
-                <div className="title">Where are you moving from and to?</div>
-                <div className="sub-text">
-                    To get the most accurate estimate, enter the locations authorized by your orders. These locations might be different from where you live.
-                </div>
-                <Locations locations={this.state.locations} setLocationFn={this.setLocation} invalidFields={this.state.invalidFields}/>
-            </div>
-        </div>
-        <div className="list-item">
-            <div className="number">4</div>
-            <div className="content">
-                <div className="title">When do you want to move?</div>
-                <MoveDate defaultDate={this.state.moveDate} onSelectDateFn={this.selectDate} invalidFields={this.state.invalidFields}/>
-            </div>
-        </div>
-        <div className="list-item">
-            <div className="number">5</div>
-            <div className="content">
-                <div className="title">How much, in pounds, do you expect to move without the government's help?</div>
-                <div className="sub-text">
-                  The government will only pay for the actual weight transported, up to your weight allowance. Don't forget - if you move some of your goods yourself (PPM) and have the government move the rest (HHG), the weights of both shipments count towards your allowance. <a href="/resources/weight-estimator"> Need help estimating your total household weight?</a>
-                </div>
-                <Weights changeWeightFn={this.changeWeight} weightOptions={this.state.weightOptions} isDependencies={this.state.isDependencies} selectedEntitlmentOptions={this.state.selectedEntitlmentOptions} invalidFields={this.state.invalidFields}/>
-            </div>
-        </div>
-        <button className="calc-button" onClick={this.calculate}>Calculate</button>
         {this.renderResults()}
       </div>
     );
