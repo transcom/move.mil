@@ -288,3 +288,12 @@ $total-background: #d6d7d9;
         }
     }
 }
+
+@media print {
+    .forms{
+        display: none;
+    }
+    .print{
+        display: none;
+    }
+ }

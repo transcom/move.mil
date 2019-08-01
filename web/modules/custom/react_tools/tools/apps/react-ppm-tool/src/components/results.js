@@ -59,7 +59,7 @@ class Results extends Component {
                         <span>From:</span><span className="bold"> {this.props.results.locations.origin.address} </span><span>to</span> <span className="bold"> {this.props.results.locations.destination.address} </span>
                     </div>
                     <div className="flex-item half right-align">
-                        <button className="usa-button usa-button-secondary" onClick={(e)=>this.handlePrint()}>Print</button>
+                        <button className="usa-button usa-button-secondary print" onClick={(e)=>this.handlePrint()}>Print</button>
                     </div>
                 </div>
 

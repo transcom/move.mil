@@ -19,11 +19,46 @@ use GuzzleHttp\Exception\GuzzleException;
  */
 class LocationsController extends ControllerBase {
 
+  /**
+   * Drupal\parser\Service\DbReader definition.
+   *
+   * @var \Drupal\parser\Service\DbReader
+   */
   private $dbReader;
+
+  /**
+   * Google API key.
+   *
+   * @var \Drupal\Core\Database\Connection
+   */
   private $googleApi;
+
+  /**
+   * Drupal\Core\Entity\EntityTypeManagerInterface definition.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
   protected $entityTypeManager;
+
+  /**
+   * Drupal\Core\Entity\EntityTypeManagerInterface definition.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
   private $nodeStorage;
+
+  /**
+   * Array of errors.
+   *
+   * @var array
+   */
   protected $errors;
+
+  /**
+   * Drupal\Core\Logger\LoggerChannelFactory definition.
+   *
+   * @var \Drupal\Core\Logger\LoggerChannelFactory
+   */
   protected $logger;
 
   /**
