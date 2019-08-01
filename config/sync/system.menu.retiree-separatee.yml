@@ -3,6 +3,6 @@ langcode: en
 status: true
 dependencies: {  }
 id: retiree-separatee
-label: 'Retiree and Separatee Moves'
+label: 'Retiree and Separating Service Member Moves'
 description: 'Used on the retiree/separatee page in the sidebar to function as jumplinks.'
 locked: false

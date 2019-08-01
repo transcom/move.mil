@@ -16,7 +16,7 @@ provider: null
 plugin: 'system_menu_block:retiree-separatee'
 settings:
   id: 'system_menu_block:retiree-separatee'
-  label: 'Retiree and Separatee Moves'
+  label: 'Retiree and Separating Service Moves'
   provider: system
   label_display: '0'
   level: 1
