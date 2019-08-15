@@ -119,7 +119,7 @@ main_menu.tdy:
   weight: 9
 
 main_menu.retirees-separatees:
-  title: 'Retirees/Separatees'
+  title: 'Retiring/Separating Members'
   url: 'internal:/moving-guide/retirees-separatees'
   menu_name: main_menu
   parent: main_menu.moving_guide
@@ -147,37 +147,44 @@ main_menu.pov:
   weight: 13
 
 ### Tools & Resources Subnav ###
+main_menu.brochures:
+  title: 'Customer Brochures'
+  url: 'internal:/resources/customer-brochures'
+  menu_name: main_menu
+  parent: main_menu.resources
+  weight: 1
+
 main_menu.links:
   title: 'Helpful Links'
   url: 'internal:/resources'
   menu_name: main_menu
   parent: main_menu.resources
-  weight: 1
+  weight: 2
 
 main_menu.ppm-estimator:
   title: 'PPM Estimator'
   url: 'internal:/resources/ppm-estimator'
   menu_name: main_menu
   parent: main_menu.resources
-  weight: 2
+  weight: 3
 
 main_menu.weight-estimator:
   title: 'Weight Estimator'
   url: 'internal:/resources/weight-estimator'
   menu_name: main_menu
   parent: main_menu.resources
-  weight: 3
+  weight: 4
 
 main_menu.locator-maps:
   title: 'Find Nearby Locations'
   url: 'internal:/resources/locator-maps'
   menu_name: main_menu
   parent: main_menu.resources
-  weight: 4
+  weight: 5
 
 main_menu.inventory-form:
   title: 'Self-Inventory Form'
   url: 'internal:/resources/inventory-form'
   menu_name: main_menu
   parent: main_menu.resources
-  weight: 5
+  weight: 6

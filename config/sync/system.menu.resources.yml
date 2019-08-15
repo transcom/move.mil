@@ -7,8 +7,6 @@ dependencies:
   enforced:
     module:
       - custom_move_mil_menus
-_core:
-  default_config_hash: IUtNIDhIFP-LxzZ2bHdaGHU8uWmTXxfhXIbPxgAt_wY
 id: resources
 label: 'Tools & Resources'
 description: 'Subnav - Tools & Resources Main Nav item'
