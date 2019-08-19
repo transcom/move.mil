@@ -7,7 +7,7 @@ vendor/bin/drush sset system.maintenance_mode 1
 echo 'Updating database...'
 vendor/bin/drush updatedb -y
 echo 'Importing configuration changes...'
-vendor/bin/drupal config:import -y
+vendor/bin/drupal config:import --directory=config/sync
 echo 'Rebuilding cache...'
 vendor/bin/drush cr -y
 echo 'Exiting maintenance mode...'
