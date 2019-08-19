@@ -39,14 +39,14 @@ uli:
 
 cim:
 	@echo "Importing Configuration"
-	docker-compose run --rm php drupal config:import -y
+	docker-compose run --rm php drupal config:import --directory=../config/sync
 
 	@echo "Clearing Drupal Caches"
 	@docker-compose run --rm php drupal cache:rebuild all
 
 cex:
 	@echo "Exporting Configuration"
-	docker-compose run --rm php drupal config:export -y
+	docker-compose run --rm php drupal config:export --directory=../config/sync
 
 gm:
 	@echo "Displaying Generate Module UI"

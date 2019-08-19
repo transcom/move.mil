@@ -147,13 +147,6 @@ main_menu.pov:
   weight: 13
 
 ### Tools & Resources Subnav ###
-main_menu.brochures:
-  title: 'Customer Brochures'
-  url: 'internal:/resources/customer-brochures'
-  menu_name: main_menu
-  parent: main_menu.resources
-  weight: 1
-
 main_menu.links:
   title: 'Helpful Links'
   url: 'internal:/resources'
