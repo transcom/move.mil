@@ -21,7 +21,7 @@ Feature: PPM Estimator
     And I fill in the following:
       | origin | 22030 |
       | destination | 90210 |
-      | moveDate | 01/01/2019 |
+      | moveDate | 01/01/2020 |
     And the focus is in field "houseHold"
     And I fill in the following:
       | houseHold | 14500 |
@@ -35,8 +35,8 @@ Feature: PPM Estimator
     And I should see "14500 lbs"
     And I should see "2000 lbs"
     And I should see "500 lbs"
-    And I should see "$14700-$16700"
-    And I should see "$8820-$10020 (60%)"
+    And I should see "$17500"
+    And I should see "$10500 (60%)"
 
   Scenario: Fields need to be fill in
     Given I visit "/resources/ppm-estimator"

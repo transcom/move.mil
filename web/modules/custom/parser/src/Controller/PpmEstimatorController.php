@@ -298,7 +298,7 @@ class PpmEstimatorController extends ControllerBase {
     $discounts['max'] = min($discount + 0.02, 1.0) * 0.95;
     return $discounts;
   }
-  
+
   /**
    * Get discounts from tsp discounts table.
    */
