@@ -30,6 +30,7 @@ Feature: PPM Estimator
     And I wait 10 seconds until I see "dependent" field contains "501"
     When I press "Calculate"
     And I wait 10 seconds until I get a response with text "Your PPM Incentive Estimate"
+    Then print last response
     Then I should see "From: Fairfax, VA 22030 to Beverly Hills, CA 90210"
     And I should see "Rank 2 with dependents."
     And I should see "14500 lbs"
