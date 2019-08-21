@@ -30,14 +30,13 @@ Feature: PPM Estimator
     And I wait 10 seconds until I see "dependent" field contains "501"
     When I press "Calculate"
     And I wait 10 seconds until I get a response with text "Your PPM Incentive Estimate"
-    Then print last response
     Then I should see "From: Fairfax, VA 22030 to Beverly Hills, CA 90210"
     And I should see "Rank 2 with dependents."
     And I should see "14500 lbs"
     And I should see "2000 lbs"
     And I should see "500 lbs"
-    And I should see "$17500"
-    And I should see "$10500 (60%)"
+    And I should see "$16500"
+    And I should see "$9900 (60%)"
 
   Scenario: Fields need to be fill in
     Given I visit "/resources/ppm-estimator"
