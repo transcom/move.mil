@@ -120,6 +120,14 @@ class Reader {
           $number = 'Not available';
         }
       }
+      // Add area code if available.
+      $isComm = !$isPPSO && !$dsn;
+      if ($isComm && strcmp($number, 'Not available') != 0) {
+        $areaCode = (string) $phone->CNSL_AREA_CODE;
+        if (!empty($areaCode)) {
+          $number = $areaCode . $number;
+        }
+      }
       $node['phones'][] = [
         'dns' => $dsn,
         'number' => $number,
