@@ -121,13 +121,13 @@ class Results extends Component {
                     <div className="flex-container incentive">
                         <div className="flex-item ie-2-col">Your PPM Incentive:</div>
                         <div className="flex-item ie-2-col right-align">
-                            ${Math.round(this.props.results.incentive.min)}-${Math.round(this.props.results.incentive.max)}
+                            ${Math.round(this.props.results.incentive)}
                         </div>
                     </div>
                     <div className="flex-container advance">
                         <div className="flex-item ie-2-col">Max. Advance Payment:</div>
                         <div className="flex-item ie-2-col right-align">
-                            ${Math.round(this.props.results.advancePayment.min)}-${Math.round(this.props.results.advancePayment.max)} ({this.props.results.advancePayment.percentage}%)
+                            ${Math.round(this.props.results.advancePayment.cost)} ({this.props.results.advancePayment.percentage}%)
                            
                         </div>
                     </div>
