@@ -10,21 +10,13 @@ class Results extends Component {
                     <div className="flex-item">
                         Spouse Pro Gear
                     </div>
-                    <div className="flex-item arithmatic-sign">
+                    <div className="flex-item small">
                         <span>+</span>
                     </div>
-                    <div className="flex-item right-align small">
+                    <div className="flex-item right-align half">
                         {this.props.results.weightOptions.dependent} lbs
                     </div>
                 </div>
-            )
-        }
-    }
-
-    renderPlusSign = () =>{
-        if(!this.props.isDependencies){
-            return (
-                <span>+</span>
             )
         }
     }
@@ -63,13 +55,12 @@ class Results extends Component {
                     </div>
                 </div>
 
-
-
                 <ResultMap map={mapOptions}/>
+                
                 <div className="details">
                     <div className="flex-container">
                         <div className="flex-item ie-2-col">Your Details:</div>
-                        <div className="flex-item ie-2-col right-align">
+                        <div className="flex-item ie-2-col right-align half">
                             {this.rank_dependents}
                         </div>
                     </div>
@@ -78,45 +69,45 @@ class Results extends Component {
                             <div>Moving Date:</div>
                             <div>{dateFormatted}</div>
                         </div>
-                        <div className="flex-item ie-2-col totals">
-                            <div className="flex-container">
-                                <div className="flex-item">
-                                    Anticipated Weight:
-                                </div>
-                            </div>
-                            <div className="flex-container">
-                                <div className="flex-item">
-                                    Household Goods
-                                </div>
-                                <div className="flex-item arithmatic-sign"></div>
-                                <div className="flex-item right-align">
-                                    {this.props.results.weightOptions.houseHold} lbs
-                                </div>
-                            </div>
-                            <div className={"flex-container " + this.sumlineClass}>
-                                <div className="flex-item">
-                                    Pro Gear
-                                </div>
-                                <div className="flex-item half">
-                                    {this.renderPlusSign()}
-                                </div>
-                                <div className="flex-item right-align half">
-                                    {this.props.results.weightOptions.proGear} lbs
-                                </div>
-                            </div>
-                            {this.spouseTotal()}
-                            <div className="flex-container totals">
-                                <div className="flex-item">
-                                    TOTAL	
-                                </div>
-                                <div className="flex-item half">
-                                    =
-                                </div>
-                                <div className="flex-item right-align half">
-                                    {this.props.results.weightOptions.total} lbs
-                                </div>
+                    <div className="flex-item ie-2-col totals">
+                        <div className="flex-container">
+                            <div className="flex-item">
+                                Anticipated Weight:
                             </div>
                         </div>
+                        <div className="flex-container">
+                            <div className="flex-item">
+                                Household Goods
+                            </div>
+                            <div className="flex-item small"></div>
+                            <div className="flex-item right-align half">
+                                {this.props.results.weightOptions.houseHold} lbs
+                            </div>
+                        </div>
+                        <div className={"flex-container " + this.sumlineClass}>
+                            <div className="flex-item">
+                                Pro Gear
+                            </div>
+                            <div className="flex-item small">
+                                <span>{!this.props.isDependencies ? '+' : ''}</span>
+                            </div>
+                            <div className="flex-item right-align half">
+                                {this.props.results.weightOptions.proGear} lbs
+                            </div>
+                        </div>
+                        {this.spouseTotal()}
+                        <div className="flex-container totals">
+                            <div className="flex-item">
+                                TOTAL	
+                            </div>
+                            <div className="flex-item small">
+                                =
+                            </div>
+                            <div className="flex-item right-align half">
+                                {this.props.results.weightOptions.total} lbs
+                            </div>
+                        </div>
+                    </div>
                     </div>
                     <div className="flex-container incentive">
                         <div className="flex-item ie-2-col">Your PPM Incentive:</div>

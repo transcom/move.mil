@@ -34,21 +34,23 @@ $total-background: #d6d7d9;
             font-size: 2em;
             color: $number-color;
             display: inline-block;
-            padding: 10px 15px 10px 15px;
+            padding: 0 10px;
             vertical-align: top;
-            width: 5%;
+            flex-basis: 25px;
+        }
+          
+        .title{
+            color: $number-color;
+            font-weight: bold;
+            font-size: 1.1em;
+            align-self: flex-start;
+            margin-top: 4px;
         }
 
         .content{
             display: inline-block;
             padding-top: 15px;
             width:90%;
-
-            .title{
-                color: $number-color;
-                font-weight: bold;
-                font-size: 1.1em;
-            }
 
             .sub-text, .title{
                 padding: 0px 0px 10px;
@@ -71,6 +73,7 @@ $total-background: #d6d7d9;
 
         &.wrapper{
             padding: 0px;
+            justify-content: left;
         }
 
         &.header{
@@ -207,7 +210,6 @@ $total-background: #d6d7d9;
 
                 .flex-item{
                     padding: 2px 5px 2px 5px;
-                    width: 150%;
 
                     &.arithmatic-sign {
                         flex-basis: 10%;
@@ -287,6 +289,11 @@ $total-background: #d6d7d9;
             }
         }
     }
+}
+
+.inline-fifty{
+    display: inline-block;
+    width: 50%;
 }
 
 @media print {

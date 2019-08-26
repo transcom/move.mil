@@ -332,23 +332,33 @@ function buildEmailModel(_data){
   return emailModel;
 }
 
-function formatPhone(val){
-  if(!val || val === '') return null;
-  let reg = '/\D/g'; //numbers only
-  val = val.replace(reg,'');
-  let _len = val.length;
-  if( _len > 6 && _len < 10){
-    return `${val.substring(0,3)}-${val.substring(3,_len)}`;
+function formatPhone(phoneNumberString) {
+  var cleaned = ('' + phoneNumberString).replace(/\D/g, '')
+  var match = cleaned.match(/^(1|)?(\d{3})(\d{3})(\d{4})$/)
+  if (match) {
+    var intlCode = (match[1] ? '+1 ' : '')
+    return [intlCode, '(', match[2], ') ', match[3], '-', match[4]].join('')
   }
-
-  if(_len > 9 && _len < 11){
-    return `(${val.substring(0,3)}) ${val.substring(3,6)}-${val.substring(6,_len)}`;
-  }
-
-  if(_len > 10){
-    return `${val.substring(0,1)} (${val.substring(1,4)}) ${val.substring(4,7)}-${val.substring(7,_len)}`;
-  }
+  return null
 }
+
+// function formatPhone(val){
+//   if(!val || val === '') return null;
+//   let reg = '/\D/g'; //numbers only
+//   val = val.replace(reg,'');
+//   let _len = val.length;
+//   if( _len > 6 && _len < 10){
+//     return `${val.substring(0,3)}-${val.substring(3,_len)}`;
+//   }
+
+//   if(_len > 9 && _len < 11){
+//     return `(${val.substring(0,3)}) ${val.substring(3,6)}-${val.substring(6,_len)}`;
+//   }
+
+//   if(_len > 10){
+//     return `${val.substring(0,1)} (${val.substring(1,4)}) ${val.substring(4,7)}-${val.substring(7,_len)}`;
+//   }
+// }
 
 
 export default ListItem;
