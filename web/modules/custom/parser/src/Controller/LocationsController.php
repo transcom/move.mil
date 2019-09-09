@@ -335,6 +335,9 @@ class LocationsController extends ControllerBase {
     foreach ($phone_references as $ref) {
       $id = $ref['target_id'];
       $phone = $phones[$id];
+      $data['phones'][$id]['field_area_code'] = $phone
+        ->get('field_area_code_number')
+        ->getValue();
       $data['phones'][$id]['field_phonenumber'] = $phone
         ->get('field_phonenumber')
         ->getValue();

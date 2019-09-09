@@ -1,0 +1,19 @@
+uuid: 977d0383-3a79-4cee-8f4a-6ff87f5b2384
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_area_code_number
+    - paragraphs.paragraphs_type.location_telephone
+id: paragraph.location_telephone.field_area_code_number
+field_name: field_area_code_number
+entity_type: paragraph
+bundle: location_telephone
+label: 'Area Code Number'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -100,7 +100,7 @@ setup:
 	docker-compose pull
 	docker-compose up -d --remove-orphans
 	@echo "> [STEP 3/9] Installing dependencies"
-	docker-compose run --rm php composer install --prefer-source
+	make install
 	@echo "> [STEP 4/9] Building site custom theme"
 	cd ./web/themes/custom/move_mil/; npm install && npm run build
 	@echo "> [STEP 5/9] Building our custom ReactJS tools"
