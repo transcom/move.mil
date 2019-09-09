@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.paragraph.location_telephone.field_area_code_number
     - field.field.paragraph.location_telephone.field_dsn
     - field.field.paragraph.location_telephone.field_phonenumber
     - field.field.paragraph.location_telephone.field_type
@@ -15,6 +16,14 @@ targetEntityType: paragraph
 bundle: location_telephone
 mode: default
 content:
+  field_area_code_number:
+    weight: 3
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
   field_dsn:
     weight: 1
     settings:
@@ -23,7 +32,7 @@ content:
     type: boolean_checkbox
     region: content
   field_phonenumber:
-    weight: 3
+    weight: 4
     settings:
       placeholder: ''
     third_party_settings: {  }

@@ -210,6 +210,7 @@ class Writer {
           ->getStorage('paragraph')
           ->load($id);
         $paragraph->set('field_dsn', $update['dns']);
+        $paragraph->set('field_area_code_number', $update['area_code']);
         $paragraph->set('field_phonenumber', $update['number']);
         $paragraph->set('field_voice', $update['voice']);
         $paragraph->set('field_type', $update['type']);
