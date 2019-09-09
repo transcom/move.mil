@@ -114,4 +114,4 @@ setup:
 	make cim
 	@echo "> [STEP 9/9] Clearing Drupal Caches"
 	docker-compose run --rm php drush sset system.maintenance_mode 0
-	docker-compose run --rm php drupal cache:rebuild all
+	make cr
