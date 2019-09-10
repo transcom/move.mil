@@ -29,7 +29,7 @@
         }
     ],
     "require": {
-        "alchemy/zippy": "0.4.3",
+        "alchemy/zippy": "0.4.9",
         "bixal/jumplink": "dev-master",
         "composer/installers": "^1.6",
         "cweagans/composer-patches": "^1.6",
@@ -37,9 +37,9 @@
         "drupal/address": "~1.0",
         "drupal/admin_toolbar": "^1.26",
         "drupal/advanced_help": "^1.0@alpha",
-        "drupal/console": "1.8.0",
-        "drupal/console-core": "1.8.0",
-        "drupal/console-en": "1.8.0",
+        "drupal/console": "1.9.3",
+        "drupal/console-core": "1.9.3",
+        "drupal/console-en": "1.9.3",
         "drupal/core": "^8.7.5",
         "drupal/ctools": "^3.2",
         "drupal/devel_entity_updates": "^1.0@RC",
