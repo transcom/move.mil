@@ -126,7 +126,7 @@ main_menu.retirees-separatees:
   weight: 10
 
 main_menu.civilians:
-  title: 'DOD Civilian Employees'
+  title: 'Civilian Employees'
   url: 'internal:/moving-guide/civilians'
   menu_name: main_menu
   parent: main_menu.moving_guide
