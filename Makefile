@@ -52,7 +52,7 @@ gm:
 	@echo "Displaying Generate Module UI"
 	docker-compose run --rm php drupal generate:module
 
-menu-update:
+menu:
 	@echo "Updating site menus"
 	docker-compose run --rm php drush cim -y --partial --source=modules/custom/custom_move_mil_menus/config/install/
 	docker-compose run --rm php drupal cache:rebuild all
