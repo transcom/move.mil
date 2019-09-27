@@ -266,7 +266,7 @@ class FeatureContext extends RawDrupalContext {
         'origin' => 'US25',
         'destination' => 'REGION 2',
         'discounts' => '67',
-        'site_rate' => '56',
+        'site_rate' => '60',
         'tdl' => '1541044800',
       ],
     ];

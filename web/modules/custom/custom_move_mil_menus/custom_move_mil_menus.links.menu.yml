@@ -126,7 +126,7 @@ main_menu.retirees-separatees:
   weight: 10
 
 main_menu.civilians:
-  title: 'DOD Civilian Employees'
+  title: 'Civilian Employees'
   url: 'internal:/moving-guide/civilians'
   menu_name: main_menu
   parent: main_menu.moving_guide
@@ -174,10 +174,3 @@ main_menu.locator-maps:
   menu_name: main_menu
   parent: main_menu.resources
   weight: 5
-
-main_menu.inventory-form:
-  title: 'Self-Inventory Form'
-  url: 'internal:/resources/inventory-form'
-  menu_name: main_menu
-  parent: main_menu.resources
-  weight: 6

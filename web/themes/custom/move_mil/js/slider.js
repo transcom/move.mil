@@ -19,7 +19,7 @@
     adaptiveHeight: true,
     arrows: true,
     appendArrows: '.carousel-gallery-nav__items',
-    focusOnChange: true,
+    focusOnChange: false,
     swipeToSlide: true,
   });
 });
