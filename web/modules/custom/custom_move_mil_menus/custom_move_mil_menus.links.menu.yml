@@ -174,10 +174,3 @@ main_menu.locator-maps:
   menu_name: main_menu
   parent: main_menu.resources
   weight: 5
-
-main_menu.inventory-form:
-  title: 'Self-Inventory Form'
-  url: 'internal:/resources/inventory-form'
-  menu_name: main_menu
-  parent: main_menu.resources
-  weight: 6
