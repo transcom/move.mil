@@ -1,0 +1,14 @@
+uuid: 3b9308e9-aeb4-4db4-8658-141426a9ebf7
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.ustranscom_admin
+  module:
+    - user
+id: user_remove_role_action.ustranscom_admin
+label: 'Remove the USTRANSCOM Admin role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: ustranscom_admin
