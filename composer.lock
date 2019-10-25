@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7cc4a891dd4a03df9b003b9b2537790f",
+    "content-hash": "e090214a9d10dfef820818f0caa15b70",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -235,7 +235,8 @@
             "dist": {
                 "type": "zip",
                 "url": "https://download.ckeditor.com/templates/releases/templates_4.11.1.zip",
-                "reference": "master"
+                "reference": "master",
+                "shasum": null
             },
             "type": "drupal-library"
         },
@@ -3605,7 +3606,9 @@
                         "message": "Alpha releases are not covered by Drupal security advisories."
                     }
                 },
-                "patches_applied": []
+                "patches_applied": {
+                    "Fixes config sync issue mentioned in https://www.drupal.org/project/password_policy/issues/2771129#comment-13224282": "https://www.drupal.org/files/issues/2019-08-15/2771129-100_0.patch"
+                }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
             "license": [
@@ -10751,17 +10754,6 @@
         {
             "name": "webflo/drupal-core-require-dev",
             "version": "8.7.6",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/webflo/drupal-core-require-dev.git",
-                "reference": "d9e72ddd4b353727f6bf9293408bfaf429b7c69e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/webflo/drupal-core-require-dev/zipball/d9e72ddd4b353727f6bf9293408bfaf429b7c69e",
-                "reference": "d9e72ddd4b353727f6bf9293408bfaf429b7c69e",
-                "shasum": ""
-            },
             "require": {
                 "behat/mink": "1.7.x-dev",
                 "behat/mink-goutte-driver": "^1.2",
