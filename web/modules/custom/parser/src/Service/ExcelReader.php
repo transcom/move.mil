@@ -245,17 +245,35 @@ use PhpOffice\PhpSpreadsheet\Reader\IReadFilter;
  * Define the Read Filter class.
  */
 class ReadFilter implements IReadFilter {
+
+  /**
+   * Read from this start row.
+   *
+   * @var int
+   */
   private $startRow = 0;
-  private $endRow   = 0;
-  private $columns  = [];
+
+  /**
+   * Read until this end row.
+   *
+   * @var int
+   */
+  private $endRow = 0;
+
+  /**
+   * Read only within these columns.
+   *
+   * @var array
+   */
+  private $columns = [];
 
   /**
    * Get the list of rows and columns to read.
    */
   public function __construct($startRow, $endRow, $columns) {
     $this->startRow = $startRow;
-    $this->endRow   = $endRow;
-    $this->columns  = $columns;
+    $this->endRow = $endRow;
+    $this->columns = $columns;
   }
 
   /**
