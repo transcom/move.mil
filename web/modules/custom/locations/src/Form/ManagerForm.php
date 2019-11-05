@@ -286,7 +286,7 @@ class ManagerForm extends ConfigFormBase {
     $batch = [
       'title' => 'Updating Drupal Locations...',
       'operations' => [],
-      'progress_message' => 'Verified currency status on @current out of @total locations.',
+      'progress_message' => 'Verified status on @current out of @total locations.',
       'error_message'    => 'An error occurred during processing',
       'finished' => '\Drupal\locations\Service\Writer::finishedDeleteCallback',
     ];
