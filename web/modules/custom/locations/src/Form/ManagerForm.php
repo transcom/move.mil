@@ -29,7 +29,7 @@ class ManagerForm extends ConfigFormBase {
    *
    * @var \Drupal\Core\Entity\EntityTypeManager
    */
-  protected $entity;
+  protected $entityTypeManager;
 
   /**
    * Variables containing the Reader service.
@@ -64,7 +64,7 @@ class ManagerForm extends ConfigFormBase {
                               StreamWrapperManager $swm) {
     parent::__construct($config_factory);
     $this->db = $db;
-    $this->entity = $entity;
+    $this->entityTypeManager = $entity;
     $this->reader = $reader;
     $this->swm = $swm;
   }
@@ -245,14 +245,12 @@ class ManagerForm extends ConfigFormBase {
       return;
     }
     try {
-      $file = $this->entity->getStorage('file')->load($fid);
+      $file = $this->entityTypeManager->getStorage('file')->load($fid);
       $stream_wrapper_manager = $this->swm->getViaUri($file->getFileUri());
       $filePath = $stream_wrapper_manager->realpath();
       $xml = $this->reader->parse($filePath, $exclusions);
+      $this->deleteLocations($xml, $exclusions);
       $this->updateLocations($xml);
-      if ($exclusions) {
-        $this->deleteLocations($exclusions);
-      }
     }
     catch (\Exception $e) {
       $this->messenger()->addError('Error: ' . $e->getMessage());
@@ -277,18 +275,26 @@ class ManagerForm extends ConfigFormBase {
   }
 
   /**
-   * Deletes Drupal locations to be excluded if present.
+   * Deletes Drupal locations.
+   *
+   * If not present in xml file or in the excluded list.
    */
-  protected function deleteLocations($exclusions) {
+  protected function deleteLocations($xmlOffices, $exclusions) {
+    // Get all location entity nodes.
+    $this->nodeStorage = $this->entityTypeManager->getStorage('node');
+    $entities = $this->nodeStorage->loadByProperties(['type' => 'location']);
     $batch = [
-      'title' => 'Deleting excluded Drupal Locations if present.',
+      'title' => 'Updating Drupal Locations...',
       'operations' => [],
-      'progress_message' => 'Processed @current out of @total exclusions.',
+      'progress_message' => 'Verified currency status on @current out of @total locations.',
       'error_message'    => 'An error occurred during processing',
       'finished' => '\Drupal\locations\Service\Writer::finishedDeleteCallback',
     ];
-    foreach ($exclusions as $exclusion) {
-      $batch['operations'][] = ['\Drupal\locations\Service\Writer::delete', [$exclusion]];
+    foreach ($entities as $entity) {
+      $batch['operations'][] = [
+        '\Drupal\locations\Service\Writer::delete',
+        [$entity, $xmlOffices, $exclusions],
+      ];
     }
     batch_set($batch);
   }

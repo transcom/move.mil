@@ -47,19 +47,21 @@ class Writer {
   }
 
   /**
-   * Delete excluded Drupal Locations if present.
+   * Delete outdated/excluded Drupal Locations.
    *
    * @throws \Exception
    */
-  public static function delete($exclusion, &$context) {
-    // Retrieve location types only once per iteration.
-    $cnslTypeId = self::getDrupalTaxonomyTermId('Transportation Office');
-    $ppsoTypeId = self::getDrupalTaxonomyTermId('Shipping Office');
-    // Get node to delete.
-    $node = Writer::getDrupalLocationByCnslId($exclusion, $cnslTypeId, $ppsoTypeId);
-    if (!empty($node)) {
-      \Drupal::entityTypeManager()->getStorage('node')->delete([$node]);
-      $context['results']['delete'][] = $exclusion;
+  public static function delete($location, $xmlOffices, $exclusions, &$context) {
+    $cnslId = $location->get('field_location_cnsl_id')->getValue();
+    // If CNSL id is not present in the XML offices, delete the Drupal location.
+    if (empty($xmlOffices[$cnslId])) {
+      \Drupal::entityTypeManager()->getStorage('node')->delete([$location]);
+      $context['results']['delete'][] = $cnslId;
+    }
+    // If CNSL id is present in the exclusions list, delete the Drupal location.
+    if (in_array($cnslId, $exclusions)) {
+      \Drupal::entityTypeManager()->getStorage('node')->delete([$location]);
+      $context['results']['delete'][] = $cnslId;
     }
   }
 
