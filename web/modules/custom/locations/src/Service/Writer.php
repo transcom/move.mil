@@ -271,23 +271,53 @@ class Writer {
       $address = "{$city}, {$country}";
     }
     $request = "https://maps.google.com/maps/api/geocode/json?address={$address}&key=$googleApi";
+    // @var \GuzzleHttp\Client $client.
     $client = new Client();
-    try {
-      $res = $client->request('GET', $request);
+    // Make 3 tries to geolocate this office.
+    $try = 1;
+    $error = '';
+    while ($try <= 3) {
+      try {
+        $res = $client->request('GET', $request);
+      }
+      catch (GuzzleException $ge) {
+        $error = 'There was a network problem while searching the geolocation of ' . $title;
+        $try++;
+        continue;
+      }
+      $data = json_decode($res->getBody()->getContents(), JSON_OBJECT_AS_ARRAY);
+      if ($data['status'] == 'OK') {
+        // Geolocation is successful.
+        $error = '';
+        break;
+      }
+      if ($data['status'] == 'REQUEST_DENIED') {
+        $error = $data['error_message'];
+        // There's no need to try again.
+        break;
+      }
+      if ($data['status'] == 'ZERO_RESULTS' || empty($data['results'])) {
+        // Modify the address before try again.
+        switch ($try) {
+          case 1:
+            $address = strtolower($address);
+            break;
+
+          case 2:
+            $address = $country;
+            break;
+
+          case 3:
+            $error = 'There are zero results while searching the geolocation of ' . $title;
+        }
+      }
+      $try++;
     }
-    catch (GuzzleException $ge) {
-      $error = 'There was a network problem while searching the geolocation of ' . $title;
+    // Geolocation wasn't successful?
+    if (!empty($error)) {
       return $error;
     }
-    $data = json_decode($res->getBody()->getContents(), JSON_OBJECT_AS_ARRAY);
-    if ($data['status'] == 'REQUEST_DENIED') {
-      $error = $data['error_message'];
-      return $error;
-    }
-    if ($data['status'] == 'ZERO_RESULTS' || empty($data['results'])) {
-      $error = 'There are zero results while searching the geolocation of ' . $title;
-      return $error;
-    }
+    // Geolocation was successful.
     $location = $data['results'][0]['geometry']['location'];
     $node->set('field_geolocation', [
       'lat' => $location['lat'],
