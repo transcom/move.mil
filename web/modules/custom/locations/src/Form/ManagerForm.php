@@ -147,7 +147,7 @@ class ManagerForm extends ConfigFormBase {
     ];
 
     for ($i = 0; $i < $exclusionsCount; $i++) {
-      $officeId = empty($configExclusions[$i]) ? ' ': $configExclusions[$i];
+      $officeId = empty($configExclusions[$i]) ? ' ' : $configExclusions[$i];
       $form['exclusions_fieldset']['exclusions'][$i] = [
         '#type' => 'number',
         '#title' => $this->t('Office ID'),
