@@ -233,6 +233,8 @@ class DbReader {
    * Then return the lowest value of that range.
    */
   private function closestValue(array $entries, $rawvalue, $column) {
+    $firstEntry = (array) $entries[0];
+    $lowest = intval($firstEntry[$column]);
     $highest = 0;
     $closest = 0;
     foreach ($entries as $entry) {
@@ -244,10 +246,17 @@ class DbReader {
       if ($value > $highest) {
         $highest = $value;
       }
+      if ($value < $lowest) {
+        $lowest = $value;
+      }
     }
     // If value higher than the values in the db, just return the highest.
     if ($rawvalue > $highest) {
       $closest = $highest;
+    }
+    // If value lower than the values in the db, just return the lowest.
+    if ($rawvalue < $lowest) {
+      $closest = $lowest;
     }
     return $closest;
   }
