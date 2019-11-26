@@ -298,24 +298,6 @@ class PpmEstimatorController extends ControllerBase {
   }
 
   /**
-   * Get the nearest int multiple of 100 less than or equal to the input.
-   */
-  private function floorHundred($input) {
-    return intval($input - $input % 100.0);
-  }
-
-  /**
-   * Get the nearest int multiple of 100 greater than or equal to the input.
-   */
-  private function ceilHundred($input) {
-    $remainder = $input % 100.0;
-    if ($remainder == 0) {
-      return intval($input);
-    }
-    return intval($input + (100.0 - $remainder));
-  }
-
-  /**
    * Round PPM incentives with total cost and discounts.
    */
   private function incentives($total, $discount) {
@@ -327,9 +309,7 @@ class PpmEstimatorController extends ControllerBase {
     $mintotal = $totalDiscounted * (1 - $range_pct);
     // Max range is the total + $range_pct%.
     $maxtotal = $totalDiscounted * (1 + $range_pct);
-
-    $mincost = floatval(round($mintotal));
-    $maxcost = floatval(round($maxtotal));
+    // Remove decimals.
     $incentives['min'] = floatval(round($mintotal));
     $incentives['max'] = floatval(round($maxtotal));
     return $incentives;
