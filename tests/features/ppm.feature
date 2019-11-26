@@ -35,7 +35,6 @@ Feature: PPM Estimator
     And I should see "14500 lbs"
     And I should see "2000 lbs"
     And I should see "500 lbs"
-    And  print last response
     And I should see "$15392-$16020"
     And I should see "$9235-$9612 (60%)"
 
