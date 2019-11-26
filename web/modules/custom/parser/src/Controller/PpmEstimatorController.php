@@ -92,9 +92,9 @@ class PpmEstimatorController extends ControllerBase {
     // Calculate PPM incentive estimates.
     $linehaul_charges = $this->linehaulCharges($start_service_area, $end_service_area, $year, $weight, $cwt, $params);
     $other_charges = $this->otherCharges($start_service_area, $end_service_area, $year, $weight, $cwt);
-    $discounts = $this->discounts($start_zip3, $end_zip3, $params['locations']['origin'], $params['selectedMoveDate']);
+    $discount = $this->discount($start_zip3, $end_zip3, $params['locations']['origin'], $params['selectedMoveDate']);
     $total = $linehaul_charges + $other_charges;
-    $incentives = $this->incentives($total, $discounts);
+    $incentives = $this->incentives($total, $discount);
     // Build data response.
     $data['locations'] = $this->locations($params['locations']['origin'], $params['locations']['destination']);
     $data['weightOptions'] = [
@@ -277,9 +277,9 @@ class PpmEstimatorController extends ControllerBase {
   }
 
   /**
-   * Get discounts from tsp discounts table.
+   * Get the discount from tsp discounts table.
    */
-  private function discounts($start_zip3, $end_zip3, $start_zipcode, $move_date) {
+  private function discount($start_zip3, $end_zip3, $start_zipcode, $move_date) {
     $area = $start_zip3['rate_area'];
     if ($area === 'ZIP') {
       $zip5 = $this->dbReader->zip5($start_zipcode);
@@ -294,38 +294,24 @@ class PpmEstimatorController extends ControllerBase {
     $discount_entry = $this->dbReader->discount("US{$area}", "REGION {$region}", strtotime($move_date));
     $discount_pct = $discount_entry['discounts'];
     $discount = 1 - ($discount_pct / 100);
-    // Don't go below 0% or above 100% before applying PPM incentive.
-    $discounts['min'] = max($discount - 0.02, 0.0) * 0.95;
-    $discounts['max'] = min($discount + 0.02, 1.0) * 0.95;
-    return $discounts;
-  }
-
-  /**
-   * Get the nearest int multiple of 100 less than or equal to the input.
-   */
-  private function floorHundred($input) {
-    return intval($input - $input % 100.0);
-  }
-
-  /**
-   * Get the nearest int multiple of 100 greater than or equal to the input.
-   */
-  private function ceilHundred($input) {
-    $remainder = $input % 100.0;
-    if ($remainder == 0) {
-      return intval($input);
-    }
-    return intval($input + (100.0 - $remainder));
+    return $discount;
   }
 
   /**
    * Round PPM incentives with total cost and discounts.
    */
-  private function incentives($total, $discounts) {
-    $mincost = floatval($total * $discounts['min']);
-    $maxcost = floatval($total * $discounts['max']);
-    $incentives['min'] = $this->floorHundred($mincost);
-    $incentives['max'] = $this->ceilHundred($maxcost);
+  private function incentives($total, $discount) {
+    // Apply PPM incentive + DPS 5% discount.
+    $totalDiscounted = $total * $discount * .95;
+    // Percentage to generate ranges.
+    $range_pct = 0.02;
+    // Min range is the total - $range_pct%.
+    $mintotal = $totalDiscounted * (1 - $range_pct);
+    // Max range is the total + $range_pct%.
+    $maxtotal = $totalDiscounted * (1 + $range_pct);
+    // Remove decimals.
+    $incentives['min'] = floatval(round($mintotal));
+    $incentives['max'] = floatval(round($maxtotal));
     return $incentives;
   }
 
