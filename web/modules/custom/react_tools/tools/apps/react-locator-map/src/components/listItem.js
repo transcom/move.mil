@@ -31,7 +31,7 @@ const PhoneNumber = (props) =>{
   return _.map(props.numbers, (p)=>{
     index++;
     return (
-      <p key={`p_${index}`} className={index > 0 ? 'margin-left' : ''}>{formatPhone(p || null)}</p>
+      <p key={`p_${index}`} className={index > 0 ? 'margin-left' : ''}>{p || null}</p>
     )
   });
 }
@@ -332,6 +332,7 @@ function buildEmailModel(_data){
   return emailModel;
 }
 
+//TODO: client asked to remove formatting
 function formatPhone(val){
   if(!val || val === '') return null;
   let reg = '/\D/g'; //numbers only
