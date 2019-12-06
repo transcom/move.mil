@@ -303,16 +303,28 @@ class PpmEstimatorController extends ControllerBase {
   private function incentives($total, $discount) {
     // Apply PPM incentive + DPS 5% discount.
     $totalDiscounted = $total * $discount * .95;
-    // Percentage to generate ranges.
-    $range_pct = 0.02;
-    // Min range is the total - $range_pct%.
-    $mintotal = $totalDiscounted * (1 - $range_pct);
-    // Max range is the total + $range_pct%.
-    $maxtotal = $totalDiscounted * (1 + $range_pct);
-    // Remove decimals.
-    $incentives['min'] = floatval(round($mintotal));
-    $incentives['max'] = floatval(round($maxtotal));
+    // Percentage to generate min range.
+    $minRangePct = $this->randomFloat(0, 2.0) / 100.0;
+    // Percentage to generate max range.
+    $maxRangePct = $this->randomFloat(0, 2.0) / 100.0;
+    // Min range is the total - $minRangePct%.
+    $mintotal = $totalDiscounted * (1 - $minRangePct);
+    // Max range is the total + $maxRangePct%.
+    $maxtotal = $totalDiscounted * (1 + $maxRangePct);
+    // Round decimals to 2.
+    $incentives['min'] = $mintotal;
+    $incentives['max'] = $maxtotal;
     return $incentives;
+  }
+
+  /**
+   * Return random float.
+   *
+   * Calculate a random floating-point number.
+   * https://www.php.net/manual/en/function.mt-getrandmax.php.
+   */
+  private function randomFloat($min = 0, $max = 1) {
+    return $min + mt_rand() / mt_getrandmax() * ($max - $min);
   }
 
 }
