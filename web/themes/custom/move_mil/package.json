@@ -60,6 +60,8 @@
     "gulp-util": "^3.0.8",
     "jshint": "^2.10.1",
     "jshint-stylish": "^2.2.1",
+    "lodash": "^4.17.15",
+    "lodash.template": "^4.5.0",
     "merge-stream": "^1.0.1",
     "node-notifier": "^5.4.0",
     "node-sass": "^4.12.0",
