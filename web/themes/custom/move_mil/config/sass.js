@@ -6,7 +6,7 @@ var linter      = require('gulp-stylelint');
 var sourcemaps  = require('gulp-sourcemaps');
 var glob        = require('gulp-sass-glob');
 var rename      = require('gulp-rename');
-var cssnano     = require('gulp-cssnano');
+var cleancss    = require('gulp-clean-css');
 var postcss = require('gulp-postcss');
 var autoprefixer = require('autoprefixer');
 var runSequence = require('run-sequence');
@@ -25,7 +25,7 @@ gulp.task('copy-doc-styles', function (done) {
       cascade: false
       }) ]))
     .pipe(gulp.dest('assets/css'))
-    .pipe(cssnano())
+    .pipe(cleancss())
     .pipe(rename('styles.min.css'))
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest('assets/css/'));
