@@ -22,7 +22,7 @@ class Writer {
   public static function update($nodeData, &$context) {
     $cnslTypeId = self::getDrupalTaxonomyTermId('Transportation Office');
     $ppsoTypeId = self::getDrupalTaxonomyTermId('Shipping Office');
-    $googleApi = $_ENV['GOOGLE_MAPS_API_KEY'];
+    $googleApi = $_ENV['GOOGLE_GEO_DIST_API_KEY'];
     // Update each XML offices that is found in Drupal content.
     $node = Writer::getDrupalLocationByCnslId($nodeData['id'], $cnslTypeId, $ppsoTypeId);
     if (!empty($node)) {
