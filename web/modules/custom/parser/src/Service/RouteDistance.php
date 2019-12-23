@@ -47,7 +47,7 @@ class RouteDistance {
     $this->httpClient = $http_client;
     $this->config = $configFactory;
     $this->logger = $logger;
-    $this->googleApiKey = $_ENV['GOOGLE_MAPS_API_KEY'];
+    $this->googleApiKey = $_ENV['GOOGLE_GEO_DIST_API_KEY'];
   }
 
   /**
