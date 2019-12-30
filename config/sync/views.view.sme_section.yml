@@ -15,8 +15,8 @@ dependencies:
     - 'taxonomy_term:sme_section:bc06f12b-71a8-44c6-a68c-597a8a57485a'
     - 'taxonomy_term:sme_section:bc181bc1-aa3a-44e6-8a5a-7b3d547d3829'
     - 'taxonomy_term:sme_section:c4888dff-2143-473e-943f-dc8df0d6cd62'
-    - 'taxonomy_term:sme_section:ce67f25c-ae30-4058-bd31-e8f54d06d6c0'
     - 'taxonomy_term:sme_section:f98fe7a5-0b1b-4e14-9e87-63f7c5829512'
+    - 'taxonomy_term:sme_section:ff1013cb-0ec8-47cb-a6d4-d8977ac045d4'
   module:
     - datetime
     - node
@@ -217,7 +217,7 @@ display:
           admin_label: ''
           operator: or
           value:
-            28: 28
+            30: 30
           group: 1
           exposed: false
           expose:
@@ -261,7 +261,7 @@ display:
           admin_label: ''
           operator: or
           value:
-            28: 28
+            30: 30
           group: 1
           exposed: false
           expose:
@@ -1566,6 +1566,27 @@ display:
       defaults:
         title: false
       block_hide_empty: true
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url.query_args
+        - user
+        - 'user.node_grants:view'
+        - user.permissions
+      tags: {  }
+  block_18:
+    display_plugin: block
+    id: block_18
+    display_title: 'SME Section -Tender of Service NTS Rates Rankings'
+    position: 19
+    display_options:
+      display_extenders: {  }
+      display_description: ''
+      title: 'Tender of Service NTS Rates Rankings'
+      defaults:
+        title: false
     cache_metadata:
       max-age: -1
       contexts:
