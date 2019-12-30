@@ -33,7 +33,6 @@
         "bixal/jumplink": "dev-master",
         "composer/installers": "^1.6",
         "cweagans/composer-patches": "^1.6",
-        "drupal-composer/drupal-scaffold": "^2.5",
         "drupal/address": "~1.0",
         "drupal/admin_toolbar": "^1.26",
         "drupal/advanced_help": "^1.0@alpha",
@@ -57,7 +56,8 @@
         "drupal/uswds": "^1.0@beta",
         "drupal/wysiwyg_template": "^2.1",
         "drush/drush": "^9.4",
-        "phpoffice/phpspreadsheet": "^1.6",
+        "phpoffice/phpspreadsheet": "1.9.0",
+        "phpunit/phpunit": "^7.5",
         "vlucas/phpdotenv": "^2.4",
         "webflo/drupal-finder": "^1.0.0",
         "webmozart/path-util": "^2.3"
@@ -67,8 +67,7 @@
         "behat/mink-selenium2-driver": "^1.3",
         "bex/behat-screenshot": "^1.2",
         "drupal/coder": "^8.3",
-        "drupal/drupal-extension": "master-dev",
-        "webflo/drupal-core-require-dev": "~8.6"
+        "drupal/drupal-extension": "master-dev"
     },
     "conflict": {
         "drupal/drupal": "*"
@@ -107,6 +106,11 @@
             "web/profiles/contrib/{$name}": ["type:drupal-profile"],
             "web/themes/contrib/{$name}": ["type:drupal-theme"],
             "drush/contrib/{$name}": ["type:drupal-drush"]
+        },
+        "drupal-scaffold": {
+            "locations": {
+                "web-root": "web/"
+            }
         },
         "patches": {
             "drupal/node_class": {

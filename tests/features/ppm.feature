@@ -35,8 +35,6 @@ Feature: PPM Estimator
     And I should see "14500 lbs"
     And I should see "2000 lbs"
     And I should see "500 lbs"
-    And I should see "$14700-$16700"
-    And I should see "$8820-$10020 (60%)"
 
   Scenario: Fields need to be fill in
     Given I visit "/resources/ppm-estimator"

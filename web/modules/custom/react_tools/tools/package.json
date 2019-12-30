@@ -96,6 +96,7 @@
       "mjs"
     ]
   },
+  "proxy": "http://localhost:3000",
   "babel": {
     "presets": [
       "react-app"

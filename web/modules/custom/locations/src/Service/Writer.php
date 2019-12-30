@@ -22,7 +22,7 @@ class Writer {
   public static function update($nodeData, &$context) {
     $cnslTypeId = self::getDrupalTaxonomyTermId('Transportation Office');
     $ppsoTypeId = self::getDrupalTaxonomyTermId('Shipping Office');
-    $googleApi = $_ENV['GOOGLE_MAPS_API_KEY'];
+    $googleApi = $_ENV['GOOGLE_GEO_DIST_API_KEY'];
     // Update each XML offices that is found in Drupal content.
     $node = Writer::getDrupalLocationByCnslId($nodeData['id'], $cnslTypeId, $ppsoTypeId);
     if (!empty($node)) {
@@ -47,19 +47,21 @@ class Writer {
   }
 
   /**
-   * Delete excluded Drupal Locations if present.
+   * Delete outdated/excluded Drupal Locations.
    *
    * @throws \Exception
    */
-  public static function delete($exclusion, &$context) {
-    // Retrieve location types only once per iteration.
-    $cnslTypeId = self::getDrupalTaxonomyTermId('Transportation Office');
-    $ppsoTypeId = self::getDrupalTaxonomyTermId('Shipping Office');
-    // Get node to delete.
-    $node = Writer::getDrupalLocationByCnslId($exclusion, $cnslTypeId, $ppsoTypeId);
-    if (!empty($node)) {
-      \Drupal::entityTypeManager()->getStorage('node')->delete([$node]);
-      $context['results']['delete'][] = $exclusion;
+  public static function delete($location, $xmlOffices, $exclusions, &$context) {
+    $cnslId = $location->get('field_location_cnsl_id')->getValue();
+    // If CNSL id is not present in the XML offices, delete the Drupal location.
+    if (empty($xmlOffices[$cnslId])) {
+      \Drupal::entityTypeManager()->getStorage('node')->delete([$location]);
+      $context['results']['delete'][] = $cnslId;
+    }
+    // If CNSL id is present in the exclusions list, delete the Drupal location.
+    if (in_array($cnslId, $exclusions)) {
+      \Drupal::entityTypeManager()->getStorage('node')->delete([$location]);
+      $context['results']['delete'][] = $cnslId;
     }
   }
 
@@ -269,23 +271,53 @@ class Writer {
       $address = "{$city}, {$country}";
     }
     $request = "https://maps.google.com/maps/api/geocode/json?address={$address}&key=$googleApi";
+    // @var \GuzzleHttp\Client $client.
     $client = new Client();
-    try {
-      $res = $client->request('GET', $request);
+    // Make 3 tries to geolocate this office.
+    $try = 1;
+    $error = '';
+    while ($try <= 3) {
+      try {
+        $res = $client->request('GET', $request);
+      }
+      catch (GuzzleException $ge) {
+        $error = 'There was a network problem while searching the geolocation of ' . $title;
+        $try++;
+        continue;
+      }
+      $data = json_decode($res->getBody()->getContents(), JSON_OBJECT_AS_ARRAY);
+      if ($data['status'] == 'OK') {
+        // Geolocation is successful.
+        $error = '';
+        break;
+      }
+      if ($data['status'] == 'REQUEST_DENIED') {
+        $error = $data['error_message'];
+        // There's no need to try again.
+        break;
+      }
+      if ($data['status'] == 'ZERO_RESULTS' || empty($data['results'])) {
+        // Modify the address before try again.
+        switch ($try) {
+          case 1:
+            $address = strtolower($address);
+            break;
+
+          case 2:
+            $address = $country;
+            break;
+
+          case 3:
+            $error = 'There are zero results while searching the geolocation of ' . $title;
+        }
+      }
+      $try++;
     }
-    catch (GuzzleException $ge) {
-      $error = 'There was a network problem while searching the geolocation of ' . $title;
+    // Geolocation wasn't successful?
+    if (!empty($error)) {
       return $error;
     }
-    $data = json_decode($res->getBody()->getContents(), JSON_OBJECT_AS_ARRAY);
-    if ($data['status'] == 'REQUEST_DENIED') {
-      $error = $data['error_message'];
-      return $error;
-    }
-    if ($data['status'] == 'ZERO_RESULTS' || empty($data['results'])) {
-      $error = 'There are zero results while searching the geolocation of ' . $title;
-      return $error;
-    }
+    // Geolocation was successful.
     $location = $data['results'][0]['geometry']['location'];
     $node->set('field_geolocation', [
       'lat' => $location['lat'],

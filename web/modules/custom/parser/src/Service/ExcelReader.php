@@ -21,6 +21,7 @@ class ExcelReader {
     $xlsx = [];
     $reader = new Xlsx();
     $reader->setReadDataOnly(TRUE);
+    $reader->setReadEmptyCells(FALSE);
 
     if ($type == "discounts") {
 
@@ -40,23 +41,26 @@ class ExcelReader {
       }
     }
     else {
-      $reader->setLoadSheetsOnly([
-        'Geographical Schedule',
-        'Linehaul',
-        'Additional Rates',
-      ]);
-      $spreadsheet = $reader->load($xlsxFile);
-
       $xlsx['year'] = $date;
-      $xlsx['schedules'] = $this->schedules($spreadsheet);
 
-      $xlsx['linehauls'] = $this->linehauls($spreadsheet, $this->conusparams());
+      $filterSubset = new ReadFilter(3, 999, range('A', 'H'));
+      $schedulesReader = $reader->setLoadSheetsOnly('Geographical Schedule')->setReadFilter($filterSubset);
+      $schedulesData = $schedulesReader->load($xlsxFile);
+      $xlsx['schedules'] = $this->schedules($schedulesData);
 
-      $additonalrates = $this->additionalrates($spreadsheet);
+      $conusparams = $this->conusparams();
+      $filterSubset = new ReadFilter(1, $conusparams['highestRow'] + 1, range('A', $conusparams['highestColumn']));
+      $linehaulsSheet = $reader->setLoadSheetsOnly('Linehaul')->setReadFilter($filterSubset);
+      $linehaulsData = $linehaulsSheet->load($xlsxFile);
+      $xlsx['linehauls'] = $this->linehauls($linehaulsData, $conusparams);
+
+      $filterSubset = new ReadFilter(3, 100, range('A', 'F'));
+      $additionalSheet = $reader->setLoadSheetsOnly('Additional Rates')->setReadFilter($filterSubset);
+      $additionalData = $additionalSheet->load($xlsxFile);
+      $additonalrates = $this->additionalrates($additionalData);
       $xlsx['shorthauls'] = $additonalrates['shorthauls'];
       $xlsx['packunpack'] = $additonalrates['packunpack'];
     }
-
     return $xlsx;
   }
 
@@ -65,8 +69,8 @@ class ExcelReader {
    */
   private function schedules($spreadsheet) {
     $schedules = [];
-    $worksheet = $spreadsheet->getSheetByName('Geographical Schedule');
     $lowestRow = 3;
+    $worksheet = $spreadsheet->getActiveSheet();
     $highestRow = $worksheet->getHighestRow();
     // Get service area data from the first 5 columns of each row.
     for ($row = $lowestRow; $row <= $highestRow; $row++) {
@@ -87,12 +91,14 @@ class ExcelReader {
    */
   private function linehauls($spreadsheet, array $params) {
     $linehauls = [];
-    $worksheet = $spreadsheet->getSheetByName('Linehaul');
+    $worksheet = $spreadsheet->getActiveSheet();
+
     $lowestRow = $params['lowestRow'];
     $highestRow = $params['highestRow'];
     $lowestColumn = $params['lowestColumn'];
     $highestColumn = $params['highestColumn'];
     $maxDistance = $params['maxDistance'];
+    $latestRates = [];
     // Get miles from column 2, weight from row 2, and rate from col, row.
     for ($row = $lowestRow; $row <= $highestRow; $row++) {
       $linehaul = [];
@@ -104,32 +110,33 @@ class ExcelReader {
         $linehaul['weight'] = $weight;
         $linehaul['rate'] = $rate;
         $linehauls[] = $linehaul;
+        if ($row == $highestRow) {
+          $latestRates[$col]['weight'] = $weight;
+          $latestRates[$col]['rate'] = $rate;
+        }
       }
     }
     // Increment rates for each addl 100 miles.
-    // Using numbers after last row, up to maxDistance.
-    $miles = intval($worksheet->getCellByColumnAndRow(3, $highestRow)->getValue()) + 1;
+    // Get increment for each weight from yellow (additonal rates) row.
     $incrementRow = $highestRow + 1;
-    // Last rate value.
-    $num_weight_classes = ($highestColumn - $lowestColumn) + 1;
-    while ($miles <= $maxDistance) {
-      $linehaul = [];
+    $rateIncrements = [];
+    for ($col = $lowestColumn; $col <= $highestColumn; $col++) {
+      $rateIncrements[$col] = intval($worksheet->getCellByColumnAndRow($col, $incrementRow)->getValue());
+    }
+    // Calculate additional rates up to maxDistance in 100 miles increments.
+    $lastCount = count($linehauls);
+    $incrementInMiles = 100;
+    $startAddlMiles = $linehauls[$lastCount - 1]['miles'] + $incrementInMiles;
+    $incrementCount = 1;
+    foreach (range($startAddlMiles, $maxDistance, $incrementInMiles) as $miles) {
       for ($col = $lowestColumn; $col <= $highestColumn; $col++) {
-        $weight = $worksheet->getCellByColumnAndRow($col, 2)->getValue();
-        // Get increment from yellow (additonal rates) row.
-        $rateincrement = intval($worksheet->getCellByColumnAndRow($col, $incrementRow)->getValue());
-        // Get previous rate from previous miles, same weight.
-        $count = count($linehauls);
-        $lastrowvalue = $linehauls[$count - $num_weight_classes]['rate'];
-        // Get new rate.
-        $rate = $lastrowvalue + $rateincrement;
-        // Save values.
         $linehaul['miles'] = strval($miles);
-        $linehaul['weight'] = $weight;
-        $linehaul['rate'] = $rate;
+        $linehaul['weight'] = $latestRates[$col]['weight'];
+        // Get the rate for the current miles and weight.
+        $linehaul['rate'] = $latestRates[$col]['rate'] + ($rateIncrements[$col] * $incrementCount);
         $linehauls[] = $linehaul;
       }
-      $miles += 100;
+      $incrementCount++;
     }
     return $linehauls;
   }
@@ -154,7 +161,7 @@ class ExcelReader {
     $additonalrates = [];
     $shorthauls = [];
     $packunpack = [];
-    $worksheet = $spreadsheet->getSheetByName('Additional Rates');
+    $worksheet = $spreadsheet->getActiveSheet();
     foreach ($worksheet->getRowIterator() as $row) {
       if ($worksheet->getCellByColumnAndRow(1, $row->getRowIndex())->getValue() == 999) {
         $shorthauls[] = $this->shorthaul($worksheet, $row);
@@ -228,6 +235,58 @@ class ExcelReader {
     $packunpack['pack'] = $rate;
     $packunpack['unpack'] = $unpack;
     return $packunpack;
+  }
+
+}
+
+use PhpOffice\PhpSpreadsheet\Reader\IReadFilter;
+
+/**
+ * Define the Read Filter class.
+ */
+class ReadFilter implements IReadFilter {
+
+  /**
+   * Read from this start row.
+   *
+   * @var int
+   */
+  private $startRow = 0;
+
+  /**
+   * Read until this end row.
+   *
+   * @var int
+   */
+  private $endRow = 0;
+
+  /**
+   * Read only within these columns.
+   *
+   * @var array
+   */
+  private $columns = [];
+
+  /**
+   * Get the list of rows and columns to read.
+   */
+  public function __construct($startRow, $endRow, $columns) {
+    $this->startRow = $startRow;
+    $this->endRow = $endRow;
+    $this->columns = $columns;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function readCell($column, $row, $worksheetName = '') {
+    // Only read the rows and columns that were configured.
+    if ($row >= $this->startRow && $row <= $this->endRow) {
+      if (in_array($column, $this->columns)) {
+        return TRUE;
+      }
+    }
+    return FALSE;
   }
 
 }

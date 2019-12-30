@@ -66,7 +66,7 @@ function appPaths(appName){
     appPublic: `${appRoot}/public`,
     appHtml: `${appRoot}/public/index.html`,
     appIndexJs: `${appRoot}/src/index.js`,
-    packageJson: resolveApp('./package.json'),
+    packageJson: resolveApp('package.json'),
     nodeModules: resolveApp('node_modules'),
     appSrc: `${appRoot}/src`,
     sassDir: `${appRoot}/src/sass`,

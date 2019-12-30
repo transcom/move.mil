@@ -1,0 +1,14 @@
+uuid: a05d1e2e-49a5-4fa6-b77e-a894ebdf6c24
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.ustranscom_admin
+  module:
+    - user
+id: user_add_role_action.ustranscom_admin
+label: 'Add the USTRANSCOM Admin role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: ustranscom_admin
