@@ -198,7 +198,7 @@ build_production_image: &build_production_image
   steps:
     - checkout
     - setup_remote_docker:
-        docker_layer_caching: true
+        docker_layer_caching: false
     - restore_cache: *restore_cache
     - run:
         name: Install dependencies
