@@ -43,6 +43,12 @@ content:
       default_paragraph_type: ''
     third_party_settings: {  }
     region: content
+  moderation_state:
+    type: moderation_state_default
+    weight: 100
+    settings: {  }
+    region: content
+    third_party_settings: {  }
   node_class:
     type: string_textfield
     weight: 35
@@ -94,5 +100,6 @@ content:
       match_operator: CONTAINS
       size: 60
       placeholder: ''
+      match_limit: 10
     third_party_settings: {  }
 hidden: {  }
