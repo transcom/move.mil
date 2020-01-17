@@ -8,23 +8,15 @@ class Results extends Component {
             return (
                 <div className="flex-container sum-line">
                     <div className="flex-item">
-                        Spouse Pro Gear
+                        Spouse Pro Gear	
                     </div>
-                    <div className="flex-item arithmatic-sign">
-                        <span>+</span>
+                    <div className="flex-item right-align half">
+                        +
                     </div>
-                    <div className="flex-item right-align small">
+                    <div className="flex-item right-align half">
                         {this.props.results.weightOptions.dependent} lbs
                     </div>
                 </div>
-            )
-        }
-    }
-
-    renderPlusSign = () =>{
-        if(!this.props.isDependencies){
-            return (
-                <span>+</span>
             )
         }
     }
@@ -64,7 +56,6 @@ class Results extends Component {
                 </div>
 
 
-
                 <ResultMap map={mapOptions}/>
                 <div className="details">
                     <div className="flex-container">
@@ -88,8 +79,8 @@ class Results extends Component {
                                 <div className="flex-item">
                                     Household Goods
                                 </div>
-                                <div className="flex-item arithmatic-sign"></div>
-                                <div className="flex-item right-align">
+                                <div className="flex-item half"></div>
+                                <div className="flex-item right-align half">
                                     {this.props.results.weightOptions.houseHold} lbs
                                 </div>
                             </div>
@@ -97,8 +88,8 @@ class Results extends Component {
                                 <div className="flex-item">
                                     Pro Gear
                                 </div>
-                                <div className="flex-item half">
-                                    {this.renderPlusSign()}
+                                <div className="flex-item right-align half">
+                                    {!this.props.isDependencies ? <span>+</span> : null}
                                 </div>
                                 <div className="flex-item right-align half">
                                     {this.props.results.weightOptions.proGear} lbs
@@ -109,7 +100,7 @@ class Results extends Component {
                                 <div className="flex-item">
                                     TOTAL	
                                 </div>
-                                <div className="flex-item half">
+                                <div className="flex-item right-align half">
                                     =
                                 </div>
                                 <div className="flex-item right-align half">
@@ -121,7 +112,7 @@ class Results extends Component {
                     <div className="flex-container incentive">
                         <div className="flex-item ie-2-col">Your PPM Incentive:</div>
                         <div className="flex-item ie-2-col right-align">
-                            ${Number((this.props.results.incentive.min).toFixed(2)).toLocaleString()}-${Number((this.props.results.incentive.max).toFixed(2)).toLocaleString()}
+                            ${Number((this.props.results.incentive.min).toFixed(2)).toLocaleString()} - ${Number((this.props.results.incentive.max).toFixed(2)).toLocaleString()}
                         </div>
                     </div>
                 </div>
