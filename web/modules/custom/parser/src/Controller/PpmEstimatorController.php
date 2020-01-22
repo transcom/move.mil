@@ -95,17 +95,17 @@ class PpmEstimatorController extends ControllerBase {
     $discount = $this->discount($start_zip3, $end_zip3, $params['locations']['origin'], $params['selectedMoveDate']);
     if ($discount > 0) {
       // Calculate all linehaul charges.
-      $linehaul_rate = $this->linehaulRate($year, $weight, $distance, $discount);
+      $linehaul_rate = $this->linehaulRate($year, $weight, $distance);
       $linehaul_factors = $this->linehaulFactors($start_service_area, $end_service_area, $cwt);
-      $shorthaul_rate = $this->shorthaulRate($distance, $cwt, $year, $discount);
+      $shorthaul_rate = $this->shorthaulRate($distance, $cwt, $year);
       $linehaul_charges = $this->linehaulCharges($linehaul_rate, $linehaul_factors, $shorthaul_rate);
       // Calculate non linehaul charges.
       $services = $this->servicesCharges($start_service_area, $end_service_area);
-      $packing = $this->packingCharges($start_service_area, $end_service_area, $year, $weight, $discount);
+      $packing = $this->packingCharges($start_service_area, $end_service_area, $year, $weight);
       $other_charges = $this->otherCharges($services, $packing, $cwt);
       // Calculate PPM incentive estimates.
       $total = $linehaul_charges + $other_charges;
-      $incentives = $this->incentives($total);
+      $incentives = $this->incentives($total, $discount);
       $data['incentive'] = $incentives;
     }
     else {
@@ -256,7 +256,7 @@ class PpmEstimatorController extends ControllerBase {
   /**
    * Calculate linehaul rate.
    */
-  private function linehaulRate($year, $weight, $distance, $discount) {
+  private function linehaulRate($year, $weight, $distance) {
     // Get linehaul rate.
     if ($weight < 1000) {
       // If weight is less than 1000lbs then use rate * (weight / 1000).
@@ -267,7 +267,7 @@ class PpmEstimatorController extends ControllerBase {
       $linehaul = $this->dbReader->linehaul($distance, $weight, $year);
       $linehaul_rate = floatval($linehaul['rate']);
     }
-    return $linehaul_rate * $discount;
+    return $linehaul_rate;
   }
 
   /**
@@ -282,7 +282,7 @@ class PpmEstimatorController extends ControllerBase {
   /**
    * Calculate shorthaul rate if needed.
    */
-  private function shorthaulRate($distance, $cwt, $year, $discount) {
+  private function shorthaulRate($distance, $cwt, $year) {
     // Get shorthaul rate.
     if ($distance > 800) {
       $shorthaul_rate = 0.0;
@@ -291,7 +291,7 @@ class PpmEstimatorController extends ControllerBase {
       $shorthaul = $this->dbReader->shorthaul($distance, $cwt, $year);
       $shorthaul_rate = floatval($shorthaul['rate']);
     }
-    return $shorthaul_rate * $discount;
+    return $shorthaul_rate;
   }
 
   /**
@@ -303,14 +303,12 @@ class PpmEstimatorController extends ControllerBase {
 
   /**
    * Calculate packing charges.
-   *
-   * Apply BVS Discount to packing and unpacking charges.
    */
   private function packingCharges($start_service_area, $end_service_area, $year, $weight, $discount) {
     $pack = $this->dbReader->packunpack($start_service_area, $year, $weight);
     $unpack = $this->dbReader->packunpack($end_service_area, $year);
     $packunpack = floatval($pack['pack']) + floatval($unpack['unpack']);
-    return $packunpack * $discount;
+    return $packunpack;
   }
 
   /**
@@ -325,7 +323,7 @@ class PpmEstimatorController extends ControllerBase {
    * Calculate other charges.
    *
    * All non linehaul charges
-   * Other Charges = (Origin/Destination Charges + Discounted Packing) * CWT.
+   * Other Charges = (Origin/Destination Charges + Packing) * CWT.
    */
   private function otherCharges($services, $packing, $cwt) {
     return ($services + $packing) * $cwt;
@@ -361,9 +359,9 @@ class PpmEstimatorController extends ControllerBase {
   /**
    * Round PPM incentives with total cost and discounts.
    */
-  private function incentives($total) {
-    // Apply PPM incentive + DPS 5% discount.
-    $totalDiscounted = $total * 0.95;
+  private function incentives($total, $discount) {
+    // Apply PPM incentive + BVS Discount + DPS 5% discount.
+    $totalDiscounted = $total * $discount * 0.95;
     // Percentage to generate min range.
     $minRangePct = $this->randomFloat(0, 2.0) / 100.0;
     // Percentage to generate max range.
