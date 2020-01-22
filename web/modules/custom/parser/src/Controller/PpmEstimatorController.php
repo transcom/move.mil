@@ -89,18 +89,20 @@ class PpmEstimatorController extends ControllerBase {
     $weight = floatval($household + $progear + $spouse_progear);
     // Weight divided by 100, AKA the hundredweight (centiweight?).
     $cwt = floatval($weight / 100.0);
+    // Get distance.
+    $distance = $this->distance($params['locations']['origin'], $params['locations']['destination']);
     // Calculate BVS Discount.
     $discount = $this->discount($start_zip3, $end_zip3, $params['locations']['origin'], $params['selectedMoveDate']);
     if ($discount > 0) {
       // Calculate all linehaul charges.
-      $linehaul_rate = $this->linehaulRate($year, $weight, $params, $discount);
+      $linehaul_rate = $this->linehaulRate($year, $weight, $distance, $discount);
       $linehaul_factors = $this->linehaulFactors($start_service_area, $end_service_area, $cwt);
       $shorthaul_rate = $this->shorthaulRate($distance, $cwt, $year, $discount);
       $linehaul_charges = $this->linehaulCharges($linehaul_rate, $linehaul_factors, $shorthaul_rate);
       // Calculate non linehaul charges.
       $services = $this->servicesCharges($start_service_area, $end_service_area);
       $packing = $this->packingCharges($start_service_area, $end_service_area, $year, $weight, $discount);
-      $other_charges = $this->otherCharges($services, $packing);
+      $other_charges = $this->otherCharges($services, $packing, $cwt);
       // Calculate PPM incentive estimates.
       $total = $linehaul_charges + $other_charges;
       $incentives = $this->incentives($total);
@@ -254,9 +256,7 @@ class PpmEstimatorController extends ControllerBase {
   /**
    * Calculate linehaul rate.
    */
-  private function linehaulRate($year, $weight, $params, $discount) {
-    // Get distance.
-    $distance = $this->distance($params['locations']['origin'], $params['locations']['destination']);
+  private function linehaulRate($year, $weight, $distance, $discount) {
     // Get linehaul rate.
     if ($weight < 1000) {
       // If weight is less than 1000lbs then use rate * (weight / 1000).
@@ -303,7 +303,7 @@ class PpmEstimatorController extends ControllerBase {
 
   /**
    * Calculate packing charges.
-   * 
+   *
    * Apply BVS Discount to packing and unpacking charges.
    */
   private function packingCharges($start_service_area, $end_service_area, $year, $weight, $discount) {
@@ -323,11 +323,11 @@ class PpmEstimatorController extends ControllerBase {
 
   /**
    * Calculate other charges.
-   * 
+   *
    * All non linehaul charges
-   * •	Other Charges = (Origin/Destination Charges + Discounted Packing) * CWT
+   * Other Charges = (Origin/Destination Charges + Discounted Packing) * CWT.
    */
-  private function otherCharges($services, $packing) {
+  private function otherCharges($services, $packing, $cwt) {
     return ($services + $packing) * $cwt;
   }
 
