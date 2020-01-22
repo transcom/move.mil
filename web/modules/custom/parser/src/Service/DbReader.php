@@ -131,15 +131,16 @@ class DbReader {
     $ss = $this->databaseConnection
       ->select('parser_shorthauls')
       ->fields('parser_shorthauls')
+      ->condition('year', $year)
       ->execute()
       ->fetchAll();
-    $closestCwtMiles = $this->closestValue($ss, $cwt * $distance, 'cwt_miles');
+    $cwt_miles = $cwt * $distance;
+    $closestCwtMiles = $this->closestValue($ss, $cwt_miles, 'cwt_miles');
     // Get the shorthaul object.
     $s = $this->databaseConnection
       ->select('parser_shorthauls')
       ->fields('parser_shorthauls')
       ->condition('cwt_miles', $closestCwtMiles)
-      ->condition('year', $year)
       ->range(0, 1)
       ->execute()
       ->fetch();

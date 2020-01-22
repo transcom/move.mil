@@ -89,12 +89,29 @@ class PpmEstimatorController extends ControllerBase {
     $weight = floatval($household + $progear + $spouse_progear);
     // Weight divided by 100, AKA the hundredweight (centiweight?).
     $cwt = floatval($weight / 100.0);
-    // Calculate PPM incentive estimates.
-    $linehaul_charges = $this->linehaulCharges($start_service_area, $end_service_area, $year, $weight, $cwt, $params);
-    $other_charges = $this->otherCharges($start_service_area, $end_service_area, $year, $weight, $cwt);
+    // Calculate BVS Discount.
     $discount = $this->discount($start_zip3, $end_zip3, $params['locations']['origin'], $params['selectedMoveDate']);
-    $total = $linehaul_charges + $other_charges;
-    $incentives = $this->incentives($total, $discount);
+    if ($discount > 0) {
+      // Calculate all linehaul charges.
+      $linehaul_rate = $this->linehaulRate($year, $weight, $params, $discount);
+      $linehaul_factors = $this->linehaulFactors($start_service_area, $end_service_area, $cwt);
+      $shorthaul_rate = $this->shorthaulRate($distance, $cwt, $year, $discount);
+      $linehaul_charges = $this->linehaulCharges($linehaul_rate, $linehaul_factors, $shorthaul_rate);
+      // Calculate non linehaul charges.
+      $services = $this->servicesCharges($start_service_area, $end_service_area);
+      $packing = $this->packingCharges($start_service_area, $end_service_area, $year, $weight, $discount);
+      $other_charges = $this->otherCharges($services, $packing);
+      // Calculate PPM incentive estimates.
+      $total = $linehaul_charges + $other_charges;
+      $incentives = $this->incentives($total);
+      $data['incentive'] = $incentives;
+    }
+    else {
+      return $this->response(
+        ['error' => 'Cannot calculate PPM because the discount was not found.'],
+        200
+      );
+    }
     // Build data response.
     $data['locations'] = $this->locations($params['locations']['origin'], $params['locations']['destination']);
     $data['weightOptions'] = [
@@ -104,16 +121,15 @@ class PpmEstimatorController extends ControllerBase {
       'total' => $weight,
     ];
     $data['selectedMoveDate'] = $params['selectedMoveDate'];
-    $data['incentive'] = $incentives;
-    // Calculate maximum advance payment.
-    $pct = 0.60;
-    $data['advancePayment'] = [
-      'min' => $incentives['min'] * $pct,
-      'max' => $incentives['max'] * $pct,
-      'percentage' => $pct * 100,
-    ];
+    return $this->response($data, 200);
+  }
+
+  /**
+   * Create and return JSON response.
+   */
+  private function response(array $data, $return_code) {
     // Create JSON response.
-    $response = JsonResponse::create($data, 200);
+    $response = JsonResponse::create($data, $return_code);
     $response->setEncodingOptions(
       $response->getEncodingOptions() |
       JSON_PRETTY_PRINT |
@@ -236,11 +252,9 @@ class PpmEstimatorController extends ControllerBase {
   }
 
   /**
-   * Calculate linehaul charges.
+   * Calculate linehaul rate.
    */
-  private function linehaulCharges($start_service_area, $end_service_area, $year, $weight, $cwt, $params) {
-    // Sum service areas linehaul factors.
-    $linehaul_factor = $start_service_area['linehaul_factor'] + $end_service_area['linehaul_factor'];
+  private function linehaulRate($year, $weight, $params, $discount) {
     // Get distance.
     $distance = $this->distance($params['locations']['origin'], $params['locations']['destination']);
     // Get linehaul rate.
@@ -253,6 +267,22 @@ class PpmEstimatorController extends ControllerBase {
       $linehaul = $this->dbReader->linehaul($distance, $weight, $year);
       $linehaul_rate = floatval($linehaul['rate']);
     }
+    return $linehaul_rate * $discount;
+  }
+
+  /**
+   * Calculate linehaul factors.
+   */
+  private function linehaulFactors($start_service_area, $end_service_area, $cwt) {
+    // Sum service areas linehaul factors.
+    $linehaul_factor = $start_service_area['linehaul_factor'] + $end_service_area['linehaul_factor'];
+    return $linehaul_factor * $cwt;
+  }
+
+  /**
+   * Calculate shorthaul rate if needed.
+   */
+  private function shorthaulRate($distance, $cwt, $year, $discount) {
     // Get shorthaul rate.
     if ($distance > 800) {
       $shorthaul_rate = 0.0;
@@ -261,19 +291,44 @@ class PpmEstimatorController extends ControllerBase {
       $shorthaul = $this->dbReader->shorthaul($distance, $cwt, $year);
       $shorthaul_rate = floatval($shorthaul['rate']);
     }
-    return $linehaul_rate + ($linehaul_factor * $cwt) + $shorthaul_rate;
+    return $shorthaul_rate * $discount;
   }
 
   /**
-   * Calculate non related linehaul charges.
+   * Calculate linehaul charges.
    */
-  private function otherCharges($start_service_area, $end_service_area, $year, $weight, $cwt) {
-    $charges = $start_service_area['orig_dest_service_charge'] + $end_service_area['orig_dest_service_charge'];
+  private function linehaulCharges($linehaulRate, $linehaulFactors, $shorthaulRate) {
+    return $linehaulRate + $linehaulFactors + $shorthaulRate;
+  }
+
+  /**
+   * Calculate packing charges.
+   * 
+   * Apply BVS Discount to packing and unpacking charges.
+   */
+  private function packingCharges($start_service_area, $end_service_area, $year, $weight, $discount) {
     $pack = $this->dbReader->packunpack($start_service_area, $year, $weight);
     $unpack = $this->dbReader->packunpack($end_service_area, $year);
     $packunpack = floatval($pack['pack']) + floatval($unpack['unpack']);
-    $charges += $packunpack;
-    return $charges * $cwt;
+    return $packunpack * $discount;
+  }
+
+  /**
+   * Calculate origin and destination services charges.
+   */
+  private function servicesCharges($start_service_area, $end_service_area) {
+    $services = $start_service_area['orig_dest_service_charge'] + $end_service_area['orig_dest_service_charge'];
+    return $services;
+  }
+
+  /**
+   * Calculate other charges.
+   * 
+   * All non linehaul charges
+   * •	Other Charges = (Origin/Destination Charges + Discounted Packing) * CWT
+   */
+  private function otherCharges($services, $packing) {
+    return ($services + $packing) * $cwt;
   }
 
   /**
@@ -283,6 +338,9 @@ class PpmEstimatorController extends ControllerBase {
     $area = $start_zip3['rate_area'];
     if ($area === 'ZIP') {
       $zip5 = $this->dbReader->zip5($start_zipcode);
+      if (empty($zip5) || empty($zip5['service_area'])) {
+        return -1;
+      }
       $area = $zip5['service_area'];
     }
     if ($start_zip3['state'] == $end_zip3['state']) {
@@ -292,6 +350,9 @@ class PpmEstimatorController extends ControllerBase {
       $region = $end_zip3['region'];
     }
     $discount_entry = $this->dbReader->discount("US{$area}", "REGION {$region}", strtotime($move_date));
+    if (empty($discount_entry) || empty($discount_entry['discounts'])) {
+      return -1;
+    }
     $discount_pct = $discount_entry['discounts'];
     $discount = 1 - ($discount_pct / 100);
     return $discount;
@@ -300,9 +361,9 @@ class PpmEstimatorController extends ControllerBase {
   /**
    * Round PPM incentives with total cost and discounts.
    */
-  private function incentives($total, $discount) {
+  private function incentives($total) {
     // Apply PPM incentive + DPS 5% discount.
-    $totalDiscounted = $total * $discount * .95;
+    $totalDiscounted = $total * 0.95;
     // Percentage to generate min range.
     $minRangePct = $this->randomFloat(0, 2.0) / 100.0;
     // Percentage to generate max range.
