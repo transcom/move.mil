@@ -304,7 +304,7 @@ class PpmEstimatorController extends ControllerBase {
   /**
    * Calculate packing charges.
    */
-  private function packingCharges($start_service_area, $end_service_area, $year, $weight, $discount) {
+  private function packingCharges($start_service_area, $end_service_area, $year, $weight) {
     $pack = $this->dbReader->packunpack($start_service_area, $year, $weight);
     $unpack = $this->dbReader->packunpack($end_service_area, $year);
     $packunpack = floatval($pack['pack']) + floatval($unpack['unpack']);
