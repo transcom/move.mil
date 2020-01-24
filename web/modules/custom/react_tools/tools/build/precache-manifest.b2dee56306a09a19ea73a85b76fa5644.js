@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/css/react-locator-map.min.css"
   },
   {
-    "revision": "c6c2f6ed8583ec554d31",
+    "revision": "b99fe966538fabe46ceb",
     "url": "/static/css/react-ppm-tool.min.css"
   },
   {
@@ -24,7 +24,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/js/react-locator-map.min.js"
   },
   {
-    "revision": "c6c2f6ed8583ec554d31",
+    "revision": "b99fe966538fabe46ceb",
     "url": "/static/js/react-ppm-tool.min.js"
   },
   {

@@ -157,7 +157,6 @@ class App extends Component {
     axios.post(url, options)
       .then(res => {
         let results = res.data;
-        console.log(results)
         this.setState({
           results: results
       });
