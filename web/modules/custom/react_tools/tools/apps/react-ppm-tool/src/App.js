@@ -52,7 +52,10 @@ class App extends Component {
         let data = res.data;
         this.setState({
           entitlements: data,
-          dropdowns: {...this.state.dropdowns, entitlement: this.getEntitlementDropDownData(data)}
+          dropdowns: {
+              ...this.state.dropdowns, 
+              entitlement: this.getEntitlementDropDownData(data)
+          }
         });
     });
   }
@@ -154,6 +157,7 @@ class App extends Component {
     axios.post(url, options)
       .then(res => {
         let results = res.data;
+        console.log(results)
         this.setState({
           results: results
       });
@@ -175,11 +179,26 @@ class App extends Component {
   }
 
   renderResults= () =>{
-    if(this.state.results){
-      this.selectedRank = this.state.selectedEntitlement ? this.state.entitlements[this.state.selectedEntitlement].rank : '';
+    this.selectedRank = this.state.selectedEntitlement ? this.state.entitlements[this.state.selectedEntitlement].rank : '';
+    if(this.state.results && !this.state.results.error){
       return (
         <Results results={this.state.results} isDependencies={this.state.isDependencies} rank={this.selectedRank}/>
       )
+    }else{
+      return this.state.results ? (
+
+        <div class="usa-grid-full">
+          <div class="usa-alert usa-alert-warning">
+            <div class="usa-alert-body">
+              <div class="usa-alert-text">
+                <div class="clearfix text-formatted field field--name-field-body field--type-text-with-summary field--label-hidden field__item">
+                  <p>{this.state.results.error}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : null
     }
   }
 

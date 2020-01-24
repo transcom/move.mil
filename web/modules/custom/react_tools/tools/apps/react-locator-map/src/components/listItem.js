@@ -135,7 +135,7 @@ const EmailsTable = (props) =>{
   }
 }
 
-this.showWebsites = (websites) =>{
+const showWebsites = (websites) =>{
   if(websites && websites.length > 0){
     return (
       <div>
@@ -146,7 +146,7 @@ this.showWebsites = (websites) =>{
   }
 }
 
-this.showNotes = (notes) =>{
+const showNotes = (notes) =>{
   if(notes && notes.length > 0){
     return (
       <div>
@@ -157,7 +157,7 @@ this.showNotes = (notes) =>{
   }
 }
 
-this.showServices = (services) =>{
+const showServices = (services) =>{
   if(services && services.length > 0){
     return (
       <div>
@@ -170,7 +170,7 @@ this.showServices = (services) =>{
   }
 }
 
-this.showHours = (hours) =>{
+const showHours = (hours) =>{
   if(hours && hours.length > 0){
     return (
       <div>
@@ -181,7 +181,7 @@ this.showHours = (hours) =>{
   }
 }
 
-this.renderLocationItem = (location) =>{
+const renderLocationItem = (location) =>{
   if(location.address_line1 ||
      location.address_line2 ||
      location.locality ||
@@ -262,14 +262,14 @@ const ListItem = (props) => {
           <div className="location-search-result-body">
             <div className="usa-grid-full">
               <div className="">
-                  {this.renderLocationItem(props.item.location)}
+                  {renderLocationItem(props.item.location)}
               </div>
               <PhonesTable phones={props.item.phones}></PhonesTable>
               <EmailsTable emails={props.item.email_addresses}></EmailsTable>
               <div className="">
-                  {this.showHours(props.item.location.hours)}
-                  {this.showNotes(props.item.notes)}
-                  {this.showServices(props.item.services)}
+                  {showHours(props.item.location.hours)}
+                  {showNotes(props.item.notes)}
+                  {showServices(props.item.services)}
               </div>
             </div>
             <ShippingOffice office={props.item.shipping_office}/>
