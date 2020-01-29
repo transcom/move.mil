@@ -1,5 +1,5 @@
-import Map from 'core-js/es6/map';
-import Set from 'core-js/es6/set';
+import 'react-app-polyfill/ie11';
+import 'react-app-polyfill/stable';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import App from './App';

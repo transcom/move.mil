@@ -27,7 +27,7 @@ function getEntryPoints(dirList){
   // console.log(chalk.yellow(polyfills));
 
   _.each(dirList, (val)=>{
-    entryPoints[getAppName(val)] = ["babel-polyfill", `${val}/src/index.js`];
+    entryPoints[getAppName(val)] = `${val}/src/index.js`;
   });
 
   return entryPoints;
@@ -55,18 +55,44 @@ function getReactAppNames(dirList){
   return appNames;
 }
 
-function appPaths(appName){
+function appPaths(appName, appRoots){
+  if(!appName && appRoots){
+    return _.map(appRoots, appRoot => {
+      return {
+        dotenv: '.env',
+        appRoot: appRoot,
+        appBuild: `${resolveApp('./')}/build`,
+        appPublic: `${appRoot}/public`,
+        appHtml: `${appRoot}/public/index.html`,
+        appIndexJs: `${appRoot}/src/index.js`,
+        appPackageJson: resolveApp('package.json'),
+        nodeModules: resolveApp('node_modules'),
+        appSrc: `${appRoot}/src`,
+        sassDir: `${appRoot}/src/sass`,
+        cssDir: `${appRoot}/src/localcss`,
+        yarnLockFile: `${appRoot}/yarn.lock`,
+        testsSetup: `${appRoot}/src/setupTests.js`
+      }
+    })
+  }
+
   let _appName = appName || process.env.appName;
   let appRoot = _appName ? resolveApp(`./apps/${_appName}`) : resolveApp('./');
+
+
+  if(!appName){
+    getReactAppNames()
+  }
 
   if(!appRoot) return null;
   return {
     dotenv: '.env',
+    appRoot: appRoot,
     appBuild: `${appRoot}/build`,
     appPublic: `${appRoot}/public`,
     appHtml: `${appRoot}/public/index.html`,
     appIndexJs: `${appRoot}/src/index.js`,
-    packageJson: resolveApp('package.json'),
+    appPackageJson: resolveApp('package.json'),
     nodeModules: resolveApp('node_modules'),
     appSrc: `${appRoot}/src`,
     sassDir: `${appRoot}/src/sass`,
