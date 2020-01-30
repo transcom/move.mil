@@ -230,6 +230,7 @@ class Writer {
         ->create([
           'type' => 'location_telephone',
           'field_dsn' => $new['dns'],
+          'field_area_code_number' => $new['area_code'],
           'field_phonenumber' => $new['number'],
           'field_voice' => $new['voice'],
           'field_type' => $new['type'],

@@ -15,6 +15,7 @@ dependencies:
     - 'taxonomy_term:sme_section:bc06f12b-71a8-44c6-a68c-597a8a57485a'
     - 'taxonomy_term:sme_section:bc181bc1-aa3a-44e6-8a5a-7b3d547d3829'
     - 'taxonomy_term:sme_section:c4888dff-2143-473e-943f-dc8df0d6cd62'
+    - 'taxonomy_term:sme_section:ce67f25c-ae30-4058-bd31-e8f54d06d6c0'
     - 'taxonomy_term:sme_section:f98fe7a5-0b1b-4e14-9e87-63f7c5829512'
     - 'taxonomy_term:sme_section:ff1013cb-0ec8-47cb-a6d4-d8977ac045d4'
   module:
@@ -29,7 +30,6 @@ description: 'Lists of SME documents, categorized by section'
 tag: ''
 base_table: node_field_data
 base_field: nid
-core: 8.x
 display:
   default:
     display_plugin: default
@@ -155,6 +155,8 @@ display:
           id: status
           expose:
             operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
           group: 1
         type:
           id: type
@@ -165,6 +167,9 @@ display:
           entity_type: node
           entity_field: type
           plugin_id: bundle
+          expose:
+            operator_limit_selection: false
+            operator_list: {  }
         field_document_archive_date_value:
           id: field_document_archive_date_value
           table: node__field_document_archive_date
@@ -195,6 +200,8 @@ display:
             placeholder: ''
             min_placeholder: ''
             max_placeholder: ''
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -226,6 +233,8 @@ display:
             description: ''
             use_operator: false
             operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
             identifier: ''
             required: false
             remember: false
@@ -270,6 +279,8 @@ display:
             description: ''
             use_operator: false
             operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
             identifier: ''
             required: false
             remember: false
@@ -361,6 +372,8 @@ display:
           id: status
           expose:
             operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
           group: 1
         type:
           id: type
@@ -371,6 +384,9 @@ display:
           entity_type: node
           entity_field: type
           plugin_id: bundle
+          expose:
+            operator_limit_selection: false
+            operator_list: {  }
         field_document_archive_date_value:
           id: field_document_archive_date_value
           table: node__field_document_archive_date
@@ -401,6 +417,8 @@ display:
             placeholder: ''
             min_placeholder: ''
             max_placeholder: ''
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -439,6 +457,8 @@ display:
             remember_roles:
               authenticated: authenticated
             reduce: false
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -490,19 +510,6 @@ display:
             offset_label: Offset
           quantity: 5
       sorts:
-        field_document_updated_date_value:
-          id: field_document_updated_date_value
-          table: node__field_document_updated_date
-          field: field_document_updated_date_value
-          relationship: none
-          group_type: group
-          admin_label: ''
-          order: DESC
-          exposed: false
-          expose:
-            label: ''
-          granularity: minute
-          plugin_id: datetime
         field_document_id_value:
           id: field_document_id_value
           table: node__field_document_id
@@ -515,6 +522,19 @@ display:
           expose:
             label: ''
           plugin_id: standard
+        field_document_updated_date_value:
+          id: field_document_updated_date_value
+          table: node__field_document_updated_date
+          field: field_document_updated_date_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          order: ASC
+          exposed: false
+          expose:
+            label: ''
+          granularity: minute
+          plugin_id: datetime
       block_hide_empty: true
       title: Advisories
     cache_metadata:
@@ -551,6 +571,8 @@ display:
           id: status
           expose:
             operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
           group: 1
         type:
           id: type
@@ -561,6 +583,9 @@ display:
           entity_type: node
           entity_field: type
           plugin_id: bundle
+          expose:
+            operator_limit_selection: false
+            operator_list: {  }
         tid:
           id: tid
           table: taxonomy_index
@@ -586,6 +611,8 @@ display:
             remember_roles:
               authenticated: authenticated
             reduce: false
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -635,6 +662,8 @@ display:
             placeholder: ''
             min_placeholder: ''
             max_placeholder: ''
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -687,6 +716,8 @@ display:
           id: status
           expose:
             operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
           group: 1
         type:
           id: type
@@ -697,6 +728,9 @@ display:
           entity_type: node
           entity_field: type
           plugin_id: bundle
+          expose:
+            operator_limit_selection: false
+            operator_list: {  }
         tid:
           id: tid
           table: taxonomy_index
@@ -722,6 +756,8 @@ display:
             remember_roles:
               authenticated: authenticated
             reduce: false
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -771,6 +807,8 @@ display:
             placeholder: ''
             min_placeholder: ''
             max_placeholder: ''
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -823,6 +861,8 @@ display:
           id: status
           expose:
             operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
           group: 1
         type:
           id: type
@@ -833,6 +873,9 @@ display:
           entity_type: node
           entity_field: type
           plugin_id: bundle
+          expose:
+            operator_limit_selection: false
+            operator_list: {  }
         tid:
           id: tid
           table: taxonomy_index
@@ -858,6 +901,8 @@ display:
             remember_roles:
               authenticated: authenticated
             reduce: false
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -907,6 +952,8 @@ display:
             placeholder: ''
             min_placeholder: ''
             max_placeholder: ''
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -960,6 +1007,8 @@ display:
           id: status
           expose:
             operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
           group: 1
         type:
           id: type
@@ -986,6 +1035,8 @@ display:
             remember_roles:
               authenticated: authenticated
             reduce: false
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -1026,6 +1077,8 @@ display:
             remember_roles:
               authenticated: authenticated
             reduce: false
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -1075,6 +1128,8 @@ display:
             placeholder: ''
             min_placeholder: ''
             max_placeholder: ''
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -1155,6 +1210,8 @@ display:
           id: status
           expose:
             operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
           group: 1
         type:
           id: type
@@ -1165,6 +1222,9 @@ display:
           entity_type: node
           entity_field: type
           plugin_id: bundle
+          expose:
+            operator_limit_selection: false
+            operator_list: {  }
         tid:
           id: tid
           table: taxonomy_index
@@ -1190,6 +1250,8 @@ display:
             remember_roles:
               authenticated: authenticated
             reduce: false
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -1239,6 +1301,8 @@ display:
             placeholder: ''
             min_placeholder: ''
             max_placeholder: ''
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -1291,6 +1355,8 @@ display:
           id: status
           expose:
             operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
           group: 1
         type:
           id: type
@@ -1301,6 +1367,9 @@ display:
           entity_type: node
           entity_field: type
           plugin_id: bundle
+          expose:
+            operator_limit_selection: false
+            operator_list: {  }
         tid:
           id: tid
           table: taxonomy_index
@@ -1326,6 +1395,8 @@ display:
             remember_roles:
               authenticated: authenticated
             reduce: false
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -1375,6 +1446,8 @@ display:
             placeholder: ''
             min_placeholder: ''
             max_placeholder: ''
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -1428,6 +1501,8 @@ display:
           id: status
           expose:
             operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
           group: 1
         type:
           id: type
@@ -1438,6 +1513,9 @@ display:
           entity_type: node
           entity_field: type
           plugin_id: bundle
+          expose:
+            operator_limit_selection: false
+            operator_list: {  }
         tid:
           id: tid
           table: taxonomy_index
@@ -1463,6 +1541,8 @@ display:
             remember_roles:
               authenticated: authenticated
             reduce: false
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -1512,6 +1592,8 @@ display:
             placeholder: ''
             min_placeholder: ''
             max_placeholder: ''
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -1565,7 +1647,176 @@ display:
       title: 'Industry and TSP Communications'
       defaults:
         title: false
+        filters: false
+        filter_groups: false
       block_hide_empty: true
+      filters:
+        status:
+          value: '1'
+          table: node_field_data
+          field: status
+          plugin_id: boolean
+          entity_type: node
+          entity_field: status
+          id: status
+          expose:
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+          group: 1
+        type:
+          id: type
+          table: node_field_data
+          field: type
+          value:
+            sme_document: sme_document
+          entity_type: node
+          entity_field: type
+          plugin_id: bundle
+          expose:
+            operator_limit_selection: false
+            operator_list: {  }
+        field_document_archive_date_value:
+          id: field_document_archive_date_value
+          table: node__field_document_archive_date
+          field: field_document_archive_date_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: '>='
+          value:
+            min: ''
+            max: ''
+            value: today
+            type: offset
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            placeholder: ''
+            min_placeholder: ''
+            max_placeholder: ''
+            operator_limit_selection: false
+            operator_list: {  }
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          plugin_id: datetime
+        field_sme_section_target_id:
+          id: field_sme_section_target_id
+          table: node__field_sme_section
+          field: field_sme_section_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: or
+          value:
+            28: 28
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          type: select
+          limit: true
+          vid: sme_section
+          hierarchy: false
+          error_message: true
+          plugin_id: taxonomy_index_tid
+        tid:
+          id: tid
+          table: taxonomy_index
+          field: tid
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: or
+          value:
+            28: 28
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          type: select
+          limit: true
+          vid: sme_section
+          hierarchy: false
+          error_message: true
+          plugin_id: taxonomy_index_tid
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
     cache_metadata:
       max-age: -1
       contexts:
@@ -1621,6 +1872,8 @@ display:
           id: status
           expose:
             operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
           group: 1
         type:
           id: type
@@ -1631,6 +1884,9 @@ display:
           entity_type: node
           entity_field: type
           plugin_id: bundle
+          expose:
+            operator_limit_selection: false
+            operator_list: {  }
         tid:
           id: tid
           table: taxonomy_index
@@ -1656,6 +1912,8 @@ display:
             remember_roles:
               authenticated: authenticated
             reduce: false
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -1705,6 +1963,8 @@ display:
             placeholder: ''
             min_placeholder: ''
             max_placeholder: ''
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -1757,6 +2017,8 @@ display:
           id: status
           expose:
             operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
           group: 1
         type:
           id: type
@@ -1767,6 +2029,9 @@ display:
           entity_type: node
           entity_field: type
           plugin_id: bundle
+          expose:
+            operator_limit_selection: false
+            operator_list: {  }
         tid:
           id: tid
           table: taxonomy_index
@@ -1792,6 +2057,8 @@ display:
             remember_roles:
               authenticated: authenticated
             reduce: false
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -1841,6 +2108,8 @@ display:
             placeholder: ''
             min_placeholder: ''
             max_placeholder: ''
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -1893,6 +2162,8 @@ display:
           id: status
           expose:
             operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
           group: 1
         type:
           id: type
@@ -1903,6 +2174,9 @@ display:
           entity_type: node
           entity_field: type
           plugin_id: bundle
+          expose:
+            operator_limit_selection: false
+            operator_list: {  }
         tid:
           id: tid
           table: taxonomy_index
@@ -1928,6 +2202,8 @@ display:
             remember_roles:
               authenticated: authenticated
             reduce: false
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -1977,6 +2253,8 @@ display:
             placeholder: ''
             min_placeholder: ''
             max_placeholder: ''
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -2029,6 +2307,8 @@ display:
           id: status
           expose:
             operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
           group: 1
         type:
           id: type
@@ -2055,6 +2335,8 @@ display:
             remember_roles:
               authenticated: authenticated
             reduce: false
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -2100,6 +2382,8 @@ display:
             placeholder: ''
             min_placeholder: ''
             max_placeholder: ''
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -2138,6 +2422,8 @@ display:
             remember_roles:
               authenticated: authenticated
             reduce: false
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -2196,6 +2482,8 @@ display:
           id: status
           expose:
             operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
           group: 1
         type:
           id: type
@@ -2206,6 +2494,9 @@ display:
           entity_type: node
           entity_field: type
           plugin_id: bundle
+          expose:
+            operator_limit_selection: false
+            operator_list: {  }
         tid:
           id: tid
           table: taxonomy_index
@@ -2231,6 +2522,8 @@ display:
             remember_roles:
               authenticated: authenticated
             reduce: false
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -2280,6 +2573,8 @@ display:
             placeholder: ''
             min_placeholder: ''
             max_placeholder: ''
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -2332,6 +2627,8 @@ display:
           id: status
           expose:
             operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
           group: 1
         type:
           id: type
@@ -2342,6 +2639,9 @@ display:
           entity_type: node
           entity_field: type
           plugin_id: bundle
+          expose:
+            operator_limit_selection: false
+            operator_list: {  }
         tid:
           id: tid
           table: taxonomy_index
@@ -2367,6 +2667,8 @@ display:
             remember_roles:
               authenticated: authenticated
             reduce: false
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -2416,6 +2718,8 @@ display:
             placeholder: ''
             min_placeholder: ''
             max_placeholder: ''
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -2469,6 +2773,8 @@ display:
           id: status
           expose:
             operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
           group: 1
         type:
           id: type
@@ -2495,6 +2801,8 @@ display:
             remember_roles:
               authenticated: authenticated
             reduce: false
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -2535,6 +2843,8 @@ display:
             remember_roles:
               authenticated: authenticated
             reduce: false
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -2584,6 +2894,8 @@ display:
             placeholder: ''
             min_placeholder: ''
             max_placeholder: ''
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -2659,6 +2971,8 @@ display:
           id: status
           expose:
             operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
           group: 1
         type:
           id: type
@@ -2669,6 +2983,9 @@ display:
           entity_type: node
           entity_field: type
           plugin_id: bundle
+          expose:
+            operator_limit_selection: false
+            operator_list: {  }
         tid:
           id: tid
           table: taxonomy_index
@@ -2694,6 +3011,8 @@ display:
             remember_roles:
               authenticated: authenticated
             reduce: false
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -2743,6 +3062,8 @@ display:
             placeholder: ''
             min_placeholder: ''
             max_placeholder: ''
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
@@ -2828,6 +3149,8 @@ display:
           id: status
           expose:
             operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
           group: 1
         type:
           id: type
@@ -2838,6 +3161,9 @@ display:
           entity_type: node
           entity_field: type
           plugin_id: bundle
+          expose:
+            operator_limit_selection: false
+            operator_list: {  }
         field_document_archive_date_value:
           id: field_document_archive_date_value
           table: node__field_document_archive_date
@@ -2868,6 +3194,8 @@ display:
             placeholder: ''
             min_placeholder: ''
             max_placeholder: ''
+            operator_limit_selection: false
+            operator_list: {  }
           is_grouped: false
           group_info:
             label: ''
