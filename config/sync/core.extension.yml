@@ -56,6 +56,7 @@ module:
   react_tools: 0
   recaptcha: 0
   search: 0
+  search_exclude: 0
   shortcut: 0
   syslog: 0
   system: 0

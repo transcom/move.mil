@@ -1,0 +1,19 @@
+uuid: b0318b86-aa99-4cf8-ac0e-dddc9f4e34d3
+langcode: en
+status: true
+dependencies:
+  module:
+    - search_exclude
+id: content_exclude_
+label: 'Content (Exclude)'
+path: site
+weight: 0
+plugin: search_exclude_node_search
+configuration:
+  rankings:
+    relevance: '3'
+    sticky: '1'
+    recent: '2'
+  excluded_bundles:
+    article: article
+    sme_document: sme_document
