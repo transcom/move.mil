@@ -11,3 +11,4 @@ is_admin: false
 permissions:
   - 'access content'
   - 'search content'
+  - 'use advanced search'

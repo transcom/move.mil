@@ -1,9 +1,10 @@
 uuid: 09f414fb-d7b5-43ef-9f92-e80db1defe9d
 langcode: en
-status: false
+status: true
 dependencies:
   module:
     - search
+    - system
   theme:
     - move_mil
 _core:
@@ -11,13 +12,18 @@ _core:
 id: move_mil_search
 theme: move_mil
 region: header
-weight: -5
+weight: -24
 provider: null
 plugin: search_form_block
 settings:
   id: search_form_block
   label: Search
   provider: search
-  label_display: visible
+  label_display: '0'
   page_id: ''
-visibility: {  }
+visibility:
+  request_path:
+    id: request_path
+    pages: '/search/*'
+    negate: true
+    context_mapping: {  }

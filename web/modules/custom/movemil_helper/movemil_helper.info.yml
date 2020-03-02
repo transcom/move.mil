@@ -1,0 +1,5 @@
+name: 'movemil_helper'
+type: module
+description: 'Miscellaneous helper functions'
+core: 8.x
+package: 'Custom'
