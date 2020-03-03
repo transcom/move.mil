@@ -1,4 +1,8 @@
 {{ attach_library('classy/search-results') }}
+{% if result.type|lower == 'location' %}
+  {% set snippet = result.node.field_location_address.value[0]|filter(v => v is not null)|join(', ') %}
+{% endif %}
+
 {{ title_prefix }}
 <h3{{ title_attributes.addClass('search-result__title') }}>
   <a href="{{ url }}">{{ title }}</a>
