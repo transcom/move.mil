@@ -1,0 +1,27 @@
+{%
+  set classes = [
+    'paragraph',
+    'paragraph--type--' ~ paragraph.bundle|clean_class,
+    view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
+    not paragraph.isPublished() ? 'paragraph--unpublished'
+  ]
+%}
+
+{% block paragraph %}
+  <div{{ attributes.addClass(classes).setAttribute('id', 'paragraph-'~paragraph.id.value) }}>
+    {% block content %}
+      <div class="field__item">
+        <p>
+          {% if content.field_type|field_value == true %}
+            {{ content.field_type[0]['#context']['value'] }}:
+          {% else %}
+            Customer Service: 
+          {% endif %}
+          {{ content.field_dsn[0]['#markup'] }} | 
+          {{ content.field_voice[0]['#markup'] }} | 
+          <a href="tel:{{ content.field_phonenumber[0]['#title'] }}">{{ content.field_phonenumber[0]['#title'] }}</a>
+        </p>
+      </div>
+    {% endblock %}
+  </div>
+{% endblock paragraph %}
