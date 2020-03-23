@@ -1,6 +1,6 @@
 uuid: c51283df-a29a-4624-9b5e-ca2719f1f03a
 langcode: en
-status: true
+status: false
 dependencies:
   module:
     - node
@@ -9,7 +9,10 @@ _core:
 id: node_search
 label: Content
 path: node
-weight: -10
+weight: -9
 plugin: node_search
 configuration:
-  rankings: {  }
+  rankings:
+    recent: 3
+    relevance: 1
+    sticky: 2

@@ -49,6 +49,7 @@
         "drupal/paragraphs": "^1.6",
         "drupal/password_policy": "^3.0@alpha",
         "drupal/recaptcha": "^2.4",
+        "drupal/search_exclude": "^1.2",
         "drupal/stage_file_proxy": "^1.0@alpha",
         "drupal/svg_image": "^1.9.0",
         "drupal/twig_field_value": "^1.2.0",
@@ -118,6 +119,9 @@
             },
             "drupal/password_policy": {
                 "Fixes config sync issue mentioned in https://www.drupal.org/project/password_policy/issues/2771129#comment-13224282": "https://www.drupal.org/files/issues/2019-08-15/2771129-100_0.patch"
+            },
+            "drupal/search_exclude": {
+                "Fixes search indexing issue mentioned in https://www.drupal.org/project/search_exclude/issues/3108145#comment-13432354": "https://www.drupal.org/files/issues/2020-01-22/3108145-3.patch"
             },
             "drupal/core": {
                 "Avoid DB deadlock https://www.drupal.org/project/drupal/issues/1650930#comment-12834256": "https://www.drupal.org/files/issues/2018-10-29/1650930-67.patch"

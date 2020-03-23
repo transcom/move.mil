@@ -1,0 +1,40 @@
+<?php
+
+/**
+ * @file
+ * Contains movemil_helper.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function movemil_helper_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the movemil_helper module.
+    case 'help.page.movemil_helper':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Miscellaneous helper functions') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_FORM_ID_form_alter().
+ */
+function movemil_helper_form_search_form_alter(&$form, &$form_state, $form_id) {
+  $form['advanced']['types-fieldset']['#title'] = t('Type');
+  $form['advanced']['types-fieldset']['type']['#options'] = [
+    'page' => 'Article',
+    'faq' => 'FAQ',
+    'location' => 'Location',
+    'tutorial' => 'Tutorial',
+  ];
+  if (isset($form['advanced']['lang-fieldset'])) {
+    unset($form['advanced']['lang-fieldset']);
+  }
+}

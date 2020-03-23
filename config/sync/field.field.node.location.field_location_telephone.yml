@@ -12,7 +12,7 @@ id: node.location.field_location_telephone
 field_name: field_location_telephone
 entity_type: node
 bundle: location
-label: 'Location Telephone'
+label: 'Phone Numbers'
 description: ''
 required: false
 translatable: false

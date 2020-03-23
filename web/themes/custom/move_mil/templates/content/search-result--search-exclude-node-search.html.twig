@@ -1,0 +1,15 @@
+{{ attach_library('classy/search-results') }}
+{% if result.type|lower == 'location' %}
+  {% set snippet = result.node.field_location_address.value[0]|filter(v => v is not null)|join(', ') %}
+{% endif %}
+
+{{ title_prefix }}
+<h3{{ title_attributes.addClass('search-result__title') }}>
+  <a href="{{ url }}">{{ title }}</a>
+</h3>
+{{ title_suffix }}
+<div class="search-result__snippet-info">
+  {% if snippet %}
+    <p{{ content_attributes.addClass('search-result__snippet') }}>{{ snippet }}</p>
+  {% endif %}
+</div>

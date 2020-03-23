@@ -35,7 +35,7 @@ content:
     type: geolocation_latlng
     region: content
   field_location_address:
-    weight: 3
+    weight: 2
     label: above
     settings: {  }
     third_party_settings: {  }
@@ -106,12 +106,12 @@ content:
     weight: 11
     label: above
     settings:
-      view_mode: default
+      view_mode: preview
       link: ''
     third_party_settings: {  }
     region: content
   field_location_type:
-    weight: 2
+    weight: 1
     label: above
     settings:
       link: true
@@ -119,7 +119,7 @@ content:
     type: entity_reference_label
     region: content
   links:
-    weight: 1
+    weight: 3
     region: content
     settings: {  }
     third_party_settings: {  }
