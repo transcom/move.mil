@@ -11,7 +11,7 @@ dependencies:
 id: mainmenu
 theme: move_mil
 region: primary_menu
-weight: 0
+weight: -26
 provider: null
 plugin: 'system_menu_block:main_menu'
 settings:

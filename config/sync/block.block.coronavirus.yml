@@ -1,0 +1,25 @@
+uuid: 7aed8d9a-2727-4bb2-9b76-ca9b9d38ddab
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:custom_paragraph_block:21e68208-c7bd-4a02-9aa2-a67383d89745'
+  module:
+    - block_content
+  theme:
+    - move_mil
+id: coronavirus
+theme: move_mil
+region: hero
+weight: -25
+provider: null
+plugin: 'block_content:21e68208-c7bd-4a02-9aa2-a67383d89745'
+settings:
+  id: 'block_content:21e68208-c7bd-4a02-9aa2-a67383d89745'
+  label: 'Covid-19 FAQ'
+  provider: block_content
+  label_display: '0'
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }

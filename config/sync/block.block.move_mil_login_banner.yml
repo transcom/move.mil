@@ -11,7 +11,7 @@ dependencies:
 id: move_mil_login_banner
 theme: move_mil
 region: hero
-weight: 0
+weight: -23
 provider: null
 plugin: 'block_content:7209d37f-9903-4ef2-9455-9f140eaaccf5'
 settings:
