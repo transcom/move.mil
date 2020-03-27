@@ -78,7 +78,7 @@
     "casperjs": "^1.1.4",
     "gulp-clean-css": "^4.2.0",
     "minimalist": "^1.0.0",
-    "minimist": "^1.2.0",
+    "minimist": "^1.2.2",
     "nswatch": "^0.2.0",
     "path": "^0.12.7",
     "slimerjs": "^1.0.0"
