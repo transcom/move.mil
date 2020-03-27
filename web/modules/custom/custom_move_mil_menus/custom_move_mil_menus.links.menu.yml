@@ -55,96 +55,110 @@ main_menu.resources:
   weight: 5
 
 ### Moving Guide Subnav ###
+main_menu.ppqrg:
+  title: 'Personal Property Quick Reference Guide'
+  url: 'internal:/sites/default/files/inline-files/ppqrg.pdf'
+  menu_name: main_menu
+  parent: main_menu.moving_guide
+  weight: 1
+
 main_menu.overview:
   title: 'Moving with the Military Overview'
   url: 'internal:/moving-guide'
   menu_name: main_menu
   parent: main_menu.moving_guide
-  weight: 1
+  weight: 2
 
 main_menu.entitlements:
   title: 'Entitlements/Guidelines'
   url: 'internal:/entitlements'
   menu_name: main_menu
   parent: main_menu.moving_guide
-  weight: 2
+  weight: 3
 
 main_menu.conus:
   title: 'What to Expect?'
   url: 'internal:/moving-guide/conus'
   menu_name: main_menu
   parent: main_menu.moving_guide
-  weight: 3
+  weight: 4
 
 main_menu.reimbursements:
   title: 'Reimbursements'
   url: 'internal:/moving-guide/reimbursements'
   menu_name: main_menu
   parent: main_menu.moving_guide
-  weight: 4
+  weight: 5
 
 main_menu.claims:
   title: 'Loss & Damage Claims'
   url: 'internal:/moving-guide/claims'
   menu_name: main_menu
   parent: main_menu.moving_guide
-  weight: 5
+  weight: 6
 
 main_menu.tips:
   title: 'Moving Tips'
   url: 'internal:/moving-guide/tips'
   menu_name: main_menu
   parent: main_menu.moving_guide
-  weight: 6
+  weight: 7
 
 main_menu.moving-stories:
   title: 'Moving Stories'
   url: 'internal:/moving-guide/moving-stories'
   menu_name: main_menu
   parent: main_menu.moving_guide
-  weight: 7
+  weight: 8
 
 main_menu.oconus:
   title: 'Overseas Moves (OCONUS)'
   url: 'internal:/moving-guide/oconus'
   menu_name: main_menu
   parent: main_menu.moving_guide
-  weight: 8
+  weight: 9
 
 main_menu.tdy:
   title: 'TDY Moves'
   url: 'internal:/moving-guide/tdy'
   menu_name: main_menu
   parent: main_menu.moving_guide
-  weight: 9
+  weight: 10
 
 main_menu.retirees-separatees:
   title: 'Retiring/Separating Members'
   url: 'internal:/moving-guide/retirees-separatees'
   menu_name: main_menu
   parent: main_menu.moving_guide
-  weight: 10
+  weight: 11
 
 main_menu.civilians:
   title: 'Civilian Employees'
   url: 'internal:/moving-guide/civilians'
   menu_name: main_menu
   parent: main_menu.moving_guide
-  weight: 11
+  weight: 12
 
 main_menu.service-specific-information:
   title: 'Service-Specific Information'
   url: 'internal:/service-specific-information'
   menu_name: main_menu
   parent: main_menu.moving_guide
-  weight: 12
+  weight: 13
+
+  main_menu.pet:
+    title: 'Pet Information'
+    url: 'internal:/moving-guide#pet-information'
+    menu_name: main_menu
+    parent: main_menu.moving_guide
+    weight: 14
 
 main_menu.pov:
   title: 'Privately Owned Vehicles (POVs)'
   url: 'internal:/pov'
   menu_name: main_menu
   parent: main_menu.moving_guide
-  weight: 13
+  weight: 15
 
 ### Tools & Resources Subnav ###
 main_menu.links:
