@@ -29,10 +29,10 @@ function movemil_helper_help($route_name, RouteMatchInterface $route_match) {
 function movemil_helper_form_search_form_alter(&$form, &$form_state, $form_id) {
   $form['advanced']['types-fieldset']['#title'] = t('Type');
   $form['advanced']['types-fieldset']['type']['#options'] = [
-    'page' => 'Article',
-    'faq' => 'FAQ',
-    'location' => 'Location',
-    'tutorial' => 'Tutorial',
+    'page' => t('Article'),
+    'faq' => t('FAQ'),
+    'location' => t('Location'),
+    'tutorial' => t('Tutorial'),
   ];
   if (isset($form['advanced']['lang-fieldset'])) {
     unset($form['advanced']['lang-fieldset']);
