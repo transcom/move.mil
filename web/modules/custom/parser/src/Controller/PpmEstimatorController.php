@@ -77,7 +77,7 @@ class PpmEstimatorController extends ControllerBase {
     $month = substr($params['selectedMoveDate'], 5, 2);
     $day = substr($params['selectedMoveDate'], 8, 2);
     // 400NG rates are effective until May 15th.
-    if ($month <= 05 || ($month == 05 && $day < 15)) {
+    if ($month < 05 || ($month == 05 && $day <= 15)) {
       $year = $year - 1;
     }
     $year = $this->dbReader->closest400NgYear($year);
