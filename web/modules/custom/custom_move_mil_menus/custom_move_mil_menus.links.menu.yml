@@ -83,13 +83,6 @@ main_menu.conus:
   parent: main_menu.moving_guide
   weight: 4
 
-main_menu.reimbursements:
-  title: 'Reimbursements'
-  url: 'internal:/moving-guide/reimbursements'
-  menu_name: main_menu
-  parent: main_menu.moving_guide
-  weight: 5
-
 main_menu.claims:
   title: 'Loss & Damage Claims'
   url: 'internal:/moving-guide/claims'
