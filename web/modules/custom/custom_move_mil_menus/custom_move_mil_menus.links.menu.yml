@@ -63,7 +63,7 @@ main_menu.ppqrg:
   weight: 1
 
 main_menu.overview:
-  title: 'Moving with the Military Overview'
+  title: 'Planning a Move'
   url: 'internal:/moving-guide'
   menu_name: main_menu
   parent: main_menu.moving_guide
@@ -82,13 +82,6 @@ main_menu.conus:
   menu_name: main_menu
   parent: main_menu.moving_guide
   weight: 4
-
-main_menu.reimbursements:
-  title: 'Reimbursements'
-  url: 'internal:/moving-guide/reimbursements'
-  menu_name: main_menu
-  parent: main_menu.moving_guide
-  weight: 5
 
 main_menu.claims:
   title: 'Loss & Damage Claims'
