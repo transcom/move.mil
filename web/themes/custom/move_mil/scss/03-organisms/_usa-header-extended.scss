@@ -57,11 +57,15 @@
 
       .usa-logo-text a,
       .usa-logo-text {
-        font-style: normal;
-        font-weight: $font-bold;
-        margin: 0;
-        font-size: $h1-font-size;
-        color: $color-blue-darkest;
+        display: none;
+        @include media($small-medium-screen) {
+          display: block;
+          font-style: normal;
+          font-weight: $font-bold;
+          margin: 0;
+          font-size: $h1-font-size;
+          color: $color-blue-darkest;
+        }
 
         @include media($medium-large-screen) {
           font-size: $title-font-size;
@@ -70,14 +74,19 @@
       }
 
       .usa-font-lead {
-        display: block;
-        font-family: $font-serif;
-        font-weight: $font-normal;
-        line-height: $lead-line-height;
-        font-size: $small-font-size;
-        // font-weight: $font-normal;
-        color: $color-blue-darkest;
-        margin-top: $spacing-x-small;
+        display: none;
+        @include media($small-medium-screen){
+          display: block;
+          position: relative;
+          z-index: -100;
+          font-family: $font-serif;
+          font-weight: $font-normal;
+          line-height: $lead-line-height;
+          font-size: $small-font-size;
+          // font-weight: $font-normal;
+          color: $color-blue-darkest;
+          margin-top: $spacing-x-small;
+        }
 
         @include media($medium-large-screen) {
           font-size: $lead-font-size;
