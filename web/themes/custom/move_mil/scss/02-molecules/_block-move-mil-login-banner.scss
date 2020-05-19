@@ -1,5 +1,4 @@
-.block-move-mil-login-banner,
-.block-covid19faq {
+.block-move-mil-login-banner {
   background-color: $color-gray-cool-light;
   color: $color-primary;
   display: none;
@@ -41,3 +40,46 @@
     }
   }
 }
+
+.block-covid19faq {
+  background-color: $color-gray-cool-light;
+  color: $color-primary;
+  display: block;
+  padding: 1rem 0;
+
+  @include media($nav-width) {
+    display: block;
+  }
+
+  .path-frontpage & {
+    background-color: $color-green-light;
+    color: $color-white;
+    display: block;
+
+    a {
+      color: $color-white;
+    }
+
+    @include media($nav-width) {
+      font-size: $h3-font-size;
+      padding: 2rem 0;
+    }
+  }
+
+  .field--name-body {
+    @include outer-container();
+    @include padding(null $site-margins-mobile);
+    font-size: $small-font-size;
+    max-width: $site-max-width;
+    text-align: center;
+
+    @include media($medium-screen) {
+      font-size: $base-font-size;
+    }
+
+    @include media($nav-width) {
+      @include padding(null $site-margins);
+      text-align: left;
+    }
+  }
+};
