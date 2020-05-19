@@ -1,24 +1,24 @@
-uuid: 7aed8d9a-2727-4bb2-9b76-ca9b9d38ddab
+uuid: 7f71b3fd-b4ff-4fa2-8dfb-3a03ab4b380e
 langcode: en
 status: true
 dependencies:
   content:
-    - 'block_content:custom_paragraph_block:21e68208-c7bd-4a02-9aa2-a67383d89745'
+    - 'block_content:basic:edb9c9b9-5592-4d93-b73a-005e19bf812d'
   module:
     - block_content
   theme:
     - move_mil
-id: coronavirus
+id: covid19faq
 theme: move_mil
 region: hero
 weight: -25
 provider: null
-plugin: 'block_content:21e68208-c7bd-4a02-9aa2-a67383d89745'
+plugin: 'block_content:edb9c9b9-5592-4d93-b73a-005e19bf812d'
 settings:
-  id: 'block_content:21e68208-c7bd-4a02-9aa2-a67383d89745'
+  id: 'block_content:edb9c9b9-5592-4d93-b73a-005e19bf812d'
   label: 'Covid-19 FAQ'
   provider: block_content
-  label_display: '0'
+  label_display: visible
   status: true
   info: ''
   view_mode: full

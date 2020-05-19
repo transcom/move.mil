@@ -22,162 +22,162 @@
 #   a link from this menu item.
 
 ### Main Menu, Main Site Navigation links ###
-main_menu.moving_guide:
+main-menu.moving-guide:
   title: 'Moving Guide'
   url: 'internal:/#'
-  menu_name: main_menu
+  menu_name: main-menu
   expanded: TRUE
   weight: 1
 
-main_menu.tutorials:
+main-menu.tutorials:
   title: 'Tutorials'
   url: 'internal:/tutorials'
-  menu_name: main_menu
+  menu_name: main-menu
   weight: 2
 
-main_menu.faq:
+main-menu.faq:
   title: 'FAQ'
   url: 'internal:/faqs'
-  menu_name: main_menu
+  menu_name: main-menu
   weight: 3
 
-main_menu.customer_service:
+main-menu.customer_service:
   title: 'Customer Service'
   url: 'internal:/customer-service'
-  menu_name: main_menu
+  menu_name: main-menu
   weight: 4
 
-main_menu.resources:
+main-menu.resources:
   title: 'Tools & Resources'
   url: 'internal:/#'
-  menu_name: main_menu
+  menu_name: main-menu
   expanded: TRUE
   weight: 5
 
 ### Moving Guide Subnav ###
-main_menu.ppqrg:
+main-menu.ppqrg:
   title: 'Personal Property Quick Reference Guide'
   url: 'internal:/sites/default/files/inline-files/ppqrg.pdf'
-  menu_name: main_menu
-  parent: main_menu.moving_guide
+  menu_name: main-menu
+  parent: main-menu.moving-guide
   weight: 1
 
-main_menu.overview:
+main-menu.overview:
   title: 'Planning a Move'
   url: 'internal:/moving-guide'
-  menu_name: main_menu
-  parent: main_menu.moving_guide
+  menu_name: main-menu
+  parent: main-menu.moving-guide
   weight: 2
 
-main_menu.entitlements:
+main-menu.entitlements:
   title: 'Entitlements/Guidelines'
   url: 'internal:/entitlements'
-  menu_name: main_menu
-  parent: main_menu.moving_guide
+  menu_name: main-menu
+  parent: main-menu.moving-guide
   weight: 3
 
-main_menu.conus:
+main-menu.conus:
   title: 'What to Expect?'
   url: 'internal:/moving-guide/conus'
-  menu_name: main_menu
-  parent: main_menu.moving_guide
+  menu_name: main-menu
+  parent: main-menu.moving-guide
   weight: 4
 
-main_menu.claims:
+main-menu.claims:
   title: 'Loss & Damage Claims'
   url: 'internal:/moving-guide/claims'
-  menu_name: main_menu
-  parent: main_menu.moving_guide
+  menu_name: main-menu
+  parent: main-menu.moving-guide
   weight: 6
 
-main_menu.tips:
+main-menu.tips:
   title: 'Moving Tips'
   url: 'internal:/moving-guide/tips'
-  menu_name: main_menu
-  parent: main_menu.moving_guide
+  menu_name: main-menu
+  parent: main-menu.moving-guide
   weight: 7
 
-main_menu.moving-stories:
+main-menu.moving-stories:
   title: 'Moving Stories'
   url: 'internal:/moving-guide/moving-stories'
-  menu_name: main_menu
-  parent: main_menu.moving_guide
+  menu_name: main-menu
+  parent: main-menu.moving-guide
   weight: 8
 
-main_menu.oconus:
+main-menu.oconus:
   title: 'Overseas Moves (OCONUS)'
   url: 'internal:/moving-guide/oconus'
-  menu_name: main_menu
-  parent: main_menu.moving_guide
+  menu_name: main-menu
+  parent: main-menu.moving-guide
   weight: 9
 
-main_menu.tdy:
+main-menu.tdy:
   title: 'TDY Moves'
   url: 'internal:/moving-guide/tdy'
-  menu_name: main_menu
-  parent: main_menu.moving_guide
+  menu_name: main-menu
+  parent: main-menu.moving-guide
   weight: 10
 
-main_menu.retirees-separatees:
+main-menu.retirees-separatees:
   title: 'Retiring/Separating Members'
   url: 'internal:/moving-guide/retirees-separatees'
-  menu_name: main_menu
-  parent: main_menu.moving_guide
+  menu_name: main-menu
+  parent: main-menu.moving-guide
   weight: 11
 
-main_menu.civilians:
+main-menu.civilians:
   title: 'Civilian Employees'
   url: 'internal:/moving-guide/civilians'
-  menu_name: main_menu
-  parent: main_menu.moving_guide
+  menu_name: main-menu
+  parent: main-menu.moving-guide
   weight: 12
 
-main_menu.service-specific-information:
+main-menu.service-specific-information:
   title: 'Service-Specific Information'
   url: 'internal:/service-specific-information'
-  menu_name: main_menu
-  parent: main_menu.moving_guide
+  menu_name: main-menu
+  parent: main-menu.moving-guide
   weight: 13
 
-  main_menu.pet:
+  main-menu.pet:
     title: 'Pet Information'
     url: 'internal:/moving-guide#pet-information'
-    menu_name: main_menu
-    parent: main_menu.moving_guide
+    menu_name: main-menu
+    parent: main-menu.moving-guide
     weight: 14
 
-main_menu.pov:
+main-menu.pov:
   title: 'Privately Owned Vehicles (POVs)'
   url: 'internal:/pov'
-  menu_name: main_menu
-  parent: main_menu.moving_guide
+  menu_name: main-menu
+  parent: main-menu.moving-guide
   weight: 15
 
 ### Tools & Resources Subnav ###
-main_menu.links:
+main-menu.links:
   title: 'Helpful Links'
   url: 'internal:/resources'
-  menu_name: main_menu
-  parent: main_menu.resources
+  menu_name: main-menu
+  parent: main-menu.resources
   weight: 2
 
-main_menu.ppm-estimator:
+main-menu.ppm-estimator:
   title: 'PPM Estimator'
   url: 'internal:/resources/ppm-estimator'
-  menu_name: main_menu
-  parent: main_menu.resources
+  menu_name: main-menu
+  parent: main-menu.resources
   weight: 3
 
-main_menu.weight-estimator:
+main-menu.weight-estimator:
   title: 'Weight Estimator'
   url: 'internal:/resources/weight-estimator'
-  menu_name: main_menu
-  parent: main_menu.resources
+  menu_name: main-menu
+  parent: main-menu.resources
   weight: 4
 
-main_menu.locator-maps:
+main-menu.locator-maps:
   title: 'Find Nearby Locations'
   url: 'internal:/resources/locator-maps'
-  menu_name: main_menu
-  parent: main_menu.resources
+  menu_name: main-menu
+  parent: main-menu.resources
   weight: 5
