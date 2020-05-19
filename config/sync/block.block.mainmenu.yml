@@ -1,9 +1,9 @@
-uuid: 0366c916-cd9e-4eb3-98e6-eee10dea98df
+uuid: 24b5c3ba-d62e-4b24-b899-9723b754fcef
 langcode: en
-status: true
+status: false
 dependencies:
   config:
-    - system.menu.main_menu
+    - system.menu.main-menu
   module:
     - system
   theme:
@@ -11,11 +11,11 @@ dependencies:
 id: mainmenu
 theme: move_mil
 region: primary_menu
-weight: -26
+weight: 0
 provider: null
-plugin: 'system_menu_block:main_menu'
+plugin: 'system_menu_block:main-menu'
 settings:
-  id: 'system_menu_block:main_menu'
+  id: 'system_menu_block:main-menu'
   label: 'Main Menu'
   provider: system
   label_display: '0'

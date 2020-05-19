@@ -7,7 +7,7 @@ dependencies:
   enforced:
     module:
       - custom_move_mil_menus
-id: moving_guide
+id: moving-guide
 label: 'Moving Guide'
 description: 'Subnav - Moving Guide Main Nav item'
 locked: false
