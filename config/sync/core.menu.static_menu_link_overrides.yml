@@ -23,35 +23,5 @@ definitions:
     weight: 3
     expanded: false
     enabled: false
-  main-menu__customer_service:
-    weight: -46
-    menu_name: main-menu
-    parent: ''
-    expanded: false
-    enabled: false
-  main-menu__moving-guide:
-    weight: -49
-    menu_name: main-menu
-    parent: ''
-    expanded: true
-    enabled: true
-  main-menu__tutorials:
-    weight: -48
-    menu_name: main-menu
-    parent: ''
-    expanded: false
-    enabled: true
-  main-menu__faq:
-    weight: -47
-    menu_name: main-menu
-    parent: ''
-    expanded: false
-    enabled: true
-  main-menu__resources:
-    weight: -45
-    menu_name: main-menu
-    parent: ''
-    expanded: true
-    enabled: true
 _core:
   default_config_hash: jdY7AU0tU-QsjmiOw3W8vwpYMb-By--_MSFgbqKUTYM
