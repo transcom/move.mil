@@ -12,7 +12,7 @@ dependencies:
 id: homepageheroimage
 theme: move_mil
 region: hero
-weight: -24
+weight: -23
 provider: null
 plugin: 'block_content:ed93f839-aba9-4bf9-871c-aa15e107f6cf'
 settings:

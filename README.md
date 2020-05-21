@@ -24,15 +24,15 @@ Each quarter there is a new Traffic Distribution List (TDL) file(s) from US TRAN
 
 1. They will send the file(s) through the AMRDEC Safe Access File Exchange Tool.
 1. The files will be available at [AMRDEC](http://safe.amrdec.army.mil). Follow the instructions from the e-mail you will receive.
-1. There are 2 types of TDL files. The Peak (PK) discounts and the Non-Peak (NP). PK contains the discounts that are effective in the immediate quarter. NP are discounts after the immediate quarter in case a user is moving more than 3 months ahead, these are subject to change after the current quarter ends.
+1. There are 2 types of TDL files. The Peak (PK) discounts and the Non-Peak (NP). PK contains the discounts that are effective in the peak season. NP are discounts after the peak seasons, these are subject to change after the current quarter ends. Both are discounts with a start and end date, and they do not overlap. Only one discount should exist for a moving date.
 1. Go to [Move.mil](https://move.mil/user/login) and log in with your admin user.
 1. Navigate to the Parser Admin.
 1. Expand Discounts tab.
-1. Choose the PK file.
-1. Set the effective date with the first day of the immediate quarter.
+1. Choose the discount file.
+1. Set the starting effective date (those will be moving dates).
 1. If you don't need the previous data to remain there, check the `Clear table` checkbox. Otherwise leave it uncheck.
 1. Click `Save configuration`.
-1. Repeat the previous steps for the NP file if available.
+1. Repeat the previous steps for the next file if available.
 
 ### Uploading locations files
 

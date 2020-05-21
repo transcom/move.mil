@@ -6,7 +6,7 @@ dependencies:
   enforced:
     module:
       - custom_move_mil_menus
-id: main_menu
+id: main-menu
 label: 'Main Menu'
 description: 'Main Site Navigation'
 locked: false

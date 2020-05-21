@@ -13,8 +13,7 @@ Feature: PPM Estimator
     Given there is an entitlement "rank-2"
     And there is PPM data
     And I set the configuration item "parser.settings" with key "distancesurl" to "http://localhost/test/ppm/distances"
-    And I press "Tools & Resources"
-    And I click "PPM Estimator"
+    And I visit "/resources/ppm-estimator"
     And I wait 12 seconds until I see text "What is your rank?"
     And I select "rank-2" from "entitlement"
     And I select the radio button "Yes, I have dependents" with the id "with-dependent"
