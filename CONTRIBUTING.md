@@ -19,7 +19,7 @@ There are several ways in which you can help improve this project:
 
 ## Getting Started
 
-Move.mil is a [Drupal](https://www.drupal.org/) (version 8.5.x) content management system with a [MariaDB](https://mariadb.org/) database version (version 10.2). Development dependencies are managed using [Composer](https://getcomposer.org/).
+Move.mil is a [Drupal](https://www.drupal.org/) (version 8.8.x) content management system with a [MariaDB](https://mariadb.org/) database version (version 10.2). Development dependencies are managed using [Composer](https://getcomposer.org/).
 
 ### How is this site laid out?
 
@@ -51,40 +51,35 @@ Set default environment variables:
 ```
 cp .env.docker.example .env
 ```
+Setup Move.mil:
 
-Initialize the docker containers with Ngnix, Drupal app, and MariaDB:
+> Note: You don't have to execute the commands below if you have a db dump file(s) in your mariadb-init folder. In that case execute `make setup` and skip to step 4.
+
+1. Initialize the docker containers with Ngnix, Drupal app, and MariaDB:
 ```
 docker-compose up -d
 docker-compose run php composer install
 ```
 
-Install a standard Drupal application:
+2. Install a standard Drupal application:
 ```
 docker-compose run php drupal site:install --force --no-interaction
 ```
 
-Setup Move.mil:
-
-> Note: You don't have to execute this command if you have a db dump file(s) in your mariadb-init folder. In that case execute `make setup`.
-
+3. Import Drupal configuration:
 ```
 docker-compose run php drupal config:import --no-interaction
 ```
 _See [this article](https://www.drupal.org/docs/8/configuration-management) for more information about configuration management_
 
-To stop the containers execute:
-```
-make stop
-```
+> Note: To stop the containers execute: `make stop`. If you want to know more available commands, please review the following document [Makefile][makefile]
 
-If you want to know more available commands, please review the following document [Makefile][makefile]
-
-Redirect move.mil.localhost to your localhost:
+4. Redirect move.mil.localhost to your localhost:
 ```
 sudo sh -c "echo '127.0.0.1 move.mil.localhost' >> /etc/hosts"
 ```
 
-Lastly, navigate to [move.mil.localhost:8000](move.mil.localhost:8000) in your Web browser of choice.
+5. Lastly, navigate to [move.mil.localhost:8000](move.mil.localhost:8000) in your Web browser of choice.
 
 
 ### Database Import
@@ -116,7 +111,7 @@ getting committed.
 
 ### Update Menu items
 
-On May 19th, 2020 the `web/modules/custom/custom_move_mil_menus` module was unistalled, and from then on, the menu started being only content. To update menu items please go to [the site](https://move.mil/admin/structure/menu/manage/main) and make the modifications there. _You would need an admin role to do so._
+On May 19th, 2020 the `web/modules/custom/custom_move_mil_menus` module was unistalled, and from then on, the menu started being only content. To update menu items please go to [the site](https://move.mil/admin/structure/menu/manage/main) and make the modifications there. _You would need an admin role to do so._ You can unistall and remove the custom_move_mil_menus.
 
 
 ### Verifying Changes
@@ -166,6 +161,21 @@ Follow the steps below to update your core files.
    
 ## Deploying to Elastic Beanstalk
 
+### Merge code and build Docker image
+Merge the changes into 1.x-dev branch to deploy to staging. This will build (on CircleCI) the docker image for staging, and it will push it to AWS.
+Merge the chagnes into master branch to deploy to production. This will build (on CircleCI) the docker image for production, and it will push it to AWS.
+
+### Deploy
+Create a branch out of 1.x-dev for staging or checkout master.
+For staging, edit the file Dockerrun.aws.json and make sure the tag of the image is stage, by setting the value of the Image to: "328180890751.dkr.ecr.us-east-1.amazonaws.com/movemil:stage" and commit that change. The 'eb deploy' command will only take commited changes. You don't need to push the chane to github though, since the deploy will happen from your local.
+For production you can skip that step, since by default it says production.
+
+Make sure you have installed the [EB CLI](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-install-advanced.html).
+Go to your command line, on the root of the project.
+Execute `eb deploy eb-environment-name` and that will start the deployment process. The current EB environments are move-mil-green and move-mil-blue. One is for staging and the other for production, so make sure the tag, and eb env matches with the environment that you want to update.
+
+Normally you will always deploy to staging to avoid production outages, and then swap the DNSs between staging and production.
+
 ### Running Post Deploy Script
 
 The script `post-deploy.sh` in the project root contains commands that often
@@ -177,6 +187,9 @@ To run:
 2. `sudo docker ps` to get the container id or name.
 3. `sudo docker exec -it <container-id|name> /bin/bash /var/www/html/post-deploy.sh`
    to run the script.
+
+### Swap DNS
+Since the DNS belong to DDS, once you have finished your production deployment, send a request to DDS to swap the DNS between stage.move.mil and move.mil and that would conclude the production deployment.
 
 ## Code Style
 
