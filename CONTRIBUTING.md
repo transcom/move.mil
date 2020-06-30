@@ -161,20 +161,56 @@ Follow the steps below to update your core files.
    
 ## Deploying to Elastic Beanstalk
 
+### Prepare staging (the next production env)
+1. Copy production database to staging. Staging must have the most up to date content changes.
+2. Copy producton /drupalfiles to staging. Staging must have all the files uploaded to production.
+
+SSH to the EB environent
+```
+eb ssh <application-name>
+```
+Get docker container name
+```
+sudo docker ps
+```
+DB dump on ec2
+```
+sudo docker exec -it [container name] vendor/bin/drush sql:dump > /home/ec2-user/file.sql
+```
+DB restore on ec2
+```
+cat /home/ec2-user/20180710.sql | sudo docker exec -i [container name] vendor/bin/drush sqlc
+```
+Copy files (replace with the EC2 IP address, your local path, and EB ssh key)
+```
+tar -czvf livefiles.tar.gz /drupalfiles/*
+scp -i ~/.ssh/movemil-eb-stage.pem ec2-user@34.204.193.44:/home/ec2-user/livefiles.tar.gz ~/move.mil/
+```
+Restore files (replace with the EC2 IP address, your local path, and EB ssh key)
+```
+ scp -i ~/.ssh/movemil-eb-stage.pem ~/move.mil.db/livefiles.tar.gz ec2-user@18.206.238.59:/home/ec2-user/
+tar -xzvf livefiles.tar.gz -C /drupalfiles/
+sudo cp -r /drupalfiles/drupalfiles/* /drupalfiles/
+sudo rm -r /drupalfiles/drupalfiles
+```
 ### Merge code and build Docker image
 Merge the changes into 1.x-dev branch to deploy to staging. This will build (on CircleCI) the docker image for staging, and it will push it to AWS.
-Merge the chagnes into master branch to deploy to production. This will build (on CircleCI) the docker image for production, and it will push it to AWS.
+Merge the changes into master branch to deploy to production. This will build (on CircleCI) the docker image for production, and it will push it to AWS.
+
+If you want to build the docker image locally, you can run `./scripts/build-docker-image.sh` just make sure it has the tag that you want. As it is right now, it is the tag is 'test'.
 
 ### Deploy
 Create a branch out of 1.x-dev for staging or checkout master.
-For staging, edit the file Dockerrun.aws.json and make sure the tag of the image is stage, by setting the value of the Image to: "328180890751.dkr.ecr.us-east-1.amazonaws.com/movemil:stage" and commit that change. The 'eb deploy' command will only take commited changes. You don't need to push the chane to github though, since the deploy will happen from your local.
+For staging, edit the file Dockerrun.aws.json and make sure the tag of the image is stage, by setting the value of the Image to: "328180890751.dkr.ecr.us-east-1.amazonaws.com/movemil:stage" and commit that change. The 'eb deploy' command will only take commited changes. You don't need to push the change to github though, since the deploy will happen from your local.
 For production you can skip that step, since by default it says production.
 
 Make sure you have installed the [EB CLI](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-install-advanced.html).
 Go to your command line, on the root of the project.
 Execute `eb deploy eb-environment-name` and that will start the deployment process. The current EB environments are move-mil-green and move-mil-blue. One is for staging and the other for production, so make sure the tag, and eb env matches with the environment that you want to update.
 
-Normally you will always deploy to staging to avoid production outages, and then swap the DNSs between staging and production.
+Normally, you will always deploy to staging to avoid production outages, and then swap the DNSs between staging and production.
+
+In summary, `eb deploy` command tells what EB environment to use, and the commited file Dockerrun.aws.json tells how and what to deploy.
 
 ### Running Post Deploy Script
 
@@ -190,6 +226,13 @@ To run:
 
 ### Swap DNS
 Since the DNS belong to DDS, once you have finished your production deployment, send a request to DDS to swap the DNS between stage.move.mil and move.mil and that would conclude the production deployment.
+
+### Common Drupal commands on EC2
+* Clear Drupal cache `sudo docker exec -it [container name] vendor/bin/drupal cr`
+* Import Drupal configuration to DB: `sudo docker exec -it [container name] vendor/bin/drupal config:import`. This command will override the configuration saved on the DB.
+* Connect to DB: `sudo docker exec -it [container name] vendor/bin/drush sqlc`
+* List Drush commands: `sudo docker exec -it [container name] vendor/bin/drush help`
+* List Drupal console commands: `sudo docker exec -it [container name] vendor/bin/drupal help`
 
 ## Code Style
 
