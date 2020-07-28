@@ -1,5 +1,5 @@
-# build site dependencies from debian stretch php 7.3 image
-FROM php:7.3-stretch as builder
+# build site dependencies from debian stretch php 7.4 image
+FROM php:7.4-stretch as builder
 
 ENV DART_SASS_VERSION 1.7.0
 
@@ -67,7 +67,7 @@ RUN composer dump-autoload --optimize && \
         composer run-script post-install-cmd
 
 # build the server from debian stretch and nginx 1.16 stable
-FROM php:7.3-fpm-stretch
+FROM php:7.4-fpm-stretch
 
 # non root user to run the server after binding sockets as root
 ENV NGINX_DOC_ROOT /var/www/html/web
