@@ -1,5 +1,5 @@
 # build site dependencies from debian stretch php 7.4 image
-FROM php:7.4-stretch as builder
+FROM php:7.4-buster as builder
 
 ENV DART_SASS_VERSION 1.7.0
 
