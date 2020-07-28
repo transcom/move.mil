@@ -43,7 +43,7 @@ First you need to [install docker](https://docs.docker.com/docker-for-mac/instal
 
 Clone this repo in your desired directory (move.mil by default):
 ```
-git clone git@github.com:Bixal/move.mil.git [move.mil]
+git@github.com:transcom/move.mil.git move.mil
 cd move.mil
 ```
 
