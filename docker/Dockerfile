@@ -1,4 +1,4 @@
-# build site dependencies from debian stretch php 7.4 image
+# build site dependencies from debian buster php 7.4 image
 FROM php:7.4-buster as builder
 
 ENV DART_SASS_VERSION 1.7.0
@@ -6,23 +6,24 @@ ENV DART_SASS_VERSION 1.7.0
 ARG GOOGLE_MAPS_API_KEY
 
 RUN apt-get update && apt-get install -y gnupg
-RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
+RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
 RUN apt-get update && apt-get install -y --no-install-recommends \
-        libzip-dev \
-        build-essential \
-        libfreetype6-dev \
-        libjpeg62-turbo-dev \
-        libmcrypt-dev \
-        libpng-dev \
-        mysql-client \
-        git \
-        nodejs \
-    && docker-php-ext-install \
+	libzip-dev \
+	build-essential \
+	libfreetype6-dev \
+	libjpeg62-turbo-dev \
+	libmcrypt-dev \
+	libpng-dev \
+	default-mysql-client \
+	git \
+	nodejs \
+	&& docker-php-ext-install \
         gd \
         opcache \
         pdo \
         pdo_mysql \
         zip
+
 
 RUN rm -rf /var/lib/apt/lists/*
 
@@ -64,10 +65,10 @@ COPY . /var/www/html
 WORKDIR /var/www/html
 
 RUN composer dump-autoload --optimize && \
-        composer run-script post-install-cmd
+	composer run-script post-install-cmd
 
-# build the server from debian stretch and nginx 1.16 stable
-FROM php:7.4-fpm-stretch
+# build the server from debian buster and nginx 1.16 stable
+FROM php:7.4-fpm-buster
 
 # non root user to run the server after binding sockets as root
 ENV NGINX_DOC_ROOT /var/www/html/web
@@ -163,7 +164,7 @@ RUN set -x \
 
 WORKDIR /var/www/html
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    mysql-client \
+    default-mysql-client \
     libpng-dev \
     libzip-dev \
     ca-certificates \
