@@ -14,7 +14,7 @@ environment-defaults:
     repository: null
 global:
   application_name: Move.mil
-  default_ec2_keyname: movemil-eb-stage
+  default_ec2_keyname: move-dot-mil-ssh
   default_platform: PHP 7.1
   default_region: us-east-1
   include_git_submodules: true
