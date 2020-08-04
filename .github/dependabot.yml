@@ -1,0 +1,30 @@
+version: 2
+updates:
+- package-ecosystem: docker
+  directory: "/docker"
+  schedule:
+    interval: daily
+    time: "11:00"
+  labels:
+  - dependencies
+- package-ecosystem: npm
+  directory: "/web/themes/custom/move_mil"
+  schedule:
+    interval: daily
+    time: "11:00"
+  labels:
+  - dependencies
+- package-ecosystem: npm
+  directory: "/web/modules/custom/react_tools/tools"
+  schedule:
+    interval: daily
+    time: "11:00"
+  labels:
+  - dependencies
+- package-ecosystem: composer
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "11:00"
+  labels:
+  - dependencies
