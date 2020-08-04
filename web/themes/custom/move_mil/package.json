@@ -69,7 +69,7 @@
     "slick-carousel": "^1.8.1",
     "stylelint": "^9.10.1",
     "stylelint-config-recommended": "^2.2.0",
-    "stylelint-scss": "^2.5.0",
+    "stylelint-scss": "^3.18.0",
     "uswds": "^1.6.13",
     "vinyl-buffer": "^1.0.1",
     "vinyl-source-stream": "^2.0.0"
