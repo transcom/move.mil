@@ -67,7 +67,7 @@ WORKDIR /var/www/html
 RUN composer dump-autoload --optimize && \
 	composer run-script post-install-cmd
 
-# build the server from debian buster and nginx 1.16 stable
+# build the server from debian buster and nginx 1.18 stable
 FROM php:7.4-fpm-buster
 
 # non root user to run the server after binding sockets as root
@@ -75,9 +75,9 @@ ENV NGINX_DOC_ROOT /var/www/html/web
 ENV DRUPAL_CONSOLE_VERSION 1.8.0
 ENV DRUSH_VERSION 0.6.0
 
-ENV NGINX_VERSION   1.16.0
-ENV NJS_VERSION     0.3.1
-ENV PKG_RELEASE     1~stretch
+ENV NGINX_VERSION   1.18.0
+ENV NJS_VERSION     0.4.2
+ENV PKG_RELEASE     1~buster
 
 RUN set -x \
 	&& apt-get update \
@@ -107,13 +107,13 @@ RUN set -x \
 	&& case "$dpkgArch" in \
 		amd64|i386) \
 # arches officialy built by upstream
-			echo "deb https://nginx.org/packages/debian/ stretch nginx" >> /etc/apt/sources.list.d/nginx.list \
+			echo "deb https://nginx.org/packages/debian/ buster nginx" >> /etc/apt/sources.list.d/nginx.list \
 			&& apt-get update \
 			;; \
 		*) \
 # we're on an architecture upstream doesn't officially build for
 # let's build binaries from the published source packages
-			echo "deb-src https://nginx.org/packages/debian/ stretch nginx" >> /etc/apt/sources.list.d/nginx.list \
+			echo "deb-src https://nginx.org/packages/debian/ buster nginx" >> /etc/apt/sources.list.d/nginx.list \
 			\
 # new directory for storing sources and .deb files
 			&& tempDir="$(mktemp -d)" \
