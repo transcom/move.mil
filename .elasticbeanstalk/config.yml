@@ -21,6 +21,5 @@ global:
   instance_profile: movemil
   platform_name: null
   platform_version: null
-  profile: movemil
   sc: git
   workspace_type: Application
