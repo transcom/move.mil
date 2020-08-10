@@ -1,7 +1,7 @@
 # build site dependencies from debian buster php 7.4 image
 FROM php:7.4-buster as builder
 
-ENV DART_SASS_VERSION 1.7.0
+ENV DART_SASS_VERSION 1.26.10
 
 ARG GOOGLE_MAPS_API_KEY
 
