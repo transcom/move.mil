@@ -37,7 +37,7 @@
     "is-wsl": "^1.1.0",
     "jest": "24.7.1",
     "jest-environment-jsdom-fourteen": "0.1.0",
-    "jest-resolve": "24.7.1",
+    "jest-resolve": "26.2.2",
     "jest-watch-typeahead": "0.3.0",
     "jsonp": "^0.2.1",
     "leaflet": "^1.5.1",
