@@ -43,7 +43,7 @@
     "leaflet": "^1.5.1",
     "lodash": "^4.17.19",
     "mini-css-extract-plugin": "0.5.0",
-    "moment": "^2.24.0",
+    "moment": "^2.27.0",
     "optimize-css-assets-webpack-plugin": "5.0.1",
     "pnp-webpack-plugin": "1.6.4",
     "postcss-flexbugs-fixes": "4.1.0",
