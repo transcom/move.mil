@@ -39,7 +39,7 @@
         "drupal/console": "1.9.3",
         "drupal/console-core": "1.9.3",
         "drupal/console-en": "1.9.3",
-        "drupal/core": "~8.8.0",
+        "drupal/core": "~8.9.3",
         "drupal/ctools": "^3.2",
         "drupal/devel_entity_updates": "^3.0@RC",
         "drupal/editor_file": "^1.3",
