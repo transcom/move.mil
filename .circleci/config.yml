@@ -1,5 +1,9 @@
 # Runs a set of CI jobs for Drupal 8 projects.
 
+orbs:
+  aws-ecr: circleci/aws-ecr@6.12.2
+  aws-cli: circleci/aws-cli@1.3.0
+
 # Reusable steps.
 ## Defines images and working directory.
 defaults: &defaults
@@ -145,100 +149,22 @@ code_coverage: &code_coverage
         path: /var/www/html/artifacts
     - save_cache: *save_cache
 
-## Build stage image
-build_stage_image: &build_stage_image
-  docker:
-    - image: python:3.6.6
-  steps:
-    - checkout
-    - setup_remote_docker:
-        docker_layer_caching: false
-    - run:
-        name: Install dependencies
-        command: |
-          apt-get update \
-            && apt-get install -y \
-              unzip
-    - run:
-        name: Install Docker client
-        command: |
-          set -x
-          VER="18.03.1-ce"
-          curl -L -o /tmp/docker-$VER.tgz https://download.docker.com/linux/static/stable/x86_64/docker-$VER.tgz
-          tar -xz -C /tmp -f /tmp/docker-$VER.tgz
-          mv /tmp/docker/* /usr/bin
-    - run:
-        name: Install AWSCLI
-        command: |
-          curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
-          unzip awscli-bundle.zip
-          ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
-    - run:
-        name: Install AWS EB CLI
-        command: |
-          pip install awsebcli --upgrade --user
-    - run:
-        name: Python PATH
-        command: |
-            echo 'export PATH=$HOME/.local/bin:$PATH' >> $BASH_ENV
-            source ~/.bashrc
-    - run:
-        name: "Log in to AWS ECR"
-        command: eval $(aws ecr get-login --region us-east-1 --no-include-email)
-
-    - run:
-        name: "Build & Push Docker Image"
-        command: |
-          docker build --build-arg GOOGLE_MAPS_API_KEY=$GOOGLE_MAPS_API_KEY -t $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/movemil:stage -f docker/Dockerfile .
-          docker push $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/movemil:stage
-
-## Build production Image
-build_production_image: &build_production_image
-  docker:
-    - image: python:3.6.6
-  steps:
-    - checkout
-    - setup_remote_docker:
-        docker_layer_caching: false
-    - run:
-        name: Install dependencies
-        command: |
-          apt-get update \
-            && apt-get install -y \
-              unzip
-    - run:
-        name: Install Docker client
-        command: |
-          set -x
-          VER="18.03.1-ce"
-          curl -L -o /tmp/docker-$VER.tgz https://download.docker.com/linux/static/stable/x86_64/docker-$VER.tgz
-          tar -xz -C /tmp -f /tmp/docker-$VER.tgz
-          mv /tmp/docker/* /usr/bin
-    - run:
-        name: Install AWSCLI
-        command: |
-          curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
-          unzip awscli-bundle.zip
-          ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
-    - run:
-        name: Install AWS EB CLI
-        command: |
-          pip install awsebcli --upgrade --user
-    - run:
-        name: Python PATH
-        command: |
-            echo 'export PATH=$HOME/.local/bin:$PATH' >> $BASH_ENV
-            source ~/.bashrc
-    - run:
-        name: "Log in to AWS ECR"
-        command: eval $(aws ecr get-login --region us-east-1 --no-include-email)
-
-    - run:
-        name: "Build & Push Docker Image"
-        command: |
-          docker build --build-arg GOOGLE_MAPS_API_KEY=$GOOGLE_MAPS_API_KEY -t $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/movemil:production -f docker/Dockerfile .
-          docker push $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/movemil:production
-
+build_image: &build_image
+  build:
+    machine: true
+    steps:
+      - checkout
+      - aws-cli/install
+      - aws-ecr/build-and-push-image:
+          account-url: AWS_ECR_ACCOUNT_URL
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          checkout: false
+          dockerfile: docker/Dockerfile
+          extra-build-args: "GOOGLE_MAPS_API_KEY=$GOOGLE_MAPS_API_KEY"
+          region: AWS_DEFAULT_REGION
+          repo: move-dot-mil
+          tag: "${CIRCLE_SHA1}"
 
 # Declare all of the jobs we should run.
 version: 2
@@ -249,10 +175,8 @@ jobs:
     <<: *code_sniffer
   code-coverage:
     <<: *code_coverage
-  build-stage-image:
-    <<: *build_stage_image
-  build-production-image:
-    <<: *build_production_image
+  build-image:
+    <<: *build_image
 
 # Declare a workflow that runs all of our jobs in parallel.
 workflows:
@@ -262,15 +186,4 @@ workflows:
       - behat
       - code-sniffer
       - code-coverage
-  build_stage_image:
-    jobs:
-      - build-stage-image:
-          filters:
-            branches:
-              only: 1.x-dev
-  build_production_image:
-    jobs:
-      - build-production-image:
-          filters:
-            branches:
-              only: master
+      - build-image
