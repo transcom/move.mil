@@ -150,24 +150,23 @@ code_coverage: &code_coverage
     - save_cache: *save_cache
 
 build_image: &build_image
-  build:
-    machine: true
-    steps:
-      - checkout
-      - aws-cli/install
-      - aws-ecr/build-and-push-image:
-          account-url: AWS_ECR_ACCOUNT_URL
-          aws-access-key-id: AWS_ACCESS_KEY_ID
-          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          checkout: false
-          dockerfile: docker/Dockerfile
-          extra-build-args: "GOOGLE_MAPS_API_KEY=$GOOGLE_MAPS_API_KEY"
-          region: AWS_DEFAULT_REGION
-          repo: move-dot-mil
-          tag: "${CIRCLE_SHA1}"
+  machine: true
+  steps:
+    - checkout
+    - aws-cli/install
+    - aws-ecr/build-and-push-image:
+        account-url: AWS_ECR_ACCOUNT_URL
+        aws-access-key-id: AWS_ACCESS_KEY_ID
+        aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+        checkout: false
+        dockerfile: docker/Dockerfile
+        extra-build-args: "--build-arg GOOGLE_MAPS_API_KEY=$GOOGLE_MAPS_API_KEY"
+        region: AWS_DEFAULT_REGION
+        repo: move-dot-mil
+        tag: "${CIRCLE_SHA1}"
 
 # Declare all of the jobs we should run.
-version: 2
+version: 2.1
 jobs:
   behat:
     <<: *behat_tests
@@ -180,7 +179,7 @@ jobs:
 
 # Declare a workflow that runs all of our jobs in parallel.
 workflows:
-  version: 2
+  version: 2.1
   test_and_lint:
     jobs:
       - behat
