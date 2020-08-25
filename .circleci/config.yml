@@ -3,7 +3,6 @@
 orbs:
   aws-ecr: circleci/aws-ecr@6.12.2
   aws-cli: circleci/aws-cli@1.3.0
-  awsebcli: sbc-orbs/awsebcli@0.0.3
 
 # Reusable steps.
 ## Defines images and working directory.
@@ -167,20 +166,24 @@ build_image: &build_image
         tag: "${CIRCLE_SHA1}"
 
 eb_deploy: &eb_deploy
-  machine: true
+  docker:
+    - image: cimg/python:3.8
   steps:
     - checkout
-    - awsebcli/install
+    - run:
+        name: Install AWS EB CLI
+        command: |
+          pip install awsebcli --upgrade --user
     - run:
         name: Update image to deploy
-        command: >
-          IMAGE="${AWS_ECR_ACCOUNT_URL}/${AWS_ECR_REPO}:${CIRCLE_SHA1}"
-          CONFIG=$(jq ".Image = {Update: true, Name: \"${IMAGE}\"}" Dockerrun.aws.json)
-          echo $CONFIG > Dockerrun.aws.json
+        command: |
+          CONFIG=$(jq ".Image = {Update: true, Name: \"${AWS_ECR_ACCOUNT_URL}/${ECR_REPO}:${CIRCLE_SHA1}\"}" Dockerrun.aws.json)
+          echo ${CONFIG} > Dockerrun.aws.json
+          cat Dockerrun.aws.json
     - run:
         name: EB Deploy
         command: >
-          eb deploy movemil-dynatest --staged
+          eb deploy movemil-dynatest
 
 # Declare all of the jobs we should run.
 version: 2.1
