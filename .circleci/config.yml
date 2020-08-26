@@ -179,13 +179,12 @@ eb_deploy: &eb_deploy
         command: |
           CONFIG=$(jq ".Image = {Update: true, Name: \"${AWS_ECR_ACCOUNT_URL}/${ECR_REPO}:${CIRCLE_SHA1}\"}" Dockerrun.aws.json)
           echo ${CONFIG} > Dockerrun.aws.json
-          cat Dockerrun.aws.json
+          git add Dockerrun.aws.json
     - run:
         name: EB Deploy
         command: >
-          eb deploy movemil-dynatest
+          eb deploy movemil-dynatest --staged
 
-# Declare all of the jobs we should run.
 version: 2.1
 jobs:
   behat:
@@ -199,10 +198,9 @@ jobs:
   eb-deploy:
     <<: *eb_deploy
 
-# Declare a workflow that runs all of our jobs in parallel.
 workflows:
   version: 2.1
-  test_and_lint:
+  app:
     jobs:
       - behat
       - code-sniffer
