@@ -12,6 +12,10 @@ commands:
     steps:
       - checkout
       - run:
+          name: Install AWS EB CLI
+          command: |
+            pip install awsebcli --upgrade --user
+      - run:
           name: Update image tag to deploy
           command: |
             CONFIG=$(jq ".Image = {Update: true, Name: \"${AWS_ECR_ACCOUNT_URL}/${ECR_REPO}:${CIRCLE_SHA1}\"}" Dockerrun.aws.json)
@@ -20,7 +24,7 @@ commands:
       - run:
           name: EB Deploy
           command: >
-            eb deploy milmove-<< parameters.environment >> --staged
+            eb deploy << parameters.environment >> --staged
 
 # Reusable steps.
 ## Defines images and working directory.
@@ -182,7 +186,6 @@ build_image: &build_image
         repo: "${ECR_REPO}"
         tag: "${CIRCLE_SHA1}"
 
-
 version: 2.1
 jobs:
   behat:
@@ -198,8 +201,7 @@ jobs:
       - image: cimg/python:3.8
     steps:
       - deploy_app_steps:
-          environment: stg
-
+          environment: movemil-stg
 
 workflows:
   version: 2.1

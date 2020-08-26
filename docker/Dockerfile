@@ -189,10 +189,7 @@ RUN mv drush.phar /usr/local/bin/drush
 RUN chmod +x /usr/local/bin/drush
 
 # copy in the files that the builder image built for drupal
-COPY --from=builder /var/www/html /var/www/html
-
-# make nginx able to access web root
-RUN chown -R www-data:www-data /var/www/html
+COPY --chown=www-data:www-data --from=builder /var/www/html /var/www/html
 
 EXPOSE 80
 
