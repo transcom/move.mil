@@ -2,9 +2,25 @@
 
 orbs:
   aws-ecr: circleci/aws-ecr@6.12.2
-  aws-cli: circleci/aws-cli@1.3.0
   ecr-image-scan-findings: trussworks/orb-ecr-image-scan-findings@1.1.1
 
+commands:
+  deploy_app_steps:
+    parameters:
+      environment:
+        type: string
+    steps:
+      - checkout
+      - run:
+          name: Update image tag to deploy
+          command: |
+            CONFIG=$(jq ".Image = {Update: true, Name: \"${AWS_ECR_ACCOUNT_URL}/${ECR_REPO}:${CIRCLE_SHA1}\"}" Dockerrun.aws.json)
+            echo ${CONFIG} > Dockerrun.aws.json
+            git add Dockerrun.aws.json
+      - run:
+          name: EB Deploy
+          command: >
+            eb deploy milmove-<< parameters.environment >> --staged
 
 # Reusable steps.
 ## Defines images and working directory.
@@ -155,7 +171,6 @@ build_image: &build_image
   machine: true
   steps:
     - checkout
-    - aws-cli/install
     - aws-ecr/build-and-push-image:
         account-url: AWS_ECR_ACCOUNT_URL
         aws-access-key-id: AWS_ACCESS_KEY_ID
@@ -167,25 +182,6 @@ build_image: &build_image
         repo: "${ECR_REPO}"
         tag: "${CIRCLE_SHA1}"
 
-eb_deploy: &eb_deploy
-  docker:
-    - image: cimg/python:3.8
-  steps:
-    - checkout
-    - run:
-        name: Install AWS EB CLI
-        command: |
-          pip install awsebcli --upgrade --user
-    - run:
-        name: Update image to deploy
-        command: |
-          CONFIG=$(jq ".Image = {Update: true, Name: \"${AWS_ECR_ACCOUNT_URL}/${ECR_REPO}:${CIRCLE_SHA1}\"}" Dockerrun.aws.json)
-          echo ${CONFIG} > Dockerrun.aws.json
-          git add Dockerrun.aws.json
-    - run:
-        name: EB Deploy
-        command: >
-          eb deploy movemil-dynatest --staged
 
 version: 2.1
 jobs:
@@ -197,8 +193,13 @@ jobs:
     <<: *code_coverage
   build-image:
     <<: *build_image
-  eb-deploy:
-    <<: *eb_deploy
+  deploy-app-stg:
+    docker:
+      - image: cimg/python:3.8
+    steps:
+      - deploy_app_steps:
+          environment: stg
+
 
 workflows:
   version: 2.1
@@ -217,13 +218,13 @@ workflows:
             - build-image
           ecr-repository-name: ${ECR_REPO}
 
-      - eb-deploy:
+      - deploy-app-stg:
           requires:
             - behat
             - code-sniffer
             - code-coverage
             - build-image
-            - ecr-image-scan-findings/scan
+            #- ecr-image-scan-findings/scan don't block deploys on scan yet
           #filters:
           #  branches:
           #    only: master
