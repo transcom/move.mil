@@ -11,5 +11,9 @@
       "ContainerDirectory": "/var/www/html/web/sites/default/files"
     }
   ],
-  "Logging": "/var/log/apache2"
+  "Logging": "/var/log/apache2",
+  "Image": {
+    "Name": "<image_name>",
+    "Update": "true"
+  }
 }
