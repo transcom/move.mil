@@ -208,14 +208,13 @@ workflows:
 
       - code-coverage
 
-      - build-image:
+      - build-image
+
+      - eb-deploy:
           requires:
             - behat
             - code-sniffer
             - code-coverage
-
-      - eb-deploy:
-          requires:
             - build-image
           #filters:
           #  branches:
