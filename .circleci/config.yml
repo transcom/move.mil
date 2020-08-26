@@ -3,7 +3,8 @@
 orbs:
   aws-ecr: circleci/aws-ecr@6.12.2
   aws-cli: circleci/aws-cli@1.3.0
-  ecr-image-scan-findings: trussworks/orb-ecr-image-scan-findings@1.0.1
+  ecr-image-scan-findings: trussworks/orb-ecr-image-scan-findings@1.1.1
+
 
 # Reusable steps.
 ## Defines images and working directory.
@@ -215,8 +216,6 @@ workflows:
           requires:
             - build-image
           ecr-repository-name: ${ECR_REPO}
-          aws-role-arn: ""
-          aws-role-session-name: ""
 
       - eb-deploy:
           requires:
@@ -224,6 +223,7 @@ workflows:
             - code-sniffer
             - code-coverage
             - build-image
+            - ecr-image-scan-findings/scan
           #filters:
           #  branches:
           #    only: master
