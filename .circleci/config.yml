@@ -203,7 +203,20 @@ workflows:
   app:
     jobs:
       - behat
+
       - code-sniffer
+
       - code-coverage
-      - build-image
-      - eb-deploy
+
+      - build-image:
+          requires:
+            - behat
+            - code-sniffer
+            - code-coverage
+
+      - eb-deploy:
+          requires:
+            - build-image
+          #filters:
+          #  branches:
+          #    only: master
