@@ -1,9 +1,5 @@
 {
   "AWSEBDockerrunVersion": "1",
-  "Image": {
-    "Name": "328180890751.dkr.ecr.us-east-1.amazonaws.com/movemil:production",
-    "Update": "true"
-  },
   "Ports": [
     {
       "ContainerPort": "80"
@@ -15,5 +11,9 @@
       "ContainerDirectory": "/var/www/html/web/sites/default/files"
     }
   ],
-  "Logging": "/var/log/apache2"
+  "Logging": "/var/log/apache2",
+  "Image": {
+    "Name": "<image_name>",
+    "Update": "true"
+  }
 }
