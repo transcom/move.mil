@@ -100,6 +100,7 @@ RUN docker-php-ext-install -j "$(nproc)" \
 COPY docker/php/php.ini /usr/local/etc/php
 COPY docker/supervisord.conf /etc/
 COPY docker/nginx.conf /etc/nginx/
+RUN mkdir -p /run/nginx
 
 RUN curl https://github.com/hechoendrupal/drupal-console-launcher/releases/download/$DRUPAL_CONSOLE_VERSION/drupal.phar -L -o drupal.phar
 RUN mv drupal.phar /usr/local/bin/drupal
