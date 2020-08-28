@@ -233,6 +233,6 @@ workflows:
             - code-coverage
             - build-image
             - ecr-image-scan-findings/scan
-          #filters:
-          #  branches:
-          #    only: master
+          filters:
+            branches:
+              only: master
