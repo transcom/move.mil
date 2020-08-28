@@ -74,19 +74,20 @@ ENV NGINX_DOC_ROOT /var/www/html/web
 
 ENV DRUPAL_CONSOLE_VERSION 1.8.0
 ENV DRUSH_VERSION          0.6.0
-ENV NGINX_VERSION          1.18.0-r0
-ENV SUPERVISOR_VERSION     4.1.0-r0 #4.2.0-r0
-ENV ZLIB_DEV_VERSION       1.2.11-r3 #1.2.11-r3
-ENV LIBPNG_DEV_VERSION     1.6.37-r1 #1.6.37-r1
-ENV LIBZIP_VERSION         1.5.2-r0 #1.6.1-r1
+ENV NGINX_VERSION          1.16.1-r6
+ENV SUPERVISOR_VERSION     4.1.0-r0
+ENV ZLIB_DEV_VERSION       1.2.11-r3
+ENV LIBPNG_DEV_VERSION     1.6.37-r1
+ENV LIBZIP_VERSION         1.5.2-r0
 
 WORKDIR /var/www/html
 
-RUN apk add --update --no-cache nginx \
-	supervisor \
-	zlib-dev \
-	libpng-dev \
-        libzip-dev && \
+RUN apk add --update --no-cache \
+	nginx=$NGINX_VERSION \
+	supervisor=$SUPERVISOR_VERSION\
+	zlib-dev=$ZLIB_DEV_VERSION \
+	libpng-dev=$LIBPNG_DEV_VERSION \
+        libzip-dev=$LIBZIP_VERSION && \
 	rm -rf /var/cache/apk/*
 
 RUN docker-php-ext-install -j "$(nproc)" \
