@@ -232,7 +232,7 @@ workflows:
             - code-sniffer
             - code-coverage
             - build-image
-            #- ecr-image-scan-findings/scan don't block deploys on scan yet
+            - ecr-image-scan-findings/scan
           #filters:
           #  branches:
           #    only: master
