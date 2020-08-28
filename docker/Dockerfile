@@ -67,6 +67,9 @@ WORKDIR /var/www/html
 RUN composer dump-autoload --optimize && \
 	composer run-script post-install-cmd
 
+# ECR image scaning doesn't currently support Alpine 3.12, so we need to stick
+# to 3.11.
+# https://github.com/aws/containers-roadmap/issues/963
 FROM php:7.4-fpm-alpine3.11
 
 # non root user to run the server after binding sockets as root
@@ -100,7 +103,6 @@ RUN docker-php-ext-install -j "$(nproc)" \
 COPY docker/php/php.ini /usr/local/etc/php
 COPY docker/supervisord.conf /etc/
 COPY docker/nginx.conf /etc/nginx/
-RUN mkdir -p /run/nginx
 
 RUN curl https://github.com/hechoendrupal/drupal-console-launcher/releases/download/$DRUPAL_CONSOLE_VERSION/drupal.phar -L -o drupal.phar
 RUN mv drupal.phar /usr/local/bin/drupal
