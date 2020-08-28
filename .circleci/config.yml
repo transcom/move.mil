@@ -9,6 +9,8 @@ commands:
     parameters:
       environment:
         type: string
+      url:
+        type: string
     steps:
       - checkout
       - run:
@@ -25,6 +27,9 @@ commands:
           name: EB Deploy
           command: >
             eb deploy << parameters.environment >> --staged
+      - run:
+          name: Health check app site
+          command: for retry in `seq 1 10`; do if curl -k -f -sS -o /dev/null << parameters.url >>; then echo Passed.; exit 0; else sleep $(($retry*3)); fi; done; exit 1
 
 # Reusable steps.
 ## Defines images and working directory.
@@ -202,6 +207,7 @@ jobs:
     steps:
       - deploy_app_steps:
           environment: movemil-stg
+          url: https://movemil-stg.us-east-1.elasticbeanstalk.com/
 
 workflows:
   version: 2.1
@@ -227,6 +233,6 @@ workflows:
             - code-coverage
             - build-image
             #- ecr-image-scan-findings/scan don't block deploys on scan yet
-          filters:
-            branches:
-              only: master
+          #filters:
+          #  branches:
+          #    only: master
