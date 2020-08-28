@@ -67,18 +67,18 @@ WORKDIR /var/www/html
 RUN composer dump-autoload --optimize && \
 	composer run-script post-install-cmd
 
-FROM php:7.4-fpm-alpine3.12
+FROM php:7.4-fpm-alpine3.11
 
 # non root user to run the server after binding sockets as root
 ENV NGINX_DOC_ROOT /var/www/html/web
 
 ENV DRUPAL_CONSOLE_VERSION 1.8.0
 ENV DRUSH_VERSION          0.6.0
-ENV NGINX_VERSION          1.18.0-r0
-ENV SUPERVISOR_VERSION     4.2.0-r0
-ENV ZLIB_DEV_VERSION       1.2.11-r3
-ENV LIBPNG_DEV_VERSION     1.6.37-r1
-ENV LIBZIP_VERSION         1.6.1-r1
+ENV NGINX_VERSION          1.16.1-r6 #1.18.0-r0
+ENV SUPERVISOR_VERSION     4.1.0-r0 #4.2.0-r0
+ENV ZLIB_DEV_VERSION       1.2.11-r3 #1.2.11-r3
+ENV LIBPNG_DEV_VERSION     1.6.37-r1 #1.6.37-r1
+ENV LIBZIP_VERSION         1.5.2-r0 #1.6.1-r1
 
 WORKDIR /var/www/html
 
@@ -89,7 +89,7 @@ RUN apk add --update --no-cache nginx=$NGINX_VERSION \
         libzip-dev=$LIBZIP_VERSION && \
 	rm -rf /var/cache/apk/*
 
-RUN docker-php-ext-install -j$(nproc) \
+RUN docker-php-ext-install -j "$(nproc)" \
 	gd \
 	opcache \
 	pdo \
