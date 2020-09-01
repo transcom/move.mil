@@ -135,10 +135,6 @@ RUN docker-php-ext-install -j "$(nproc)" \
         pdo_mysql \
         zip
 
-COPY docker/php/php.ini /usr/local/etc/php
-COPY docker/supervisord.conf /etc/
-COPY docker/nginx.conf /etc/nginx/
-
 RUN set -ex \
         && curl -sSLO https://github.com/hechoendrupal/drupal-console-launcher/releases/download/"$DRUPAL_CONSOLE_VERSION"/drupal.phar \
         && [ $(sha256sum drupal.phar | cut -f1 -d' ') = "$DRUPAL_CONSOLE_SHA256SUM" ] \
@@ -151,10 +147,22 @@ RUN set -ex \
         && mv drush.phar /usr/local/bin/drush \
         && chmod +x /usr/local/bin/drush
 
-# copy in the files that the builder image built for drupal
-COPY --chown=www-data:www-data --from=builder /var/www/html /var/www/html
 
-EXPOSE 80
+COPY docker/php/php.ini /usr/local/etc/php
+COPY docker/supervisord.conf /etc/
+COPY docker/nginx.conf /etc/nginx/
+
+RUN chown -R nobody.nobody /var/www/html \
+        && chown -R nobody.nobody /run \
+        && chown -R nobody.nobody /var/lib/nginx \
+        && chown -R nobody.nobody /var/log/nginx
+
+# copy in the files that the builder image built for drupal
+COPY --chown=nobody:nobody --from=builder /var/www/html /var/www/html
+
+USER nobody
+
+EXPOSE 8080
 
 STOPSIGNAL SIGTERM
 
