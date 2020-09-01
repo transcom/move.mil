@@ -152,10 +152,10 @@ COPY docker/php/php.ini /usr/local/etc/php
 COPY docker/supervisord.conf /etc/
 COPY docker/nginx.conf /etc/nginx/
 
-RUN chown -R nobody.nobody /var/www/html && \
-  chown -R nobody.nobody /run && \
-  chown -R nobody.nobody /var/lib/nginx && \
-  chown -R nobody.nobody /var/log/nginx
+RUN chown -R nobody.nobody /var/www/html \
+        && chown -R nobody.nobody /run \
+        && chown -R nobody.nobody /var/lib/nginx \
+        && chown -R nobody.nobody /var/log/nginx
 
 # copy in the files that the builder image built for drupal
 COPY --chown=nobody:nobody --from=builder /var/www/html /var/www/html
