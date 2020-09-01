@@ -39,35 +39,35 @@ ARG DART_SASS_SHA256SUM
 ARG GOOGLE_MAPS_API_KEY
 
 RUN set -ex \
-        && curl -sSLO https://getcomposer.org/installer \
-        && curl -sSLO https://composer.github.io/installer.sig \
-        && php -r "if (hash_file('sha384', 'installer') === file_get_contents('installer.sig')) { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;" \
-        && php installer --install-dir=/usr/local/bin --filename=composer --version=${COMPOSER_VERSION} \
-        && rm installer installer.sig
+	&& curl -sSLO https://getcomposer.org/installer \
+	&& curl -sSLO https://composer.github.io/installer.sig \
+	&& php -r "if (hash_file('sha384', 'installer') === file_get_contents('installer.sig')) { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;" \
+	&& php installer --install-dir=/usr/local/bin --filename=composer --version=${COMPOSER_VERSION} \
+	&& rm installer installer.sig
 
 RUN apk add --update --no-cache \
-        zlib-dev="$ZLIB_DEV_VERSION" \
-        libpng-dev="$LIBPNG_DEV_VERSION" \
-        libzip-dev="$LIBZIP_VERSION" \
-        nodejs="$NODEJS_VERION" \
-        npm="$NODEJS_VERION" \
-        git="$GIT_VERSION" \
-        && rm -rf /var/cache/apk/*
+	zlib-dev="$ZLIB_DEV_VERSION" \
+	libpng-dev="$LIBPNG_DEV_VERSION" \
+	libzip-dev="$LIBZIP_VERSION" \
+	nodejs="$NODEJS_VERION" \
+	npm="$NODEJS_VERION" \
+	git="$GIT_VERSION" \
+	&& rm -rf /var/cache/apk/*
 
 RUN docker-php-ext-install -j "$(nproc)" \
-        gd \
-        opcache \
-        pdo \
-        pdo_mysql \
-        zip
+	gd \
+	opcache \
+	pdo \
+	pdo_mysql \
+	zip
 
 WORKDIR /root
 
 RUN set -ex \
-        && curl -sSLO https://github.com/sass/dart-sass/releases/download/"$DART_SASS_VERSION"/dart-sass-"$DART_SASS_VERSION"-linux-x64.tar.gz \
-        && [ $(sha256sum dart-sass-"$DART_SASS_VERSION"-linux-x64.tar.gz | cut -f1 -d' ') = "$DART_SASS_SHA256SUM" ] \
-        && tar xzf dart-sass-"$DART_SASS_VERSION"-linux-x64.tar.gz \
-        && rm dart-sass-"$DART_SASS_VERSION"-linux-x64.tar.gz
+	&& curl -sSLO https://github.com/sass/dart-sass/releases/download/"$DART_SASS_VERSION"/dart-sass-"$DART_SASS_VERSION"-linux-x64.tar.gz \
+	&& [ $(sha256sum dart-sass-"$DART_SASS_VERSION"-linux-x64.tar.gz | cut -f1 -d' ') = "$DART_SASS_SHA256SUM" ] \
+	&& tar xzf dart-sass-"$DART_SASS_VERSION"-linux-x64.tar.gz \
+	&& rm dart-sass-"$DART_SASS_VERSION"-linux-x64.tar.gz
 ENV PATH="/root/dart-sass:$PATH"
 
 # The following section is all in the name of container caching. We copy over the code base AFTER building deps.
@@ -95,7 +95,7 @@ COPY . /var/www/html
 WORKDIR /var/www/html
 
 RUN composer dump-autoload --optimize \
-        && composer run-script post-install-cmd
+	&& composer run-script post-install-cmd
 
 # ECR image scaning doesn't currently support Alpine 3.12, so we need to stick
 # to 3.11.
@@ -120,41 +120,49 @@ ENV NGINX_DOC_ROOT /var/www/html/web
 WORKDIR /var/www/html
 
 RUN apk add --update --no-cache \
-        nginx="$NGINX_VERSION" \
-        supervisor="$SUPERVISOR_VERSION"\
-        zlib-dev="$ZLIB_DEV_VERSION" \
-        libpng-dev="$LIBPNG_DEV_VERSION" \
-        libzip-dev="$LIBZIP_VERSION" \
-        mysql-client="$MYSQL_CLIENT_VERSION" \
-        && rm -rf /var/cache/apk/*
+	nginx="$NGINX_VERSION" \
+	supervisor="$SUPERVISOR_VERSION"\
+	zlib-dev="$ZLIB_DEV_VERSION" \
+	libpng-dev="$LIBPNG_DEV_VERSION" \
+	libzip-dev="$LIBZIP_VERSION" \
+	mysql-client="$MYSQL_CLIENT_VERSION" \
+	&& rm -rf /var/cache/apk/*
 
 RUN docker-php-ext-install -j "$(nproc)" \
-        gd \
-        opcache \
-        pdo \
-        pdo_mysql \
-        zip
+	gd \
+	opcache \
+	pdo \
+	pdo_mysql \
+	zip
+
+RUN set -ex \
+	&& curl -sSLO https://github.com/hechoendrupal/drupal-console-launcher/releases/download/"$DRUPAL_CONSOLE_VERSION"/drupal.phar \
+	&& [ $(sha256sum drupal.phar | cut -f1 -d' ') = "$DRUPAL_CONSOLE_SHA256SUM" ] \
+	&& mv drupal.phar /usr/local/bin/drupal \
+	&& chmod +x /usr/local/bin/drupal
+
+RUN set -ex \
+	&& curl -sSLO https://github.com/drush-ops/drush-launcher/releases/download/"$DRUSH_VERSION"/drush.phar \
+	&& [ $(sha256sum drush.phar | cut -f1 -d' ') = "$DRUSH_SHA256SUM" ] \
+	&& mv drush.phar /usr/local/bin/drush \
+	&& chmod +x /usr/local/bin/drush
+
 
 COPY docker/php/php.ini /usr/local/etc/php
 COPY docker/supervisord.conf /etc/
 COPY docker/nginx.conf /etc/nginx/
 
-RUN set -ex \
-        && curl -sSLO https://github.com/hechoendrupal/drupal-console-launcher/releases/download/"$DRUPAL_CONSOLE_VERSION"/drupal.phar \
-        && [ $(sha256sum drupal.phar | cut -f1 -d' ') = "$DRUPAL_CONSOLE_SHA256SUM" ] \
-        && mv drupal.phar /usr/local/bin/drupal \
-        && chmod +x /usr/local/bin/drupal
-
-RUN set -ex \
-        && curl -sSLO https://github.com/drush-ops/drush-launcher/releases/download/"$DRUSH_VERSION"/drush.phar \
-        && [ $(sha256sum drush.phar | cut -f1 -d' ') = "$DRUSH_SHA256SUM" ] \
-        && mv drush.phar /usr/local/bin/drush \
-        && chmod +x /usr/local/bin/drush
-
 # copy in the files that the builder image built for drupal
-COPY --chown=www-data:www-data --from=builder /var/www/html /var/www/html
+#COPY --chown=nobody:nobody --from=builder /var/www/html /var/www/html
 
-EXPOSE 80
+RUN chown -R nobody.nobody /var/www/html && \
+  chown -R nobody.nobody /run && \
+  chown -R nobody.nobody /var/lib/nginx && \
+  chown -R nobody.nobody /var/log/nginx
+
+USER nobody
+
+EXPOSE 8080
 
 STOPSIGNAL SIGTERM
 
