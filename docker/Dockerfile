@@ -20,10 +20,7 @@ ARG SUPERVISOR_VERSION=4.1.0-r0
 # PHP Composer
 ARG COMPOSER_VERSION=1.10.10
 
-# ECR image scaning doesn't currently support Alpine 3.12, so we need to stick
-# to 3.11.
-# https://github.com/aws/containers-roadmap/issues/963
-FROM php:7.4-alpine3.11 as builder
+FROM php:7.4-alpine3.12 as builder
 
 # load the versions and checksums needed in this stage
 ARG COMPOSER_VERSION
@@ -97,10 +94,7 @@ WORKDIR /var/www/html
 RUN composer dump-autoload --optimize \
         && composer run-script post-install-cmd
 
-# ECR image scaning doesn't currently support Alpine 3.12, so we need to stick
-# to 3.11.
-# https://github.com/aws/containers-roadmap/issues/963
-FROM php:7.4-fpm-alpine3.11
+FROM php:7.4-fpm-alpine3.12
 
 # load the versions and checksums needed in this stage
 ARG DRUPAL_CONSOLE_VERSION
