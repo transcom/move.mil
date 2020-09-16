@@ -43,7 +43,7 @@ defaults: &defaults
       environment:
         MYSQL_ALLOW_EMPTY_PASSWORD: 1
 
-  working_directory: /var/www/html
+  working_directory: /opt/drupal
 
 ## Defines the cache restoring mechanism.
 restore_cache: &restore_cache
@@ -78,9 +78,9 @@ unit_kernel_tests: &unit_kernel_tests
           cd web
           sudo -E -u www-data ../vendor/bin/phpunit -c core --debug --verbose --log-junit ../artifacts/phpunit/phpunit.xml modules/custom
     - store_test_results:
-        path: /var/www/html/artifacts/phpunit
+        path: /opt/drupal/artifacts/phpunit
     - store_artifacts:
-        path: /var/www/html/artifacts
+        path: /opt/drupal/artifacts
     - save_cache: *save_cache
 
 ## Job to run the update path and Behat tests.
@@ -111,23 +111,25 @@ behat_tests: &behat_tests
           apt-get update && apt-get install -y gnupg
           curl -sL https://deb.nodesource.com/setup_12.x | bash -
           apt-get update && apt-get install -y --no-install-recommends nodejs
-          cd /var/www/html/web/modules/custom/react_tools/tools
+          cd /opt/drupal/web/modules/custom/react_tools/tools
           npm install
           npm rebuild node-sass
           CI=false npm run build
           npm test
-          cd /var/www/html
+          cd /opt/drupal
     - run:
         name: Set up and run Behat tests
         command: |
           apache2-foreground&
           cp .circleci/config/behat.yml tests/
-          chown -R www-data:www-data /var/www/html/web/sites/default/files
+          chown -R www-data:www-data /opt/drupal/web/sites/default/files
+          rm -rf /var/www/html
+          ln -sf /opt/drupal /var/www/html
           vendor/bin/behat --verbose -c tests/behat.yml
     - store_test_results:
-        path: /var/www/html/artifacts/behat
+        path: /opt/drupal/artifacts/behat
     - store_artifacts:
-        path: /var/www/html/artifacts
+        path: /opt/drupal/artifacts
 
 ## Job to check coding standards.
 code_sniffer: &code_sniffer
@@ -144,9 +146,9 @@ code_sniffer: &code_sniffer
           vendor/bin/phpcs --standard=Drupal  --colors --extensions=php,module,inc,install,test,profile,theme --ignore=*node_modules/*,*bower_components/*,*vendor/*,*.min.js,*.min.css web/modules/custom/
           vendor/bin/phpcs --standard=DrupalPractice --colors --extensions=php,module,inc,install,test,profile,theme --ignore=*node_modules/*,*bower_components/*,*vendor/*,*.min.js,*.min.css web/modules/custom/
     - store_test_results:
-        path: /var/www/html/artifacts/phpcs
+        path: /opt/drupal/artifacts/phpcs
     - store_artifacts:
-        path: /var/www/html/artifacts
+        path: /opt/drupal/artifacts
     - save_cache: *save_cache
 
 ## Job to check test coverage.
@@ -160,7 +162,7 @@ code_coverage: &code_coverage
         environment:
           SIMPLETEST_BASE_URL: "http://localhost"
           SIMPLETEST_DB: "sqlite://localhost//tmp/drupal.sqlite"
-          BROWSERTEST_OUTPUT_DIRECTORY: "/var/www/html/sites/simpletest"
+          BROWSERTEST_OUTPUT_DIRECTORY: "/opt/drupal/sites/simpletest"
         command: |
           robo install:dependencies
           robo setup:drupal || true
@@ -173,7 +175,7 @@ code_coverage: &code_coverage
           cd ../
           tar czf artifacts/coverage.tar.gz -C artifacts coverage-html coverage-xml
     - store_artifacts:
-        path: /var/www/html/artifacts
+        path: /opt/drupal/artifacts
     - save_cache: *save_cache
 
 build_image: &build_image
