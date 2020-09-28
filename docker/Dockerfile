@@ -142,9 +142,9 @@ RUN set -ex \
         && chmod +x /usr/local/bin/drush
 
 # Remove packages with discovered vulnerabilities
-RUN apk del \
-        curl \
-        libxml2
+RUN apk -r del \
+	curl \
+	libxml2
 
 COPY docker/php/php.ini /usr/local/etc/php
 COPY docker/supervisord.conf /etc/
