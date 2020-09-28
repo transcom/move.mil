@@ -10,6 +10,7 @@ ARG DART_SASS_SHA256SUM=2eed8cf8ec08e59e14c3801819aacc296f09524dad10af4a88641205
 # Apk
 ARG ZLIB_DEV_VERSION=1.2.11-r3
 ARG LIBPNG_DEV_VERSION=1.6.37-r1
+ARG LIBXML2_VERSION=2.9.10-r5
 ARG LIBZIP_VERSION=1.6.1-r1
 ARG NODEJS_VERION=12.18.4-r0
 ARG GIT_VERSION=2.26.2-r0
@@ -27,6 +28,7 @@ ARG COMPOSER_VERSION
 ARG ZLIB_DEV_VERSION
 ARG LIBPNG_DEV_VERSION
 ARG LIBZIP_VERSION
+ARG LIBXML2_VERSION
 ARG NODEJS_VERION
 ARG GIT_VERSION
 ARG MYSQL_CLIENT_VERSION
@@ -104,6 +106,7 @@ ARG DRUSH_SHA256SUM
 ARG ZLIB_DEV_VERSION
 ARG LIBPNG_DEV_VERSION
 ARG LIBZIP_VERSION
+ARG LIBXML2_VERSION
 ARG MYSQL_CLIENT_VERSION
 ARG NGINX_VERSION
 ARG SUPERVISOR_VERSION
@@ -120,6 +123,7 @@ RUN apk add --update --no-cache \
         libpng-dev="$LIBPNG_DEV_VERSION" \
         libzip-dev="$LIBZIP_VERSION" \
         mysql-client="$MYSQL_CLIENT_VERSION" \
+        libxml2="$LIBXML2_VERSION" \
         && rm -rf /var/cache/apk/*
 
 RUN docker-php-ext-install -j "$(nproc)" \
@@ -143,8 +147,7 @@ RUN set -ex \
 
 # Remove packages with discovered vulnerabilities
 RUN apk -r del \
-	curl \
-	libxml2
+        curl
 
 COPY docker/php/php.ini /usr/local/etc/php
 COPY docker/supervisord.conf /etc/
