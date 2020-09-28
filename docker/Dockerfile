@@ -119,13 +119,8 @@ RUN apk add --update --no-cache \
         zlib-dev="$ZLIB_DEV_VERSION" \
         libpng-dev="$LIBPNG_DEV_VERSION" \
         libzip-dev="$LIBZIP_VERSION" \
-	mysql-client="$MYSQL_CLIENT_VERSION" \
+        mysql-client="$MYSQL_CLIENT_VERSION" \
         && rm -rf /var/cache/apk/*
-
-# Remove packages with discovered vulnerabilities
-RUN apk del \
-	curl \
-	libxml2 \
 
 RUN docker-php-ext-install -j "$(nproc)" \
         gd \
@@ -146,6 +141,10 @@ RUN set -ex \
         && mv drush.phar /usr/local/bin/drush \
         && chmod +x /usr/local/bin/drush
 
+# Remove packages with discovered vulnerabilities
+RUN apk del \
+        curl \
+        libxml2
 
 COPY docker/php/php.ini /usr/local/etc/php
 COPY docker/supervisord.conf /etc/
