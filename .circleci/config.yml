@@ -124,7 +124,7 @@ behat_tests: &behat_tests
           cp .circleci/config/behat.yml tests/
           chown -R www-data:www-data /opt/drupal/web/sites/default/files
           rm -rf /var/www/html
-          ln -sf /opt/drupal /var/www/html
+          ln -sf /opt/drupal/web /var/www/html
           vendor/bin/behat --verbose -c tests/behat.yml
     - store_test_results:
         path: /opt/drupal/artifacts/behat
