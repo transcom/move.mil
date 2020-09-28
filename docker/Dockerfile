@@ -8,22 +8,19 @@ ARG DART_SASS_VERSION=1.26.10
 ARG DART_SASS_SHA256SUM=2eed8cf8ec08e59e14c3801819aacc296f09524dad10af4a886412053af45b82
 
 # Apk
-ARG ZLIB_DEV_VERSION=1.2.11-r3
+ARG ZLIB_DEV_VERSION=1.6.1-r1
 ARG LIBPNG_DEV_VERSION=1.6.37-r1
-ARG LIBZIP_VERSION=1.5.2-r0
-ARG NODEJS_VERION=12.15.0-r1
-ARG GIT_VERSION=2.24.3-r0
+ARG LIBZIP_VERSION=1.6.1-r1
+ARG NODEJS_VERION=12.18.4-r0
+ARG GIT_VERSION=2.26.2-r0
 ARG MYSQL_CLIENT_VERSION=10.4.13-r0
-ARG NGINX_VERSION=1.16.1-r6
-ARG SUPERVISOR_VERSION=4.1.0-r0
+ARG NGINX_VERSION=1.18.0-r0
+ARG SUPERVISOR_VERSION=4.2.0-r0
 
 # PHP Composer
 ARG COMPOSER_VERSION=1.10.10
 
-# ECR image scaning doesn't currently support Alpine 3.12, so we need to stick
-# to 3.11.
-# https://github.com/aws/containers-roadmap/issues/963
-FROM php:7.4-alpine3.11 as builder
+FROM php:7.4-alpine3.12 as builder
 
 # load the versions and checksums needed in this stage
 ARG COMPOSER_VERSION
@@ -97,10 +94,7 @@ WORKDIR /var/www/html
 RUN composer dump-autoload --optimize \
         && composer run-script post-install-cmd
 
-# ECR image scaning doesn't currently support Alpine 3.12, so we need to stick
-# to 3.11.
-# https://github.com/aws/containers-roadmap/issues/963
-FROM php:7.4-fpm-alpine3.11
+FROM php:7.4-fpm-alpine3.12
 
 # load the versions and checksums needed in this stage
 ARG DRUPAL_CONSOLE_VERSION
