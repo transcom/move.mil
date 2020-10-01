@@ -53,7 +53,7 @@
         "drupal/stage_file_proxy": "^1.0@alpha",
         "drupal/svg_image": "^1.9.0",
         "drupal/twig_field_value": "^2.0.0",
-        "drupal/twig_tweak": "^1.9",
+        "drupal/twig_tweak": "^2.7",
         "drupal/uswds": "^1.0@beta",
         "drupal/wysiwyg_template": "^2.1",
         "drush/drush": "^10.3",
