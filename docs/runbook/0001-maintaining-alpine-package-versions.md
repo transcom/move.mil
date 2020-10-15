@@ -1,4 +1,4 @@
-# 2020-09-04 - Maintaining pinned Alpine package versions
+# 2020-10-13 - Maintaining pinned Alpine package versions
 
 Last Updated: 13 Oct 2020
 
