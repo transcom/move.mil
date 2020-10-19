@@ -49,6 +49,7 @@
         "drupal/paragraphs": "^1.6",
         "drupal/password_policy": "3.0.0-alpha5",
         "drupal/recaptcha": "^3.0",
+        "drupal/remove_http_headers": "^1.0@RC",
         "drupal/search_exclude": "^1.2",
         "drupal/stage_file_proxy": "^1.0@alpha",
         "drupal/svg_image": "^1.9.0",
