@@ -40,8 +40,9 @@ RUN set -ex \
         && php installer --install-dir=/usr/local/bin --filename=composer --version=${COMPOSER_VERSION} \
         && rm installer installer.sig
 
-RUN apk add --update --no-cache \
-	oniguruma \
+# select latest version of package (if it is not pinned)
+RUN apk add --latest --update --no-cache \
+        oniguruma \
         zlib-dev \
         libpng-dev \
         libzip-dev \
@@ -108,15 +109,16 @@ ENV NGINX_DOC_ROOT /var/www/html/web
 
 WORKDIR /var/www/html
 
-RUN apk add --update --no-cache \
+# select latest version of package (if it is not pinned)
+RUN apk add --latest --update --no-cache \
         nginx="$NGINX_VERSION" \
-	supervisor="$SUPERVISOR_VERSION"\
-	oniguruma \
+        supervisor="$SUPERVISOR_VERSION"\
+        oniguruma \
         zlib-dev \
         libpng-dev \
         libzip-dev \
         mysql-client \
-	libxml2 \
+        libxml2 \
         && rm -rf /var/cache/apk/*
 
 RUN docker-php-ext-install -j "$(nproc)" \
