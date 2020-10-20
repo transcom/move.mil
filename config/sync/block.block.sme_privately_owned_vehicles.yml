@@ -12,7 +12,7 @@ dependencies:
 id: sme_privately_owned_vehicles
 theme: move_mil
 region: content
-weight: 8
+weight: 3
 provider: null
 plugin: 'views_block:sme_section-block_7'
 settings:

@@ -1,0 +1,24 @@
+uuid: 0384d461-e847-4afa-bcdf-fa29a8f4df53
+langcode: en
+status: false
+dependencies:
+  config:
+    - views.view.sme_section
+  module:
+    - views
+  theme:
+    - move_mil
+id: views_block__sme_section_block_19
+theme: move_mil
+region: content
+weight: 6
+provider: null
+plugin: 'views_block:sme_section-block_19'
+settings:
+  id: 'views_block:sme_section-block_19'
+  label: ''
+  provider: views
+  label_display: visible
+  views_label: ''
+  items_per_page: none
+visibility: {  }

@@ -10,7 +10,7 @@ dependencies:
 id: entitlementsblock
 theme: move_mil
 region: content
-weight: -17
+weight: -22
 provider: null
 plugin: entitlements_block
 settings:

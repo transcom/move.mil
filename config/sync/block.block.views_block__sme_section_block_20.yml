@@ -1,38 +1,30 @@
-uuid: 804b4822-8161-4c8e-93d5-88c7cb9edb60
+uuid: a47623c9-e086-4508-8f27-37d93566a6ad
 langcode: en
 status: true
 dependencies:
   config:
-    - views.view.faqs
+    - views.view.sme_section
   module:
-    - node
     - system
     - views
   theme:
     - move_mil
-id: faq_section_travel_tips
+id: views_block__sme_section_block_20
 theme: move_mil
 region: content
-weight: -17
+weight: -6
 provider: null
-plugin: 'views_block:faqs-block_3'
+plugin: 'views_block:sme_section-block_20'
 settings:
-  id: 'views_block:faqs-block_3'
+  id: 'views_block:sme_section-block_20'
   label: ''
   provider: views
   label_display: visible
   views_label: ''
   items_per_page: none
 visibility:
-  node_type:
-    id: node_type
-    bundles:
-      page: page
-    negate: false
-    context_mapping:
-      node: '@node.node_route_context:node'
   request_path:
     id: request_path
-    pages: /faqs
+    pages: /sme
     negate: false
     context_mapping: {  }
