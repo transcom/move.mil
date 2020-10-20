@@ -147,7 +147,8 @@ RUN set -ex \
 
 # Remove packages with discovered vulnerabilities
 RUN apk -r del \
-        curl
+        curl \
+        oniguruma
 
 COPY docker/php/php.ini /usr/local/etc/php
 COPY docker/supervisord.conf /etc/
