@@ -12,7 +12,7 @@ dependencies:
 id: entitlementintro
 theme: move_mil
 region: content
-weight: -18
+weight: -23
 provider: null
 plugin: 'block_content:8c34298c-1536-4dc5-a91b-ec99a513b97b'
 settings:

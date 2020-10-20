@@ -8,14 +8,10 @@ ARG DART_SASS_VERSION=1.26.10
 ARG DART_SASS_SHA256SUM=2eed8cf8ec08e59e14c3801819aacc296f09524dad10af4a886412053af45b82
 
 # Apk
-ARG ZLIB_DEV_VERSION=1.2.11-r3
-ARG LIBPNG_DEV_VERSION=1.6.37-r1
-ARG LIBXML2_VERSION=2.9.10-r5
-ARG LIBZIP_VERSION=1.6.1-r1
 ARG NODEJS_VERION=12.18.4-r0
 ARG GIT_VERSION=2.26.2-r0
 ARG MYSQL_CLIENT_VERSION=10.4.15-r0
-ARG NGINX_VERSION=1.18.0-r0
+ARG NGINX_VERSION=1.18.0-r1
 ARG SUPERVISOR_VERSION=4.2.0-r0
 
 # PHP Composer
@@ -44,10 +40,12 @@ RUN set -ex \
         && php installer --install-dir=/usr/local/bin --filename=composer --version=${COMPOSER_VERSION} \
         && rm installer installer.sig
 
-RUN apk add --update --no-cache \
-        zlib-dev="$ZLIB_DEV_VERSION" \
-        libpng-dev="$LIBPNG_DEV_VERSION" \
-        libzip-dev="$LIBZIP_VERSION" \
+# select latest version of package (if it is not pinned)
+RUN apk add --latest --update --no-cache \
+        oniguruma \
+        zlib-dev \
+        libpng-dev \
+        libzip-dev \
         nodejs="$NODEJS_VERION" \
         npm="$NODEJS_VERION" \
         git="$GIT_VERSION" \
@@ -103,11 +101,6 @@ ARG DRUPAL_CONSOLE_VERSION
 ARG DRUPAL_CONSOLE_SHA256SUM
 ARG DRUSH_VERSION
 ARG DRUSH_SHA256SUM
-ARG ZLIB_DEV_VERSION
-ARG LIBPNG_DEV_VERSION
-ARG LIBZIP_VERSION
-ARG LIBXML2_VERSION
-ARG MYSQL_CLIENT_VERSION
 ARG NGINX_VERSION
 ARG SUPERVISOR_VERSION
 
@@ -116,14 +109,16 @@ ENV NGINX_DOC_ROOT /var/www/html/web
 
 WORKDIR /var/www/html
 
-RUN apk add --update --no-cache \
+# select latest version of package (if it is not pinned)
+RUN apk add --latest --update --no-cache \
         nginx="$NGINX_VERSION" \
         supervisor="$SUPERVISOR_VERSION"\
-        zlib-dev="$ZLIB_DEV_VERSION" \
-        libpng-dev="$LIBPNG_DEV_VERSION" \
-        libzip-dev="$LIBZIP_VERSION" \
-        mysql-client="$MYSQL_CLIENT_VERSION" \
-        libxml2="$LIBXML2_VERSION" \
+        oniguruma \
+        zlib-dev \
+        libpng-dev \
+        libzip-dev \
+        mysql-client \
+        libxml2 \
         && rm -rf /var/cache/apk/*
 
 RUN docker-php-ext-install -j "$(nproc)" \

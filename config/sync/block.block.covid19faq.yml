@@ -1,9 +1,9 @@
-uuid: 7f71b3fd-b4ff-4fa2-8dfb-3a03ab4b380e
+uuid: 768c07f7-6ba5-4149-af29-fd5f11f1f0a1
 langcode: en
 status: true
 dependencies:
   content:
-    - 'block_content:basic:edb9c9b9-5592-4d93-b73a-005e19bf812d'
+    - 'block_content:basic:793cf89e-e6ce-4ce3-95d3-6f15c6e2ebd9'
   module:
     - block_content
   theme:
@@ -11,11 +11,11 @@ dependencies:
 id: covid19faq
 theme: move_mil
 region: hero
-weight: -25
+weight: -24
 provider: null
-plugin: 'block_content:edb9c9b9-5592-4d93-b73a-005e19bf812d'
+plugin: 'block_content:793cf89e-e6ce-4ce3-95d3-6f15c6e2ebd9'
 settings:
-  id: 'block_content:edb9c9b9-5592-4d93-b73a-005e19bf812d'
+  id: 'block_content:793cf89e-e6ce-4ce3-95d3-6f15c6e2ebd9'
   label: 'Covid-19 FAQ'
   provider: block_content
   label_display: visible

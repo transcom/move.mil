@@ -12,7 +12,7 @@ dependencies:
 id: views_block__sme_section_block_17
 theme: move_mil
 region: content
-weight: 0
+weight: -5
 provider: null
 plugin: 'views_block:sme_section-block_17'
 settings:

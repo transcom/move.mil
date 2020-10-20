@@ -54,6 +54,7 @@ module:
   rdf: 0
   react_tools: 0
   recaptcha: 0
+  remove_http_headers: 0
   search: 0
   search_exclude: 0
   shortcut: 0

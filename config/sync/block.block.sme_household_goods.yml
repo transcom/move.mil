@@ -12,7 +12,7 @@ dependencies:
 id: sme_household_goods
 theme: move_mil
 region: content
-weight: 4
+weight: -1
 provider: null
 plugin: 'views_block:sme_section-block_3'
 settings:

@@ -12,7 +12,7 @@ dependencies:
 id: forums_and_workshops
 theme: move_mil
 region: content
-weight: 7
+weight: 2
 provider: null
 plugin: 'views_block:sme_section-block_5'
 settings:
