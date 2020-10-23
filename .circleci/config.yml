@@ -36,10 +36,22 @@ commands:
 defaults: &defaults
   docker:
     - image: juampynr/drupal8ci:latest
+      # Authenticate with Docker Hub to avoid rate limit problems beginning on Nov 1st, 2020.
+      # See https://www.docker.com/blog/scaling-docker-to-serve-millions-more-developers-network-egress/ for details
+      # We'll need this until CircleCI and Docker Hub work out a deal to prevent rate limit errors from CircleCI IPs.
+      auth:
+        username: $DOCKERHUB_USERNAME
+        password: $DOCKERHUB_PASSWORD
 
     - image: selenium/standalone-chrome-debug:3.7.1-beryllium
+      auth:
+        username: $DOCKERHUB_USERNAME
+        password: $DOCKERHUB_PASSWORD
 
     - image: mariadb:10.3
+      auth:
+        username: $DOCKERHUB_USERNAME
+        password: $DOCKERHUB_PASSWORD
       environment:
         MYSQL_ALLOW_EMPTY_PASSWORD: 1
 
