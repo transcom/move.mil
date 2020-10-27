@@ -43,7 +43,6 @@ services:
     volumes:
       # For macOS users (https://wodby.com/stacks/drupal/docs/local/docker-for-mac/)
       - ./:/var/www/html:cached # User-guided caching
-      - "${EB_LOG_BASE_DIR}/nginx:/var/log/nginx"
     labels:
       - 'traefik.backend=nginx'
       - 'traefik.port=80'
