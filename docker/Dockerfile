@@ -152,9 +152,6 @@ RUN chown -R nobody.nobody /var/www/html \
         && chown -R nobody.nobody /run \
         && chown -R nobody.nobody /var/lib/nginx \
         && chown -R nobody.nobody /var/log/nginx \
-# forward request and error logs to docker log collector
-        && ln -sf /dev/stdout /var/log/nginx/access.log \
-        && ln -sf /dev/stderr /var/log/nginx/error.log
 
 # copy in the files that the builder image built for drupal
 COPY --chown=nobody:nobody --from=builder /var/www/html /var/www/html

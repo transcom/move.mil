@@ -13,7 +13,7 @@
   ],
   "Logging": "/var/log/apache2",
   "Image": {
-    "Name": "<image_name>",
-    "Update": "true"
+    "Update": true,
+    "Name": "328180890751.dkr.ecr.us-east-1.amazonaws.com/move-dot-mil:ecdef02b34e7334fb38a5f5834002fb38c53d306"
   }
 }
