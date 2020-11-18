@@ -11,9 +11,9 @@
       "ContainerDirectory": "/var/www/html/web/sites/default/files"
     }
   ],
-  "Logging": "/var/log/apache2",
+  "Logging": "/var/log/nginx",
   "Image": {
-    "Update": true,
-    "Name": "328180890751.dkr.ecr.us-east-1.amazonaws.com/move-dot-mil:ecdef02b34e7334fb38a5f5834002fb38c53d306"
+    "Name": "<image_name>",
+    "Update": "true"
   }
 }
