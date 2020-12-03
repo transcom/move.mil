@@ -64,7 +64,7 @@
     "lodash.template": "^4.5.0",
     "merge-stream": "^2.0.0",
     "node-notifier": "^8.0.0",
-    "node-sass": "^4.14.1",
+    "node-sass": "^5.0.0",
     "run-sequence": "^2.2.1",
     "slick-carousel": "^1.8.1",
     "stylelint": "^13.8.0",
