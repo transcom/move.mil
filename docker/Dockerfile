@@ -159,6 +159,11 @@ RUN chown -R nobody.nobody /var/www/html \
 # copy in the files that the builder image built for drupal
 COPY --chown=nobody:nobody --from=builder /var/www/html /var/www/html
 
+# Removing install.php after installation
+# See: https://www.drupal.org/PSA-2015-001
+# Relevant story: https://dp3.atlassian.net/browse/MB-6109
+RUN rm /var/www/html/web/core/install.php
+
 USER nobody
 
 EXPOSE 8080
