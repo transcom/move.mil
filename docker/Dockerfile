@@ -8,7 +8,7 @@ ARG DART_SASS_VERSION=1.26.10
 ARG DART_SASS_SHA256SUM=2eed8cf8ec08e59e14c3801819aacc296f09524dad10af4a886412053af45b82
 
 # Apk
-ARG NODEJS_VERION=12.18.4-r0
+ARG NODEJS_VERSION=12.20.1-r0
 ARG GIT_VERSION=2.26.2-r0
 ARG MYSQL_CLIENT_VERSION=10.4.15-r0
 ARG NGINX_VERSION=1.18.0-r1
@@ -25,7 +25,7 @@ ARG ZLIB_DEV_VERSION
 ARG LIBPNG_DEV_VERSION
 ARG LIBZIP_VERSION
 ARG LIBXML2_VERSION
-ARG NODEJS_VERION
+ARG NODEJS_VERSION
 ARG GIT_VERSION
 ARG MYSQL_CLIENT_VERSION
 ARG DART_SASS_VERSION
@@ -46,8 +46,8 @@ RUN apk add --latest --update --no-cache \
         zlib-dev \
         libpng-dev \
         libzip-dev \
-        nodejs="$NODEJS_VERION" \
-        npm="$NODEJS_VERION" \
+        nodejs="$NODEJS_VERSION" \
+        npm="$NODEJS_VERSION" \
         git="$GIT_VERSION" \
         && rm -rf /var/cache/apk/*
 
@@ -158,6 +158,11 @@ RUN chown -R nobody.nobody /var/www/html \
 
 # copy in the files that the builder image built for drupal
 COPY --chown=nobody:nobody --from=builder /var/www/html /var/www/html
+
+# Removing install.php after installation
+# See: https://www.drupal.org/PSA-2015-001
+# Relevant story: https://dp3.atlassian.net/browse/MB-6109
+RUN rm /var/www/html/web/core/install.php
 
 USER nobody
 
