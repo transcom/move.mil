@@ -2903,11 +2903,11 @@
         },
         {
             "name": "drupal/core",
-            "version": "8.9.13",
+            "version": "8.9.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/drupal/core.git",
-                "reference": "a53db77b55a035453d7229e0c3069f8591cb4cb6"
+                "reference": "ec7ac2bd2b7fa7f06df654c637b7f29f019d356f"
             },
             "dist": {
                 "type": "zip",
