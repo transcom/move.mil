@@ -7,6 +7,7 @@ updates:
     time: "11:00"
   labels:
   - dependencies
+  open-pull-requests-limit: 10
 - package-ecosystem: npm
   directory: "/web/themes/custom/move_mil"
   schedule:
@@ -14,6 +15,7 @@ updates:
     time: "11:00"
   labels:
   - dependencies
+  open-pull-requests-limit: 10
 - package-ecosystem: npm
   directory: "/web/modules/custom/react_tools/tools"
   schedule:
@@ -21,6 +23,7 @@ updates:
     time: "11:00"
   labels:
   - dependencies
+  open-pull-requests-limit: 10
 - package-ecosystem: composer
   directory: "/"
   schedule:
@@ -28,3 +31,4 @@ updates:
     time: "11:00"
   labels:
   - dependencies
+  open-pull-requests-limit: 10
