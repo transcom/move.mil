@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -eux -o pipefail
 
 environment="${1}"
 url="${2}"
