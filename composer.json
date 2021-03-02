@@ -34,7 +34,7 @@
         "composer/installers": "^1.6",
         "cweagans/composer-patches": "^1.6",
         "drupal/address": "~1.0",
-        "drupal/admin_toolbar": "^2.0",
+        "drupal/admin_toolbar": "^3.0",
         "drupal/advanced_help": "^1.0@alpha",
         "drupal/console": "1.9.3",
         "drupal/console-core": "1.9.3",
