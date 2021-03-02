@@ -24,12 +24,8 @@ commands:
             echo ${CONFIG} > Dockerrun.aws.json
             git add Dockerrun.aws.json
       - run:
-          name: EB Deploy
-          command: >
-            eb deploy << parameters.environment >> --staged
-      - run:
-          name: Health check app site
-          command: for retry in `seq 1 10`; do if curl -k -f -sS -o /dev/null << parameters.url >>; then echo Passed.; exit 0; else sleep $(($retry*3)); fi; done; exit 1
+          name: EB Deploy and health check app site
+          command: ./scripts/do-exclusively --job-name ${CIRCLE_JOB} ./scripts/deploy-and-health-check << parameters.environment >> << parameters.url >>
 
 # Reusable steps.
 ## Defines images and working directory.
