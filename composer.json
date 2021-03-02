@@ -58,7 +58,7 @@
         "drupal/uswds": "^1.0@beta",
         "drupal/wysiwyg_template": "^2.1",
         "drush/drush": "^10.3",
-        "phpoffice/phpspreadsheet": "1.14.1",
+        "phpoffice/phpspreadsheet": "1.17.1",
         "phpunit/phpunit": "^7.5",
         "vlucas/phpdotenv": "^2.4",
         "webflo/drupal-finder": "^1.0.0",
