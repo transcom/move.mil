@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+environment="${1}"
+url="${2}"
+
+# Deploy to Elastic Beanstalk.
+eb deploy "${environment}" --staged
+
+# Run a health check.
+for retry in $(seq 1 10); do
+    if curl -k -f -sS -o /dev/null "${url}"; then
+        echo Passed.
+        exit 0
+    else
+        sleep $((retry*3))
+    fi
+done
+exit 1
