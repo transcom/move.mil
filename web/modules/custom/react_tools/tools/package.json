@@ -41,7 +41,7 @@
     "jest-watch-typeahead": "0.3.0",
     "jsonp": "^0.2.1",
     "leaflet": "^1.7.1",
-    "lodash": "^4.17.20",
+    "lodash": "^4.17.21",
     "mini-css-extract-plugin": "0.10.0",
     "moment": "^2.27.0",
     "optimize-css-assets-webpack-plugin": "5.0.4",
