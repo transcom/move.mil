@@ -44,7 +44,7 @@
     "autoprefixer": "^9.8.6",
     "browserify": "^16.5.2",
     "chalk": "^4.1.0",
-    "del": "^5.1.0",
+    "del": "^6.0.0",
     "gulp": "^4.0.2",
     "gulp-clean": "^0.4.0",
     "gulp-concat": "^2.6.1",
