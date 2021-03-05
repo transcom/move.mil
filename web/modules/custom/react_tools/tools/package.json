@@ -38,7 +38,7 @@
     "jest": "26.6.3",
     "jest-environment-jsdom-fourteen": "1.0.1",
     "jest-resolve": "26.6.2",
-    "jest-watch-typeahead": "0.3.0",
+    "jest-watch-typeahead": "0.6.1",
     "jsonp": "^0.2.1",
     "leaflet": "^1.7.1",
     "lodash": "^4.17.21",
