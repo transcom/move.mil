@@ -68,7 +68,7 @@
     "run-sequence": "^2.2.1",
     "slick-carousel": "^1.8.1",
     "stylelint": "^13.12.0",
-    "stylelint-config-recommended": "^3.0.0",
+    "stylelint-config-recommended": "^4.0.0",
     "stylelint-scss": "^3.19.0",
     "uswds": "^1.6.13",
     "vinyl-buffer": "^1.0.1",
