@@ -2,8 +2,6 @@
 
 namespace Drupal\locations\Service;
 
-use SimpleXMLElement;
-
 /**
  * Class Reader.
  *

@@ -8,7 +8,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Database\Connection as Connection;
 
 /**
- * Class EntitlementsController.
+ * Class EntitlementsController defines the entitlements controller.
  */
 class EntitlementsController extends ControllerBase {
 

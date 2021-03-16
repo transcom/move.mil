@@ -272,7 +272,7 @@ class Writer {
       $address = "{$city}, {$country}";
     }
     $request = "https://maps.google.com/maps/api/geocode/json?address={$address}&key=$googleApi";
-    // @var \GuzzleHttp\Client $client.
+    /** @var \GuzzleHttp\Client $client. */
     $client = new Client();
     // Make 3 tries to geolocate this office.
     $try = 1;

@@ -16,7 +16,7 @@ use Drupal\parser\Service\DbWriter;
 use Drupal\Core\StreamWrapper\StreamWrapperManager;
 
 /**
- * Class FilesAndTablesManagerForm.
+ * Class FilesAndTablesManagerForm defines the files and tables manager form.
  */
 class FilesAndTablesManagerForm extends ConfigFormBase {
 

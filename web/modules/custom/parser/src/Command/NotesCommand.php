@@ -12,7 +12,7 @@ use Drupal\Console\Core\Style\DrupalStyle;
 use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
 
 /**
- * Class NotesCommand.
+ * Class NotesCommand defines the notes command.
  *
  * @Drupal\Console\Annotations\DrupalCommand (
  *     extension="parser",

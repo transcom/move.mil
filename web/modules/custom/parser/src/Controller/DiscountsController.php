@@ -7,7 +7,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Database\Connection as Connection;
 
 /**
- * Class DiscountsController.
+ * Class DiscountsController defines the discounts controller.
  */
 class DiscountsController extends ControllerBase {
 

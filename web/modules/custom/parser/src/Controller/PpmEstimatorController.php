@@ -10,7 +10,7 @@ use Drupal\parser\Service\DbReader;
 use Drupal\parser\Service\RouteDistance;
 
 /**
- * Class PpmEstimatorController.
+ * Class PpmEstimatorController defines the PPM estimator controller.
  */
 class PpmEstimatorController extends ControllerBase {
 

@@ -15,7 +15,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 
 /**
- * Class LocationsController.
+ * Class LocationsController defines the locations controller.
  */
 class LocationsController extends ControllerBase {
 

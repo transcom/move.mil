@@ -6,7 +6,7 @@ use Drupal\Core\Controller\ControllerBase;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
- * Class PpmDistancesController.
+ * Class PpmDistancesController defines the PPM distances controller.
  */
 class PpmDistancesController extends ControllerBase {
 

@@ -10,7 +10,7 @@ use Drupal\parser\Service\LocationWriter;
 use Drupal\Console\Core\Command\ContainerAwareCommand;
 
 /**
- * Class ParserCommand.
+ * Class ParserCommand defines the parser command.
  *
  * @Drupal\Console\Annotations\DrupalCommand (
  *     extension="parser",

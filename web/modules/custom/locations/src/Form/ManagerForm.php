@@ -13,7 +13,7 @@ use Drupal\locations\Service\Reader;
 use Drupal\Core\StreamWrapper\StreamWrapperManager;
 
 /**
- * Class FilesAndTablesManagerForm.
+ * Class ManagerForm defines the manager form.
  */
 class ManagerForm extends ConfigFormBase {
 
@@ -233,7 +233,10 @@ class ManagerForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $exclusions = array_filter($form_state->getValue(['exclusions_fieldset', 'exclusions']));
+    $exclusions = array_filter($form_state->getValue([
+      'exclusions_fieldset',
+      'exclusions',
+    ]));
     // Retrieve the configuration.
     $this->configFactory->getEditable(static::SETTINGS)
       // Set exclusions on config.
@@ -265,12 +268,16 @@ class ManagerForm extends ConfigFormBase {
     $batch = [
       'title' => 'Updating Drupal Locations...',
       'operations' => [],
-      'progress_message' => 'Updated @current out of @total locations, elapsed time: @elapsed, estimated time: @estimate',
+      'progress_message' => 'Updated @current out of @total locations, ' .
+      'elapsed time: @elapsed, estimated time: @estimate',
       'error_message'    => 'An error occurred during processing',
       'finished' => '\Drupal\locations\Service\Writer::finishedUpdateCallback',
     ];
     foreach ($xmlOffices as $office) {
-      $batch['operations'][] = ['\Drupal\locations\Service\Writer::update', [$office]];
+      $batch['operations'][] = [
+        '\Drupal\locations\Service\Writer::update',
+        [$office],
+      ];
     }
     batch_set($batch);
   }
