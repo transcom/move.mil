@@ -9,7 +9,6 @@ ARG DART_SASS_SHA256SUM=2eed8cf8ec08e59e14c3801819aacc296f09524dad10af4a88641205
 
 # Apk
 ARG NODEJS_VERSION=12.21.0-r0
-ARG GIT_VERSION=2.26.2-r0
 ARG MYSQL_CLIENT_VERSION=10.4.15-r0
 ARG NGINX_VERSION=1.18.0-r1
 ARG SUPERVISOR_VERSION=4.2.0-r0
@@ -26,7 +25,6 @@ ARG LIBPNG_DEV_VERSION
 ARG LIBZIP_VERSION
 ARG LIBXML2_VERSION
 ARG NODEJS_VERSION
-ARG GIT_VERSION
 ARG MYSQL_CLIENT_VERSION
 ARG DART_SASS_VERSION
 ARG DART_SASS_SHA256SUM
@@ -48,7 +46,7 @@ RUN apk add --latest --update --no-cache \
         libzip-dev \
         nodejs="$NODEJS_VERSION" \
         npm="$NODEJS_VERSION" \
-        git="$GIT_VERSION" \
+        git \
         && rm -rf /var/cache/apk/*
 
 RUN docker-php-ext-install -j "$(nproc)" \
