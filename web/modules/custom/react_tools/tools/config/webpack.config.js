@@ -180,7 +180,7 @@ function getConfig(webpackEnv, appName) {
               // Point sourcemap entries to original disk location (format as URL on Windows)
               //TODO  devtoolModuleFilenameTemplate: isEnvProduction
               //   ? info =>
-              //   _.map(entryPoints, appSrc => 
+              //   _.map(entryPoints, appSrc =>
               //     path
               //       .relative(appSrc[0], info.absoluteResourcePath)
               //       .replace(/\\/g, '/')
@@ -296,14 +296,14 @@ function getConfig(webpackEnv, appName) {
                 // To fix this, we prevent you from importing files out of src/ -- if you'd like to,
                 // please link the files into your node_modules/ and let module-resolution kick in.
                 // Make sure your source files are compiled, as they will not be processed in any way.
-                
+
               ].concat(
-                isEnvDevelopment ?  
+                isEnvDevelopment ?
                   new ModuleScopePlugin(
                     appPaths.appSrc, [paths.appPackageJson]
                   )
                 :
-                  _.map(appPaths, _paths => 
+                  _.map(appPaths, _paths =>
                     new ModuleScopePlugin(
                       _paths.appSrc, [paths.appPackageJson]
                     )
@@ -322,7 +322,7 @@ function getConfig(webpackEnv, appName) {
               rules: [
                 // Disable require.ensure as it's not a standard language feature.
                 { parser: { requireEnsure: false } },
-        
+
                 // First, run the linter.
                 // It's important to do this before Babel processes the JS.
                 {
@@ -333,7 +333,7 @@ function getConfig(webpackEnv, appName) {
                       options: {
                         formatter: require.resolve('react-dev-utils/eslintFormatter'),
                         eslintPath: require.resolve('eslint'),
-                        
+
                       },
                       loader: require.resolve('eslint-loader'),
                     },
@@ -404,7 +404,7 @@ function getConfig(webpackEnv, appName) {
                         ],
                         cacheDirectory: true,
                         cacheCompression: isEnvProduction,
-                        
+
                         // If an error happens in a package, it's possible to be
                         // because it was compiled. Thus, we don't want the browser
                         // debugger to show the original code. Instead, the code
@@ -547,7 +547,7 @@ function getConfig(webpackEnv, appName) {
                     manifest[file.name] = file.path;
                     return manifest;
                   }, seed);
-        
+
                   return {
                     files: manifestFiles,
                   };
@@ -567,7 +567,7 @@ function getConfig(webpackEnv, appName) {
                   exclude: [/\.map$/, /asset-manifest\.json$/],
                   importWorkboxFrom: 'cdn',
                   navigateFallback: publicUrl + '/index.html',
-                  navigateFallbackBlacklist: [
+                  navigateFallbackDenylist: [
                     // Exclude URLs starting with /_, as they're likely an API call
                     new RegExp('^/_'),
                     // Exclude URLs containing a dot, as they're likely a resource in
@@ -604,8 +604,8 @@ function getConfig(webpackEnv, appName) {
                   formatter: isEnvProduction ? typescriptFormatter : undefined,
                 }),
             ].concat(
-              isEnvProduction ? 
-                _.map(appPaths, _paths => 
+              isEnvProduction ?
+                _.map(appPaths, _paths =>
                     // Generates an `index.html` file with the <script> injected.
                     new HtmlWebpackPlugin(
                       Object.assign(
@@ -643,7 +643,7 @@ function getConfig(webpackEnv, appName) {
                   )
             ).concat(
               isEnvProduction ?
-                _.map(appPaths, _paths => 
+                _.map(appPaths, _paths =>
                   new ModuleNotFoundPlugin(_paths.appRoot)
                 )
               :
