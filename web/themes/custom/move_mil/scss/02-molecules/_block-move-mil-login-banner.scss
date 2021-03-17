@@ -10,11 +10,11 @@
 
   .path-frontpage & {
     background-color: $color-green-light;
-    color: $color-white;
+    color: white;
     display: block;
 
     a {
-      color: $color-white;
+      color: white;
     }
 
     @include media($nav-width) {
@@ -53,11 +53,11 @@
 
   .path-frontpage & {
     background-color: $color-green-light;
-    color: $color-white;
+    color: white;
     display: block;
 
     a {
-      color: $color-white;
+      color: white;
     }
 
     @include media($nav-width) {

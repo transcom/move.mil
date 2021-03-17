@@ -3,7 +3,7 @@
   .field--name-field-page-intro-text {
     padding: 0;
     margin-bottom: $spacing-md-small;
-    background-color: $color-white;
+    background-color: white;
 
     @include media($medium-screen) {
       margin-bottom: $spacing-medium;
