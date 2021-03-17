@@ -7,7 +7,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Database\Connection as Connection;
 
 /**
- * Class ZipcodesController.
+ * Class ZipcodesController defines the Zipcodes controller.
  */
 class ZipcodesController extends ControllerBase {
 

@@ -8,7 +8,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Database\Connection as Connection;
 
 /**
- * Class Rates400NGController.
+ * Class Rates400NGController defines the rates 400 NG controller.
  */
 class Rates400NGController extends ControllerBase {
 

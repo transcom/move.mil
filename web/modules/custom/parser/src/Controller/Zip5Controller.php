@@ -7,7 +7,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Database\Connection as Connection;
 
 /**
- * Class Zip5Controller.
+ * Class Zip5Controller defines the ZIP 5 controller.
  */
 class Zip5Controller extends ControllerBase {
 

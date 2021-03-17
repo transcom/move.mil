@@ -13,7 +13,7 @@ use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
 use Drupal\Component\Plugin\Exception\PluginNotFoundException;
 
 /**
- * Class TruncateCommand.
+ * Class TruncateCommand defines the truncate command.
  *
  * @Drupal\Console\Annotations\DrupalCommand (
  *     extension="parser",

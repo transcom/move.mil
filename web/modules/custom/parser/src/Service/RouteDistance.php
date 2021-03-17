@@ -8,7 +8,7 @@ use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Logger\LoggerChannelFactory;
 
 /**
- * Class RouteDistance.
+ * Class RouteDistance defines the route distance.
  */
 class RouteDistance {
 

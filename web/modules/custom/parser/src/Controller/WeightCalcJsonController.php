@@ -7,7 +7,7 @@ use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
- * Class WeightCalcJsonController.
+ * Class WeightCalcJsonController defines the weight calc JSON controller.
  */
 class WeightCalcJsonController extends ControllerBase {
 
