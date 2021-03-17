@@ -19,7 +19,7 @@
   // match existing undo of uswds sidenav standards for smaller screens
   @media screen and (max-width: $sidenav-screen-width - 1) {
     a {
-      color: $color-primary;
+      color: blue-60v;
       margin-bottom: 0.5rem;
       padding: 0;
       text-decoration: underline;

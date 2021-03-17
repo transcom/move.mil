@@ -14,7 +14,7 @@ blockquote {
 
     &:first-child:before, &:last-child:after {
       display: inline;
-      color: $color-primary;
+      color: blue-60v;
       font-size: 3.5rem;
       line-height: 1.8rem;
     }
