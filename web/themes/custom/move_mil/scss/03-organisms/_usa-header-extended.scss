@@ -19,10 +19,10 @@
   }
 
   .navbar-border {
-    border-top: 0.5rem solid $color-blue-darkest;
+    border-top: 0.5rem solid blue-warm-80v;
 
     @include media($medium-large-screen) {
-      border-top: 1.2rem solid $color-blue-darkest;
+      border-top: 1.2rem solid blue-warm-80v;
     }
   }
 
@@ -64,7 +64,7 @@
           font-weight: $font-bold;
           margin: 0;
           font-size: $h1-font-size;
-          color: $color-blue-darkest;
+          color: blue-warm-80v;
         }
 
         @include media($medium-large-screen) {
@@ -84,7 +84,7 @@
           line-height: $lead-line-height;
           font-size: $small-font-size;
           // font-weight: $font-normal;
-          color: $color-blue-darkest;
+          color: blue-warm-80v;
           margin-top: $spacing-x-small;
         }
 
