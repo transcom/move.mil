@@ -90,7 +90,7 @@
     .tabular-data-right {
       .field--name-field-plain-title {
         @include h3();
-        border-bottom: 0.125rem solid $color-gray-light;
+        border-bottom: 0.125rem solid gray-cool-30;
         margin-bottom: $site-margins-mobile;
         padding-bottom: $site-margins-mobile;
       }
