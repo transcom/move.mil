@@ -26,7 +26,7 @@ span.approvals.tag {
   }
 
   &.tag-semiapproved {
-    background-color: $color-gold;
+    background-color: gold-20v;
 
     &:before {
       content: '✓';
