@@ -66,7 +66,7 @@
 
       &.is-active {
         a {
-          // background: $color-blue;
+          // background: blue-60v;
           color: white;
 
           &:hover {
@@ -76,7 +76,7 @@
           &:before {
             content: '';
             position: absolute;
-            border: 1.2rem solid $color-blue;
+            border: 1.2rem solid blue-60v;
             border-radius: 1.2rem;
             left: -0.8rem;
             top: -0.35rem;
