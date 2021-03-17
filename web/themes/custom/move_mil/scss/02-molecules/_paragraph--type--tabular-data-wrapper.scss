@@ -14,7 +14,7 @@
     > div {
       display: block;
       padding: 1rem 1.5rem;
-      border: 1px solid $color-gray;
+      border: 1px solid gray-cool-60;
       border-top: none;
 
       &.tabular-data-left {
@@ -37,7 +37,7 @@
     }
 
     &:first-child > div.tabular-data-left {
-      border-top: 1px solid $color-gray;
+      border-top: 1px solid gray-cool-60;
     }
 
     img {
@@ -56,7 +56,7 @@
 
     @include media($medium-screen) {
       > div.tabular-data-left, div.tabular-data-right {
-        border-top: 1px solid $color-gray;
+        border-top: 1px solid gray-cool-60;
 
         @include media($medium-screen) {
           display: table-cell;

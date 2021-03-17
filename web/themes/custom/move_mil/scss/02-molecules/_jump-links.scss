@@ -8,7 +8,7 @@
 
   @include media($sidenav-screen-width) {
     .jump-link {
-      border-top: 1px solid $color-gray;
+      border-top: 1px solid gray-cool-60;
 
       &:first-child {
         border-top: none;
