@@ -85,7 +85,10 @@ function getConfig(webpackEnv, appName) {
             },
             {
               loader: require.resolve('css-loader'),
-              options: cssOptions,
+              options: {
+                ...cssOptions,
+                url: url => !url.startsWith('/')
+              }
             },
             {
               // Options for PostCSS as we reference these options twice
