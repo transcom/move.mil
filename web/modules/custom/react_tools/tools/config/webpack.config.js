@@ -235,9 +235,6 @@ function getConfig(webpackEnv, appName) {
                   // Disabled on WSL (Windows Subsystem for Linux) due to an issue with Terser
                   // https://github.com/webpack-contrib/terser-webpack-plugin/issues/21
                   parallel: !isWsl,
-                  // Enable file caching
-                  cache: true,
-                  sourceMap: shouldUseSourceMap,
                 }),
                 // This is only used in production mode
                 new OptimizeCSSAssetsPlugin({
