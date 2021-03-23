@@ -171,8 +171,6 @@ function getConfig(webpackEnv, appName) {
               filename: isEnvProduction
                 ? 'static/js/[name].min.js'
                 : isEnvDevelopment && 'static/js/bundle.js',
-              // TODO: remove this when upgrading to webpack 5
-              futureEmitAssets: true,
               // There are also additional JS chunk files if you use code splitting.
               chunkFilename: isEnvProduction
                 ? 'static/js/[name].min.js'
@@ -286,6 +284,23 @@ function getConfig(webpackEnv, appName) {
                 // Support React Native Web
                 // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
                 'react-native': 'react-native-web',
+              },
+              // Some libraries import Node modules but don't use them in the browser.
+              // Tell Webpack to provide false mocks for them so importing them works.
+              //
+              // This was migrated from a bunch of 'empty' settings, based on
+              // the advice in https://webpack.js.org/migrate/5/, which said:
+              // > If you are using something like node.fs: 'empty' replace it
+              // > with resolve.fallback.fs: false.
+              fallback: {
+                module: false,
+                dgram: false,
+                dns: 'mock',
+                fs: false,
+                http2: false,
+                net: false,
+                tls: false,
+                child_process: false,
               },
               plugins: [
                 // Adds support for installing with Plug'n'Play, leading to faster installs and adding
@@ -635,18 +650,6 @@ function getConfig(webpackEnv, appName) {
               :
                 new ModuleNotFoundPlugin(appPaths.appRoot)
             ).filter(Boolean),
-            // Some libraries import Node modules but don't use them in the browser.
-            // Tell Webpack to provide empty mocks for them so importing them works.
-            node: {
-              module: 'empty',
-              dgram: 'empty',
-              dns: 'mock',
-              fs: 'empty',
-              http2: 'empty',
-              net: 'empty',
-              tls: 'empty',
-              child_process: 'empty',
-            },
             // Turn off performance processing because we utilize
             // our own hints via the FileSizeReporter
             performance: false,
