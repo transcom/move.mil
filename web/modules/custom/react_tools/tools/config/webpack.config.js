@@ -14,7 +14,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const safePostCssParser = require('postcss-safe-parser');
-const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
+const WebpackManifestPlugin = require('webpack-manifest-plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
 const WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin');
@@ -27,6 +27,7 @@ const getClientEnvironment = require('./env');
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
 const ForkTsCheckerWebpackPlugin = require('react-dev-utils/ForkTsCheckerWebpackPlugin');
 const typescriptFormatter = require('react-dev-utils/typescriptFormatter');
+const ESLintPlugin = require('eslint-webpack-plugin');
 
 const postcssNormalize = require('postcss-normalize');
 
@@ -325,23 +326,6 @@ function getConfig(webpackEnv, appName) {
                 // Disable require.ensure as it's not a standard language feature.
                 { parser: { requireEnsure: false } },
 
-                // First, run the linter.
-                // It's important to do this before Babel processes the JS.
-                {
-                  test: /\.(js|mjs|jsx|ts|tsx)$/,
-                  enforce: 'pre',
-                  use: [
-                    {
-                      options: {
-                        formatter: require.resolve('react-dev-utils/eslintFormatter'),
-                        eslintPath: require.resolve('eslint'),
-
-                      },
-                      loader: require.resolve('eslint-loader'),
-                    },
-                  ],
-                  include: isEnvDevelopment ? appPaths.appSrc : _.map(appPaths, _paths => _paths.appSrc),
-                },
                 {
                   // "oneOf" will traverse all following loaders until one will
                   // match the requirements. When no loader matches it will fall
@@ -501,6 +485,10 @@ function getConfig(webpackEnv, appName) {
               ],
             },
             plugins: [
+              new ESLintPlugin({
+                formatter: require.resolve('react-dev-utils/eslintFormatter'),
+                eslintPath: require.resolve('eslint'),
+              }),
               // Inlines the webpack runtime script. This script is too small to warrant
               // a network request.
               isEnvProduction &&
@@ -541,7 +529,7 @@ function getConfig(webpackEnv, appName) {
               // Generate a manifest file which contains a mapping of all asset filenames
               // to their corresponding output file so that tools can pick it up without
               // having to parse `index.html`.
-              new WebpackManifestPlugin({
+              new WebpackManifestPlugin.WebpackManifestPlugin({
                 fileName: 'asset-manifest.json',
                 publicPath: publicPath,
                 generate: (seed, files) => {

@@ -19,7 +19,7 @@ const chalk = require('react-dev-utils/chalk');
 const fs = require('fs-extra');
 const webpack = require('webpack');
 const configFactory = require('../config/webpack.config');
-const {getConfig} = require('../config/webpack.config');
+const getConfig = require('../config/webpack.config');
 const paths = require('../config/paths');
 const apps = require('../config/apps');
 const checkRequiredFiles = require('react-dev-utils/checkRequiredFiles');
@@ -45,7 +45,7 @@ if (!checkRequiredFiles(apps.requiredFiles)) {
 }
 
 // Generate configuration
-getConfig('production', '').then(confRes => {
+getConfig.getConfig('production', '').then(confRes => {
   let config = confRes.config;
   let appsRoots = confRes.appsDirList;
     // Make sure all sass files for each app are compiled
