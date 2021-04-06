@@ -213,7 +213,7 @@ jobs:
     <<: *build_image
   deploy-app-stg:
     docker:
-      - image: cimg/python:3.8
+      - image: cimg/python:3.9
     steps:
       - deploy_app_steps:
           environment: movemil-stg
