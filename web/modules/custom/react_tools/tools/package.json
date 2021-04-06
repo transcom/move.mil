@@ -7,7 +7,7 @@
     "@google/markerclusterer": "^2.0.9",
     "@material-ui/core": "^4.11.3",
     "@svgr/webpack": "5.5.0",
-    "@typescript-eslint/eslint-plugin": "4.20.0",
+    "@typescript-eslint/eslint-plugin": "4.21.0",
     "@typescript-eslint/parser": "4.21.0",
     "antd": "^4.15.0",
     "axios": "^0.21.1",
