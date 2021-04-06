@@ -4398,16 +4398,16 @@
         },
         {
             "name": "drush/drush",
-            "version": "10.4.1",
+            "version": "10.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/drush-ops/drush.git",
-                "reference": "dc93926c3d51961ae18a89540a27ced3ca0a4be5"
+                "reference": "0d48a046f5511dd8fda10ac3376b97bb65a2b7ec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/drush-ops/drush/zipball/dc93926c3d51961ae18a89540a27ced3ca0a4be5",
-                "reference": "dc93926c3d51961ae18a89540a27ced3ca0a4be5",
+                "url": "https://api.github.com/repos/drush-ops/drush/zipball/0d48a046f5511dd8fda10ac3376b97bb65a2b7ec",
+                "reference": "0d48a046f5511dd8fda10ac3376b97bb65a2b7ec",
                 "shasum": ""
             },
             "require": {
@@ -4532,7 +4532,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-04-03T20:20:39+00:00"
+            "time": "2021-04-06T03:37:46+00:00"
         },
         {
             "name": "easyrdf/easyrdf",
