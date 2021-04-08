@@ -36,13 +36,13 @@ RUN set -ex \
 
 # select latest version of package (if it is not pinned)
 RUN apk add --latest --update --no-cache \
-        oniguruma \
-        zlib-dev \
+        git \
         libpng-dev \
         libzip-dev \
         nodejs~="$NODEJS_VERSION" \
         npm \
-        git \
+        oniguruma \
+        zlib-dev \
         && rm -rf /var/cache/apk/*
 
 RUN docker-php-ext-install -j "$(nproc)" \
@@ -103,14 +103,14 @@ WORKDIR /var/www/html
 
 # select latest version of package (if it is not pinned)
 RUN apk add --latest --update --no-cache \
-        nginx \
-        supervisor \
-        oniguruma \
-        zlib-dev \
         libpng-dev \
+        libxml2 \
         libzip-dev \
         mysql-client \
-        libxml2 \
+        nginx \
+        oniguruma \
+        supervisor \
+        zlib-dev \
         && rm -rf /var/cache/apk/*
 
 RUN docker-php-ext-install -j "$(nproc)" \
