@@ -106,10 +106,12 @@ RUN apk add --latest --update --no-cache \
         libpng-dev \
         libxml2 \
         libzip-dev \
+        musl \
         mysql-client \
         nginx \
         oniguruma \
         supervisor \
+        tar \
         zlib-dev \
         && rm -rf /var/cache/apk/*
 
