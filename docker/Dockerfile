@@ -15,7 +15,7 @@ ARG SUPERVISOR_VERSION=4.2.0-r0
 # PHP Composer
 ARG COMPOSER_VERSION=1.10.10
 
-FROM php:7.4-alpine3.12 as builder
+FROM php:7.4-alpine3.13 as builder
 
 # load the versions and checksums needed in this stage
 ARG COMPOSER_VERSION
@@ -90,7 +90,7 @@ WORKDIR /var/www/html
 RUN composer dump-autoload --optimize \
         && composer run-script post-install-cmd
 
-FROM php:7.4-fpm-alpine3.12
+FROM php:7.4-fpm-alpine3.13
 
 # load the versions and checksums needed in this stage
 ARG DRUPAL_CONSOLE_VERSION
