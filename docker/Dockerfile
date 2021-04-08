@@ -9,7 +9,6 @@ ARG DART_SASS_SHA256SUM=48cce78b16c13729f26db2ce3de782223150378b4918ad8d38dfb10a
 
 # Apk
 ARG NODEJS_VERSION=14
-ARG SUPERVISOR_VERSION=4.2.0-r0
 
 # PHP Composer
 ARG COMPOSER_VERSION=1.10.10
@@ -96,7 +95,6 @@ ARG DRUPAL_CONSOLE_VERSION
 ARG DRUPAL_CONSOLE_SHA256SUM
 ARG DRUSH_VERSION
 ARG DRUSH_SHA256SUM
-ARG SUPERVISOR_VERSION
 
 # non root user to run the server after binding sockets as root
 ENV NGINX_DOC_ROOT /var/www/html/web
@@ -106,7 +104,7 @@ WORKDIR /var/www/html
 # select latest version of package (if it is not pinned)
 RUN apk add --latest --update --no-cache \
         nginx \
-        supervisor="$SUPERVISOR_VERSION"\
+        supervisor \
         oniguruma \
         zlib-dev \
         libpng-dev \
