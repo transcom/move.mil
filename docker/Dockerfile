@@ -8,7 +8,7 @@ ARG DART_SASS_VERSION=1.26.10
 ARG DART_SASS_SHA256SUM=2eed8cf8ec08e59e14c3801819aacc296f09524dad10af4a886412053af45b82
 
 # Apk
-ARG NODEJS_VERSION=12.21.0-r0
+ARG NODEJS_VERSION=12
 ARG NGINX_VERSION=1.18.0-r1
 ARG SUPERVISOR_VERSION=4.2.0-r0
 
@@ -42,8 +42,8 @@ RUN apk add --latest --update --no-cache \
         zlib-dev \
         libpng-dev \
         libzip-dev \
-        nodejs="$NODEJS_VERSION" \
-        npm="$NODEJS_VERSION" \
+        nodejs~="$NODEJS_VERSION" \
+        npm \
         git \
         && rm -rf /var/cache/apk/*
 
