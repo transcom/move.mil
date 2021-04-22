@@ -4,18 +4,16 @@ ARG DRUPAL_CONSOLE_VERSION=1.8.0
 ARG DRUPAL_CONSOLE_SHA256SUM=1c9bef3d3e4f70633d5004e3a3d86d90630df7cf97dab46d0175855796f934da
 ARG DRUSH_VERSION=0.6.0
 ARG DRUSH_SHA256SUM=c3f32a800a2f18470b0010cd71c49e49ef5c087f8131eecfe9b686dc1f3f3d4e
-ARG DART_SASS_VERSION=1.26.10
-ARG DART_SASS_SHA256SUM=2eed8cf8ec08e59e14c3801819aacc296f09524dad10af4a886412053af45b82
+ARG DART_SASS_VERSION=1.32.8
+ARG DART_SASS_SHA256SUM=48cce78b16c13729f26db2ce3de782223150378b4918ad8d38dfb10a4907a336
 
 # Apk
-ARG NODEJS_VERSION=12.21.0-r0
-ARG NGINX_VERSION=1.18.0-r1
-ARG SUPERVISOR_VERSION=4.2.0-r0
+ARG NODEJS_VERSION=14
 
 # PHP Composer
 ARG COMPOSER_VERSION=1.10.10
 
-FROM php:7.4-alpine3.12 as builder
+FROM php:7.4-alpine3.13 as builder
 
 # load the versions and checksums needed in this stage
 ARG COMPOSER_VERSION
@@ -38,13 +36,13 @@ RUN set -ex \
 
 # select latest version of package (if it is not pinned)
 RUN apk add --latest --update --no-cache \
-        oniguruma \
-        zlib-dev \
+        git \
         libpng-dev \
         libzip-dev \
-        nodejs="$NODEJS_VERSION" \
-        npm="$NODEJS_VERSION" \
-        git \
+        nodejs~="$NODEJS_VERSION" \
+        npm \
+        oniguruma \
+        zlib-dev \
         && rm -rf /var/cache/apk/*
 
 RUN docker-php-ext-install -j "$(nproc)" \
@@ -90,15 +88,13 @@ WORKDIR /var/www/html
 RUN composer dump-autoload --optimize \
         && composer run-script post-install-cmd
 
-FROM php:7.4-fpm-alpine3.12
+FROM php:7.4-fpm-alpine3.13
 
 # load the versions and checksums needed in this stage
 ARG DRUPAL_CONSOLE_VERSION
 ARG DRUPAL_CONSOLE_SHA256SUM
 ARG DRUSH_VERSION
 ARG DRUSH_SHA256SUM
-ARG NGINX_VERSION
-ARG SUPERVISOR_VERSION
 
 # non root user to run the server after binding sockets as root
 ENV NGINX_DOC_ROOT /var/www/html/web
@@ -107,14 +103,16 @@ WORKDIR /var/www/html
 
 # select latest version of package (if it is not pinned)
 RUN apk add --latest --update --no-cache \
-        nginx="$NGINX_VERSION" \
-        supervisor="$SUPERVISOR_VERSION"\
-        oniguruma \
-        zlib-dev \
         libpng-dev \
-        libzip-dev \
-        mysql-client \
         libxml2 \
+        libzip-dev \
+        musl \
+        mysql-client \
+        nginx \
+        oniguruma \
+        supervisor \
+        tar \
+        zlib-dev \
         && rm -rf /var/cache/apk/*
 
 RUN docker-php-ext-install -j "$(nproc)" \
