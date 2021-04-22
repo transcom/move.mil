@@ -2,7 +2,6 @@
 
 orbs:
   aws-ecr: circleci/aws-ecr@6.12.2
-  ecr-image-scan-findings: trussworks/orb-ecr-image-scan-findings@1.1.1
 
 commands:
   deploy_app_steps:
@@ -231,18 +230,12 @@ workflows:
 
       - build-image
 
-      - ecr-image-scan-findings/scan:
-          requires:
-            - build-image
-          ecr-repository-name: ${ECR_REPO}
-
       - deploy-app-stg:
           requires:
             - behat
             - code-sniffer
             - code-coverage
             - build-image
-            - ecr-image-scan-findings/scan
           #filters:
           #  branches:
           #    only: master
