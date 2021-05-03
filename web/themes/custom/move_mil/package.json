@@ -67,7 +67,7 @@
     "node-sass": "^5.0.0",
     "run-sequence": "^2.2.1",
     "slick-carousel": "^1.8.1",
-    "stylelint": "^13.13.0",
+    "stylelint": "^13.13.1",
     "stylelint-config-recommended": "^5.0.0",
     "stylelint-scss": "^3.19.0",
     "uswds": "^1.6.13",
