@@ -88,7 +88,7 @@ WORKDIR /var/www/html
 RUN composer dump-autoload --optimize \
         && composer run-script post-install-cmd
 
-FROM php:8.0.5-fpm-alpine3.13
+FROM php:7.4-fpm-alpine3.13
 
 # load the versions and checksums needed in this stage
 ARG DRUPAL_CONSOLE_VERSION
