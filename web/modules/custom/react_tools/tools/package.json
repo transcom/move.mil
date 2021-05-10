@@ -97,7 +97,7 @@
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.15.3",
     "babel-preset-es2015": "^6.24.1",
-    "node-sass": "^5.0.0"
+    "node-sass": "^6.0.0"
   },
   "jest": {
     "collectCoverageFrom": [
