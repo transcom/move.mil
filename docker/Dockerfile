@@ -13,7 +13,7 @@ ARG NODEJS_VERSION=14
 # PHP Composer
 ARG COMPOSER_VERSION=1.10.10
 
-FROM php:7.4-alpine3.13 as builder
+FROM php:8.0.6-alpine3.13 as builder
 
 # load the versions and checksums needed in this stage
 ARG COMPOSER_VERSION
