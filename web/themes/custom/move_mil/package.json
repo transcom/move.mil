@@ -63,7 +63,7 @@
     "lodash": "^4.17.21",
     "lodash.template": "^4.5.0",
     "merge-stream": "^2.0.0",
-    "node-notifier": "^9.0.1",
+    "node-notifier": "^10.0.0",
     "node-sass": "^6.0.0",
     "run-sequence": "^2.2.1",
     "slick-carousel": "^1.8.1",
