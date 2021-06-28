@@ -42,7 +42,7 @@
     "jsonp": "^0.2.1",
     "leaflet": "^1.7.1",
     "lodash": "^4.17.21",
-    "mini-css-extract-plugin": "1.6.0",
+    "mini-css-extract-plugin": "1.6.1",
     "moment": "^2.29.1",
     "optimize-css-assets-webpack-plugin": "6.0.1",
     "pnp-webpack-plugin": "1.6.4",
