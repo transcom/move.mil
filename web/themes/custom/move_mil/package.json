@@ -58,7 +58,7 @@
     "gulp-stylelint": "^13.0.0",
     "gulp-uglify": "^3.0.1",
     "gulp-util": "^3.0.8",
-    "jshint": "^2.13.0",
+    "jshint": "^2.13.1",
     "jshint-stylish": "^2.2.1",
     "lodash": "^4.17.21",
     "lodash.template": "^4.5.0",
