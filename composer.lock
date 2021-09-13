@@ -267,16 +267,16 @@
         },
         {
             "name": "composer/installers",
-            "version": "v1.11.0",
+            "version": "v1.12.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/installers.git",
-                "reference": "ae03311f45dfe194412081526be2e003960df74b"
+                "reference": "d20a64ed3c94748397ff5973488761b22f6d3f19"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/installers/zipball/ae03311f45dfe194412081526be2e003960df74b",
-                "reference": "ae03311f45dfe194412081526be2e003960df74b",
+                "url": "https://api.github.com/repos/composer/installers/zipball/d20a64ed3c94748397ff5973488761b22f6d3f19",
+                "reference": "d20a64ed3c94748397ff5973488761b22f6d3f19",
                 "shasum": ""
             },
             "require": {
@@ -375,6 +375,7 @@
                 "modx",
                 "moodle",
                 "osclass",
+                "pantheon",
                 "phpbb",
                 "piwik",
                 "ppi",
@@ -409,7 +410,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-04-28T06:42:17+00:00"
+            "time": "2021-09-13T08:19:44+00:00"
         },
         {
             "name": "composer/semver",
@@ -2396,7 +2397,7 @@
             "extra": {
                 "drupal": {
                     "version": "3.0.1",
-                    "datestamp": "1622644077",
+                    "datestamp": "1629907124",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -2507,6 +2508,10 @@
                 {
                     "name": "gnuget",
                     "homepage": "https://www.drupal.org/user/992990"
+                },
+                {
+                    "name": "ikit-claw",
+                    "homepage": "https://www.drupal.org/user/3285813"
                 },
                 {
                     "name": "merlinofchaos",
@@ -8405,6 +8410,7 @@
                     "type": "github"
                 }
             ],
+            "abandoned": true,
             "time": "2020-09-28T06:45:17+00:00"
         },
         {
@@ -11904,12 +11910,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jhedstrom/drupalextension.git",
-                "reference": "40af5f3f39cb91ea15622520c566937c723e7e45"
+                "reference": "c92cfe992f35fe5029731f3154865204012d2c52"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jhedstrom/drupalextension/zipball/40af5f3f39cb91ea15622520c566937c723e7e45",
-                "reference": "40af5f3f39cb91ea15622520c566937c723e7e45",
+                "url": "https://api.github.com/repos/jhedstrom/drupalextension/zipball/c92cfe992f35fe5029731f3154865204012d2c52",
+                "reference": "c92cfe992f35fe5029731f3154865204012d2c52",
                 "shasum": ""
             },
             "require": {
@@ -11987,7 +11993,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-05-13T21:35:31+00:00"
+            "time": "2021-08-18T17:39:34+00:00"
         },
         {
             "name": "fabpot/goutte",
