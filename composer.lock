@@ -2396,7 +2396,7 @@
             "extra": {
                 "drupal": {
                     "version": "3.0.1",
-                    "datestamp": "1622644077",
+                    "datestamp": "1629907124",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -2455,17 +2455,17 @@
         },
         {
             "name": "drupal/advanced_help",
-            "version": "1.0.0-beta1",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/advanced_help.git",
-                "reference": "8.x-1.0-beta1"
+                "reference": "8.x-1.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/advanced_help-8.x-1.0-beta1.zip",
-                "reference": "8.x-1.0-beta1",
-                "shasum": "2699fea6388c806fda575785a2914c9c6710f414"
+                "url": "https://ftp.drupal.org/files/projects/advanced_help-8.x-1.0.zip",
+                "reference": "8.x-1.0",
+                "shasum": "6097332087b569f626474e88dabe613dea687121"
             },
             "require": {
                 "drupal/core": "^8 || ^9",
@@ -2474,11 +2474,11 @@
             "type": "drupal-module",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.0-beta1",
-                    "datestamp": "1591638760",
+                    "version": "8.x-1.0",
+                    "datestamp": "1633180870",
                     "security-coverage": {
-                        "status": "not-covered",
-                        "message": "Beta releases are not covered by Drupal security advisories."
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
                     }
                 }
             },
@@ -2507,6 +2507,10 @@
                 {
                     "name": "gnuget",
                     "homepage": "https://www.drupal.org/user/992990"
+                },
+                {
+                    "name": "ikit-claw",
+                    "homepage": "https://www.drupal.org/user/3285813"
                 },
                 {
                     "name": "merlinofchaos",
@@ -3213,7 +3217,7 @@
             "extra": {
                 "drupal": {
                     "version": "4.1.1",
-                    "datestamp": "1609419527",
+                    "datestamp": "1631968537",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -11904,12 +11908,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jhedstrom/drupalextension.git",
-                "reference": "40af5f3f39cb91ea15622520c566937c723e7e45"
+                "reference": "c92cfe992f35fe5029731f3154865204012d2c52"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jhedstrom/drupalextension/zipball/40af5f3f39cb91ea15622520c566937c723e7e45",
-                "reference": "40af5f3f39cb91ea15622520c566937c723e7e45",
+                "url": "https://api.github.com/repos/jhedstrom/drupalextension/zipball/c92cfe992f35fe5029731f3154865204012d2c52",
+                "reference": "c92cfe992f35fe5029731f3154865204012d2c52",
                 "shasum": ""
             },
             "require": {
@@ -11987,7 +11991,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-05-13T21:35:31+00:00"
+            "time": "2021-08-18T17:39:34+00:00"
         },
         {
             "name": "fabpot/goutte",
@@ -12280,7 +12284,6 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "bixal/jumplink": 20,
-        "drupal/advanced_help": 15,
         "drupal/devel_entity_updates": 5,
         "drupal/node_class": 10,
         "drupal/remove_http_headers": 5,
