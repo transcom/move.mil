@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2e564d281e42349abf019b346492f09f",
+    "content-hash": "edb83dc248b90493592138b99abb8a28",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -2396,7 +2396,7 @@
             "extra": {
                 "drupal": {
                     "version": "3.0.1",
-                    "datestamp": "1622644077",
+                    "datestamp": "1629907124",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -2507,6 +2507,10 @@
                 {
                     "name": "gnuget",
                     "homepage": "https://www.drupal.org/user/992990"
+                },
+                {
+                    "name": "ikit-claw",
+                    "homepage": "https://www.drupal.org/user/3285813"
                 },
                 {
                     "name": "merlinofchaos",
@@ -3213,7 +3217,7 @@
             "extra": {
                 "drupal": {
                     "version": "4.1.1",
-                    "datestamp": "1609419527",
+                    "datestamp": "1631968537",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -3580,10 +3584,6 @@
                 {
                     "name": "Pravin Ajaaz",
                     "homepage": "https://www.drupal.org/user/2910049"
-                },
-                {
-                    "name": "dineshw",
-                    "homepage": "https://www.drupal.org/user/2279292"
                 },
                 {
                     "name": "drnikki",
@@ -4175,29 +4175,29 @@
         },
         {
             "name": "drupal/uswds",
-            "version": "1.0.0-beta3",
+            "version": "2.3.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/uswds.git",
-                "reference": "8.x-1.0-beta3"
+                "reference": "8.x-2.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/uswds-8.x-1.0-beta3.zip",
-                "reference": "8.x-1.0-beta3",
-                "shasum": "f220e5edc916417c9215a54ac8fcd4247669a855"
+                "url": "https://ftp.drupal.org/files/projects/uswds-8.x-2.3.zip",
+                "reference": "8.x-2.3",
+                "shasum": "4b5a2655ccb56330716798a4d30bb65e43152718"
             },
             "require": {
-                "drupal/core": "~8.0"
+                "drupal/core": "^8.7.7 || ^9"
             },
             "type": "drupal-theme",
             "extra": {
                 "drupal": {
-                    "version": "8.x-1.0-beta3",
-                    "datestamp": "1515004684",
+                    "version": "8.x-2.3",
+                    "datestamp": "1637079380",
                     "security-coverage": {
-                        "status": "not-covered",
-                        "message": "Beta releases are not covered by Drupal security advisories."
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
                     }
                 }
             },
@@ -4223,7 +4223,7 @@
                     "homepage": "https://www.drupal.org/user/36590"
                 }
             ],
-            "description": "Drupal theme for the U.S. Web Design Standards library.",
+            "description": "Drupal theme for the Beta v2.0 U.S. Web Design Standards library.",
             "homepage": "https://www.drupal.org/project/uswds",
             "support": {
                 "source": "http://cgit.drupalcode.org/uswds",
@@ -11208,6 +11208,7 @@
                 }
             ],
             "description": "A robust cross-platform utility for normalizing, comparing and modifying file paths.",
+            "abandoned": "symfony/filesystem",
             "time": "2015-12-17T08:42:14+00:00"
         }
     ],
@@ -11904,12 +11905,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jhedstrom/drupalextension.git",
-                "reference": "40af5f3f39cb91ea15622520c566937c723e7e45"
+                "reference": "c92cfe992f35fe5029731f3154865204012d2c52"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jhedstrom/drupalextension/zipball/40af5f3f39cb91ea15622520c566937c723e7e45",
-                "reference": "40af5f3f39cb91ea15622520c566937c723e7e45",
+                "url": "https://api.github.com/repos/jhedstrom/drupalextension/zipball/c92cfe992f35fe5029731f3154865204012d2c52",
+                "reference": "c92cfe992f35fe5029731f3154865204012d2c52",
                 "shasum": ""
             },
             "require": {
@@ -11987,7 +11988,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-05-13T21:35:31+00:00"
+            "time": "2021-08-18T17:39:34+00:00"
         },
         {
             "name": "fabpot/goutte",
@@ -12285,7 +12286,6 @@
         "drupal/node_class": 10,
         "drupal/remove_http_headers": 5,
         "drupal/stage_file_proxy": 15,
-        "drupal/uswds": 10,
         "drupal/drupal-extension": 20
     },
     "prefer-stable": true,
